@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Scene 06: Flight 3D Experience Styling
+   Curved SVG Trajectory, Gliding Airplane & Aviation Space
+   ========================================================================== */
+
+.flight-3d-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: 
+    radial-gradient(circle at 75% 70%, rgba(255, 181, 43, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 20% 30%, rgba(255, 104, 30, 0.08) 0%, transparent 40%),
+    linear-gradient(180deg, #040D1B 0%, #071936 35%, #081D42 70%, #0B2554 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+/* Aviation Radar Grid & Range Rings */
+.flight-3d-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at 70% 65%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 70% 65%, black 40%, transparent 85%);
+}
+
+.flight-3d-scene::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, rgba(6, 20, 38, 0.7) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Sky & Animated Flight Path */
+.flight-3d-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flight-path-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.airplane-glider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.airplane-body-mesh {
+  position: relative;
+  display: inline-block;
+}
+
+.airplane-icon-3d {
+  color: #FFB52B;
+  filter: drop-shadow(0 10px 25px rgba(255, 104, 30, 0.6));
+}
+
+.airplane-jet-trail {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 181, 43, 0.6));
+  filter: blur(2px);
+  transform: translateY(-50%);
+}
+
+/* Beacon */
+.airport-hub-beacon {
+  position: absolute;
+  bottom: 22%;
+  right: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.beacon-pulse {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 104, 30, 0.3);
+  animation: beaconPulseAnim 2s infinite ease-out;
+}
+
+@keyframes beaconPulseAnim {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.beacon-pin {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #FF681E;
+  border: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(255, 104, 30, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+.beacon-name {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Content */
+.flight-3d-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 4rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-3d-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+}
+
+.flight-3d-kicker {
+  color: #FFB52B;
+}
+
+.flight-3d-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem;
+}
+
+.flight-3d-subtitle {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+/* Cards Grid */
+.flight-3d-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.flight-3d-card {
+  background: rgba(14, 42, 89, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  backdrop-filter: blur(14px);
+}
+
+.flight-3d-card-head {
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flight-3d-tag {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FF681E;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.flight-tag-intl {
+  color: #FFB52B;
+}
+
+.flight-3d-card-head h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.flight-3d-routes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.flight-3d-route-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 29, 66, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+
+.flight-3d-city {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.flight-3d-dest {
+  color: #FFB52B;
+}
+
+.flight-3d-arrow {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 40px;
+}
+
+.flight-3d-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+}
+
+.flight-3d-plane-micro {
+  color: #FF681E;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  background: #081D42;
+  transform: rotate(90deg);
+}
+
+.flight-3d-time {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.flight-3d-direct-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+/* Bottom Strip */
+.flight-3d-bottom-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14, 42, 89, 0.85);
+  border: 1px solid rgba(255, 181, 43, 0.3);
+  border-radius: 16px;
+  padding: 1.25rem 2rem;
+  gap: 1.5rem;
+}
+
+.flight-3d-perks-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+}
+
+.flight-check-gold {
+  color: #FFB52B;
+  flex-shrink: 0;
+}
+
+.flight-3d-btn {
+  font-size: 0.9rem;
+  padding: 0.85rem 1.75rem;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .flight-3d-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .flight-3d-bottom-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .airplane-glider {
+    display: none;
+  }
+}

@@ -1,0 +1,411 @@
+/* ==========================================================================
+   Destination Header Component Styling
+   Glassmorphism, Scroll Progress, Smooth Hide/Show
+   ========================================================================== */
+
+.dest-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.25rem 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.4s ease,
+              padding 0.3s ease,
+              box-shadow 0.4s ease;
+  background-color: transparent;
+}
+
+.dest-header-hidden {
+  transform: translateY(-100%);
+}
+
+.dest-header-scrolled {
+  background-color: rgba(8, 29, 66, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.85rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Scroll Progress Bar */
+.dest-header-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FF681E, #FFB52B);
+  transition: width 0.1s linear;
+  z-index: 1001;
+}
+
+.dest-header-container {
+  width: min(94%, 1380px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.dest-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dest-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.dest-logo-img {
+  height: 40px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+}
+
+.dest-logo-super {
+  color: #FFFFFF;
+}
+
+.dest-logo-badge {
+  background-color: #ED2028;
+  color: #FFFFFF;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.dest-logo-tour {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.dest-header-divider {
+  width: 1px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dest-header-cur-dest {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.dest-header-flag {
+  font-size: 1rem;
+}
+
+.dest-header-dest-name {
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.dest-header-tag {
+  background: rgba(255, 104, 30, 0.2);
+  color: #FFB52B;
+  border: 1px solid rgba(255, 181, 43, 0.3);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+/* Navigation Links */
+.dest-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.dest-nav-link {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.dest-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #FF681E;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dest-nav-link:hover {
+  color: #FFFFFF;
+}
+
+.dest-nav-link:hover::after {
+  width: 100%;
+}
+
+.dest-nav-link-highlight {
+  color: #FFB52B !important;
+}
+
+/* Actions */
+.dest-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dest-header-hotline {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.dest-header-hotline:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+}
+
+.dest-hotline-icon {
+  color: #FF681E;
+}
+
+.dest-header-btn-quote {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FF681E;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.65rem 1.35rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(255, 104, 30, 0.3);
+}
+
+.dest-header-btn-quote:hover {
+  background: #E55712;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 104, 30, 0.45);
+}
+
+/* Mobile Toggle */
+.dest-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* Mobile Drawer */
+.dest-mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0.4s ease;
+}
+
+.dest-mobile-drawer-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.dest-mobile-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(6, 20, 38, 0.7);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.dest-mobile-drawer-open .dest-mobile-drawer-backdrop {
+  opacity: 1;
+}
+
+.dest-mobile-drawer-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(85vw, 360px);
+  background: #081D42;
+  color: #FFFFFF;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+.dest-mobile-drawer-open .dest-mobile-drawer-content {
+  transform: translateX(0);
+}
+
+.dest-mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dest-mobile-close {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.dest-mobile-dest-info {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.dest-mobile-dest-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #FFB52B;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.dest-mobile-dest-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dest-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.dest-mobile-nav button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.85rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dest-mobile-nav button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.dest-mobile-nav-featured {
+  background: rgba(255, 104, 30, 0.15) !important;
+  color: #FFB52B !important;
+  font-weight: 700 !important;
+}
+
+.dest-mobile-footer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dest-mobile-hotline-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #FF681E;
+  color: #FFFFFF;
+  text-decoration: none;
+  padding: 0.85rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.dest-mobile-back-home {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+}
+
+.dest-mobile-back-home:hover {
+  color: #FFFFFF;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1080px) {
+  .dest-header-nav {
+    display: none;
+  }
+  .dest-mobile-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .dest-header-hotline {
+    display: none;
+  }
+  .dest-header-btn-quote {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  .dest-header-divider,
+  .dest-header-cur-dest {
+    display: none;
+  }
+}

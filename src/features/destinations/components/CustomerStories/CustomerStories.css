@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Customer Stories (Section 13) Styling
+   Travel Journal Layout & Verified Story Cards
+   ========================================================================== */
+
+.stories-section {
+  position: relative;
+  background: radial-gradient(circle at 10% 20%, rgba(255, 181, 43, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(255, 104, 30, 0.06) 0%, transparent 45%),
+              linear-gradient(180deg, #F9F7F2 0%, #F4F1E9 50%, #EFEBE1 100%);
+  border-top: 1px solid rgba(8, 29, 66, 0.06);
+  overflow: hidden;
+}
+
+/* Ambient Editorial Background */
+.stories-ambient-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.stories-bg-glow-warm {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 181, 43, 0.12) 0%, transparent 70%);
+  filter: blur(50px);
+}
+
+.stories-bg-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(8, 29, 66, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.stories-watermark-text {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-sans);
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(8, 29, 66, 0.25);
+  white-space: nowrap;
+}
+
+.stories-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 3.5rem;
+}
+
+.stories-title {
+  color: #081D42;
+  margin-bottom: 0.75rem;
+}
+
+.stories-sub {
+  margin-left: auto;
+  margin-right: auto;
+  color: #5A6A85;
+}
+
+/* Stories Grid */
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+.story-journal-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E4D9;
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 35px -10px rgba(8, 29, 66, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.story-journal-card:hover {
+  transform: translateY(-5px);
+  border-color: #FFB52B;
+}
+
+.story-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.story-author-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.story-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FFB52B;
+}
+
+.story-author-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #081D42;
+  margin: 0 0 0.2rem;
+}
+
+.story-author-origin {
+  font-size: 0.8rem;
+  color: #6B7280;
+}
+
+.story-stars-box {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.story-style-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 104, 30, 0.1);
+  color: #FF681E;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  align-self: flex-start;
+}
+
+.story-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #4A5568;
+  margin: 0 0 1.75rem;
+  flex: 1;
+}
+
+.story-photos-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.story-photo-item {
+  height: 160px;
+  border-radius: 14px;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
+}

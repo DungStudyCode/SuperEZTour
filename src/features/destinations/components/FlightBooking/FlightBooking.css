@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Flight Booking (Section 06) Styling
+   Aviation Premium Aesthetic, Sky Routes & Luxury Transit
+   ========================================================================== */
+
+.flight-section {
+  background-color: #081D42;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.flight-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.flight-title {
+  color: #FFFFFF;
+}
+
+.flight-subtitle {
+  color: #FFB52B;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+}
+
+.flight-lead {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.65;
+}
+
+/* Routes Grid */
+.flight-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.flight-card {
+  background: rgba(14, 42, 89, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 2.25rem;
+  backdrop-filter: blur(12px);
+}
+
+.flight-card-head {
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flight-badge-type {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FF681E;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.flight-badge-intl {
+  color: #FFB52B;
+}
+
+.flight-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* Route Rows */
+.flight-routes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.flight-route-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 29, 66, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.flight-route-row:hover {
+  border-color: #FFB52B;
+  background: rgba(8, 29, 66, 0.8);
+}
+
+.flight-route-cities {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.flight-city-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.flight-city-dest {
+  color: #FFB52B;
+}
+
+.flight-arrow-graphic {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 50px;
+}
+
+.flight-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+}
+
+.flight-plane-icon {
+  color: #FF681E;
+  transform: rotate(90deg);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  background: #081D42;
+  padding: 0 2px;
+}
+
+.flight-route-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.flight-time {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.flight-freq {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.flight-badge-direct {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Perks Strip */
+.flight-perks-strip {
+  background: rgba(14, 42, 89, 0.8);
+  border: 1px solid rgba(255, 181, 43, 0.25);
+  border-radius: 20px;
+  padding: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.flight-perks-left {
+  flex: 1;
+}
+
+.flight-perks-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: #FFB52B;
+  margin: 0 0 1rem;
+}
+
+.flight-perks-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flight-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.flight-perk-check {
+  color: #FF681E;
+  flex-shrink: 0;
+}
+
+.flight-cta-btn {
+  font-size: 0.95rem;
+  padding: 1.1rem 2rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .flight-grid {
+    grid-template-columns: 1fr;
+  }
+  .flight-perks-strip {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,119 @@
+.floating-actions-container {
+  position: fixed;
+  right: 24px;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: var(--z-floating);
+}
+
+.floating-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background-color: #FFFFFF;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  position: relative;
+}
+
+.floating-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* Chat Button */
+.floating-btn.chat-btn {
+  background-color: #FEE500;
+  color: #191600;
+  border-color: #FEE500;
+}
+
+.floating-btn.chat-btn:hover {
+  background-color: #FADA0A;
+}
+
+/* Quote Button (Signature Red) */
+.floating-btn.quote-btn {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-floating);
+}
+
+.floating-btn.quote-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.floating-pulse-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-primary);
+  animation: pulseGlow 2s infinite;
+  pointer-events: none;
+}
+
+/* Phone Button */
+.floating-btn.phone-btn {
+  background-color: #191F28;
+  color: #FFFFFF;
+  border-color: #191F28;
+}
+
+.floating-btn.phone-btn:hover {
+  background-color: #2D3540;
+}
+
+/* Back to Top */
+.floating-btn.top-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  align-self: flex-end;
+  border-radius: var(--radius-circle);
+  background-color: #FFFFFF;
+  color: var(--color-text-primary);
+}
+
+.floating-btn.top-btn:hover {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+.floating-btn-icon {
+  display: inline-flex;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .floating-actions-container {
+    right: 16px;
+    bottom: 20px;
+    gap: 8px;
+  }
+
+  .floating-btn {
+    padding: 10px;
+  }
+
+  .floating-btn-label {
+    display: none;
+  }
+
+  .floating-btn.top-btn {
+    width: 40px;
+    height: 40px;
+  }
+}

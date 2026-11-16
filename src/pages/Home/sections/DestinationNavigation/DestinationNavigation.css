@@ -1,0 +1,323 @@
+.destination-nav-section {
+  position: relative;
+  background: 
+    radial-gradient(circle at 15% 15%, rgba(255, 104, 30, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(8, 29, 66, 0.04) 0%, transparent 45%),
+    linear-gradient(180deg, #FAFAF8 0%, #F5F4EE 50%, #EFEFE8 100%);
+  padding: var(--space-3xl) 0;
+  overflow: hidden;
+}
+
+/* Country Filter Tabs */
+.country-tabs-scroll {
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 36px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.country-tabs-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.country-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.country-tab-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.country-tab-btn.is-active {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(237, 32, 40, 0.3);
+}
+
+.tab-flag {
+  font-size: 16px;
+}
+
+.tab-count {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.country-tab-btn.is-active .tab-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* Destinations Grid */
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.destination-card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.destination-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-strong);
+}
+
+/* Card Image */
+.destination-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #E2E8F0;
+}
+
+.destination-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dest-badge-top {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  z-index: 2;
+}
+
+.dest-badge-label {
+  background-color: rgba(25, 31, 40, 0.85);
+  backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+}
+
+.dest-tag-label {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+}
+
+.dest-country-pill {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+
+/* Card Body */
+.destination-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.dest-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.dest-name-group {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.dest-name {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.dest-name-ko {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.dest-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.star-icon {
+  color: var(--color-accent-amber);
+  fill: var(--color-accent-amber);
+}
+
+.rating-score {
+  color: var(--color-text-primary);
+}
+
+.reviews-count {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.dest-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  min-height: 40px;
+}
+
+.dest-packs-container {
+  margin-bottom: 14px;
+}
+
+.packs-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+
+.packs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pack-chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.dest-branch-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-border);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--color-primary-active);
+  font-weight: 600;
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.branch-shield {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.dest-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.dest-price-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-label {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.price-value {
+  font-size: var(--font-size-md);
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.price-unit {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+  .destinations-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+  .country-tabs-wrapper {
+    justify-content: flex-start;
+  }
+}

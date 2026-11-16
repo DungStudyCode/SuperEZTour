@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Scene 13: Cinematic Ending Styling
+   Pullback Camera Dolly, Sunset Silhouette & Finale Brand Seal
+   ========================================================================== */
+
+.cinematic-ending-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #061426;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ending-sunset-plane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.ending-sunset-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.ending-sunset-vignette {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 35%, rgba(255, 181, 43, 0.24) 0%, rgba(255, 104, 30, 0.15) 35%, transparent 65%),
+    radial-gradient(circle at 50% 50%, rgba(6, 20, 38, 0.4) 0%, rgba(8, 29, 66, 0.96) 85%);
+}
+
+.cinematic-ending-scene::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(to top, #040D1B 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ending-content-container {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 0 2rem;
+}
+
+.ending-brand-seal {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(8, 29, 66, 0.8);
+  border: 1px solid rgba(255, 181, 43, 0.4);
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(10px);
+}
+
+.ending-logo-img {
+  height: 38px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+}
+
+.ending-seal-super {
+  color: #FFFFFF;
+}
+
+.ending-seal-badge {
+  background: #ED2028;
+  color: #FFFFFF;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.ending-seal-tour {
+  color: #FFFFFF;
+}
+
+.ending-kicker {
+  color: #FFB52B;
+  margin-bottom: 0.75rem;
+}
+
+.ending-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #FFFFFF 40%, rgba(255, 255, 255, 0.75) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ending-philosophy-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  color: #FFB52B;
+  margin: 0 0 0.85rem;
+}
+
+.ending-desc {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 680px;
+  line-height: 1.6;
+  margin: 0 0 2.75rem;
+}
+
+.ending-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.ending-cta-main {
+  font-size: 1.05rem;
+  padding: 1.15rem 2.5rem;
+}
+
+.ending-cta-hotline {
+  border-color: rgba(255, 255, 255, 0.35);
+  padding: 1.1rem 2rem;
+}
+
+.ending-cta-zalo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.1rem 1.75rem;
+  background: rgba(0, 104, 255, 0.2);
+  border: 1px solid rgba(0, 104, 255, 0.4);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.ending-cta-zalo:hover {
+  background: rgba(0, 104, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ending-action-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .ending-cta-main,
+  .ending-cta-hotline,
+  .ending-cta-zalo {
+    width: 100%;
+    justify-content: center;
+  }
+}

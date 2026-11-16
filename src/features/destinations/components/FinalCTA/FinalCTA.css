@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Final Cinematic CTA (Section 14) Styling
+   Dramatic Fullscreen Atmosphere & High Conversion Actions
+   ========================================================================== */
+
+.final-cta-section {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 8rem 0;
+}
+
+.final-cta-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.final-cta-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.final-cta-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(6, 20, 38, 0.6) 0%, rgba(8, 29, 66, 0.95) 85%);
+}
+
+.final-cta-container {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-cta-kicker {
+  color: #FFB52B;
+  margin-bottom: 1rem;
+}
+
+.final-cta-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+  background: linear-gradient(180deg, #FFFFFF 40%, rgba(255, 255, 255, 0.75) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.final-cta-lead {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  color: #FFB52B;
+  margin: 0 0 0.85rem;
+}
+
+.final-cta-desc {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 680px;
+  line-height: 1.6;
+  margin: 0 0 3rem;
+}
+
+.final-cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.final-cta-main-btn {
+  font-size: 1.05rem;
+  padding: 1.15rem 2.5rem;
+}
+
+.final-cta-hotline-btn {
+  padding: 1.1rem 2rem;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.final-cta-zalo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.1rem 1.75rem;
+  background: rgba(0, 104, 255, 0.2);
+  border: 1px solid rgba(0, 104, 255, 0.4);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.final-cta-zalo-pill:hover {
+  background: rgba(0, 104, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .final-cta-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .final-cta-main-btn,
+  .final-cta-hotline-btn,
+  .final-cta-zalo-pill {
+    width: 100%;
+    justify-content: center;
+  }
+}

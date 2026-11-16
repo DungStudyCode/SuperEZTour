@@ -1,0 +1,206 @@
+/* ==========================================================================
+   Destination Footer Styling
+   Midnight Navy Luxury Foundation & Clear Brand Compliance
+   ========================================================================== */
+
+.dest-footer {
+  background-color: #061426;
+  color: #FFFFFF;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5rem 0 2rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.dest-footer-top {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1.2fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.dest-footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.dest-footer-logo-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.dest-footer-logo-img {
+  height: 48px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+}
+
+.dest-footer-slogan {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 1rem 0 1.5rem;
+  line-height: 1.6;
+}
+
+.dest-footer-hotline-box {
+  background: rgba(14, 42, 89, 0.6);
+  border: 1px solid rgba(255, 181, 43, 0.3);
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+}
+
+.dest-footer-hotline-lbl {
+  display: block;
+  font-size: 0.72rem;
+  color: #FFB52B;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.dest-footer-hotline-val {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.dest-footer-hotline-val:hover {
+  color: #FF681E;
+}
+
+/* Nav Columns */
+.dest-footer-col-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #FFB52B;
+  margin: 0 0 1.5rem;
+  font-weight: 700;
+}
+
+.dest-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dest-footer-links a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.dest-footer-links a:hover {
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.dest-footer-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dest-footer-addr-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.dest-footer-pin {
+  color: #FF681E;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Middle Legal Strip */
+.dest-footer-middle {
+  background: rgba(14, 42, 89, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.dest-legal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #10B981;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.dest-footer-legal-box p {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+
+/* Bottom Bar */
+.dest-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dest-footer-copy {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.dest-footer-backtotop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.dest-footer-backtotop:hover {
+  background: #FF681E;
+  border-color: #FF681E;
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .dest-footer-top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .dest-footer-top {
+    grid-template-columns: 1fr;
+  }
+}

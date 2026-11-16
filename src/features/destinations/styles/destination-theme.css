@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Super EZ Tour - Premium Destination Landing Engine Theme
+   Art Direction: Luxury Travel, Cinematic Editorial, Modern Minimalism
+   Inspired by Awwwards Site of the Day standards
+   ========================================================================== */
+
+:root {
+  /* Brand Luxury Palette */
+  --dest-navy: #081D42;
+  --dest-navy-deep: #061426;
+  --dest-navy-surface: #0E2A59;
+  --dest-navy-subtle: #12336B;
+  --dest-orange: #FF681E;
+  --dest-orange-hover: #E55712;
+  --dest-orange-glow: rgba(255, 104, 30, 0.25);
+  --dest-gold: #FFB52B;
+  --dest-gold-subtle: rgba(255, 181, 43, 0.15);
+  --dest-ivory: #F7F5EF;
+  --dest-ivory-light: #FDFCF9;
+  --dest-ivory-border: #E8E4D9;
+  --dest-white: #FFFFFF;
+  --dest-charcoal: #1A1F2C;
+  --dest-muted: #6B7280;
+  --dest-muted-light: #9CA3AF;
+  
+  /* Typography System */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Manrope', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Be Vietnam Pro', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing Scale */
+  --dest-section-pad: clamp(4.5rem, 8vw, 8rem);
+  --dest-container-max: 1320px;
+  --dest-container-fluid: 94%;
+  
+  /* Radii & Shadows */
+  --dest-radius-sm: 8px;
+  --dest-radius-md: 16px;
+  --dest-radius-lg: 24px;
+  --dest-radius-pill: 9999px;
+  --dest-shadow-card: 0 16px 40px -12px rgba(8, 29, 66, 0.08);
+  --dest-shadow-glow: 0 20px 50px -10px rgba(255, 104, 30, 0.35);
+  --dest-shadow-dark: 0 24px 60px -15px rgba(0, 0, 0, 0.4);
+  
+  /* Transitions */
+  --dest-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dest-transition-fast: 0.25s var(--dest-ease);
+  --dest-transition-smooth: 0.5s var(--dest-ease);
+  --dest-transition-slow: 0.8s var(--dest-ease);
+}
+
+/* Base Destination Wrapper */
+.dest-engine {
+  background-color: var(--dest-ivory);
+  color: var(--dest-navy);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Global Container */
+.dest-container {
+  width: min(var(--dest-container-fluid), var(--dest-container-max));
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 3vw, 2.5rem);
+  padding-right: clamp(1rem, 3vw, 2.5rem);
+}
+
+.dest-container-wide {
+  width: min(96%, 1600px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 2vw, 2rem);
+  padding-right: clamp(1rem, 2vw, 2rem);
+}
+
+/* Section Common Styling */
+.dest-section {
+  position: relative;
+  padding-top: var(--dest-section-pad);
+  padding-bottom: var(--dest-section-pad);
+}
+
+.dest-section-dark {
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(255, 181, 43, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(255, 104, 30, 0.08) 0%, transparent 45%),
+    linear-gradient(180deg, #05142E 0%, #081D42 50%, #061734 100%);
+  color: var(--dest-white);
+}
+
+.dest-section-deep {
+  background: 
+    radial-gradient(circle at 50% 20%, rgba(14, 42, 89, 0.5) 0%, transparent 60%),
+    radial-gradient(circle at 80% 75%, rgba(255, 104, 30, 0.08) 0%, transparent 45%),
+    linear-gradient(180deg, #030A14 0%, #061426 50%, #040E1C 100%);
+  color: var(--dest-white);
+}
+
+.dest-section-ivory {
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255, 181, 43, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 104, 30, 0.06) 0%, transparent 45%),
+    linear-gradient(180deg, #F8F6F0 0%, #F4F1E8 50%, #EFEBE1 100%);
+  color: var(--dest-navy);
+}
+
+.dest-section-white {
+  background: 
+    radial-gradient(circle at 20% 10%, rgba(255, 104, 30, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(255, 181, 43, 0.06) 0%, transparent 45%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAF9F6 50%, #F5F3EC 100%);
+  color: var(--dest-navy);
+}
+
+/* Section Header Typography */
+.dest-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--dest-orange);
+  margin-bottom: 1rem;
+}
+
+.dest-section-dark .dest-kicker,
+.dest-section-deep .dest-kicker {
+  color: var(--dest-gold);
+}
+
+.dest-title-editorial {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.dest-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-weight: 400;
+  color: var(--dest-muted);
+  max-width: 680px;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+}
+
+.dest-section-dark .dest-subtitle,
+.dest-section-deep .dest-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Button & CTA Utilities */
+.dest-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.25rem;
+  background-color: var(--dest-orange);
+  color: var(--dest-white);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: var(--dest-radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px var(--dest-orange-glow);
+  transition: all var(--dest-transition-fast);
+  white-space: nowrap;
+}
+
+.dest-btn-primary:hover {
+  background-color: var(--dest-orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px -5px rgba(255, 104, 30, 0.45);
+}
+
+.dest-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.95rem 2rem;
+  background-color: transparent;
+  color: currentColor;
+  border: 1.5px solid currentColor;
+  border-radius: var(--dest-radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--dest-transition-fast);
+}
+
+.dest-btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Badges */
+.dest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--dest-radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dest-badge-gold {
+  background-color: var(--dest-gold-subtle);
+  color: var(--dest-gold);
+  border: 1px solid rgba(255, 181, 43, 0.3);
+}
+
+.dest-badge-orange {
+  background-color: var(--dest-orange-glow);
+  color: var(--dest-orange);
+  border: 1px solid rgba(255, 104, 30, 0.3);
+}
+
+.dest-badge-white {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--dest-white);
+  backdrop-filter: blur(8px);
+}
+
+/* Image Reveal & Parallax Wrappers */
+.dest-img-mask {
+  overflow: hidden;
+  border-radius: var(--dest-radius-md);
+  position: relative;
+}
+
+.dest-img-mask img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--dest-ease);
+  display: block;
+}
+
+.dest-img-mask:hover img {
+  transform: scale(1.05);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

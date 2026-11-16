@@ -1,0 +1,225 @@
+.travel-themes-section {
+  position: relative;
+  background: 
+    radial-gradient(circle at 85% 15%, rgba(255, 181, 43, 0.09) 0%, transparent 45%),
+    radial-gradient(circle at 15% 85%, rgba(255, 104, 30, 0.08) 0%, transparent 40%),
+    linear-gradient(180deg, #F5F3EC 0%, #EEEAE0 50%, #E7E2D5 100%);
+  padding: var(--space-3xl) 0;
+  overflow: hidden;
+}
+
+.themes-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.theme-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  height: 480px;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-normal);
+  border: 1px solid var(--color-border-default);
+}
+
+.theme-card.is-featured {
+  grid-column: span 1.5; /* Handled in responsive */
+}
+
+/* 5 cards grid layout: top row 2 cards, bottom row 3 cards */
+@media (min-width: 992px) {
+  .themes-cards-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .theme-card:nth-child(1),
+  .theme-card:nth-child(2) {
+    grid-column: span 3;
+    height: 440px;
+  }
+  .theme-card:nth-child(3),
+  .theme-card:nth-child(4),
+  .theme-card:nth-child(5) {
+    grid-column: span 2;
+    height: 460px;
+  }
+}
+
+.theme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.theme-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.theme-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.2) 0%,
+    rgba(15, 23, 42, 0.6) 40%,
+    rgba(15, 23, 42, 0.95) 100%
+  );
+  transition: opacity var(--transition-fast);
+}
+
+.theme-card:hover .theme-card-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.3) 0%,
+    rgba(15, 23, 42, 0.75) 45%,
+    rgba(15, 23, 42, 0.98) 100%
+  );
+}
+
+.theme-card-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+  color: #FFFFFF;
+}
+
+.theme-top-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.theme-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background-color: var(--color-primary);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.theme-title-ko {
+  font-size: 11px;
+  color: #B0B8C1;
+  font-weight: 600;
+}
+
+.theme-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.theme-subtitle {
+  font-size: var(--font-size-sm);
+  color: #FFB800;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.theme-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.theme-highlights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.theme-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.highlight-check {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.theme-dest-recommend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+.dest-recommend-label {
+  color: #8B95A1;
+}
+
+.dest-recommend-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.theme-dest-chip {
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.theme-cta-wrap {
+  margin-top: auto;
+}
+
+.theme-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  color: #FFFFFF;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: 6px 0;
+}
+
+.theme-link-btn:hover {
+  color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+@media (max-width: 991px) {
+  .themes-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .theme-card {
+    height: 460px;
+  }
+}
+
+@media (max-width: 640px) {
+  .themes-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .theme-card {
+    height: 480px;
+  }
+}

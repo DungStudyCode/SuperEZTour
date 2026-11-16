@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Scene 11: Interactive Itinerary Sticky Timeline Styling
+   Sticky Day Chapters, SVG Path Linking & Scene Crossfade
+   ========================================================================== */
+
+.itinerary-sticky-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #061426;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+.itinerary-bg-ambience {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.itinerary-bg-crossfade-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  filter: blur(12px);
+  transition: opacity 0.5s ease;
+}
+
+.itinerary-bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 75% 25%, rgba(255, 104, 30, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(255, 181, 43, 0.09) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(6, 20, 38, 0.35) 0%, rgba(8, 29, 66, 0.95) 85%);
+}
+
+.itinerary-bg-ambience::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 70px 70px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+/* Content */
+.itinerary-sticky-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 4rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.itinerary-sticky-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.25rem;
+  gap: 2rem;
+}
+
+.itinerary-kicker {
+  color: #FFB52B;
+}
+
+.itinerary-sticky-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* Length Tabs */
+.itinerary-length-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(14, 42, 89, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.6rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+.itinerary-len-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.itinerary-len-btn:hover {
+  color: #FFFFFF;
+}
+
+.itinerary-len-btn-active {
+  background: #FF681E;
+  color: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(255, 104, 30, 0.4);
+}
+
+/* Chapters Grid */
+.itinerary-chapters-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* Timeline Column */
+.itinerary-timeline-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.itinerary-day-counter-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.itinerary-chapter-lbl {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #FF681E;
+}
+
+.itinerary-chapter-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #FFB52B;
+  line-height: 1;
+}
+
+.itinerary-chapter-num i {
+  font-size: 1.8rem;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.itinerary-day-pills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.itinerary-day-pill {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(14, 42, 89, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 0.75rem 1.15rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.itinerary-day-pill:hover {
+  border-color: #FFB52B;
+  background: rgba(14, 42, 89, 0.85);
+}
+
+.itinerary-day-pill-active {
+  background: #081D42;
+  border-color: #FF681E;
+  box-shadow: 0 4px 20px rgba(255, 104, 30, 0.25);
+}
+
+.itinerary-pill-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFB52B;
+}
+
+.itinerary-day-pill-active .itinerary-pill-circle {
+  background: #FF681E;
+  color: #FFFFFF;
+}
+
+.itinerary-pill-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.itinerary-pill-text strong {
+  font-size: 0.9rem;
+  color: #FFFFFF;
+}
+
+.itinerary-pill-text span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.itinerary-apply-cta {
+  align-self: flex-start;
+  font-size: 0.95rem;
+}
+
+/* Card */
+.itinerary-chapter-card {
+  background: rgba(14, 42, 89, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+}
+
+.itinerary-chapter-img-box {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.itinerary-chapter-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.itinerary-chapter-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(8, 29, 66, 0.95) 100%);
+}
+
+.itinerary-chapter-tag {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(8, 29, 66, 0.85);
+  color: #FFB52B;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 181, 43, 0.4);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.itinerary-chapter-body {
+  padding: 2rem 2.25rem;
+}
+
+.itinerary-chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 1.25rem;
+  line-height: 1.35;
+}
+
+.itinerary-chapter-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.itinerary-hl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+.itinerary-hl-icon {
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .itinerary-chapters-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .itinerary-chapter-img-box {
+    height: 180px;
+  }
+}

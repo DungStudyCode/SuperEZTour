@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Scene 03: Six Travel Experiences Cinematic Sequence Styling
+   Pinned Horizontal Storytelling & Kinetic Match-Cut Scrubbing
+   ========================================================================== */
+
+.exp-seq-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(255, 181, 43, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(255, 104, 30, 0.14) 0%, transparent 50%),
+    linear-gradient(180deg, #041024 0%, #081D42 50%, #05142B 100%);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5rem 0 3.5rem;
+}
+
+.exp-seq-ambient-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+}
+
+.exp-seq-glow {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 104, 30, 0.12) 0%, transparent 70%);
+}
+
+/* Header */
+.exp-seq-header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.exp-seq-kicker {
+  color: #FFB52B;
+}
+
+.exp-seq-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  margin: 0;
+  color: #FFFFFF;
+  line-height: 1.15;
+}
+
+.exp-seq-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.exp-seq-counter {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #FFB52B;
+  line-height: 1;
+}
+
+.exp-seq-counter i {
+  font-size: 1.5rem;
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.exp-seq-scroll-hint {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Track & Cards */
+.exp-seq-track-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  overflow: visible;
+}
+
+.exp-seq-track {
+  display: flex;
+  gap: 2.5rem;
+  padding-left: clamp(1rem, 4vw, 3.5rem);
+  width: max-content;
+}
+
+.exp-seq-card {
+  width: 480px;
+  height: 480px;
+  background: rgba(14, 42, 89, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+  flex-shrink: 0;
+}
+
+.exp-seq-card:hover,
+.exp-seq-card-active {
+  border-color: #FFB52B;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+}
+
+.exp-seq-img-wrap {
+  position: relative;
+  height: 60%;
+  overflow: hidden;
+}
+
+.exp-seq-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exp-seq-card:hover .exp-seq-img-wrap img {
+  transform: scale(1.08);
+}
+
+.exp-seq-img-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 29, 66, 0.2) 0%, rgba(8, 29, 66, 0.95) 100%);
+}
+
+.exp-seq-num-badge {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(8, 29, 66, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 181, 43, 0.4);
+  color: #FFB52B;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+}
+
+/* Info */
+.exp-seq-card-info {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.exp-seq-en-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FF681E;
+  margin-bottom: 0.35rem;
+}
+
+.exp-seq-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.exp-seq-card-desc {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  flex: 1;
+}
+
+.exp-seq-btn-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFB52B;
+  transition: transform 0.2s ease;
+}
+
+.exp-seq-card:hover .exp-seq-btn-link {
+  transform: translateX(5px);
+  color: #FF681E;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .exp-seq-card {
+    width: 320px;
+    height: 440px;
+  }
+  .exp-seq-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

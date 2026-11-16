@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Scene 09: Culinary Film Experience Styling
+   Macro Food Aesthetics, Atmospheric Warm Glow & Floating Dish Deck
+   ========================================================================== */
+
+.culinary-film-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #061426;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+.culinary-macro-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.culinary-macro-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.culinary-film-vignette {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 75% 35%, rgba(255, 181, 43, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 25% 65%, rgba(255, 104, 30, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 45% 50%, rgba(6, 20, 38, 0.4) 0%, rgba(8, 29, 66, 0.94) 85%);
+}
+
+.culinary-steam-particles {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 65% 55%, rgba(255, 255, 255, 0.1) 0%, transparent 35%),
+    radial-gradient(circle at 40% 70%, rgba(255, 181, 43, 0.08) 0%, transparent 30%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+/* Content */
+.culinary-film-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 4rem;
+  align-items: center;
+  padding: 4rem 0 2rem;
+}
+
+.culinary-narrative-plate {
+  background: rgba(8, 29, 66, 0.88);
+  border: 1px solid rgba(255, 181, 43, 0.3);
+  backdrop-filter: blur(16px);
+  border-radius: 28px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.culinary-kicker {
+  color: #FFB52B;
+}
+
+.culinary-film-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 1rem;
+  line-height: 1.15;
+}
+
+.culinary-film-sub {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.65;
+  margin: 0 0 1.75rem;
+}
+
+.culinary-flame-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #FFB52B;
+  background: rgba(255, 104, 30, 0.15);
+  border: 1px solid rgba(255, 104, 30, 0.3);
+  padding: 0.55rem 1rem;
+  border-radius: 9999px;
+}
+
+.flame-icon {
+  color: #FF681E;
+}
+
+/* Floating Dishes Deck */
+.culinary-floating-dishes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.culinary-film-card {
+  background: rgba(14, 42, 89, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.culinary-film-card:hover {
+  transform: translateY(-4px);
+  border-color: #FFB52B;
+}
+
+.culinary-card-selected {
+  border: 2px solid #FF681E;
+}
+
+.culinary-card-pic {
+  position: relative;
+  height: 100%;
+  min-height: 140px;
+}
+
+.culinary-card-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.culinary-spot-tag {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: rgba(8, 29, 66, 0.85);
+  color: #FFB52B;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.culinary-card-text {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.culinary-dish-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 0.35rem;
+}
+
+.culinary-dish-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0 0 0.85rem;
+}
+
+.culinary-add-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.culinary-add-btn:hover {
+  background: #FF681E;
+  border-color: #FF681E;
+}
+
+.culinary-btn-checked {
+  background: #FF681E !important;
+  border-color: #FF681E !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .culinary-film-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
