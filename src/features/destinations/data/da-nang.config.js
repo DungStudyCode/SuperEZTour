@@ -14,7 +14,7 @@ export const DA_NANG_CONFIG = {
   tagline: 'Beyond the Ordinary.',
   subTagline: 'Khám phá Đà Nẵng theo cách của riêng bạn.',
   description: 'Thành phố của những cây cầu biểu tượng, bờ biển Mỹ Khê quyến rũ hàng đầu hành tinh, bán đảo Sơn Trà nguyên sơ và cửa ngõ kết nối di sản thế giới Phố cổ Hội An.',
-  
+
   // Hero Media
   hero: {
     badge: 'SUPER EZ TOUR — VIETNAM',
@@ -29,7 +29,18 @@ export const DA_NANG_CONFIG = {
       { label: 'Di sản lân cận', value: '3 Di sản' },
       { label: 'Nhiệt độ TB', value: '26°C - 29°C' },
       { label: 'Hài lòng', value: '99.8%' }
-    ]
+    ],
+    // Cinematic Journey Stages inside Airplane Window Portal
+    introJourney: {
+      stage1: 'https://images.unsplash.com/photo-1674296067534-0f9769040781?auto=format&fit=crop&w=2000&q=85', // Approach Da Nang: Drone Aerial Coastline & Ocean
+      stage2: 'https://images.unsplash.com/photo-1693282815001-0471e68d3bc0?auto=format&fit=crop&w=2000&q=85', // Into the Mountains: Ba Na Hills Rainforest & Mist
+      stage3: 'https://images.unsplash.com/photo-1603852452378-a4e8d84324a2?auto=format&fit=crop&w=2000&q=85', // Discover Golden Bridge: Panoramic Architecture
+      stage4: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=2000&q=85'  // Welcome to Da Nang: Hero Section Backdrop
+    },
+    scrollPrompt: {
+      title: 'Đà Nẵng đang chờ bạn.',
+      action: 'Cuộn để bắt đầu hành trình'
+    }
   },
 
   // Section 02 - Discover Da Nang
@@ -277,11 +288,16 @@ export const DA_NANG_CONFIG = {
         id: 'suv-7',
         name: 'Xe 7 Chỗ Cao Cấp (SUV / MPV)',
         modelExample: 'Toyota Fortuner / Kia Carnival / Everest',
-        seats: '4 - 5 khách lý tưởng',
-        luggage: '3 - 4 vali cỡ lớn',
+        seats: '4 - 6 khách (tối đa 6 khách)',
+        luggage: '3 - 5 vali tiêu chuẩn',
         features: ['Điều hòa độc lập 2 vùng', 'Ghế da êm ái ngả lưng sâu', 'Nước suối Aquafina & khăn lạnh', 'Tài xế chuyên tuyến điềm đạm'],
-        idealFor: 'Gia đình nhỏ, cặp đôi, nhóm bạn 3-5 người',
-        image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80'
+        idealFor: 'Gia đình, nhóm bạn 4 - 6 người cần không gian riêng tư rộng rãi',
+        image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+        angles: [
+          'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80'
+        ]
       },
       {
         id: 'van-16',
@@ -291,7 +307,12 @@ export const DA_NANG_CONFIG = {
         luggage: '8 - 10 vali tiêu chuẩn',
         features: ['Khoang hành khách trần cao thoáng đãng', 'Ghế bọc nỉ da êm ái, cổng sạc USB từng hàng ghế', 'Hệ thống treo êm ái đường dài', 'Tài xế bản địa cẩn trọng'],
         idealFor: 'Đại gia đình 2-3 thế hệ, nhóm đồng nghiệp',
-        image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1000&q=80'
+        image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+        angles: [
+          'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80'
+        ]
       },
       {
         id: 'limousine-vip',
@@ -301,7 +322,12 @@ export const DA_NANG_CONFIG = {
         luggage: '6 - 7 vali cỡ lớn',
         features: ['Ghế cơ trưởng massage đa điểm cao cấp', 'Màn hình TV giải trí, đèn trần bầu trời sao', 'Tủ lạnh mini, sạc không dây', 'Rèm che nắng riêng tư tuyệt đối'],
         idealFor: 'Đón tiếp đối tác VIP, khách du lịch sang trọng',
-        image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=80'
+        image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+        angles: [
+          'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'
+        ]
       },
       {
         id: 'coach-35',
@@ -328,9 +354,9 @@ export const DA_NANG_CONFIG = {
 
   // Section 08 - Attractions & Experiences
   attractions: {
-    kicker: 'ICONIC COORDINATES',
-    title: 'Beyond the Ordinary.',
-    subtitle: 'Những tọa độ không thể bỏ lỡ tại Đà Nẵng.',
+    kicker: 'THE DA NANG DISCOVERY ATLAS',
+    title: 'Những Tọa Độ Không Thể Bỏ Lỡ',
+    subtitle: 'Mô hình khám phá vệ tinh 3D và địa hình thực tế của Đà Nẵng.',
     lead: 'Chọn những tọa độ bạn muốn đến, chúng tôi sẽ sắp xếp trình tự hợp lý nhất để bạn tận hưởng trọn vẹn mà không hề mỏi mệt.',
     items: [
       {
@@ -338,17 +364,31 @@ export const DA_NANG_CONFIG = {
         name: 'Bà Nà Hills & Cầu Vàng',
         category: 'Biểu tượng thế giới',
         duration: '1 Ngày (Trọn vẹn)',
+        slogan: 'Dải lụa vàng giữa đôi bàn tay đá nâng đỡ mây trời.',
+        lng: 107.9961,
+        lat: 15.9988,
+        elevation: '1,487 m',
+        bearing: -35,
+        pitch: 70,
+        zoom: 14.6,
         description: 'Dạo bước trên Cầu Vàng được nâng đỡ bởi bàn tay đá khổng lồ giữa mây trời, cáp treo đạt 4 kỷ lục thế giới và Làng Pháp cổ kính.',
-        image: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=900&q=80',
-        tags: ['Vé cáp treo ưu tiên', 'Cầu Vàng', 'Làng Pháp', 'Khí hậu 4 mùa']
+        image: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=85',
+        tags: ['Cầu Vàng', 'Cáp treo kỷ lục', 'Làng Pháp', 'Khí hậu 4 mùa']
       },
       {
         id: 'my-khe-beach',
         name: 'Bãi Biển Mỹ Khê',
         category: 'Thiên đường biển xanh',
         duration: 'Buổi sáng hoặc chiều tà',
+        slogan: 'Bãi cát trắng mịn thoai thoải bên đại dương ngọc bích.',
+        lng: 108.2467,
+        lat: 16.0592,
+        elevation: '3 m',
+        bearing: -75,
+        pitch: 65,
+        zoom: 15.2,
         description: 'Bờ cát trắng thoai thoải, làn nước trong xanh ấm áp quanh năm, nơi lý tưởng cho các môn thể thao nước hoặc dạo bộ thư thái.',
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85',
         tags: ['Tắm biển', 'Bình minh Mỹ Khê', 'SUP chèo', 'Hải sản ven bờ']
       },
       {
@@ -356,44 +396,79 @@ export const DA_NANG_CONFIG = {
         name: 'Bán Đảo Sơn Trà & Chùa Linh Ứng',
         category: 'Thiên nhiên & Tâm linh',
         duration: 'Nửa ngày',
+        slogan: 'Lá phổi xanh nguyên sinh che chở thành phố biển.',
+        lng: 108.2750,
+        lat: 16.1008,
+        elevation: '693 m',
+        bearing: 40,
+        pitch: 68,
+        zoom: 14.5,
         description: 'Lá phổi xanh của Đà Nẵng với tượng Phật Bà Quan Âm cao 67m hướng biển, đỉnh Bàn Cờ hùng vĩ và nơi cư trú của loài voọc quý hiếm.',
-        image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=900&q=80',
-        tags: ['Chùa Linh Ứng', 'Tượng Phật Bà 67m', 'Đỉnh Bàn Cờ', 'Ngắm Voọc chà vá']
+        image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85',
+        tags: ['Chùa Linh Ứng', 'Tượng Phật Bà 67m', 'Đỉnh Bàn Cờ', 'Voọc chà vá chân nâu']
       },
       {
         id: 'marble-mountains',
         name: 'Danh Thắng Ngũ Hành Sơn',
         category: 'Di tích & Danh thắng',
         duration: 'Nửa ngày',
+        slogan: 'Năm ngọn non tiên huyền bí giữa đồng bằng biển.',
+        lng: 108.2633,
+        lat: 16.0044,
+        elevation: '106 m',
+        bearing: -20,
+        pitch: 68,
+        zoom: 15.0,
         description: 'Quần thể 5 ngọn núi đá vôi kỳ vĩ mang tên Kim, Mộc, Thủy, Hỏa, Thổ với hệ thống hang động Huyền Không huyền ảo và làng đá mỹ nghệ Non Nước.',
-        image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=900&q=80',
+        image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1200&q=85',
         tags: ['Động Huyền Không', 'Chùa Tam Thai', 'Thang máy ngoài trời', 'Làng đá Non Nước']
       },
       {
         id: 'dragon-bridge',
-        name: 'Cầu Rồng & Du Thuyền Sông Hàn',
-        category: 'Thành phố về đêm',
+        name: 'Cầu Rồng Sông Hàn',
+        category: 'Trái tim đô thị',
         duration: 'Buổi tối',
-        description: 'Chiêm ngưỡng Cầu Rồng phun lửa và phun nước rực rỡ vào cuối tuần, kết hợp du thuyền riêng ngắm vẻ đẹp lung linh của các cây cầu sông Hàn.',
-        image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80',
-        tags: ['Phun lửa cuối tuần', 'Du thuyền sông Hàn', 'Cầu Tình Yêu', 'Check-in Cá Chép Hóa Rồng']
+        slogan: 'Rồng thép vươn mình ra biển lớn sông Hàn.',
+        lng: 108.2272,
+        lat: 16.0611,
+        elevation: '15 m',
+        bearing: 25,
+        pitch: 65,
+        zoom: 15.5,
+        description: 'Biểu tượng của sức sống hiện đại, nơi Cầu Rồng phun lửa và nước rực rỡ vào cuối tuần, soi bóng lung linh dòng sông Hàn thơ mộng.',
+        image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=85',
+        tags: ['Phun lửa cuối tuần', 'Du thuyền sông Hàn', 'Cầu Tình Yêu', 'Đô thị sông nước']
       },
       {
         id: 'hai-van-pass',
         name: 'Đèo Hải Vân - Thiên Hạ Đệ Nhất Hùng Quan',
         category: 'Cung đường di sản',
         duration: 'Nửa ngày',
-        description: 'Cung đường đèo ven biển ngoạn mục nối liền Đà Nẵng và Thừa Thiên Huế, nơi mây trời ôm trọn non xanh và vịnh biển Lăng Cô.',
-        image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=900&q=80',
+        slogan: 'Thiên hạ đệ nhất hùng quan nối biển và non xanh.',
+        lng: 108.1278,
+        lat: 16.1924,
+        elevation: '496 m',
+        bearing: 110,
+        pitch: 72,
+        zoom: 14.3,
+        description: 'Cung đường đèo ven biển ngoạn mục nối liền Đà Nẵng và Thừa Thiên Huế, nơi mây trời ôm trọn non xanh và vịnh biển Lăng Cô kỳ vĩ.',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85',
         tags: ['Hải Vân Quan', 'Vịnh Lăng Cô', 'Check-in cung đèo', 'Cafe ngắm biển']
       },
       {
         id: 'hoi-an-ancient-town',
-        name: 'Phố Cổ Hội An (Điểm Đến Lân Cận)',
+        name: 'Phố Cổ Hội An',
         category: 'Di sản thế giới UNESCO',
         duration: 'Buổi chiều & tối',
+        slogan: 'Trầm tích di sản ngàn năm soi bóng dòng sông Hoài.',
+        lng: 108.3265,
+        lat: 15.8801,
+        elevation: '5 m',
+        bearing: -10,
+        pitch: 62,
+        zoom: 15.2,
         description: 'Cách Đà Nẵng chỉ 30 phút lái xe riêng, lạc vào không gian cổ kính thế kỷ 16 với Chùa Cầu, thả hoa đăng sông Hoài và chợ đêm rực rỡ.',
-        image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=900&q=80',
+        image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85',
         tags: ['Di sản UNESCO', 'Chùa Cầu', 'Thả đèn hoa đăng', 'Cơm gà & Cao lầu']
       }
     ]
@@ -401,56 +476,86 @@ export const DA_NANG_CONFIG = {
 
   // Section 09 - Culinary Experiences
   culinary: {
-    kicker: 'CULINARY JOURNEY',
-    title: 'A Taste of Da Nang.',
-    subtitle: 'Khám phá một thành phố qua từng tầng hương vị.',
-    lead: 'Ẩm thực Đà Nẵng là sự tổng hòa giữa sự mộc mạc dân dã của dải đất miền Trung và vị tươi ngọt đậm đà của đại dương.',
+    kicker: 'THE ART OF DA NANG CUISINE',
+    title: 'Hành Trình Đánh Thức Vị Giác',
+    subtitle: 'Mỗi món ăn là một chương trong câu chuyện văn hóa miền Trung.',
+    lead: 'Ẩm thực Đà Nẵng là sự giao hòa tuyệt mỹ giữa nét mộc mạc đậm đà của núi rừng sông nước và vị ngọt thanh nguyên bản từ biển Đông.',
     categories: [
       { id: 'all', label: 'Tất cả phong vị' },
       { id: 'specialty', label: 'Đặc sản địa phương' },
       { id: 'seafood', label: 'Hải sản tươi sống' },
-      { id: 'finedining', label: 'Nhà hàng cao cấp' }
+      { id: 'finedining', label: 'Ẩm thực tinh hoa' }
     ],
     items: [
       {
         id: 'mi-quang',
+        chapter: '01',
         name: 'Mì Quảng Truyền Thống',
         category: 'specialty',
+        categoryLabel: 'Đặc Sản Xứ Quảng',
+        slogan: 'Sợi mì vàng óng đậm vị nước nhưn tôm thịt và bánh tráng mè giòn rụm.',
         desc: 'Sợi mì gạo mềm mượt hòa cùng nước dùng đậm đà nấu từ tôm rim, thịt ba chỉ hoặc ếch đồng, ăn kèm bánh tráng mè nướng và 9 loại rau sống xanh non.',
-        image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
-        spot: 'Quán gia truyền hơn 30 năm người bản địa ưa chuộng'
+        image: 'https://images.unsplash.com/photo-1790955333423-96ea0abb9b89?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://upload.wikimedia.org/wikipedia/commons/5/57/M%C3%AC_Qu%E1%BA%A3ng%2C_Da_Nang%2C_Vietnam.jpg',
+        spot: 'Quán gia truyền hơn 30 năm người bản địa ưa chuộng',
+        highlights: ['Sợi mì nghệ vàng óng', 'Rau sống Trà Quế 9 vị', 'Bánh tráng nướng mè giòn rụm', 'Đậu phộng rang thơm lừng'],
+        flavorNotes: 'Đậm đà · Thơm bùi · Cay dịu · Giòn rụm'
       },
       {
         id: 'banh-trang-thit-heo',
+        chapter: '02',
         name: 'Bánh Tráng Cuốn Thịt Heo Hai Đầu Da',
         category: 'specialty',
+        categoryLabel: 'Đặc Sản Xứ Quảng',
+        slogan: 'Thịt luộc hai đầu da giòn ngọt, cuốn bánh tráng phơi sương chấm mắm nêm nồng nàn.',
         desc: 'Thịt heo Đại Lộc luộc khéo léo giữ trọn phần mỡ trong veo hai đầu, cuốn cùng bánh tráng phơi sương, rau ghém và chấm mắm nêm đậm đà thơm cay.',
-        image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
-        spot: 'Thịt heo Đại Lộc chính gốc'
+        image: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg',
+        fallbackImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg/1280px-B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg',
+        spot: 'Thịt heo Đại Lộc chính gốc & Mắm nêm Dì Cẩn',
+        highlights: ['Thịt heo hai đầu da luộc chuẩn độ', 'Bánh tráng Đại Lộc dẻo dai', 'Mắm nêm pha thơm nồng tỏi ớt', 'Khế chua, chuối chát, dưa leo'],
+        flavorNotes: 'Béo ngọt · Thanh mát · Nồng nàn · Đậm vị'
       },
       {
         id: 'hai-san-tuoi',
+        chapter: '03',
         name: 'Hải Sản Tươi Sống Đánh Bắt Trong Ngày',
         category: 'seafood',
+        categoryLabel: 'Biển Đông Thu Hoạch',
+        slogan: 'Hương vị đại dương nguyên bản vừa cập bến từ những chiếc thuyền thúng rạng sáng.',
         desc: 'Tôm hùm nướng bơ tỏi, cua gạch rang me, mực cơm hấp gừng, hàu nướng mỡ hành bắt trực tiếp tại bể nuôi nước biển tự nhiên ven đường Võ Nguyên Giáp.',
-        image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80',
-        spot: 'Nhà hàng hải sản ven biển chuẩn vị, niêm yết giá minh bạch'
+        image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://images.unsplash.com/photo-1559737558-245cb351c4a4?auto=format&fit=crop&w=1200&q=85',
+        spot: 'Nhà hàng hải sản ven biển chuẩn vị, niêm yết giá minh bạch',
+        highlights: ['Tôm sú nướng muối ớt xanh', 'Mực cơm hấp gừng giòn ngọt', 'Hàu nướng mỡ hành đậu phộng', 'Chế biến tươi sống tại chỗ'],
+        flavorNotes: 'Tươi giòn · Ngọt thanh · Thơm khói · Đậm đà'
       },
       {
         id: 'bun-cha-ca',
+        chapter: '04',
         name: 'Bún Chả Cá Đà Nẵng',
         category: 'specialty',
+        categoryLabel: 'Món Ngon Phố Biển',
+        slogan: 'Nước lèo thanh ngọt từ xương cá và quả bí đỏ, chả cá thu chiên vàng thơm nức.',
         desc: 'Nước lèo ninh từ xương cá biển, cà chua, thơm, bắp cải và bí đỏ ngọt thanh tự nhiên, chả cá thu thơm lừng dai giòn đặc trưng.',
-        image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
-        spot: 'Món ăn sáng quen thuộc của người Đà Thành'
+        image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Bun_cha_ca.jpg',
+        fallbackImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bun_cha_ca.jpg/1280px-Bun_cha_ca.jpg',
+        spot: 'Quán bún gia truyền trên phố Nguyễn Chí Thanh mở từ sáng sớm',
+        highlights: ['Chả cá thu quết tay dai giòn', 'Nước dùng bí đỏ ngọt thanh', 'Mắm ruốc nguyên chất ăn kèm', 'Hành ngâm giấm đường chua ngọt'],
+        flavorNotes: 'Ngọt thanh · Thơm lừng · Cay ấm · Tròn vị'
       },
       {
         id: 'la-maison-1888',
+        chapter: '05',
         name: 'Fine Dining Ven Biển & Ẩm Thực Tinh Hoa',
         category: 'finedining',
+        categoryLabel: 'Ẩm Thực Tinh Hoa',
+        slogan: 'Đêm tiệc giao thoa ẩm thực Pháp - Việt đỉnh cao dưới ánh nến lãng mạn ngắm vịnh biển.',
         desc: 'Trải nghiệm tiệc tối lãng mạn dưới ánh nến tại nhà hàng 5 sao với tầm nhìn hoàng hôn vịnh biển, thực đơn giao thoa Pháp - Việt đỉnh cao.',
-        image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
-        spot: 'Không gian sang trọng, cần đặt bàn trước'
+        image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85',
+        spot: 'Không gian sang trọng tiêu chuẩn Michelin, cần đặt bàn trước',
+        highlights: ['Thực đơn Degustation tinh tế', 'Bộ sưu tập rượu vang Grand Cru', 'Tầm nhìn toàn cảnh vịnh biển', 'Dịch vụ chuẩn thượng lưu'],
+        flavorNotes: 'Tinh tế · Thăng hoa · Lãng mạn · Đẳng cấp'
       }
     ]
   },

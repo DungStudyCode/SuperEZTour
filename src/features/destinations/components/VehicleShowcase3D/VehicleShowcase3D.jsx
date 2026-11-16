@@ -7,6 +7,8 @@ import './VehicleShowcase3D.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const angleLabels = ['Toàn cảnh ngoại thất', 'Góc nghiêng thân xe', 'Khoang nội thất da'];
+
 const VehicleShowcase3D = ({ transportData }) => {
   const containerRef = useRef(null);
   const vehicleStageRef = useRef(null);
@@ -14,7 +16,7 @@ const VehicleShowcase3D = ({ transportData }) => {
 
   const vehicles = transportData?.vehicles || [];
   const [activeVehicleId, setActiveVehicleId] = useState(vehicles[0]?.id || 'suv-7');
-  const [viewAngle, setViewAngle] = useState(0); // 0: front-side, 1: side, 2: interior-vibe
+  const [viewAngle, setViewAngle] = useState(0); // 0: front-exterior, 1: side-profile, 2: luxury-interior
   const { tripState, preselectService } = useTripBuilder();
 
   const activeVehicle = vehicles.find((v) => v.id === activeVehicleId) || vehicles[0];
@@ -25,7 +27,7 @@ const VehicleShowcase3D = ({ transportData }) => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=130%',
+          end: '+=120%',
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -35,15 +37,15 @@ const VehicleShowcase3D = ({ transportData }) => {
       // Showroom turntable rotation effect on scroll
       tl.fromTo(
         vehicleStageRef.current,
-        { rotateY: -15, scale: 0.9, opacity: 0.7 },
-        { rotateY: 10, scale: 1.02, opacity: 1, ease: 'none' },
+        { rotateY: -10, scale: 0.95, opacity: 0.8 },
+        { rotateY: 5, scale: 1.0, opacity: 1, ease: 'none' },
         0
       )
       .fromTo(
         specsHudRef.current,
-        { opacity: 0, x: 50 },
+        { opacity: 0, x: 30 },
         { opacity: 1, x: 0, ease: 'power2.out' },
-        0.2
+        0.15
       );
     }, containerRef);
 
@@ -54,26 +56,32 @@ const VehicleShowcase3D = ({ transportData }) => {
     preselectService('transportation', vehicle, true);
   };
 
+  const isSelected = tripState.transportType === activeVehicle.id;
+
+  // Resolve angle-specific image
+  const angleImages = activeVehicle.angles || [activeVehicle.image];
+  const displayImage = angleImages[viewAngle] || activeVehicle.image;
+
   return (
     <section className="vehicle-3d-scene" ref={containerRef} id="transportation">
       {/* Studio Lighting & Ambient Floor Glow */}
-      <div className="showroom-lighting">
+      <div className="showroom-lighting" aria-hidden="true">
         <div className="showroom-overhead-light" />
         <div className="showroom-turntable-grid" />
       </div>
 
       <div className="dest-container vehicle-3d-container">
         {/* Header */}
-        <div className="vehicle-3d-header">
+        <header className="vehicle-3d-header">
           <span className="dest-kicker vehicle-3d-kicker">
-            <Car size={14} />
+            <Car size={14} className="vehicle-kicker-icon" />
             <span>AUTOMOTIVE LUXURY SHOWROOM</span>
           </span>
           <h2 className="vehicle-3d-title">Every Mile. Your Style.</h2>
           <p className="vehicle-3d-subtitle">
             Showroom phương tiện riêng tư cao cấp · 100% xe đời mới 2022+, nội thất da êm ái, wifi và tài xế chuyên tuyến điềm đạm.
           </p>
-        </div>
+        </header>
 
         {/* Vehicle Tabs Navigation */}
         <div className="vehicle-3d-tabs">
@@ -87,7 +95,7 @@ const VehicleShowcase3D = ({ transportData }) => {
                 setViewAngle(0);
               }}
             >
-              <Car size={15} />
+              <Car size={14} />
               <span>{v.name.split(' (')[0]}</span>
             </button>
           ))}
@@ -99,48 +107,51 @@ const VehicleShowcase3D = ({ transportData }) => {
           <div className="vehicle-turntable-col" ref={vehicleStageRef}>
             <div className="vehicle-card-3d-stage">
               <img
-                src={activeVehicle.image}
-                alt={activeVehicle.name}
+                key={`${activeVehicle.id}-${viewAngle}`}
+                src={displayImage}
+                alt={`${activeVehicle.name} - ${angleLabels[viewAngle]}`}
                 className="vehicle-3d-image"
                 loading="lazy"
               />
-              <div className="vehicle-stage-glow-floor" />
+              <div className="vehicle-stage-glow-floor" aria-hidden="true" />
 
               {/* View Angle Switcher Pill */}
               <div className="vehicle-angle-pill">
-                <Orbit size={14} className="angle-icon" />
-                <span>Góc nhìn 3D Studio</span>
+                <Orbit size={13} className="angle-icon" aria-hidden="true" />
+                <span>{angleLabels[viewAngle]}</span>
                 <div className="angle-dots">
-                  {[0, 1, 2].map((a) => (
+                  {angleLabels.map((label, a) => (
                     <button
                       key={a}
                       type="button"
                       className={`angle-dot ${viewAngle === a ? 'angle-dot-active' : ''}`}
                       onClick={() => setViewAngle(a)}
-                      title={`Chuyển góc nhìn ${a + 1}`}
+                      title={label}
+                      aria-label={label}
                     />
                   ))}
                 </div>
               </div>
 
               <div className="vehicle-stage-badge">
-                <ShieldCheck size={14} />
+                <ShieldCheck size={13} aria-hidden="true" />
                 <span>Bảo dưỡng tiêu chuẩn hãng</span>
               </div>
             </div>
           </div>
 
           {/* Interactive Specs HUD Column */}
-          <div className="vehicle-specs-hud-col" ref={specsHudRef}>
-            <span className="hud-model-code">
-              DÒNG XE TIÊU BIỂU: {activeVehicle.modelExample}
-            </span>
-
-            <h3 className="hud-vehicle-title">{activeVehicle.name}</h3>
+          <aside className="vehicle-specs-hud-col" ref={specsHudRef}>
+            <div className="hud-top-meta">
+              <span className="hud-model-code">
+                DÒNG XE TIÊU BIỂU: {activeVehicle.modelExample}
+              </span>
+              <h3 className="hud-vehicle-title">{activeVehicle.name}</h3>
+            </div>
 
             <div className="hud-capacity-grid">
               <div className="hud-capacity-card">
-                <Users size={18} className="hud-icon-orange" />
+                <Users size={17} className="hud-icon-orange" aria-hidden="true" />
                 <div>
                   <span className="hud-cap-label">Sức chứa khách</span>
                   <strong className="hud-cap-val">{activeVehicle.seats}</strong>
@@ -148,7 +159,7 @@ const VehicleShowcase3D = ({ transportData }) => {
               </div>
 
               <div className="hud-capacity-card">
-                <Briefcase size={18} className="hud-icon-gold" />
+                <Briefcase size={17} className="hud-icon-gold" aria-hidden="true" />
                 <div>
                   <span className="hud-cap-label">Khoang hành lý</span>
                   <strong className="hud-cap-val">{activeVehicle.luggage}</strong>
@@ -161,7 +172,7 @@ const VehicleShowcase3D = ({ transportData }) => {
               <div className="hud-feat-list">
                 {activeVehicle.features.map((f, i) => (
                   <div key={i} className="hud-feat-item">
-                    <CheckCircle2 size={14} className="hud-check" />
+                    <CheckCircle2 size={13} className="hud-check" aria-hidden="true" />
                     <span>{f}</span>
                   </div>
                 ))}
@@ -175,17 +186,17 @@ const VehicleShowcase3D = ({ transportData }) => {
 
             <button
               type="button"
-              className={`dest-btn-primary hud-choose-btn ${tripState.transportType === activeVehicle.id ? 'hud-btn-selected' : ''}`}
+              className={`dest-btn-primary hud-choose-btn ${isSelected ? 'hud-btn-selected' : ''}`}
               onClick={() => handleSelectVehicle(activeVehicle)}
             >
               <span>
-                {tripState.transportType === activeVehicle.id
+                {isSelected
                   ? '✓ Đã chọn loại xe này'
                   : 'Lựa chọn xe này cho hành trình'}
               </span>
-              <ArrowRight size={16} />
+              <ArrowRight size={15} />
             </button>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
