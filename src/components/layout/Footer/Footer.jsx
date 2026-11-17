@@ -1,5 +1,6 @@
 import React from 'react';
-import { Phone, Mail, Clock, MapPin, ShieldCheck, Award, HeartHandshake, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Phone, Mail, Clock, MapPin, ShieldCheck, Award, HeartHandshake, ExternalLink, Sparkles } from 'lucide-react';
 import { BRAND_CONFIG } from '../../../constants/brand.config';
 import './Footer.css';
 
@@ -74,29 +75,28 @@ const Footer = ({ onOpenQuoteModal }) => {
               </div>
             </div>
 
-            {/* Column 2: 16 Direct Destinations in Asia */}
+            {/* Column 2: 10 Vietnam Destinations */}
             <div className="footer-col">
-              <h4 className="footer-col-title">Mạng lưới 16 điểm đến Châu Á</h4>
+              <h4 className="footer-col-title">베트남 10대 명품 여행지</h4>
               <ul className="footer-branch-list">
                 <li>
-                  <strong>Philippines:</strong> Cebu · Boracay · Bohol · Clark
+                  <strong>북부:</strong> 하노이 · 사파 · 하롱베이 · 닌빈
                 </li>
                 <li>
-                  <strong>Việt Nam:</strong> Đà Nẵng · Nha Trang · Phú Quốc · TP.HCM · Hà Nội
+                  <strong>중부:</strong>{' '}
+                  <Link to="/destinations/da-nang" className="footer-danang-highlight">
+                    다낭 (3D 투어 오픈)
+                  </Link>{' '}
+                  · 후에 · 나트랑 · 달랏
                 </li>
                 <li>
-                  <strong>Thái Lan:</strong> Bangkok · Chiang Mai · Phuket
-                </li>
-                <li>
-                  <strong>Malaysia:</strong> Kota Kinabalu
-                </li>
-                <li>
-                  <strong>Đài Loan:</strong> Đài Bắc · Cao Hùng
-                </li>
-                <li>
-                  <strong>Indonesia:</strong> Bali
+                  <strong>남부:</strong> 호찌민 · 푸꾸옥
                 </li>
               </ul>
+              <div className="footer-danang-cta-box">
+                <Sparkles size={14} className="text-gold" />
+                <span>다낭 3D 인터랙티브 가상투어 상시 운영 중</span>
+              </div>
             </div>
 
             {/* Column 3: Quick Links & Services */}

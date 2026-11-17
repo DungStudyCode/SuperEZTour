@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Clock, Globe, User, ChevronDown, Menu, MessageCircle, Sparkles, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Phone, Clock, Globe, Search, ChevronDown, Menu, MessageCircle, Sparkles, ShieldCheck } from 'lucide-react';
 import MegaMenu from '../MegaMenu/MegaMenu';
 import MobileMenu from '../MobileMenu/MobileMenu';
+import DestinationSearchModal from '../../common/DestinationSearch/DestinationSearchModal';
 import { BRAND_CONFIG } from '../../../constants/brand.config';
 import './Header.css';
 
@@ -9,6 +11,7 @@ const Header = ({ onOpenQuoteModal }) => {
   const [isSticky, setIsSticky] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,47 +28,49 @@ const Header = ({ onOpenQuoteModal }) => {
   return (
     <>
       <header className={`site-header ${isSticky ? 'header-sticky' : ''}`}>
-        {/* Top Utility Bar (Hidden when sticky for compact clean view) */}
+        {/* Top Utility Bar */}
         <div className="header-top-bar">
           <div className="container header-top-container">
             <div className="header-top-left">
               <div className="top-item">
-                <Phone size={14} className="text-primary" />
-                <span className="font-semibold">Hotline CSKH:</span>
+                <span className="kakao-pill-badge">KakaoTalk</span>
+                <span className="font-semibold">실시간 카톡 상담:</span>
+                <button
+                  type="button"
+                  className="top-text-btn font-semibold"
+                  onClick={() => onOpenQuoteModal && onOpenQuoteModal('kakao')}
+                >
+                  @supereztour
+                </button>
+              </div>
+              <span className="top-divider">|</span>
+              <div className="top-item">
+                <Phone size={13} className="text-gold" />
+                <span className="font-semibold">전용 핫라인:</span>
                 <a href={`tel:${BRAND_CONFIG.contact.hotline.replace(/\s+/g, '')}`} className="hotline-number">
                   {BRAND_CONFIG.contact.hotline}
                 </a>
               </div>
               <span className="top-divider">|</span>
-              <div className="top-item">
-                <Clock size={14} />
-                <span>{BRAND_CONFIG.contact.workingHours}</span>
-              </div>
-              <span className="top-divider">|</span>
               <div className="top-item top-badge-trust">
-                <ShieldCheck size={14} className="text-primary" />
-                <span>Tour riêng 100% · Xe & HDV riêng</span>
+                <ShieldCheck size={14} className="text-gold" />
+                <span>100% 단독 프라이빗 투어 · 전용 리무진 & 한국어 가이드</span>
               </div>
             </div>
 
             <div className="header-top-right">
               <div className="top-item lang-selector">
-                <Globe size={14} />
-                <span>Tiếng Việt (VND)</span>
-                <ChevronDown size={12} />
+                <Globe size={13} />
+                <span>한국어 (KRW)</span>
+                <ChevronDown size={11} />
               </div>
-              <span className="top-divider">|</span>
-              <a href="#quote" className="top-link">
-                <span>Tra cứu báo giá</span>
-              </a>
               <span className="top-divider">|</span>
               <button
                 type="button"
-                className="top-link auth-link"
-                onClick={() => alert(`Cổng thành viên ${BRAND_CONFIG.brandName} đang được nâng cấp. Quý khách vui lòng liên hệ hotline ${BRAND_CONFIG.contact.hotline} để được hỗ trợ nhanh nhất.`)}
+                className="top-link btn-unstyled"
+                onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
               >
-                <User size={14} />
-                <span>Đăng nhập / Đăng ký</span>
+                <span>실시간 견적 조회</span>
               </button>
             </div>
           </div>
@@ -75,13 +80,13 @@ const Header = ({ onOpenQuoteModal }) => {
         <div className="header-main-bar">
           <div className="container header-main-container">
             {/* Official Brand Logo */}
-            <a href="/" className="brand-logo-container" aria-label={BRAND_CONFIG.brandName}>
+            <Link to="/" className="brand-logo-container" aria-label={BRAND_CONFIG.brandName}>
               <img
                 src={BRAND_CONFIG.logo}
                 alt={BRAND_CONFIG.brandName}
                 className="brand-logo-img"
               />
-            </a>
+            </Link>
 
             {/* Desktop Navigation Links */}
             <nav className="header-nav" aria-label="Main Navigation">
@@ -96,41 +101,36 @@ const Header = ({ onOpenQuoteModal }) => {
                     type="button"
                     className="nav-link destination-trigger"
                     onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                    aria-expanded={isMegaMenuOpen}
                   >
-                    <span>Điểm đến du lịch</span>
-                    <span className="nav-badge-count">16 Điểm đến</span>
+                    <span>여행지</span>
+                    <span className="nav-badge-count">10대 명소</span>
                     <ChevronDown size={14} className={`nav-chevron ${isMegaMenuOpen ? 'rotate' : ''}`} />
                   </button>
                 </li>
 
                 <li className="nav-item">
-                  <a href="#themes" className="nav-link">
-                    <span>Tour theo chủ đề</span>
-                  </a>
-                </li>
-
-                <li className="nav-item">
-                  <a href="#reviews" className="nav-link">
-                    <span>Đánh giá du khách</span>
+                  <a href="#signature-journeys" className="nav-link">
+                    <span>프라이빗 투어</span>
                     <span className="nav-pill-hot">HOT</span>
                   </a>
                 </li>
 
                 <li className="nav-item">
-                  <a href="#community" className="nav-link">
-                    <span>Cộng đồng & Mẹo hay</span>
+                  <a href="#travel-services" className="nav-link">
+                    <span>여행 서비스</span>
                   </a>
                 </li>
 
                 <li className="nav-item">
-                  <a href="#map" className="nav-link">
-                    <span>Bản đồ hành trình</span>
+                  <a href="#travel-themes" className="nav-link">
+                    <span>여행 테마</span>
                   </a>
                 </li>
 
                 <li className="nav-item">
                   <a href="#why-us" className="nav-link">
-                    <span>Vì sao chọn EZ Tour</span>
+                    <span>왜 Super EZ Tour인가</span>
                   </a>
                 </li>
               </ul>
@@ -138,23 +138,37 @@ const Header = ({ onOpenQuoteModal }) => {
 
             {/* Right Action CTAs */}
             <div className="header-actions">
+              {/* Destination Search Button */}
+              <button
+                type="button"
+                className="header-search-btn"
+                onClick={() => setIsSearchOpen(true)}
+                title="베트남 여행지 검색 (어디로 떠나고 싶으신가요?)"
+                aria-label="여행지 검색"
+              >
+                <Search size={16} />
+                <span className="search-btn-text">여행지 검색</span>
+              </button>
+
+              {/* 1:1 Kakao Consultation CTA */}
               <button
                 type="button"
                 className="header-consult-btn"
-                onClick={onOpenQuoteModal}
-                title="Tư vấn trực tuyến 1:1"
+                onClick={() => onOpenQuoteModal && onOpenQuoteModal('kakao')}
+                title="카카오톡 1:1 전담 매니저 상담"
               >
-                <MessageCircle size={18} />
-                <span>Tư vấn 1:1</span>
+                <MessageCircle size={17} />
+                <span>카카오톡 상담</span>
               </button>
 
+              {/* Quick Custom Quote Button */}
               <button
                 type="button"
                 className="header-quote-btn"
-                onClick={onOpenQuoteModal}
+                onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
               >
-                <Sparkles size={16} className="btn-sparkle" />
-                <span>Báo giá nhanh 30'</span>
+                <Sparkles size={15} className="btn-sparkle" />
+                <span>맞춤 견적 요청</span>
               </button>
 
               {/* Mobile Hamburger Button */}
@@ -162,7 +176,7 @@ const Header = ({ onOpenQuoteModal }) => {
                 type="button"
                 className="mobile-hamburger-btn"
                 onClick={() => setIsMobileMenuOpen(true)}
-                aria-label="Mở menu di động"
+                aria-label="모바일 메뉴 열기"
               >
                 <Menu size={24} />
               </button>
@@ -176,13 +190,25 @@ const Header = ({ onOpenQuoteModal }) => {
         onMouseEnter={() => setIsMegaMenuOpen(true)}
         onMouseLeave={() => setIsMegaMenuOpen(false)}
       >
-        <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
+        <MegaMenu
+          isOpen={isMegaMenuOpen}
+          onClose={() => setIsMegaMenuOpen(false)}
+          onOpenQuoteModal={onOpenQuoteModal}
+        />
       </div>
 
       {/* Mobile Drawer Menu */}
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        onOpenQuoteModal={onOpenQuoteModal}
+        onOpenSearch={() => setIsSearchOpen(true)}
+      />
+
+      {/* Global Destination Search Modal */}
+      <DestinationSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
         onOpenQuoteModal={onOpenQuoteModal}
       />
     </>

@@ -1,0 +1,291 @@
+/* Signature Private Journeys Section */
+
+.signature-journeys-section {
+  background: #0d1726;
+  color: #ffffff;
+  padding: 85px 0 95px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.signature-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+.signature-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  margin-bottom: 14px;
+}
+
+.signature-title {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.signature-subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+.signature-guarantees-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.guarantee-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+/* Grid */
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.signature-card {
+  background: #09101b;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+}
+
+.signature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(212, 175, 55, 0.15);
+}
+
+.signature-card.is-available-tour {
+  border-color: rgba(212, 175, 55, 0.45);
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.07) 0%, #09101b 100%);
+}
+
+.signature-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+
+.signature-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.signature-card:hover .signature-card-img {
+  transform: scale(1.05);
+}
+
+.signature-badge-top {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.tour-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.tour-badge.gold-badge {
+  background: #d4af37;
+  color: #09101b;
+}
+
+.tour-badge.coming-soon-badge {
+  background: rgba(9, 16, 27, 0.85);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+.duration-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(9, 16, 27, 0.8);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+.destination-location-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #f1cf6d;
+  background: rgba(9, 16, 27, 0.85);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+/* Content */
+.signature-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.signature-title-group {
+  margin-bottom: 12px;
+}
+
+.journey-title-kr {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.journey-title-en {
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.pacing-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pacing-label {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.pacing-val {
+  color: #f1cf6d;
+  font-weight: 700;
+}
+
+/* Highlights */
+.signature-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.highlight-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.check-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Card CTA */
+.signature-card-cta {
+  margin-top: auto;
+}
+
+.journey-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.journey-btn.available {
+  background: linear-gradient(135deg, #d4af37 0%, #b89628 100%);
+  color: #09101b;
+  border: 1px solid #d4af37;
+}
+
+.journey-btn.available:hover {
+  background: linear-gradient(135deg, #f1cf6d 0%, #d4af37 100%);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+}
+
+.journey-btn.quote {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+}
+
+.journey-btn.quote:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #d4af37;
+  color: #f1cf6d;
+}
+
+@media (max-width: 900px) {
+  .signature-grid {
+    grid-template-columns: 1fr;
+  }
+}

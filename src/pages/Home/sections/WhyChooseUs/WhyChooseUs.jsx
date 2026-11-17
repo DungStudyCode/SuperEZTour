@@ -1,183 +1,143 @@
 import React, { useState } from 'react';
-import SectionHeading from '../../../../components/common/SectionHeading/SectionHeading';
 import Container from '../../../../components/common/Container/Container';
-import { NETWORK_STATS } from '../../../../data/destinations';
-import { BRAND_CONFIG } from '../../../../constants/brand.config';
-import { ShieldCheck, UserCheck, CalendarCheck, Car, Award, ThumbsUp, HeartHandshake, Sparkles, CheckCircle2 } from 'lucide-react';
-import Button from '../../../../components/common/Button/Button';
+import { CORE_TRAVEL_SERVICES, VALUE_COMPARISON } from '../../../../data/vietnamDestinations';
+import { Car, UserCheck, Building, ShieldCheck, CheckCircle2, XCircle, Sparkles, ArrowRight, MessageSquare } from 'lucide-react';
 import './WhyChooseUs.css';
 
+const ICON_MAP = {
+  Car,
+  UserCheck,
+  Building,
+  ShieldCheck,
+};
+
 const WhyChooseUs = ({ onOpenQuoteModal }) => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const pillars = [
-    {
-      id: 'private',
-      title: 'Chuyến đi riêng tư 100%',
-      subtitle: 'Chỉ riêng nhóm của bạn – Không ghép khách lạ',
-      description: 'Khác biệt hoàn toàn với các tour ghép đoàn 30-40 người gò bó, Super EZ Tour bố trí xe riêng đời mới và hướng dẫn viên riêng biệt chỉ phục vụ gia đình hoặc nhóm bạn của bạn. Bạn toàn quyền quyết định thời gian xuất phát, nghỉ ngơi và ăn uống.',
-      icon: UserCheck,
-      image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=800&q=80',
-      bullets: [
-        'Xe Limousine/SUV riêng đưa đón tận sảnh khách sạn',
-        'Tàu cano riêng khi đi biển, không phải chen lấn chờ đợi',
-        'Không gian riêng tư, thoải mái trò chuyện cùng người thân'
-      ]
-    },
-    {
-      id: 'flexible',
-      title: 'Lịch trình linh hoạt',
-      subtitle: 'Tự do như đi phượt – Tiện nghi như tour cao cấp',
-      description: 'Lịch trình được thiết kế may đo dựa trên sở thích, độ tuổi của các thành viên trong đoàn. Trong quá trình đi tour, nếu thời tiết thay đổi hoặc các bé/người lớn tuổi muốn nghỉ ngơi sớm, hướng dẫn viên sẽ linh hoạt điều chỉnh ngay tại chỗ mà không gặp bất kỳ trở ngại nào.',
-      icon: CalendarCheck,
-      image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80',
-      bullets: [
-        'Tự do thêm hoặc bớt các điểm tham quan theo ý muốn',
-        'Thưởng thức các quán ăn bản địa nổi tiếng theo gu riêng',
-        'Không bị hối thúc giờ giấc, chụp ảnh thỏa thích'
-      ]
-    },
-    {
-      id: 'quality',
-      title: 'Chất lượng cao & An tâm',
-      subtitle: '100% Tour riêng không ghép đoàn – Dịch vụ chuẩn cao cấp',
-      description: 'Cam kết cốt lõi của Super EZ Tour: Tuyệt đối không đưa khách vào các điểm bán hàng ép mua sắm; không phát sinh bất kỳ phụ phí ẩn nào. Chúng tôi tổ chức và điều hành trực tiếp tại cả 16 điểm đến với đội ngũ nhân sự hỗ trợ khẩn cấp 24/7.',
-      icon: ShieldCheck,
-      image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
-      bullets: [
-        'Bảo hiểm du lịch quốc tế trọn gói bảo vệ toàn diện',
-        'Hướng dẫn viên chuyên nghiệp có chứng chỉ hành nghề du lịch',
-        'Đội ngũ hỗ trợ khẩn cấp và y tế địa phương sẵn sàng 24/7'
-      ]
-    }
-  ];
-
   return (
-    <section id="why-us" className="section why-choose-us-section">
-      <Container>
-        <SectionHeading
-          tagline="TIÊU CHUẨN DU LỊCH ĐẲNG CẤP MỚI"
-          title={`Tại sao hơn ${BRAND_CONFIG.stats.customersServed} du khách chọn ${BRAND_CONFIG.brandName}?`}
-          subtitle="Chúng tôi giải quyết toàn bộ nhược điểm của tour ghép truyền thống, mang lại chuyến đi hoàn hảo nhất cho bạn và gia đình."
-          align="center"
-        />
+    <>
+      {/* 07. Premium Travel Services (4 Core Pillars) */}
+      <section id="travel-services" className="section travel-services-section" aria-label="Premium Travel Services">
+        <Container>
+          <div className="services-header">
+            <div className="services-eyebrow">
+              <Sparkles size={14} className="text-gold" />
+              <span>SUPER EZ TOUR HOSPITALITY PILLARS</span>
+            </div>
+            <h2 className="services-title">4대 프리미엄 여행 서비스</h2>
+            <p className="services-subtitle">
+              단순한 관광을 넘어선 품격 있는 여정.
+              <br />
+              출국하는 순간부터 귀국까지 모든 순간을 세심하게 책임집니다.
+            </p>
+          </div>
 
-        {/* 3 Core Pillars Interactive Tabs & Showcase */}
-        <div className="why-pillars-container">
-          {/* Tabs Selector */}
-          <div className="why-tabs-row">
-            {pillars.map((pillar, idx) => {
-              const Icon = pillar.icon;
-              const isActive = activeTab === idx;
-
+          <div className="services-grid-lux">
+            {CORE_TRAVEL_SERVICES.map((srv) => {
+              const Icon = ICON_MAP[srv.iconName] || ShieldCheck;
               return (
-                <button
-                  key={pillar.id}
-                  type="button"
-                  className={`why-tab-btn ${isActive ? 'is-active' : ''}`}
-                  onClick={() => setActiveTab(idx)}
-                >
-                  <div className="tab-btn-icon-wrap">
-                    <Icon size={22} />
+                <div key={srv.id} className="service-card-lux">
+                  <div className="service-icon-box">
+                    <Icon size={26} className="service-icon text-gold" />
                   </div>
-                  <div className="tab-btn-text">
-                    <span className="tab-pill-label">Giá trị {idx + 1}</span>
-                    <strong className="tab-pill-title">{pillar.title}</strong>
+                  <div className="service-header-group">
+                    <span className="service-en-title">{srv.titleEn}</span>
+                    <h3 className="service-kr-title">{srv.titleKr}</h3>
                   </div>
-                </button>
+                  <p className="service-desc">{srv.descKr}</p>
+                  <ul className="service-perks-list">
+                    {srv.perks.map((perk, idx) => (
+                      <li key={idx} className="perk-item">
+                        <CheckCircle2 size={14} className="text-gold flex-shrink-0" />
+                        <span>{perk}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               );
             })}
           </div>
+        </Container>
+      </section>
 
-          {/* Active Pillar Card Showcase */}
-          <div className="active-pillar-card animate-fade-in">
-            <div className="pillar-content-col">
-              <span className="pillar-badge">
-                <Sparkles size={14} />
-                LỢI THẾ CẠNH TRANH ĐỘC QUYỀN
-              </span>
-              <h3 className="pillar-heading">{pillars[activeTab].title}</h3>
-              <p className="pillar-subheading">{pillars[activeTab].subtitle}</p>
+      {/* 08. Why Super EZ Tour (BOBTOUR & Guideman Value Comparison Matrix) */}
+      <section id="why-us" className="section why-us-section" aria-label="Why Super EZ Tour">
+        <Container>
+          <div className="why-header">
+            <div className="why-eyebrow">
+              <ShieldCheck size={14} className="text-gold" />
+              <span>THE SUPER EZ TOUR ADVANTAGE</span>
+            </div>
+            <h2 className="why-title">왜 Super EZ Tour인가?</h2>
+            <p className="why-subtitle">
+              기존 단체 패키지의 모든 불편함과 강요를 없앤 100% 프라이빗 여행.
+              <br />
+              직접 비교해보시면 차이를 아실 수 있습니다.
+            </p>
+          </div>
 
-              <p className="pillar-paragraph">
-                {pillars[activeTab].description}
-              </p>
+          {/* Value Comparison Matrix */}
+          <div className="comparison-table-wrap">
+            <div className="comparison-table-header">
+              <div className="col-category">비교 항목</div>
+              <div className="col-superez">
+                <span className="badge-exclusive">EXCLUSIVE</span>
+                <strong>Super EZ Tour (단독 투어)</strong>
+              </div>
+              <div className="col-general">
+                <span>일반 단체 패키지</span>
+              </div>
+            </div>
 
-              <ul className="pillar-bullets-list">
-                {pillars[activeTab].bullets.map((b, i) => (
-                  <li key={i} className="pillar-bullet-item">
-                    <CheckCircle2 size={18} className="bullet-check" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="pillar-cta-row">
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={onOpenQuoteModal}
-                >
-                  Nhận báo giá tour riêng ngay
-                </Button>
-                <div className="pillar-guarantee-note">
-                  <ShieldCheck size={18} className="guarantee-icon" />
-                  <span>Cam kết hoàn tiền nếu phát hiện ép mua sắm</span>
+            <div className="comparison-table-body">
+              {VALUE_COMPARISON.map((row, idx) => (
+                <div key={idx} className="comparison-row">
+                  <div className="col-category">
+                    <span className="category-tag">{row.category}</span>
+                  </div>
+                  <div className="col-superez">
+                    <div className="cell-content win">
+                      <CheckCircle2 size={18} className="win-icon text-gold" />
+                      <span className="cell-text bold">{row.superEz}</span>
+                    </div>
+                  </div>
+                  <div className="col-general">
+                    <div className="cell-content loss">
+                      <XCircle size={18} className="loss-icon text-muted" />
+                      <span className="cell-text text-muted">{row.generalTour}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="pillar-image-col hover-zoom-container">
-              <img
-                src={pillars[activeTab].image}
-                alt={pillars[activeTab].title}
-                loading="lazy"
-                className="pillar-img hover-zoom-image"
-              />
-              <div className="pillar-img-badge">
-                <strong>100%</strong>
-                <span>Khách hàng hài lòng</span>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* Illustrated Metrics Counters */}
-        <div className="why-metrics-grid">
-          <div className="metric-box">
-            <div className="metric-icon-wrap">
-              <Award size={28} />
+          {/* Bottom Conversion Callout */}
+          <div className="why-bottom-callout">
+            <div className="callout-text">
+              <h4 className="callout-title">우리 일행만의 맞춤 여행 견적을 받아보세요</h4>
+              <p className="callout-desc">원하는 출발 일자와 인원만 알려주시면 1:1 전담 매니저가 30분 이내에 맞춤 일정을 제안해 드립니다.</p>
             </div>
-            <strong className="metric-number">{BRAND_CONFIG.stats.experienceYears} Năm</strong>
-            <span className="metric-label">Kinh nghiệm tổ chức tour riêng chuyên nghiệp</span>
-          </div>
-
-          <div className="metric-box">
-            <div className="metric-icon-wrap">
-              <Car size={28} />
+            <div className="callout-actions">
+              <button
+                type="button"
+                className="callout-btn primary"
+                onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
+              >
+                <Sparkles size={16} />
+                <span>30분 빠른 맞춤 견적 신청</span>
+              </button>
+              <button
+                type="button"
+                className="callout-btn kakao"
+                onClick={() => onOpenQuoteModal && onOpenQuoteModal('kakao')}
+              >
+                <MessageSquare size={16} />
+                <span>카카오톡 1:1 실시간 상담</span>
+              </button>
             </div>
-            <strong className="metric-number">16 Điểm Đến</strong>
-            <span className="metric-label">Điều phối xe riêng & hướng dẫn viên tận nơi</span>
           </div>
-
-          <div className="metric-box">
-            <div className="metric-icon-wrap">
-              <ShieldCheck size={28} />
-            </div>
-            <strong className="metric-number">0% Mua Sắm</strong>
-            <span className="metric-label">Tuyệt đối không ép vào điểm bán hàng</span>
-          </div>
-
-          <div className="metric-box">
-            <div className="metric-icon-wrap">
-              <ThumbsUp size={28} />
-            </div>
-            <strong className="metric-number">{BRAND_CONFIG.stats.satisfactionRate}</strong>
-            <span className="metric-label">Tỷ lệ hài lòng từ {BRAND_CONFIG.stats.customersServed} du khách</span>
-          </div>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 };
 

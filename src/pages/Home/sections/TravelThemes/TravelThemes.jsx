@@ -1,89 +1,69 @@
 import React from 'react';
-import { TRAVEL_THEMES } from '../../../../data/themes';
-import SectionHeading from '../../../../components/common/SectionHeading/SectionHeading';
+import { TRAVEL_THEMES } from '../../../../data/vietnamDestinations';
 import Container from '../../../../components/common/Container/Container';
-import { ArrowRight, Check, Sparkles } from 'lucide-react';
-import Button from '../../../../components/common/Button/Button';
+import { ArrowRight, Sparkles, Tag } from 'lucide-react';
 import './TravelThemes.css';
 
 const TravelThemes = ({ onOpenQuoteModal }) => {
   return (
-    <section id="themes" className="section travel-themes-section section-bg-alt">
+    <section id="travel-themes" className="section travel-themes-section" aria-label="Travel by Theme">
       <Container>
-        <SectionHeading
-          tagline="THIẾT KẾ TOUR THEO NHU CẦU"
-          title="Du lịch theo chủ đề & Phong cách riêng"
-          subtitle="Dù bạn đi cùng người thương, đại gia đình 3 thế hệ hay nhóm bạn đam mê ẩm thực, Super EZ Tour luôn có gói tour độc quyền hoàn hảo nhất."
-          align="center"
-        />
+        <div className="themes-header">
+          <div className="themes-eyebrow">
+            <Sparkles size={14} className="text-gold" />
+            <span>CURATED THEMATIC COLLECTIONS</span>
+          </div>
+          <h2 className="themes-title">8대 시그니처 여행 테마</h2>
+          <p className="themes-subtitle">
+            둘만의 로맨틱 허니문부터 3대 가족 힐링, 미쉐린 미식 탐방과 챔피언십 골프까지.
+            <br />
+            취향과 라이프스타일에 맞춘 완벽한 프라이빗 맞춤 여정을 제안합니다.
+          </p>
+        </div>
 
-        {/* Themes Grid */}
-        <div className="themes-cards-grid">
-          {TRAVEL_THEMES.map((theme, index) => {
-            // First 2 themes take wider 1.5 col, remaining 3 take 1 col in a 2-row layout, or clean 5-card layout
-            const isFeatured = index < 2;
-
-            return (
-              <div
-                key={theme.id}
-                className={`theme-card ${isFeatured ? 'is-featured' : ''} hover-zoom-container`}
-              >
-                {/* Background Image */}
+        {/* 8 Themes Cards Grid */}
+        <div className="themes-grid-lux">
+          {TRAVEL_THEMES.map((theme) => (
+            <div
+              key={theme.id}
+              className="theme-card-lux"
+              onClick={() => onOpenQuoteModal && onOpenQuoteModal(theme.id)}
+            >
+              {/* Background Image */}
+              <div className="theme-bg-wrap">
                 <img
                   src={theme.image}
-                  alt={theme.title}
+                  alt={theme.titleKr}
                   loading="lazy"
-                  className="theme-bg-img hover-zoom-image"
+                  className="theme-bg-lux-img"
                 />
+                <div className="theme-lux-overlay" />
+              </div>
 
-                {/* Dark Gradient Overlay */}
-                <div className="theme-card-overlay" />
+              {/* Theme Content */}
+              <div className="theme-lux-content">
+                <span className="theme-en-badge">{theme.titleEn}</span>
+                <h3 className="theme-kr-title">{theme.titleKr}</h3>
+                <p className="theme-desc-kr">{theme.descKr}</p>
 
-                {/* Theme Content */}
-                <div className="theme-card-content">
-                  <div className="theme-top-meta">
-                    <span className="theme-badge">{theme.tag}</span>
-                  </div>
+                {/* Tags */}
+                <div className="theme-tags-wrap">
+                  {theme.tags.map((tag, idx) => (
+                    <span key={idx} className="theme-pill-tag">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
 
-                  <h3 className="theme-title">{theme.title}</h3>
-                  <p className="theme-subtitle">{theme.subtitle}</p>
-
-                  <p className="theme-desc line-clamp-2">{theme.description}</p>
-
-                  {/* Highlights checklist */}
-                  <ul className="theme-highlights-list">
-                    {theme.highlights.map((h, i) => (
-                      <li key={i} className="theme-highlight-item">
-                        <Check size={14} className="highlight-check" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Recommended destinations */}
-                  <div className="theme-dest-recommend">
-                    <span className="dest-recommend-label">Điểm đến đề xuất:</span>
-                    <div className="dest-recommend-pills">
-                      {theme.recommendedDestinations.map((d, i) => (
-                        <span key={i} className="theme-dest-chip">{d}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="theme-cta-wrap">
-                    <button
-                      type="button"
-                      className="theme-link-btn"
-                      onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
-                    >
-                      <span>Xem lịch trình gói này</span>
-                      <ArrowRight size={16} />
-                    </button>
-                  </div>
+                <div className="theme-action-row">
+                  <span className="theme-cta-text">
+                    <span>맞춤 일정 상담하기</span>
+                    <ArrowRight size={14} />
+                  </span>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </Container>
     </section>

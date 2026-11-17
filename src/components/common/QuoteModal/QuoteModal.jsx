@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, Sparkles, Send, Calendar, Users, MapPin, Phone, User, MessageSquare } from 'lucide-react';
-import { DESTINATIONS } from '../../../data/destinations';
+import { VIETNAM_DESTINATIONS } from '../../../data/vietnamDestinations';
 import { BRAND_CONFIG } from '../../../constants/brand.config';
 import Button from '../Button/Button';
 import './QuoteModal.css';
+
+const resolveDestinationId = (input) => {
+  if (!input) return 'da-nang';
+  const norm = String(input).toLowerCase().trim();
+  const matched = VIETNAM_DESTINATIONS.find(
+    (d) => d.id === norm || d.slug === norm || (d.aliases && d.aliases.some((a) => a.toLowerCase() === norm))
+  );
+  return matched ? matched.id : 'da-nang';
+};
 
 const QuoteModal = ({ isOpen, onClose, onAddQuote, defaultDestination = '' }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    destinationId: defaultDestination || 'cebu',
+    destinationId: resolveDestinationId(defaultDestination),
     travelGroup: '4 người (Gia đình)',
     travelDate: '',
     notes: ''
@@ -18,12 +27,23 @@ const QuoteModal = ({ isOpen, onClose, onAddQuote, defaultDestination = '' }) =>
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  useEffect(() => {
+    if (defaultDestination) {
+      setFormData((prev) => ({
+        ...prev,
+        destinationId: resolveDestinationId(defaultDestination)
+      }));
+    }
+  }, [defaultDestination]);
+
   if (!isOpen) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const selectedDest = VIETNAM_DESTINATIONS.find((d) => d.id === formData.destinationId) || VIETNAM_DESTINATIONS.find((d) => d.id === 'da-nang');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,11 +55,10 @@ const QuoteModal = ({ isOpen, onClose, onAddQuote, defaultDestination = '' }) =>
     setIsSubmitting(true);
 
     setTimeout(() => {
-      const selectedDest = DESTINATIONS.find((d) => d.id === formData.destinationId);
       const newQuote = {
         id: `Q-${Date.now().toString().slice(-8)}`,
         customerName: formData.name.length > 2 ? `${formData.name[0]}*${formData.name.slice(-1)}` : `${formData.name}*`,
-        destination: `${selectedDest?.name || 'Cebu'} (${selectedDest?.country || 'Philippines'})`,
+        destination: `${selectedDest?.nameKr} (${selectedDest?.nameVi} · ${selectedDest?.name})`,
         destinationId: formData.destinationId,
         travelGroup: formData.travelGroup,
         travelDates: formData.travelDate || 'Tháng 12/2026 (Linh hoạt)',
@@ -80,8 +99,7 @@ const QuoteModal = ({ isOpen, onClose, onAddQuote, defaultDestination = '' }) =>
               <div className="info-row">
                 <span className="info-label">Điểm đến đã chọn:</span>
                 <span className="info-val">
-                  {DESTINATIONS.find((d) => d.id === formData.destinationId)?.name} (
-                  {DESTINATIONS.find((d) => d.id === formData.destinationId)?.country})
+                  {selectedDest?.nameKr} ({selectedDest?.nameVi} · {selectedDest?.name})
                 </span>
               </div>
               <div className="info-row">
@@ -121,9 +139,9 @@ const QuoteModal = ({ isOpen, onClose, onAddQuote, defaultDestination = '' }) =>
                   value={formData.destinationId}
                   onChange={handleChange}
                 >
-                  {DESTINATIONS.map((d) => (
+                  {VIETNAM_DESTINATIONS.map((d) => (
                     <option key={d.id} value={d.id}>
-                      {d.name} - {d.country}
+                      {d.nameKr} — {d.nameVi} ({d.name}) [{d.regionKr}]
                     </option>
                   ))}
                 </select>

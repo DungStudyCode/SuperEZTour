@@ -58,6 +58,7 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
     return () => {
       clearTimeout(timer);
       destroySmoothScroll();
+      ScrollTrigger.getAll().forEach((st) => st.kill());
       document.title = origTitle;
       document.documentElement.lang = origLang || 'vi';
     };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Compass, Menu, X, Phone, ArrowUpRight, ChevronRight } from 'lucide-react';
 import { BRAND_CONFIG } from '../../../../constants/brand.config';
 import './DestinationHeader.css';
@@ -54,9 +55,9 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
         <div className="dest-header-container">
           {/* Logo & Destination Badge */}
           <div className="dest-header-brand">
-            <a href="/" className="dest-logo-link" title={isKorean ? 'Super EZ Tour 홈으로' : 'Về trang chủ Super EZ Tour'}>
+            <Link to="/" className="dest-logo-link" title={isKorean ? 'Super EZ Tour 홈으로' : 'Về trang chủ Super EZ Tour'}>
               <img src={BRAND_CONFIG.logo} alt={BRAND_CONFIG.brandName} className="dest-logo-img" />
-            </a>
+            </Link>
             <div className="dest-header-divider" />
             <div className="dest-header-cur-dest">
               <span className="dest-header-flag">🇻🇳</span>
@@ -179,9 +180,9 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
               <Phone size={16} />
               <span>{isKorean ? '24시간 한국어 케어: 1900 8899' : 'Hotline 24/7: 1900 8899'}</span>
             </a>
-            <a href="/" className="dest-mobile-back-home">
+            <Link to="/" className="dest-mobile-back-home">
               {isKorean ? '← Super EZ Tour 홈으로 이동' : '← Quay lại trang chủ Super EZ Tour'}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
