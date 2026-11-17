@@ -14,11 +14,21 @@ const ExperiencesCinematicSequence = ({ ecosystemData }) => {
   const services = ecosystemData?.services || [];
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const totalCards = services.length;
-      if (totalCards === 0) return;
+    const totalCards = services.length;
+    if (totalCards === 0) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      isPinReady: '(min-width: 769px) and (min-height: 561px)',
+      isMobileOrShort: '(max-width: 768px), (max-height: 560px)',
+    }, (context) => {
+      const { isPinReady } = context.conditions;
+      if (!isPinReady) return;
 
       const track = trackRef.current;
+      if (!track || !containerRef.current) return;
+
       const scrollDistance = (totalCards - 1) * window.innerWidth * 0.75;
 
       const tl = gsap.timeline({
@@ -46,7 +56,7 @@ const ExperiencesCinematicSequence = ({ ecosystemData }) => {
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, [services]);
 
   const scrollToTarget = (targetId) => {
@@ -79,7 +89,9 @@ const ExperiencesCinematicSequence = ({ ecosystemData }) => {
           <span className="exp-seq-counter">
             0{activeIndex + 1} <i>/</i> 0{services.length}
           </span>
-          <span className="exp-seq-scroll-hint">Cuộn chuột để trải nghiệm 6 phân cảnh →</span>
+          <span className="exp-seq-scroll-hint">
+            {ecosystemData?.scrollHint || 'Cuộn chuột để trải nghiệm 6 phân cảnh →'}
+          </span>
         </div>
       </div>
 
@@ -106,7 +118,7 @@ const ExperiencesCinematicSequence = ({ ecosystemData }) => {
                 <p className="exp-seq-card-desc">{srv.desc}</p>
 
                 <div className="exp-seq-btn-link">
-                  <span>Khám phá phân cảnh chi tiết</span>
+                  <span>{ecosystemData?.ctaDetail || 'Khám phá phân cảnh chi tiết'}</span>
                   <ArrowUpRight size={18} />
                 </div>
               </div>

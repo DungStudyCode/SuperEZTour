@@ -59,19 +59,25 @@ const CulinaryFilmScene = ({ culinaryData }) => {
 
     mm.add(
       {
-        isDesktop: '(min-width: 993px)',
-        isTablet: '(min-width: 769px) and (max-width: 992px)',
+        isDesktop: '(min-width: 993px) and (min-height: 561px)',
+        isTablet: '(min-width: 769px) and (max-width: 992px) and (min-height: 561px)',
         isMobile: '(max-width: 768px)',
+        isShortHeight: '(max-height: 560px)',
         reduceMotion: '(prefers-reduced-motion: reduce)'
       },
       (context) => {
-        const { isDesktop, isTablet, reduceMotion } = context.conditions;
+        const { isDesktop, isTablet, reduceMotion, isShortHeight } = context.conditions;
         if (reduceMotion) return;
 
         // Long travel distance so each dish has an extended reading dwell plateau
-        const pinDistance = isDesktop ? '+=360%' : isTablet ? '+=260%' : null;
+        const pinDistance =
+          isDesktop && !isShortHeight
+            ? '+=360%'
+            : isTablet && !isShortHeight
+            ? '+=260%'
+            : null;
 
-        if (!pinDistance) return; // Allow natural flowing layout on mobile
+        if (!pinDistance) return; // Allow natural flowing layout on mobile or constrained viewports
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -265,7 +271,9 @@ const CulinaryFilmScene = ({ culinaryData }) => {
           <div className="culinary-menu-badge" ref={badgeRef}>
             <Sparkles size={14} className="culinary-badge-icon" aria-hidden="true" />
             <span>
-              Đã lưu: <strong>{chosenCount}</strong> món vào sở thích ẩm thực
+              {culinaryData?.badgeText
+                ? `${chosenCount} ${culinaryData.badgeText}`
+                : `Đã lưu: ${chosenCount} món vào sở thích ẩm thực`}
             </span>
           </div>
         </header>
@@ -341,7 +349,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
                       <span>DA NANG GASTRONOMY</span>
                     </div>
 
-                    <h3 className="culinary-dish-title">{dish.name}</h3>
+                    <h3 className="culinary-dish-title">{dish.nameKr || dish.name}</h3>
 
                     {dish.slogan && (
                       <p className="culinary-dish-slogan">{dish.slogan}</p>
@@ -351,7 +359,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
 
                     {dish.highlights && dish.highlights.length > 0 && (
                       <div className="culinary-highlights-block">
-                        <span className="highlights-label">Đặc trưng tinh hoa:</span>
+                        <span className="highlights-label">{culinaryData?.highlightsLabel || 'Đặc trưng tinh hoa:'}</span>
                         <div className="culinary-tags-wrap">
                           {dish.highlights.map((h, hIdx) => (
                             <span key={hIdx} className="culinary-tag-badge">
@@ -381,12 +389,12 @@ const CulinaryFilmScene = ({ culinaryData }) => {
                       {isChosen ? (
                         <>
                           <Check size={16} className="btn-icon-check" />
-                          <span>✓ Đã thêm vào thực đơn</span>
+                          <span>✓ {culinaryData?.btnChosen || 'Đã thêm vào thực đơn'}</span>
                         </>
                       ) : (
                         <>
                           <Plus size={16} className="btn-icon-plus" />
-                          <span>+ Thêm món này vào thực đơn</span>
+                          <span>+ {culinaryData?.btnAdd || 'Thêm món này vào thực đơn'}</span>
                         </>
                       )}
                       <span className="btn-sweep-shine" aria-hidden="true" />
@@ -436,7 +444,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
 
                 <div className="nav-item-info">
                   <span className="nav-chapter-idx">{`CH.${dish.chapter || `0${idx + 1}`}`}</span>
-                  <span className="nav-dish-name">{dish.name}</span>
+                  <span className="nav-dish-name">{dish.nameKr || dish.name}</span>
                 </div>
 
                 <span className="nav-active-bar" aria-hidden="true" />

@@ -31,7 +31,7 @@ const Accommodation3DScene = ({ accommodationData }) => {
   const { tripState, preselectService } = useTripBuilder();
 
   const categories = [
-    { id: 'all', label: 'Tất cả lựa chọn' },
+    { id: 'all', label: accommodationData?.allLabel || 'Tất cả lựa chọn' },
     ...(accommodationData?.categories || []),
   ];
 
@@ -141,18 +141,26 @@ const Accommodation3DScene = ({ accommodationData }) => {
 
     mm.add(
       {
-        isDesktop: '(min-width: 769px)',
+        isDesktop: '(min-width: 769px) and (min-height: 561px)',
         isMobile: '(max-width: 768px)',
+        isShortHeight: '(max-height: 560px)',
         reduceMotion: '(prefers-reduced-motion: reduce)',
       },
       (context) => {
-        const { isDesktop, reduceMotion } = context.conditions;
+        const { isDesktop, reduceMotion, isShortHeight } = context.conditions;
 
         if (reduceMotion) {
           return;
         }
 
-        const pinDistance = isDesktop ? '+=240%' : '+=150%';
+        const pinDistance =
+          isDesktop && !isShortHeight
+            ? '+=240%'
+            : !isShortHeight
+            ? '+=150%'
+            : null;
+
+        if (!pinDistance) return; // Natural flow on short viewports
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -559,11 +567,11 @@ const Accommodation3DScene = ({ accommodationData }) => {
                         {isChosen ? (
                           <span className="acc-btn-content">
                             <CheckCircle2 size={14} className="acc-btn-check-icon" />
-                            <span>Đã chọn lưu trú này</span>
+                            <span>{accommodationData?.btnChosen || 'Đã chọn lưu trú này'}</span>
                           </span>
                         ) : (
                           <span className="acc-btn-content">
-                            <span>Chọn vào hành trình</span>
+                            <span>{accommodationData?.btnSelect || 'Chọn vào hành trình'}</span>
                             <ArrowRight size={13} className="acc-btn-arrow-icon" />
                           </span>
                         )}

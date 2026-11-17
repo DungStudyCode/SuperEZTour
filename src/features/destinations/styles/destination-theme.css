@@ -24,9 +24,9 @@
   --dest-muted-light: #9CA3AF;
   
   /* Typography System */
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Manrope', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Be Vietnam Pro', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Noto Serif KR', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Noto Sans KR', 'Manrope', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Noto Sans KR', 'Manrope', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Spacing Scale */
   --dest-section-pad: clamp(4.5rem, 8vw, 8rem);
@@ -59,6 +59,8 @@
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* Global Container */

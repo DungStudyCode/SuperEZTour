@@ -644,10 +644,19 @@
 
 /* Responsive */
 @media (max-width: 992px) {
+  .trip-morph-section {
+    padding: 4rem 0;
+  }
   .trip-morph-layout {
     grid-template-columns: 1fr;
   }
   .trip-morph-summary-pane {
     position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .trip-morph-section {
+    padding: 3rem 0;
   }
 }

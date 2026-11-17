@@ -4,6 +4,7 @@ import { BRAND_CONFIG } from '../../../../constants/brand.config';
 import './DestinationHeader.css';
 
 const DestinationHeader = ({ destination, onOpenConsultModal }) => {
+  const isKorean = destination?.locale === 'ko' || destination?.id === 'da-nang';
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -53,42 +54,44 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
         <div className="dest-header-container">
           {/* Logo & Destination Badge */}
           <div className="dest-header-brand">
-            <a href="/" className="dest-logo-link" title="Về trang chủ Super EZ Tour">
+            <a href="/" className="dest-logo-link" title={isKorean ? 'Super EZ Tour 홈으로' : 'Về trang chủ Super EZ Tour'}>
               <img src={BRAND_CONFIG.logo} alt={BRAND_CONFIG.brandName} className="dest-logo-img" />
             </a>
             <div className="dest-header-divider" />
             <div className="dest-header-cur-dest">
               <span className="dest-header-flag">🇻🇳</span>
-              <span className="dest-header-dest-name">{destination?.name || 'Đà Nẵng'}</span>
-              <span className="dest-header-tag">Private Tour</span>
+              <span className="dest-header-dest-name">
+                {isKorean ? (destination?.nameKr || destination?.name || '다낭') : (destination?.name || 'Đà Nẵng')}
+              </span>
+              <span className="dest-header-tag">{isKorean ? '100% 프라이빗 투어' : 'Private Tour'}</span>
             </div>
           </div>
 
           {/* Desktop Navigation Links */}
           <nav className="dest-header-nav">
             <button type="button" onClick={() => scrollToSection('discover')} className="dest-nav-link">
-              Khám phá
+              {isKorean ? '도시 탐방' : 'Khám phá'}
             </button>
             <button type="button" onClick={() => scrollToSection('services')} className="dest-nav-link">
-              Hệ sinh thái
+              {isKorean ? '서비스 생태계' : 'Hệ sinh thái'}
             </button>
             <button type="button" onClick={() => scrollToSection('attractions')} className="dest-nav-link">
-              Tọa độ
+              {isKorean ? '주요 명소' : 'Tọa độ'}
             </button>
             <button type="button" onClick={() => scrollToSection('itinerary')} className="dest-nav-link">
-              Lịch trình
+              {isKorean ? '추천 일정' : 'Lịch trình'}
             </button>
             <button type="button" onClick={() => scrollToSection('why-private')} className="dest-nav-link">
-              Tour riêng
+              {isKorean ? '프라이빗 가치' : 'Tour riêng'}
             </button>
             <button type="button" onClick={() => scrollToSection('trip-builder')} className="dest-nav-link dest-nav-link-highlight">
-              Thiết kế tour
+              {isKorean ? '맞춤 여행 만들기' : 'Thiết kế tour'}
             </button>
           </nav>
 
           {/* Action CTAs */}
           <div className="dest-header-actions">
-            <a href="tel:19008899" className="dest-header-hotline" title="Gọi hotline 1900 8899">
+            <a href="tel:19008899" className="dest-header-hotline" title={isKorean ? '24시간 한국어 케어 1900 8899' : 'Gọi hotline 1900 8899'}>
               <Phone size={14} className="dest-hotline-icon" />
               <span>1900 8899</span>
             </a>
@@ -97,7 +100,7 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
               onClick={() => scrollToSection('trip-builder')}
               className="dest-header-btn-quote"
             >
-              <span>Thiết kế chuyến đi</span>
+              <span>{isKorean ? '나만의 여행 만들기' : 'Thiết kế chuyến đi'}</span>
               <ArrowUpRight size={16} />
             </button>
             
@@ -119,7 +122,7 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
         <div className="dest-mobile-drawer-backdrop" onClick={() => setIsMobileMenuOpen(false)} />
         <div className="dest-mobile-drawer-content">
           <div className="dest-mobile-drawer-header">
-            <a href="/" className="dest-logo-link" title="Về trang chủ Super EZ Tour">
+            <a href="/" className="dest-logo-link" title={isKorean ? 'Super EZ Tour 홈으로' : 'Về trang chủ Super EZ Tour'}>
               <img src="/images/logo.png" alt="Super EZ Tour" className="dest-logo-img" />
             </a>
             <button type="button" className="dest-mobile-close" onClick={() => setIsMobileMenuOpen(false)}>
@@ -128,41 +131,45 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
           </div>
 
           <div className="dest-mobile-dest-info">
-            <span className="dest-mobile-dest-label">Điểm đến đang xem</span>
-            <h3 className="dest-mobile-dest-title">{destination?.name || 'Đà Nẵng'} — Private Tour 100%</h3>
+            <span className="dest-mobile-dest-label">{isKorean ? '현재 여행지' : 'Điểm đến đang xem'}</span>
+            <h3 className="dest-mobile-dest-title">
+              {isKorean
+                ? `${destination?.nameKr || destination?.name || '다낭'} — 100% 프라이빗 투어`
+                : `${destination?.name || 'Đà Nẵng'} — Private Tour 100%`}
+            </h3>
           </div>
 
           <nav className="dest-mobile-nav">
             <button type="button" onClick={() => scrollToSection('discover')}>
-              <span>01. Khám phá thành phố</span>
+              <span>{isKorean ? '01. 도시 탐방' : '01. Khám phá thành phố'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('services')}>
-              <span>02. Hệ sinh thái 6 dịch vụ</span>
+              <span>{isKorean ? '02. 6대 프리미엄 서비스' : '02. Hệ sinh thái 6 dịch vụ'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('accommodation')}>
-              <span>03. Lưu trú cao cấp</span>
+              <span>{isKorean ? '03. 최고급 호텔 & 리조트' : '03. Lưu trú cao cấp'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('transportation')}>
-              <span>04. Xe dịch vụ riêng</span>
+              <span>{isKorean ? '04. 프라이빗 전용 차량' : '04. Xe dịch vụ riêng'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('attractions')}>
-              <span>05. Tọa độ tham quan</span>
+              <span>{isKorean ? '05. 시그니처 명소 탐방' : '05. Tọa độ tham quan'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('culinary')}>
-              <span>06. Ẩm thực đặc sản</span>
+              <span>{isKorean ? '06. 다낭 미식 큐레이션' : '06. Ẩm thực đặc sản'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('itinerary')}>
-              <span>07. Lịch trình đề xuất</span>
+              <span>{isKorean ? '07. 추천 맞춤 일정' : '07. Lịch trình đề xuất'}</span>
               <ChevronRight size={18} />
             </button>
             <button type="button" onClick={() => scrollToSection('trip-builder')} className="dest-mobile-nav-featured">
-              <span>08. Trình thiết kế chuyến đi</span>
+              <span>{isKorean ? '08. 나만의 여행 플래너' : '08. Trình thiết kế chuyến đi'}</span>
               <ArrowUpRight size={18} />
             </button>
           </nav>
@@ -170,10 +177,10 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
           <div className="dest-mobile-footer">
             <a href="tel:19008899" className="dest-mobile-hotline-btn">
               <Phone size={16} />
-              <span>Hotline 24/7: 1900 8899</span>
+              <span>{isKorean ? '24시간 한국어 케어: 1900 8899' : 'Hotline 24/7: 1900 8899'}</span>
             </a>
             <a href="/" className="dest-mobile-back-home">
-              ← Quay lại trang chủ Super EZ Tour
+              {isKorean ? '← Super EZ Tour 홈으로 이동' : '← Quay lại trang chủ Super EZ Tour'}
             </a>
           </div>
         </div>

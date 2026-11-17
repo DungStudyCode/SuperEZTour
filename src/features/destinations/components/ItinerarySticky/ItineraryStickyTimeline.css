@@ -1,327 +1,986 @@
 /* ==========================================================================
-   Scene 11: Interactive Itinerary Sticky Timeline Styling
-   Sticky Day Chapters, SVG Path Linking & Scene Crossfade
+   Scene 11: A Journey Worth Remembering — Cinematic Travel Journal
+   All selectors strictly scoped under .itinerary-sticky-timeline
    ========================================================================== */
 
-.itinerary-sticky-scene {
+.itinerary-sticky-timeline {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
-  background-color: #061426;
-  color: #FFFFFF;
+  background: 
+    radial-gradient(ellipse at 50% 12%, rgba(204, 145, 73, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 80% 65%, rgba(255, 104, 30, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #080F1C 0%, #0D1828 45%, #101D30 85%, #080F1C 100%);
+  color: #F7F3E8;
   display: flex;
   align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: clamp(3rem, 6vh, 4.5rem) 0;
 }
 
-.itinerary-bg-ambience {
+/* --------------------------------------------------------------------------
+   1. Ambient Vignette & Warm Atmospheric Lighting
+   -------------------------------------------------------------------------- */
+.itinerary-sticky-timeline .journal-ambient-vignette {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  pointer-events: none;
   z-index: 1;
 }
 
-.itinerary-bg-crossfade-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.25;
-  filter: blur(12px);
-  transition: opacity 0.5s ease;
-}
-
-.itinerary-bg-vignette {
+.itinerary-sticky-timeline .journal-glow-orb {
   position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 75% 25%, rgba(255, 104, 30, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 20% 80%, rgba(255, 181, 43, 0.09) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(6, 20, 38, 0.35) 0%, rgba(8, 29, 66, 0.95) 85%);
+  top: 12%;
+  left: 25%;
+  width: 55%;
+  height: 45%;
+  background: radial-gradient(ellipse at center, rgba(212, 180, 120, 0.06) 0%, rgba(204, 145, 73, 0.02) 50%, transparent 75%);
+  filter: blur(60px);
 }
 
-.itinerary-bg-ambience::before {
-  content: '';
+.itinerary-sticky-timeline .journal-warm-haze {
   position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 70px 70px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.6;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(8, 15, 28, 0.85) 0%, transparent 100%);
 }
 
-/* Content */
-.itinerary-sticky-content {
+/* --------------------------------------------------------------------------
+   2. Content Container & Editorial Header
+   -------------------------------------------------------------------------- */
+.itinerary-sticky-timeline .journal-content-wrapper {
   position: relative;
   z-index: 10;
   width: 100%;
-  padding: 4rem 0 2rem;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3.5vw, 2.5rem);
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+  box-sizing: border-box;
 }
 
-.itinerary-sticky-header {
+.itinerary-sticky-timeline .journal-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 2.25rem;
-  gap: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.itinerary-kicker {
-  color: #FFB52B;
+.itinerary-sticky-timeline .journal-header-left {
+  max-width: 700px;
 }
 
-.itinerary-sticky-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  font-weight: 700;
-  color: #FFFFFF;
-  margin: 0;
-}
-
-/* Length Tabs */
-.itinerary-length-tabs {
-  display: flex;
+.itinerary-sticky-timeline .journal-kicker {
+  display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  background: rgba(14, 42, 89, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.4rem 0.6rem;
-  border-radius: 9999px;
-  backdrop-filter: blur(8px);
+  gap: 0.45rem;
+  color: #D4B478;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
 }
 
-.itinerary-len-btn {
-  display: flex;
+.itinerary-sticky-timeline .journal-kicker-icon {
+  color: #FF681F;
+}
+
+.itinerary-sticky-timeline .journal-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  color: #F7F3E8;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.itinerary-sticky-timeline .journal-overview-text {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+  margin: 0.45rem 0 0;
+}
+
+/* Segmented Package Control */
+.itinerary-sticky-timeline .journal-package-segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 29, 48, 0.75);
+  border: 1px solid rgba(212, 180, 120, 0.25);
+  padding: 0.35rem 0.45rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.itinerary-sticky-timeline .journal-package-btn {
+  display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: none;
+  background: transparent;
   border: none;
   color: rgba(255, 255, 255, 0.75);
   font-family: 'Manrope', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
-  padding: 0.45rem 1rem;
+  padding: 0.5rem 1.05rem;
   border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-.itinerary-len-btn:hover {
-  color: #FFFFFF;
+.itinerary-sticky-timeline .journal-package-btn:hover {
+  color: #F7F3E8;
+  background: rgba(212, 180, 120, 0.12);
 }
 
-.itinerary-len-btn-active {
-  background: #FF681E;
-  color: #FFFFFF;
-  box-shadow: 0 4px 15px rgba(255, 104, 30, 0.4);
+.itinerary-sticky-timeline .journal-package-btn.package-btn-active {
+  background: #D4B478;
+  color: #080F1C;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(212, 180, 120, 0.35);
 }
 
-/* Chapters Grid */
-.itinerary-chapters-grid {
+.itinerary-sticky-timeline .pkg-clock-icon {
+  opacity: 0.75;
+}
+
+.itinerary-sticky-timeline .journal-package-btn.package-btn-active .pkg-clock-icon {
+  opacity: 1;
+}
+
+.itinerary-sticky-timeline .pkg-popular-badge {
+  font-size: 0.68rem;
+  background: rgba(255, 104, 30, 0.2);
+  color: #FF681F;
+  border: 1px solid rgba(255, 104, 30, 0.4);
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  margin-left: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+.itinerary-sticky-timeline .package-btn-active .pkg-popular-badge {
+  background: rgba(8, 15, 28, 0.15);
+  color: #080F1C;
+  border-color: rgba(8, 15, 28, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   3. Main Journal Stage: 58% Visual Showcase / 42% Editorial Narrative
+   -------------------------------------------------------------------------- */
+.itinerary-sticky-timeline .journal-stage-grid {
   display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: 3.5rem;
-  align-items: center;
+  grid-template-columns: 1.35fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Timeline Column */
-.itinerary-timeline-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.itinerary-day-counter-badge {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.itinerary-chapter-lbl {
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #FF681E;
-}
-
-.itinerary-chapter-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  font-weight: 700;
-  color: #FFB52B;
-  line-height: 1;
-}
-
-.itinerary-chapter-num i {
-  font-size: 1.8rem;
-  font-style: normal;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.itinerary-day-pills-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-}
-
-.itinerary-day-pill {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background: rgba(14, 42, 89, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  padding: 0.75rem 1.15rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.itinerary-day-pill:hover {
-  border-color: #FFB52B;
-  background: rgba(14, 42, 89, 0.85);
-}
-
-.itinerary-day-pill-active {
-  background: #081D42;
-  border-color: #FF681E;
-  box-shadow: 0 4px 20px rgba(255, 104, 30, 0.25);
-}
-
-.itinerary-pill-circle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #FFB52B;
-}
-
-.itinerary-day-pill-active .itinerary-pill-circle {
-  background: #FF681E;
-  color: #FFFFFF;
-}
-
-.itinerary-pill-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.itinerary-pill-text strong {
-  font-size: 0.9rem;
-  color: #FFFFFF;
-}
-
-.itinerary-pill-text span {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.itinerary-apply-cta {
-  align-self: flex-start;
-  font-size: 0.95rem;
-}
-
-/* Card */
-.itinerary-chapter-card {
-  background: rgba(14, 42, 89, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(16px);
-  display: flex;
-  flex-direction: column;
-}
-
-.itinerary-chapter-img-box {
+/* Left: Stacked Cinematic Photography Slides */
+.itinerary-sticky-timeline .journal-visual-showcase {
   position: relative;
-  height: 240px;
+  width: 100%;
+  min-height: clamp(500px, 60vh, 590px);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #080F1C;
+  border: 1px solid rgba(212, 180, 120, 0.22);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.itinerary-sticky-timeline .journal-visual-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  will-change: opacity, transform, clip-path;
+}
+
+.itinerary-sticky-timeline .journal-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
-.itinerary-chapter-img-box img {
+.itinerary-sticky-timeline .journal-hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  object-position: center;
+  display: block;
+  transform: scale(1.02);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
-.itinerary-chapter-gradient {
+.itinerary-sticky-timeline .journal-visual-showcase:hover .journal-hero-img {
+  transform: scale(1.05);
+}
+
+.itinerary-sticky-timeline .journal-img-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(8, 29, 66, 0.95) 100%);
+  background: 
+    linear-gradient(180deg, rgba(8, 15, 28, 0.45) 0%, transparent 40%, rgba(8, 15, 28, 0.9) 100%),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(8, 15, 28, 0.5) 100%);
+  pointer-events: none;
 }
 
-.itinerary-chapter-tag {
+/* Top Floating Meta */
+.itinerary-sticky-timeline .journal-floating-top {
   position: absolute;
   top: 1.25rem;
   left: 1.25rem;
-  background: rgba(8, 29, 66, 0.85);
-  color: #FFB52B;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 181, 43, 0.4);
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.3rem 0.75rem;
-  border-radius: 9999px;
+  right: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: space-between;
+  gap: 0.5rem;
+  z-index: 5;
 }
 
-.itinerary-chapter-body {
-  padding: 2rem 2.25rem;
-}
-
-.itinerary-chapter-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.45rem;
+.itinerary-sticky-timeline .journal-chapter-tag {
+  background: rgba(8, 15, 28, 0.85);
+  backdrop-filter: blur(10px);
+  color: #D4B478;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #FFFFFF;
-  margin: 0 0 1.25rem;
-  line-height: 1.35;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 180, 120, 0.3);
 }
 
-.itinerary-chapter-highlights {
+.itinerary-sticky-timeline .journal-location-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(204, 145, 73, 0.2);
+  backdrop-filter: blur(8px);
+  color: #F7F3E8;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.itinerary-sticky-timeline .loc-pin-icon {
+  color: #FF681F;
+}
+
+/* Bottom Day Title Strip on Image */
+.itinerary-sticky-timeline .journal-bottom-strip {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.25rem;
 }
 
-.itinerary-hl-item {
+.itinerary-sticky-timeline .journal-day-subhead {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #D4B478;
+}
+
+.itinerary-sticky-timeline .journal-strip-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-weight: 700;
+  color: #F7F3E8;
+  margin: 0;
+  line-height: 1.35;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* --------------------------------------------------------------------------
+   4. Right Editorial Narrative Column
+   -------------------------------------------------------------------------- */
+.itinerary-sticky-timeline .journal-editorial-aside {
+  position: relative;
+  width: 100%;
+  min-height: clamp(500px, 60vh, 590px);
+  background: rgba(13, 24, 40, 0.82);
+  border: 1px solid rgba(212, 180, 120, 0.22);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 220, 140, 0.12);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.itinerary-sticky-timeline .journal-editorial-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 2vw, 1.85rem);
+  box-sizing: border-box;
+  will-change: opacity, transform;
+}
+
+.itinerary-sticky-timeline .journal-story-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.itinerary-sticky-timeline .journal-day-number-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #D4B478;
+  text-transform: uppercase;
+}
+
+.itinerary-sticky-timeline .pretitle-dot {
+  color: rgba(212, 180, 120, 0.5);
+}
+
+.itinerary-sticky-timeline .journal-pretitle-highlight {
+  color: #FF681F;
+}
+
+.itinerary-sticky-timeline .journal-narrative-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+  font-weight: 700;
+  color: #F7F3E8;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Curated Activity Highlights */
+.itinerary-sticky-timeline .journal-activities-block {
+  margin: 0.35rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.itinerary-sticky-timeline .activities-kicker {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #B8AB91;
+}
+
+.itinerary-sticky-timeline .journal-activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.itinerary-sticky-timeline .journal-activity-item {
   display: flex;
   align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.88rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
+  gap: 0.65rem;
+  background: rgba(8, 15, 28, 0.45);
+  border: 1px solid rgba(212, 180, 120, 0.14);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.25s ease;
 }
 
-.itinerary-hl-icon {
-  color: #10B981;
+.itinerary-sticky-timeline .journal-activity-item:hover {
+  background: rgba(204, 145, 73, 0.1);
+  border-color: rgba(212, 180, 120, 0.3);
+}
+
+.itinerary-sticky-timeline .activity-icon-wrap {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(212, 180, 120, 0.14);
+  border: 1px solid rgba(212, 180, 120, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D4B478;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .itinerary-chapters-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+.itinerary-sticky-timeline .activity-text {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.45;
+}
+
+/* Action Footer CTA */
+.itinerary-sticky-timeline .journal-cta-footer {
+  margin-top: 0.75rem;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.itinerary-sticky-timeline .journal-action-cta {
+  position: relative;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1.5px solid #D4B478;
+  color: #D4B478;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.itinerary-sticky-timeline .journal-action-cta:hover {
+  background: #D4B478;
+  color: #080F1C;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(212, 180, 120, 0.4);
+}
+
+.itinerary-sticky-timeline .cta-arrow-icon {
+  transition: transform 0.25s ease;
+}
+
+.itinerary-sticky-timeline .journal-action-cta:hover .cta-arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Sweep Shine Effect */
+.itinerary-sticky-timeline .btn-sweep-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.itinerary-sticky-timeline .journal-action-cta:hover .btn-sweep-shine {
+  left: 140%;
+  transition: left 0.75s ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   5. Bottom Interactive Signature Timeline & SVG Progress Line
+   -------------------------------------------------------------------------- */
+.itinerary-sticky-timeline .journal-signature-timeline {
+  position: relative;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.itinerary-sticky-timeline .journal-svg-track-container {
+  position: absolute;
+  top: 18px;
+  left: calc(50% / var(--timeline-days-count, 4));
+  right: calc(50% / var(--timeline-days-count, 4));
+  height: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.itinerary-sticky-timeline .journal-svg-track {
+  width: 100%;
+  height: 4px;
+  display: block;
+  overflow: visible;
+}
+
+.itinerary-sticky-timeline .track-bg-line {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 2;
+}
+
+.itinerary-sticky-timeline .track-progress-line {
+  stroke: #D4B478;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 4px rgba(212, 180, 120, 0.45));
+  will-change: stroke-dashoffset;
+}
+
+.itinerary-sticky-timeline .journal-milestones-row {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--timeline-days-count, 4), 1fr);
+  width: 100%;
+}
+
+.itinerary-sticky-timeline .milestone-node-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  width: 100%;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+
+.itinerary-sticky-timeline .milestone-node-btn:hover {
+  transform: translateY(-2px);
+}
+
+.itinerary-sticky-timeline .node-circle-wrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #080F1C;
+  border: 1.5px solid rgba(212, 180, 120, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+}
+
+.itinerary-sticky-timeline .node-number {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.25s ease;
+}
+
+.itinerary-sticky-timeline .milestone-node-btn.node-active .node-circle-wrap {
+  background: #D4B478;
+  border-color: #D4B478;
+  box-shadow: 0 0 20px rgba(212, 180, 120, 0.55);
+}
+
+.itinerary-sticky-timeline .milestone-node-btn.node-active .node-number {
+  color: #080F1C;
+  font-weight: 800;
+}
+
+.itinerary-sticky-timeline .node-pulse-ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1.5px solid #D4B478;
+  animation: journalRingPulse 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes journalRingPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
   }
-  .itinerary-chapter-img-box {
-    height: 180px;
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.itinerary-sticky-timeline .milestone-node-btn.node-past .node-circle-wrap {
+  border-color: #D4B478;
+  background: rgba(212, 180, 120, 0.15);
+}
+
+.itinerary-sticky-timeline .milestone-node-btn.node-past .node-number {
+  color: #D4B478;
+}
+
+.itinerary-sticky-timeline .node-label-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.itinerary-sticky-timeline .node-day-lbl {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #D4B478;
+  text-transform: uppercase;
+}
+
+.itinerary-sticky-timeline .node-dest-lbl {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itinerary-sticky-timeline .milestone-node-btn.node-active .node-dest-lbl {
+  color: #F7F3E8;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   6. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+/* Tablet (<= 992px) */
+@media (max-width: 992px) {
+  .itinerary-sticky-timeline .journal-stage-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-showcase {
+    min-height: 360px;
+  }
+
+  .itinerary-sticky-timeline .journal-editorial-aside {
+    min-height: 480px;
+  }
+
+  .itinerary-sticky-timeline .node-dest-lbl {
+    max-width: 100px;
+  }
+}
+
+/* Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  .itinerary-sticky-timeline {
+    padding: 2.5rem 0;
+    min-height: auto;
+  }
+
+  .itinerary-sticky-timeline .journal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .itinerary-sticky-timeline .journal-package-segmented {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .itinerary-sticky-timeline .journal-title {
+    font-size: 1.65rem;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-showcase,
+  .itinerary-sticky-timeline .journal-editorial-aside {
+    min-height: auto;
+    height: auto;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-slide,
+  .itinerary-sticky-timeline .journal-editorial-slide {
+    position: relative;
+    display: none;
+    inset: auto;
+    height: auto;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-slide.slide-active-day,
+  .itinerary-sticky-timeline .journal-editorial-slide.slide-active-day {
+    display: flex;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-slide.slide-active-day .journal-img-wrap {
+    min-height: 260px;
+    height: 260px;
+  }
+
+  .itinerary-sticky-timeline .journal-editorial-aside {
+    padding: 1.25rem;
+  }
+
+  .itinerary-sticky-timeline .journal-svg-track-container {
+    display: none;
+  }
+
+  .itinerary-sticky-timeline .journal-milestones-row {
+    overflow-x: auto;
+    gap: 1.25rem;
+    padding-bottom: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .itinerary-sticky-timeline .milestone-node-btn {
+    flex-shrink: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Accessibility: prefers-reduced-motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .itinerary-sticky-timeline .journal-hero-img,
+  .itinerary-sticky-timeline .journal-action-cta,
+  .itinerary-sticky-timeline .milestone-node-btn {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .itinerary-sticky-timeline .btn-sweep-shine,
+  .itinerary-sticky-timeline .node-pulse-ring {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Height-Aware Responsive System (Viewport Height <= 850px, <= 700px, <= 560px)
+   Guarantees 100% visibility of Header, Stage, CTA, and Timeline while pinned
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) and (max-height: 850px) {
+  .itinerary-sticky-timeline {
+    padding: clamp(0.75rem, 2vh, 1.25rem) 0;
+  }
+
+  .itinerary-sticky-timeline .journal-content-wrapper {
+    gap: 0.75rem;
+  }
+
+  .itinerary-sticky-timeline .journal-header {
+    gap: 0.65rem;
+  }
+
+  .itinerary-sticky-timeline .journal-kicker {
+    margin-bottom: 0.15rem;
+    font-size: 0.72rem;
+  }
+
+  .itinerary-sticky-timeline .journal-title {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  }
+
+  .itinerary-sticky-timeline .journal-overview-text {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin: 0.2rem 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .itinerary-sticky-timeline .journal-stage-grid {
+    gap: 1.25rem;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-showcase,
+  .itinerary-sticky-timeline .journal-editorial-aside {
+    min-height: clamp(330px, 46vh, 410px);
+  }
+
+  .itinerary-sticky-timeline .journal-editorial-slide {
+    padding: 0.85rem 1.15rem;
+  }
+
+  .itinerary-sticky-timeline .journal-story-header {
+    gap: 0.25rem;
+  }
+
+  .itinerary-sticky-timeline .journal-narrative-title {
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    line-height: 1.25;
+  }
+
+  .itinerary-sticky-timeline .journal-activities-block {
+    margin: 0.2rem 0;
+    gap: 0.25rem;
+  }
+
+  .itinerary-sticky-timeline .journal-activities-list {
+    gap: 0.3rem;
+  }
+
+  .itinerary-sticky-timeline .journal-activity-item {
+    padding: 0.35rem 0.55rem;
+    gap: 0.45rem;
+  }
+
+  .itinerary-sticky-timeline .activity-icon-wrap {
+    width: 22px;
+    height: 22px;
+  }
+
+  .itinerary-sticky-timeline .activity-text {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .itinerary-sticky-timeline .journal-cta-footer {
+    margin-top: 0.45rem;
+  }
+
+  .itinerary-sticky-timeline .journal-action-cta {
+    padding: 0.55rem 1rem;
+    min-height: 38px;
+    font-size: 0.8rem;
+  }
+
+  .itinerary-sticky-timeline .journal-signature-timeline {
+    margin-top: 0.15rem;
+  }
+
+  .itinerary-sticky-timeline .journal-svg-track-container {
+    top: 14px;
+  }
+
+  .itinerary-sticky-timeline .node-circle-wrap {
+    width: 28px;
+    height: 28px;
+  }
+
+  .itinerary-sticky-timeline .node-number {
+    font-size: 0.72rem;
+  }
+
+  .itinerary-sticky-timeline .node-day-lbl {
+    font-size: 0.62rem;
+  }
+
+  .itinerary-sticky-timeline .node-dest-lbl {
+    font-size: 0.68rem;
+    max-width: 120px;
+  }
+}
+
+@media (min-width: 769px) and (max-height: 700px) {
+  .itinerary-sticky-timeline {
+    padding: 0.5rem 0;
+  }
+
+  .itinerary-sticky-timeline .journal-content-wrapper {
+    gap: 0.45rem;
+  }
+
+  .itinerary-sticky-timeline .journal-title {
+    font-size: 1.3rem;
+  }
+
+  .itinerary-sticky-timeline .journal-overview-text {
+    display: none;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-showcase,
+  .itinerary-sticky-timeline .journal-editorial-aside {
+    min-height: clamp(270px, 42vh, 320px);
+  }
+
+  .itinerary-sticky-timeline .journal-narrative-title {
+    font-size: 1.15rem;
+  }
+
+  .itinerary-sticky-timeline .journal-editorial-slide {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .itinerary-sticky-timeline .journal-activities-list {
+    gap: 0.2rem;
+  }
+
+  .itinerary-sticky-timeline .journal-activity-item {
+    padding: 0.25rem 0.45rem;
+  }
+
+  .itinerary-sticky-timeline .journal-activity-item:nth-child(n+4) {
+    display: none;
+  }
+
+  .itinerary-sticky-timeline .node-circle-wrap {
+    width: 24px;
+    height: 24px;
+  }
+
+  .itinerary-sticky-timeline .journal-svg-track-container {
+    top: 12px;
+  }
+}
+
+/* Also support natural flowing layout when height <= 560px on any width */
+@media (max-height: 560px) {
+  .itinerary-sticky-timeline {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 2rem 0;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-showcase,
+  .itinerary-sticky-timeline .journal-editorial-aside {
+    min-height: auto;
+    height: auto;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-slide,
+  .itinerary-sticky-timeline .journal-editorial-slide {
+    position: relative;
+    display: none;
+    inset: auto;
+    height: auto;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-slide.slide-active-day,
+  .itinerary-sticky-timeline .journal-editorial-slide.slide-active-day {
+    display: flex;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .itinerary-sticky-timeline .journal-visual-slide.slide-active-day .journal-img-wrap {
+    min-height: 220px;
+    height: 220px;
+  }
+
+  .itinerary-sticky-timeline .journal-svg-track-container {
+    display: none;
   }
 }

@@ -655,7 +655,7 @@ const AirplanePortalScene = ({ heroData }) => {
                 </span>
                 <span className="dest-badge dest-badge-white">
                   <ShieldCheck size={13} />
-                  <span>Tour Riêng 100% · Không Ghép Đoàn</span>
+                  <span>{heroData?.badgeSecondary || 'Tour Riêng 100% · Không Ghép Đoàn'}</span>
                 </span>
               </div>
 
@@ -696,7 +696,7 @@ const AirplanePortalScene = ({ heroData }) => {
                 }}
               >
                 <span className="cta-light-sweep-beam" aria-hidden="true" />
-                <span>Thiết kế chuyến đi riêng</span>
+                <span>{heroData?.ctaPrimary || 'Thiết kế chuyến đi riêng'}</span>
                 <Compass size={18} className="cta-icon-rotate" />
               </button>
 
@@ -706,7 +706,7 @@ const AirplanePortalScene = ({ heroData }) => {
                 ref={ctaGhostRef}
                 onClick={scrollToNext}
               >
-                <span>Khám phá Đà Nẵng</span>
+                <span>{heroData?.ctaGhost || 'Khám phá Đà Nẵng'}</span>
                 <ChevronRight size={17} className="cta-icon-slide" />
               </button>
             </div>

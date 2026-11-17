@@ -94,7 +94,7 @@ const LocalGuideDocuScene = ({ guideData }) => {
             />
             <div className="guide-docu-badge">
               <UserCheck size={14} />
-              <span>Chuyên viên bản địa miền Trung</span>
+              <span>{guideData?.badgeExpert || 'Chuyên viên bản địa miền Trung'}</span>
             </div>
           </div>
 
@@ -112,7 +112,7 @@ const LocalGuideDocuScene = ({ guideData }) => {
             </p>
             <div className="guide-docu-quote-meta">
               <CheckCircle2 size={15} className="guide-check-gold" />
-              <span>Cam kết người bạn đồng hành 1:1 tận tâm</span>
+              <span>{guideData?.badgeCommitment || 'Cam kết người bạn đồng hành 1:1 tận tâm'}</span>
             </div>
           </div>
         </div>
@@ -159,7 +159,7 @@ const LocalGuideDocuScene = ({ guideData }) => {
               className="dest-btn-primary guide-docu-cta-btn"
               onClick={handleRequestGuide}
             >
-              <span>Yêu cầu hướng dẫn viên riêng</span>
+              <span>{guideData?.ctaRequest || 'Yêu cầu hướng dẫn viên riêng'}</span>
               <ArrowRight size={16} />
             </button>
           </div>

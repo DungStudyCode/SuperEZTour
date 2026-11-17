@@ -26,11 +26,15 @@ const CustomerStories = ({ storiesData }) => {
           </span>
 
           <h2 className="dest-title-editorial stories-title">
-            Những Kỷ Niệm Thật Cùng Super EZ Tour
+            {stories[0]?.quote?.match(/[\uac00-\ud7af]/)
+              ? '고객들이 직접 전하는 생생한 여행 이야기'
+              : 'Những Kỷ Niệm Thật Cùng Super EZ Tour'}
           </h2>
 
           <p className="dest-subtitle stories-sub">
-            Lắng nghe cảm nhận chân thực từ những du khách đã đồng hành cùng chúng tôi tại Đà Nẵng.
+            {stories[0]?.quote?.match(/[\uac00-\ud7af]/)
+              ? 'Super EZ Tour와 함께 특별한 다낭을 경험한 실제 고객님들의 솔직한 후기.'
+              : 'Lắng nghe cảm nhận chân thực từ những du khách đã đồng hành cùng chúng tôi tại Đà Nẵng.'}
           </p>
         </div>
 

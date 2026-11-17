@@ -44,10 +44,14 @@ export const DEFAULT_TRIP_STATE = {
 };
 
 export const TripBuilderProvider = ({ children, destinationConfig }) => {
+  const isKorean = destinationConfig?.locale === 'ko' || destinationConfig?.id === 'da-nang';
+
   const [tripState, setTripState] = useState(() => ({
     ...DEFAULT_TRIP_STATE,
-    destination: destinationConfig?.name || 'Đà Nẵng',
-    destinationSlug: destinationConfig?.slug || 'da-nang'
+    destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
+    destinationSlug: destinationConfig?.slug || 'da-nang',
+    guideLanguage: isKorean ? '한국어 (전담)' : 'Tiếng Việt',
+    departureCity: isKorean ? '인천 (ICN)' : 'Hà Nội'
   }));
 
   const setStep = useCallback((step) => {
@@ -136,14 +140,16 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
     setTripState((prev) => ({
       ...prev,
       durationDays: itinerary.daysCount || 4,
-      specialRequests: `Yêu cầu theo khung lịch trình đề xuất: ${itinerary.title}`,
+      specialRequests: isKorean
+        ? `추천 맞춤 일정 기준 문의: ${itinerary.title}`
+        : `Yêu cầu theo khung lịch trình đề xuất: ${itinerary.title}`,
       currentStep: 1
     }));
     const builderElement = document.getElementById('trip-builder');
     if (builderElement) {
       builderElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, []);
+  }, [isKorean]);
 
   // Submit form handler
   const submitTrip = useCallback((onAddQuoteCallback) => {

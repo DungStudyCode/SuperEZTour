@@ -17,7 +17,17 @@ const Flight3DScene = ({ flightData }) => {
   const { preselectService } = useTripBuilder();
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      isPinReady: '(min-width: 769px) and (min-height: 561px)',
+      isMobileOrShort: '(max-width: 768px), (max-height: 560px)',
+    }, (context) => {
+      const { isPinReady } = context.conditions;
+      if (!isPinReady) return;
+
+      if (!containerRef.current) return;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -64,7 +74,7 @@ const Flight3DScene = ({ flightData }) => {
       );
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   const handleFlightConsult = () => {
@@ -106,7 +116,7 @@ const Flight3DScene = ({ flightData }) => {
           <div className="beacon-pin">
             <span>DAD</span>
           </div>
-          <span className="beacon-name">Sân bay Quốc tế Đà Nẵng</span>
+          <span className="beacon-name">{flightData?.hubName || 'Sân bay Quốc tế Đà Nẵng'}</span>
         </div>
       </div>
 
@@ -119,7 +129,7 @@ const Flight3DScene = ({ flightData }) => {
           </span>
           <h2 className="flight-3d-title">Your Journey Begins Here.</h2>
           <p className="flight-3d-subtitle">
-            Hành trình bắt đầu từ bầu trời · Đồng bộ đón tiễn sân bay bằng xe riêng không phải chờ đợi.
+            {flightData?.subtitle || 'Hành trình bắt đầu từ bầu trời · Đồng bộ đón tiễn sân bay bằng xe riêng không phải chờ đợi.'}
           </p>
         </div>
 
@@ -128,8 +138,8 @@ const Flight3DScene = ({ flightData }) => {
           {/* Domestic */}
           <div className="flight-3d-card">
             <div className="flight-3d-card-head">
-              <span className="flight-3d-tag">Đường bay nội địa</span>
-              <h3>Kết Nối Toàn Quốc Đến DAD</h3>
+              <span className="flight-3d-tag">{flightData?.domesticTag || 'Đường bay nội địa'}</span>
+              <h3>{flightData?.domesticTitle || 'Kết Nối Toàn Quốc Đến DAD'}</h3>
             </div>
             <div className="flight-3d-routes-list">
               {(flightData?.domesticRoutes || []).map((r, i) => (
@@ -151,8 +161,8 @@ const Flight3DScene = ({ flightData }) => {
           {/* International */}
           <div className="flight-3d-card">
             <div className="flight-3d-card-head">
-              <span className="flight-3d-tag flight-tag-intl">Đường bay quốc tế</span>
-              <h3>Chuyến Bay Thẳng Quốc Tế</h3>
+              <span className="flight-3d-tag flight-tag-intl">{flightData?.intlTag || 'Đường bay quốc tế'}</span>
+              <h3>{flightData?.intlTitle || 'Chuyến Bay Thẳng Quốc Tế'}</h3>
             </div>
             <div className="flight-3d-routes-list">
               {(flightData?.intlRoutes || []).map((r, i) => (
@@ -163,7 +173,7 @@ const Flight3DScene = ({ flightData }) => {
                     <Plane size={12} className="flight-3d-plane-micro" />
                   </div>
                   <span className="flight-3d-city flight-3d-dest">{r.to}</span>
-                  <span className="flight-3d-direct-badge">Bay thẳng</span>
+                  <span className="flight-3d-direct-badge">{flightData?.directBadge || 'Bay thẳng'}</span>
                 </div>
               ))}
             </div>
@@ -174,14 +184,14 @@ const Flight3DScene = ({ flightData }) => {
         <div className="flight-3d-bottom-strip">
           <div className="flight-3d-perks-left">
             <CheckCircle2 size={16} className="flight-check-gold" />
-            <span>Tài xế cầm bảng tên đón ngay sảnh đến DAD · Xe riêng máy lạnh 100%</span>
+            <span>{flightData?.perkBar || 'Tài xế cầm bảng tên đón ngay sảnh đến DAD · Xe riêng máy lạnh 100%'}</span>
           </div>
           <button
             type="button"
             className="dest-btn-primary flight-3d-btn"
             onClick={handleFlightConsult}
           >
-            <span>Tư vấn chuyến bay & xe đón DAD</span>
+            <span>{flightData?.ctaConsult || 'Tư vấn chuyến bay & xe đón DAD'}</span>
             <ArrowRight size={16} />
           </button>
         </div>

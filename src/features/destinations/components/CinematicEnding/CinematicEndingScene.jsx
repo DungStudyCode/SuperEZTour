@@ -80,7 +80,7 @@ const CinematicEndingScene = ({ ctaData }) => {
         </p>
 
         <p className="ending-desc">
-          Không có hai chuyến đi nào giống nhau · Hãy để Super EZ Tour cùng bạn kiến tạo một hành trình độc bản chỉ thuộc về gia đình bạn.
+          {ctaData?.description || 'Không có hai chuyến đi nào giống nhau · Hãy để Super EZ Tour cùng bạn kiến tạo một hành trình độc bản chỉ thuộc về gia đình bạn.'}
         </p>
 
         <div className="ending-action-row">
@@ -89,13 +89,13 @@ const CinematicEndingScene = ({ ctaData }) => {
             className="dest-btn-primary ending-cta-main"
             onClick={scrollToBuilder}
           >
-            <span>Bắt đầu thiết kế chuyến đi</span>
+            <span>{ctaData?.actions?.primary || 'Bắt đầu thiết kế chuyến đi'}</span>
             <Compass size={18} />
           </button>
 
           <a href="tel:19008899" className="dest-btn-ghost ending-cta-hotline">
             <Phone size={16} />
-            <span>Hotline 24/7: 1900 8899</span>
+            <span>{ctaData?.actions?.secondary || 'Hotline 24/7: 1900 8899'}</span>
           </a>
 
           <a
@@ -105,7 +105,7 @@ const CinematicEndingScene = ({ ctaData }) => {
             className="ending-cta-zalo"
           >
             <MessageCircle size={16} />
-            <span>Tư vấn qua Zalo</span>
+            <span>{ctaData?.actions?.kakao || ctaData?.actions?.zalo || 'Tư vấn qua Zalo'}</span>
           </a>
         </div>
       </div>

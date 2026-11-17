@@ -276,3 +276,29 @@
     min-height: 440px;
   }
 }
+
+/* Height-Aware Responsive System (Viewport Height <= 850px) */
+@media (min-width: 769px) and (max-height: 850px) {
+  .guide-docu-scene {
+    padding: clamp(1.5rem, 3vh, 2.5rem) 0;
+  }
+  .guide-docu-container {
+    gap: 2rem;
+  }
+  .guide-docu-title {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    margin-bottom: 0.5rem;
+  }
+  .guide-docu-quote {
+    padding: 0.85rem 1.15rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  .guide-docu-pillars-grid {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .guide-docu-visual-col {
+    min-height: clamp(320px, 48vh, 420px);
+  }
+}

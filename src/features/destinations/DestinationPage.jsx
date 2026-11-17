@@ -35,7 +35,16 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
   useEffect(() => {
     // Dynamic SEO Metadata
     const origTitle = document.title;
-    document.title = `${destination.name} — Immersive 3D Experience | Super EZ Tour - Tour Riêng 100%`;
+    const origLang = document.documentElement.lang;
+    const isKorean = destination.locale === 'ko' || destination.id === 'da-nang';
+
+    document.title = isKorean
+      ? `${destination.nameKr || destination.name} — 럭셔리 프라이빗 맞춤 여행 | Super EZ Tour`
+      : `${destination.name} — Immersive 3D Experience | Super EZ Tour - Tour Riêng 100%`;
+
+    if (isKorean) {
+      document.documentElement.lang = 'ko';
+    }
 
     // Initialize Lenis Smooth Scroll synchronized with GSAP ScrollTrigger
     const lenis = initSmoothScroll();
@@ -50,6 +59,7 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
       clearTimeout(timer);
       destroySmoothScroll();
       document.title = origTitle;
+      document.documentElement.lang = origLang || 'vi';
     };
   }, [destination]);
 

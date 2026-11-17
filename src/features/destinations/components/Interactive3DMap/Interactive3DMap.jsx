@@ -489,15 +489,23 @@ const Interactive3DMap = ({ attractionsData }) => {
 
     mm.add(
       {
-        isDesktop: '(min-width: 993px)',
+        isDesktop: '(min-width: 993px) and (min-height: 561px)',
         isMobile: '(max-width: 992px)',
+        isShortHeight: '(max-height: 560px)',
         reduceMotion: '(prefers-reduced-motion: reduce)'
       },
       (context) => {
-        const { isDesktop, reduceMotion } = context.conditions;
+        const { isDesktop, reduceMotion, isShortHeight } = context.conditions;
         if (reduceMotion) return;
 
-        const pinDistance = isDesktop ? '+=200%' : '+=130%';
+        const pinDistance =
+          isDesktop && !isShortHeight
+            ? '+=200%'
+            : !isShortHeight
+            ? '+=130%'
+            : null;
+
+        if (!pinDistance) return; // Natural flow on constrained viewports
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -565,14 +573,14 @@ const Interactive3DMap = ({ attractionsData }) => {
               <span>THE DA NANG DISCOVERY ATLAS</span>
             </span>
             <h2 className="map-3d-title" ref={titleRef}>
-              Những Tọa Độ Không Thể Bỏ Lỡ
+              {attractionsData?.title || 'Những Tọa Độ Không Thể Bỏ Lỡ'}
             </h2>
           </div>
 
           <div className="map-cart-badge" ref={cartBadgeRef}>
             <Sparkles size={14} className="map-cart-icon" aria-hidden="true" />
             <span>
-              Đã chọn: <strong>{tripState.selectedAttractions.length}</strong> / {destinations.length} tọa độ vào lịch trình
+              {attractionsData?.cartPrefix || 'Đã chọn'}: <strong>{tripState.selectedAttractions.length}</strong> / {destinations.length} {attractionsData?.cartSuffix || 'tọa độ vào lịch trình'}
             </span>
           </div>
         </header>
@@ -588,10 +596,10 @@ const Interactive3DMap = ({ attractionsData }) => {
               type="button"
               className={`map-reset-view-btn ${!isOverviewMode ? 'active' : ''}`}
               onClick={resetToOverview}
-              title="Khôi phục góc nhìn toàn cảnh Đà Nẵng"
+              title={attractionsData?.resetViewText || 'Khôi phục góc nhìn toàn cảnh Đà Nẵng'}
             >
               <RotateCcw size={13} />
-              <span>Toàn cảnh Đà Nẵng</span>
+              <span>{attractionsData?.resetViewText || 'Toàn cảnh Đà Nẵng'}</span>
             </button>
 
             {/* Satellite Live Badge */}
@@ -645,12 +653,12 @@ const Interactive3DMap = ({ attractionsData }) => {
                 {isCurrentInCart ? (
                   <>
                     <Check size={15} />
-                    <span>Đã trong hành trình (Bấm để gỡ)</span>
+                    <span>{attractionsData?.btnInCart || 'Đã trong hành trình (Bấm để gỡ)'}</span>
                   </>
                 ) : (
                   <>
                     <Plus size={15} />
-                    <span>Thêm tọa độ này vào chuyến đi</span>
+                    <span>{attractionsData?.btnAdd || 'Thêm tọa độ này vào chuyến đi'}</span>
                   </>
                 )}
               </button>
@@ -662,7 +670,7 @@ const Interactive3DMap = ({ attractionsData }) => {
         <div className="map-disclaimer">
           <Info size={13} className="disclaimer-icon" aria-hidden="true" />
           <span>
-            Bản đồ vệ tinh độ phân giải cao kết hợp mô hình số độ cao (DEM) thực tế của Đà Nẵng. Lộ trình thực địa và thời gian di chuyển sẽ được Super EZ Tour cá nhân hóa và tối ưu theo nhu cầu của quý khách.
+            {attractionsData?.disclaimer || 'Bản đồ vệ tinh độ phân giải cao kết hợp mô hình số độ cao (DEM) thực tế của Đà Nẵng. Lộ trình thực địa và thời gian di chuyển sẽ được Super EZ Tour cá nhân hóa và tối ưu theo nhu cầu của quý khách.'}
           </span>
         </div>
       </div>

@@ -284,7 +284,7 @@ const FlyThroughScene = ({ introData }) => {
       height: 3.2,
       depth: 0.18,
       imageUrl: galleryItems[0]?.url,
-      title: 'CẦU VÀNG BÀ NÀ HILLS',
+      title: galleryItems[0]?.title || 'CẦU VÀNG BÀ NÀ HILLS',
       isFocal: true,
     });
     focalMonolith.group.position.set(2.4, 0.25, 0.0);
@@ -297,7 +297,7 @@ const FlyThroughScene = ({ introData }) => {
       height: 2.3,
       depth: 0.14,
       imageUrl: galleryItems[1]?.url,
-      title: 'BỜ BIỂN MỸ KHÊ',
+      title: galleryItems[1]?.title || 'BỜ BIỂN MỸ KHÊ',
       isFocal: false,
     });
     coastalMonolith.group.position.set(-4.6, 1.1, -3.8);
@@ -310,7 +310,7 @@ const FlyThroughScene = ({ introData }) => {
       height: 3.1,
       depth: 0.15,
       imageUrl: galleryItems[2]?.url,
-      title: 'PHỐ CỔ HỘI AN',
+      title: galleryItems[2]?.title || 'PHỐ CỔ HỘI AN',
       isFocal: false,
     });
     heritageMonolith.group.position.set(-2.8, -1.0, 4.4);
@@ -646,27 +646,27 @@ const FlyThroughScene = ({ introData }) => {
               <div className="fly-hud-top">
                 <span className="fly-hud-badge">
                   <span className="fly-hud-pulse" aria-hidden="true" />
-                  FOCAL POINT · TỌA ĐỘ ĐỘC BẢN
+                  {introData?.hudBadge || 'FOCAL POINT · TỌA ĐỘ ĐỘC BẢN'}
                 </span>
                 <span className="fly-hud-coords">15°59′54″N 107°59′42″E</span>
               </div>
 
-              <h3 className="fly-hud-title">Cầu Vàng Bà Nà Hills</h3>
+              <h3 className="fly-hud-title">{introData?.hudTitle || 'Cầu Vàng Bà Nà Hills'}</h3>
               <p className="fly-hud-caption">
-                Biểu tượng kiến trúc thế giới vươn giữa mây trời, nơi đôi bàn tay đá khổng lồ nâng đỡ dải lụa vàng giữa đại ngàn nguyên sinh.
+                {introData?.hudCaption || 'Biểu tượng kiến trúc thế giới vươn giữa mây trời, nơi đôi bàn tay đá khổng lồ nâng đỡ dải lụa vàng giữa đại ngàn nguyên sinh.'}
               </p>
 
               <div className="fly-hud-specs">
                 <div className="fly-hud-spec-item">
-                  <span className="fly-spec-label">Cao độ</span>
+                  <span className="fly-spec-label">{introData?.hudAltitudeLabel || 'Cao độ'}</span>
                   <span className="fly-spec-val">1,414 m</span>
                 </div>
                 <div className="fly-hud-spec-item">
-                  <span className="fly-spec-label">Chiều dài</span>
+                  <span className="fly-spec-label">{introData?.hudLengthLabel || 'Chiều dài'}</span>
                   <span className="fly-spec-val">150 m</span>
                 </div>
                 <div className="fly-hud-spec-item">
-                  <span className="fly-spec-label">Kiến trúc</span>
+                  <span className="fly-spec-label">{introData?.hudArchLabel || 'Kiến trúc'}</span>
                   <span className="fly-spec-val">Champagne Gold</span>
                 </div>
               </div>

@@ -7,9 +7,12 @@ import './VehicleShowcase3D.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const angleLabels = ['Toàn cảnh ngoại thất', 'Góc nghiêng thân xe', 'Khoang nội thất da'];
+const defaultAngleLabels = ['Toàn cảnh ngoại thất', 'Góc nghiêng thân xe', 'Khoang nội thất da'];
+const koAngleLabels = ['외관 전면', '측면 프로필', '인테리어'];
 
 const VehicleShowcase3D = ({ transportData }) => {
+  const isKorean = transportData?.badgeMaintenance?.includes('점검') || transportData?.seatsLabel?.includes('정원');
+  const angleLabels = isKorean ? koAngleLabels : defaultAngleLabels;
   const containerRef = useRef(null);
   const vehicleStageRef = useRef(null);
   const specsHudRef = useRef(null);
@@ -135,7 +138,7 @@ const VehicleShowcase3D = ({ transportData }) => {
 
               <div className="vehicle-stage-badge">
                 <ShieldCheck size={13} aria-hidden="true" />
-                <span>Bảo dưỡng tiêu chuẩn hãng</span>
+                <span>{transportData?.badgeMaintenance || 'Bảo dưỡng tiêu chuẩn hãng'}</span>
               </div>
             </div>
           </div>
@@ -144,7 +147,7 @@ const VehicleShowcase3D = ({ transportData }) => {
           <aside className="vehicle-specs-hud-col" ref={specsHudRef}>
             <div className="hud-top-meta">
               <span className="hud-model-code">
-                DÒNG XE TIÊU BIỂU: {activeVehicle.modelExample}
+                {transportData?.modelCodeLabel || 'DÒNG XE TIÊU BIỂU'}: {activeVehicle.modelExample}
               </span>
               <h3 className="hud-vehicle-title">{activeVehicle.name}</h3>
             </div>
@@ -153,7 +156,7 @@ const VehicleShowcase3D = ({ transportData }) => {
               <div className="hud-capacity-card">
                 <Users size={17} className="hud-icon-orange" aria-hidden="true" />
                 <div>
-                  <span className="hud-cap-label">Sức chứa khách</span>
+                  <span className="hud-cap-label">{transportData?.seatsLabel || 'Sức chứa khách'}</span>
                   <strong className="hud-cap-val">{activeVehicle.seats}</strong>
                 </div>
               </div>
@@ -161,14 +164,14 @@ const VehicleShowcase3D = ({ transportData }) => {
               <div className="hud-capacity-card">
                 <Briefcase size={17} className="hud-icon-gold" aria-hidden="true" />
                 <div>
-                  <span className="hud-cap-label">Khoang hành lý</span>
+                  <span className="hud-cap-label">{transportData?.luggageLabel || 'Khoang hành lý'}</span>
                   <strong className="hud-cap-val">{activeVehicle.luggage}</strong>
                 </div>
               </div>
             </div>
 
             <div className="hud-features-block">
-              <h4 className="hud-feat-heading">Trang bị tiện nghi tiêu chuẩn:</h4>
+              <h4 className="hud-feat-heading">{transportData?.featuresHeading || 'Trang bị tiện nghi tiêu chuẩn:'}</h4>
               <div className="hud-feat-list">
                 {activeVehicle.features.map((f, i) => (
                   <div key={i} className="hud-feat-item">
@@ -180,7 +183,7 @@ const VehicleShowcase3D = ({ transportData }) => {
             </div>
 
             <div className="hud-ideal-card">
-              <span className="hud-ideal-badge">Khuyến nghị:</span>
+              <span className="hud-ideal-badge">{transportData?.idealBadge || 'Khuyến nghị:'}</span>
               <span className="hud-ideal-text">{activeVehicle.idealFor}</span>
             </div>
 
@@ -191,8 +194,8 @@ const VehicleShowcase3D = ({ transportData }) => {
             >
               <span>
                 {isSelected
-                  ? '✓ Đã chọn loại xe này'
-                  : 'Lựa chọn xe này cho hành trình'}
+                  ? (transportData?.btnSelected || '✓ Đã chọn loại xe này')
+                  : (transportData?.btnSelect || 'Lựa chọn xe này cho hành trình')}
               </span>
               <ArrowRight size={15} />
             </button>
