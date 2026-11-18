@@ -29,11 +29,12 @@
 }
 
 .dest-footer-logo-img {
-  height: 48px;
+  height: 38px;
   width: auto;
-  max-width: 190px;
+  aspect-ratio: 2111 / 459;
   object-fit: contain;
   display: block;
+  border-radius: 6px;
 }
 
 .dest-footer-slogan {

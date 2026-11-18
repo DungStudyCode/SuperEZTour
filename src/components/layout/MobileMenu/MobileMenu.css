@@ -32,9 +32,11 @@
 }
 
 .mobile-logo-img {
-  height: 36px;
+  height: 32px;
   width: auto;
+  aspect-ratio: 2111 / 459;
   object-fit: contain;
+  border-radius: 6px;
 }
 
 .mobile-menu-close {
@@ -275,11 +277,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: #24343B;
-}
-
-.dest-link-main.orange-text {
-  color: #E66B37;
-  font-weight: 700;
+  transition: color 0.15s ease;
 }
 
 .dest-link-sub {
@@ -287,24 +285,20 @@
   color: #8E9BA1;
 }
 
-.dest-link-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 9999px;
+.dest-link-arrow {
+  color: #8E9BA1;
+  opacity: 0.6;
+  transition: all 0.15s ease;
 }
 
-.dest-link-tag.available {
-  background: #E66B37;
-  color: #FFFFFF;
+.mobile-dest-link:hover .dest-link-main {
+  color: #E66B37;
 }
 
-.dest-link-tag.coming-soon {
-  background: #F5F3EF;
-  color: #64747B;
+.mobile-dest-link:hover .dest-link-arrow {
+  opacity: 1;
+  color: #E66B37;
+  transform: translateX(2px);
 }
 
 .mobile-nav-divider {
@@ -333,8 +327,8 @@
 
 /* Contact Bar in Drawer */
 .mobile-contact-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   margin-bottom: 16px;
 }
@@ -343,21 +337,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 10px 6px;
+  gap: 8px;
+  padding: 11px 16px;
   border-radius: 8px;
-  font-size: 0.76rem;
+  font-size: 0.84rem;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
   font-family: inherit;
   transition: all 0.2s ease;
+  width: 100%;
 }
 
-.mobile-contact-btn.kakao {
-  background: #FEE500;
-  color: #191919;
-  border: 1px solid #E8CE00;
+.mobile-contact-btn.consult {
+  background: #23343B;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(35, 52, 59, 0.15);
+}
+
+.mobile-contact-btn.consult:hover {
+  background: #E66B37;
+  border-color: #E66B37;
 }
 
 .mobile-contact-btn.hotline {

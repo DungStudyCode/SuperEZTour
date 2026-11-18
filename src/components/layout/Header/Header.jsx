@@ -81,8 +81,8 @@ const Header = ({ onOpenQuoteModal }) => {
                   src={BRAND_CONFIG.logo}
                   alt={BRAND_CONFIG.brandName}
                   className="brand-logo-img"
-                  width="126"
-                  height="42"
+                  width="175"
+                  height="38"
                 />
               </Link>
 

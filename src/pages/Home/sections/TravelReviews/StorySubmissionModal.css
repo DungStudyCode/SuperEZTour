@@ -1,0 +1,303 @@
+/* =========================================================
+   Super EZ Tour — Story Submission Modal CSS
+========================================================= */
+
+.submission-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: subModalFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes subModalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.submission-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(18, 26, 32, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.submission-modal-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #EAE6E0;
+  box-shadow: 0 20px 50px rgba(24, 34, 40, 0.18);
+  padding: 32px 36px;
+}
+
+.submission-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #EAE6E0;
+  background: #FAF9F6;
+  color: #64747B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submission-modal-close:hover {
+  background: #F0ECE4;
+  color: #23343B;
+  transform: scale(1.05);
+}
+
+.submission-header {
+  margin-bottom: 22px;
+  padding-right: 30px;
+}
+
+.submission-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #E96932;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.submission-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #23343B;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+}
+
+.submission-desc {
+  font-size: 0.85rem;
+  color: #64747B;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.submission-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-item-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #23343B;
+}
+
+.form-select-lux,
+.form-input-lux,
+.form-textarea-lux {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #EAE6E0;
+  background: #FAF9F6;
+  font-size: 0.88rem;
+  color: #23343B;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.form-select-lux:focus,
+.form-input-lux:focus,
+.form-textarea-lux:focus {
+  outline: none;
+  border-color: #E96932;
+  background: #FFFFFF;
+}
+
+.media-type-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.media-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #EAE6E0;
+  background: #FAF9F6;
+  color: #64747B;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.media-tab-btn.is-active {
+  background: #23343B;
+  color: #FFFFFF;
+  border-color: #23343B;
+}
+
+.upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 24px 16px;
+  border: 1.5px dashed #D6D0C5;
+  border-radius: 12px;
+  background: #FAF9F6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-dropzone:hover {
+  border-color: #E96932;
+  background: #FFF9F5;
+}
+
+.upload-icon {
+  color: #E96932;
+}
+
+.upload-main-text {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #23343B;
+}
+
+.upload-sub-text {
+  font-size: 0.74rem;
+  color: #7A8990;
+}
+
+.submission-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #F7F5F0;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  color: #64747B;
+  line-height: 1.45;
+}
+
+.submission-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #F0ECE4;
+}
+
+.submission-secondary-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid #EAE6E0;
+  border-radius: 10px;
+  color: #64747B;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submission-secondary-btn:hover {
+  background: #FAF9F6;
+  color: #23343B;
+}
+
+.submission-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: #E96932;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submission-primary-btn:hover {
+  background: #D45722;
+  transform: translateY(-1px);
+}
+
+.submission-primary-btn.is-full {
+  width: 100%;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* Success View */
+.submission-success-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+  gap: 12px;
+}
+
+.success-icon-bubble {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(233, 105, 50, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submission-badge-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #F7F5F0;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #23343B;
+  margin-top: 4px;
+}

@@ -1,346 +1,789 @@
-/* Travel Reviews - Light Korean Travel Theme */
+/* =========================================================
+   Super EZ Tour — Traveler Stories 2.0 Stylesheet
+   Bright Korean Luxury Travel Editorial Aesthetic
+========================================================= */
 
-.travel-reviews-section {
+.traveler-stories-section {
   position: relative;
   background-color: #FAF9F6;
-  color: #24343B;
-  padding: 85px 0 95px;
-  border-bottom: 1px solid #E7E3DC;
+  color: #23343B;
+  padding: 96px 0 104px;
+  border-top: 1px solid #ECE7DF;
+  border-bottom: 1px solid #ECE7DF;
   overflow: hidden;
 }
 
-.reviews-header-wrap {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-  margin-bottom: 34px;
+/* Legacy anchor for existing navigation links */
+.reviews-legacy-anchor {
+  position: absolute;
+  top: -80px;
+  left: 0;
+  height: 1px;
+  width: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.reviews-heading-left {
-  max-width: 680px;
+/* =========================================================
+   01. EDITORIAL HEADER
+========================================================= */
+.stories-editorial-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 40px;
 }
 
-.reviews-eyebrow {
+.stories-eyebrow-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  padding: 5px 14px;
+  background: rgba(233, 105, 50, 0.08);
+  border: 1px solid rgba(233, 105, 50, 0.22);
+  border-radius: 9999px;
+  color: #E96932;
   font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #E66B37;
-  background: rgba(230, 107, 55, 0.08);
-  border: 1px solid rgba(230, 107, 55, 0.2);
-  padding: 4px 14px;
-  border-radius: 9999px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   margin-bottom: 14px;
 }
 
-.reviews-main-title {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #24343B;
-  margin: 0 0 10px 0;
-  font-family: 'Playfair Display', Georgia, serif;
+.stories-main-title {
+  font-family: 'Playfair Display', 'Noto Serif KR', Georgia, serif;
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #23343B;
+  line-height: 1.28;
   letter-spacing: -0.02em;
+  margin: 0 0 12px 0;
 }
 
-.reviews-sub-desc {
-  font-size: 0.95rem;
+.stories-main-desc {
+  font-size: 1rem;
   color: #64747B;
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
 }
 
-/* Overall Rating Card */
-.overall-rating-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #FFFFFF;
-  border: 1px solid #E7E3DC;
-  padding: 16px 24px;
-  border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(36, 52, 59, 0.04);
-  flex-shrink: 0;
-}
-
-.rating-score-large {
-  display: flex;
-  align-items: baseline;
-}
-
-.score-num {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #E66B37;
-  letter-spacing: -0.02em;
-}
-
-.score-max {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #8E9BA1;
-  margin-left: 2px;
-}
-
-.rating-stars-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.stars-row {
-  display: flex;
-  gap: 2px;
-}
-
-.star-fill {
-  color: #F59E0B;
-  fill: #F59E0B;
-}
-
-.rating-desc {
-  font-size: 0.75rem;
-  color: #64747B;
-  font-weight: 600;
-}
-
-/* Filter Chips Bar */
-.review-filters-bar {
+/* =========================================================
+   02. DESTINATION FILTER BAR
+========================================================= */
+.stories-filter-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: 20px;
+  margin-bottom: 44px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #EAE6E0;
 }
 
-.review-filters-scroll {
+.filter-chips-track {
   display: flex;
   align-items: center;
   gap: 8px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 2px;
 }
 
-.review-filter-chip {
-  padding: 7px 18px;
-  border-radius: 9999px;
-  background: #FFFFFF;
-  border: 1px solid #E7E3DC;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #24343B;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  font-family: inherit;
+.filter-chips-track::-webkit-scrollbar {
+  display: none;
 }
 
-.review-filter-chip:hover {
-  background: #F1EEE8;
-  border-color: #C5A67A;
-}
-
-.review-filter-chip.is-active {
-  background: #24343B;
-  color: #FFFFFF;
-  border-color: #24343B;
-}
-
-/* Arrows */
-.reviews-carousel-arrows {
-  display: flex;
+.filter-pill-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: 1px solid #E4DFD5;
+  background: #FFFFFF;
+  color: #64747B;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-pill-btn:hover {
+  border-color: #23343B;
+  color: #23343B;
+  background: #FAF9F6;
+}
+
+.filter-pill-btn.is-active {
+  background: #23343B;
+  border-color: #23343B;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(35, 52, 59, 0.16);
+}
+
+.filter-actions-right {
   flex-shrink: 0;
 }
 
-.rev-arrow-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+.stories-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(233, 105, 50, 0.35);
+  background: rgba(233, 105, 50, 0.08);
+  color: #E96932;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.22s ease;
+}
+
+.stories-share-btn:hover {
+  background: #E96932;
+  color: #FFFFFF;
+  border-color: #E96932;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(233, 105, 50, 0.25);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+.stories-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
   background: #FFFFFF;
-  border: 1px solid #E7E3DC;
-  color: #24343B;
+  border: 1px solid #EAE6E0;
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.empty-icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #FAF9F6;
+  border: 1px solid #EAE6E0;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 16px;
+}
+
+.empty-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #23343B;
+  margin: 0 0 8px 0;
+}
+
+.empty-desc {
+  font-size: 0.9rem;
+  color: #64747B;
+  max-width: 460px;
+  line-height: 1.55;
+  margin: 0 0 20px 0;
+}
+
+.empty-reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #23343B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.84rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(36, 52, 59, 0.04);
 }
 
-.rev-arrow-btn:hover {
-  background: #E66B37;
-  color: #FFFFFF;
-  border-color: #E66B37;
+.empty-reset-btn:hover {
+  background: #E96932;
+  transform: translateY(-1px);
 }
 
-/* Swiper Container & Cards */
-.reviews-swiper-container {
-  width: 100%;
+/* =========================================================
+   03. TẦNG 1: TRAVEL MOMENTS (Short-form Video Showcase)
+========================================================= */
+.travel-moments-block {
+  margin-bottom: 56px;
 }
 
-.review-card-lux {
-  background: #FFFFFF;
-  border: 1px solid #E7E3DC;
-  border-radius: 16px;
-  padding: 24px;
+.moments-subhead-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.subhead-title-wrap {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 400px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(36, 52, 59, 0.04);
+  gap: 4px;
 }
 
-.review-card-lux:hover {
+.subhead-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #B9915A;
+  text-transform: uppercase;
+}
+
+.subhead-heading {
+  font-family: 'Playfair Display', 'Noto Serif KR', Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #23343B;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.moments-note {
+  font-size: 0.8rem;
+  color: #8E9BA1;
+  font-style: italic;
+}
+
+/* 4-Column Desktop Track */
+.travel-moments-scroll-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Card */
+.travel-moment-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #1A252C;
+  box-shadow: 0 8px 24px rgba(35, 52, 59, 0.08);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.travel-moment-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 36px rgba(36, 52, 59, 0.08);
-  border-color: #C5A67A;
+  box-shadow: 0 16px 36px rgba(35, 52, 59, 0.16);
 }
 
-.rev-card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 14px;
+.moment-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
 }
 
-.rev-user-profile {
+.moment-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.travel-moment-card:hover .moment-thumb-img {
+  transform: scale(1.028);
+}
+
+.moment-card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 29, 0.55) 0%,
+    rgba(15, 23, 29, 0.08) 35%,
+    rgba(15, 23, 29, 0.2) 60%,
+    rgba(15, 23, 29, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+/* Top Badges */
+.moment-top-row {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-.rev-user-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1.5px solid #E7E3DC;
-}
-
-.rev-user-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.rev-user-name {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #24343B;
-}
-
-.rev-pack-name {
-  font-size: 0.72rem;
-  color: #8E9BA1;
-}
-
-.rev-badge-tag {
+.moment-dest-pill {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.72rem;
+  padding: 4px 9px;
+  border-radius: 9999px;
+  background: rgba(18, 26, 32, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: #24343B;
-  background: #FAF9F6;
-  border: 1px solid #E7E3DC;
-  padding: 3px 8px;
-  border-radius: 6px;
 }
 
-.rev-stars-row {
+.moment-demo-pill {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Center Play Button Overlay */
+.moment-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
+  justify-content: center;
+  transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.rev-stars-list {
+.play-icon {
+  margin-left: 2px;
+}
+
+.travel-moment-card:hover .moment-play-button {
+  background: #E96932;
+  border-color: #E96932;
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 0 24px rgba(233, 105, 50, 0.55);
+}
+
+/* Bottom Overlay */
+.moment-bottom-row {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 16px 14px;
   display: flex;
-  gap: 2px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.rev-verified-pill {
+.moment-author-tag {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #E96932;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.moment-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.moment-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.moment-duration {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================================================
+   04. TẦNG 2: TRAVELER REVIEWS (Compact Editorial Quotes)
+========================================================= */
+.traveler-reviews-block {
+  margin-bottom: 56px;
+}
+
+.reviews-subhead-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.reviews-subhead-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: #059669;
-  background: #ECFDF5;
-  padding: 2px 7px;
-  border-radius: 4px;
+  color: #23343B;
+  background: #EFECE6;
+  padding: 4px 12px;
+  border-radius: 9999px;
 }
 
-.rev-body-title {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #24343B;
-  margin: 0 0 8px 0;
-  line-height: 1.4;
+.editorial-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-.rev-body-desc {
-  font-size: 0.84rem;
-  color: #64747B;
-  line-height: 1.6;
-  margin: 0 0 16px 0;
-  flex: 1;
+.editorial-review-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #EAE6E0;
+  border-radius: 18px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(35, 52, 59, 0.04);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
 }
 
-.rev-photo-wrap {
-  width: 100%;
-  height: 140px;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 14px;
-  background: #F1EEE8;
+.editorial-review-card:hover {
+  transform: translateY(-2px);
+  border-color: #D6D0C5;
+  box-shadow: 0 10px 24px rgba(35, 52, 59, 0.08);
 }
 
-.rev-photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+/* Card Header */
+.rev-compact-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.review-card-lux:hover .rev-photo-img {
-  transform: scale(1.05);
-}
-
-.rev-card-footer {
+.rev-compact-user {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid #F1EEE8;
-  font-size: 0.75rem;
+  gap: 10px;
+}
+
+.rev-compact-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #EAE6E0;
+}
+
+.rev-compact-names {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.rev-compact-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #23343B;
+}
+
+.rev-compact-party {
+  font-size: 0.74rem;
+  color: #7A8990;
+}
+
+.rev-compact-dest-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(233, 105, 50, 0.08);
+  color: #E96932;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Rating Line */
+.rev-compact-rating-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rev-compact-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star-gold {
+  color: #E96932;
+  fill: #E96932;
+}
+
+.rev-compact-date {
+  font-size: 0.74rem;
   color: #8E9BA1;
 }
 
-.rev-helpful {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  color: #64747B;
-  transition: color 0.2s ease;
+.rev-compact-demo-badge {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #F4F1EA;
+  color: #8E9BA1;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-.rev-helpful:hover {
-  color: #E66B37;
+/* Content */
+.rev-compact-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #23343B;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.rev-compact-body {
+  font-size: 0.86rem;
+  color: #55666E;
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Footer with photo & button */
+.rev-compact-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #F0ECE4;
+  margin-top: 4px;
+}
+
+.rev-mini-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 1px solid #EAE6E0;
+}
+
+.mini-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.rev-mini-photo:hover .mini-photo-img {
+  transform: scale(1.08);
+}
+
+.rev-read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #23343B;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.rev-read-more-btn:hover {
+  color: #E96932;
+  gap: 9px;
+}
+
+/* =========================================================
+   05. TẦNG 3: SUBTLE UGC COMMUNITY BANNER
+========================================================= */
+.stories-community-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 32px 40px;
+  background: #F4F1EA;
+  border: 1px solid #E4DFD5;
+  border-radius: 20px;
+}
+
+.community-strip-content {
+  max-width: 680px;
+}
+
+.community-strip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #B9915A;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.community-strip-title {
+  font-family: 'Playfair Display', 'Noto Serif KR', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #23343B;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+}
+
+.community-strip-desc {
+  font-size: 0.88rem;
+  color: #64747B;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.community-strip-cta {
+  flex-shrink: 0;
+}
+
+.community-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #23343B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.24s ease;
+  box-shadow: 0 4px 14px rgba(35, 52, 59, 0.14);
+}
+
+.community-cta-btn:hover {
+  background: #E96932;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 105, 50, 0.28);
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+@media (max-width: 1200px) {
+  .travel-moments-scroll-track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .stories-main-title {
+    font-size: 2.1rem;
+  }
+  .editorial-reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .reviews-header-wrap {
-    flex-direction: column;
-    align-items: flex-start;
+  .traveler-stories-section {
+    padding: 72px 0 84px;
   }
-  .overall-rating-card {
+  .stories-main-title {
+    font-size: 1.75rem;
+  }
+  .stories-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .filter-actions-right {
+    display: none;
+  }
+
+  /* Mobile Horizontal Swipe for Travel Moments */
+  .travel-moments-scroll-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    padding-bottom: 12px;
+    margin-right: -16px;
+    padding-right: 16px;
+    scrollbar-width: none;
+  }
+  .travel-moments-scroll-track::-webkit-scrollbar {
+    display: none;
+  }
+  .travel-moment-card {
+    flex: 0 0 76%;
+    scroll-snap-align: start;
+  }
+
+  .editorial-reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .stories-community-strip {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    text-align: left;
+  }
+  .community-cta-btn {
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .travel-moment-card,
+  .moment-thumb-img,
+  .moment-play-button,
+  .editorial-review-card,
+  .community-cta-btn {
+    transition: none !important;
+    animation: none !important;
   }
 }

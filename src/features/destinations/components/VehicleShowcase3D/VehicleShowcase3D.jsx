@@ -44,12 +44,12 @@ const VehicleShowcase3D = ({ transportData }) => {
         { rotateY: 5, scale: 1.0, opacity: 1, ease: 'none' },
         0
       )
-      .fromTo(
-        specsHudRef.current,
-        { opacity: 0, x: 30 },
-        { opacity: 1, x: 0, ease: 'power2.out' },
-        0.15
-      );
+        .fromTo(
+          specsHudRef.current,
+          { opacity: 0, x: 30 },
+          { opacity: 1, x: 0, ease: 'power2.out' },
+          0.15
+        );
     }, containerRef);
 
     return () => ctx.revert();
@@ -82,7 +82,7 @@ const VehicleShowcase3D = ({ transportData }) => {
           </span>
           <h2 className="vehicle-3d-title">Every Mile. Your Style.</h2>
           <p className="vehicle-3d-subtitle">
-            Showroom phương tiện riêng tư cao cấp · 100% xe đời mới 2022+, nội thất da êm ái, wifi và tài xế chuyên tuyến điềm đạm.
+            프리미엄 전용 차량 쇼룸 · 100% 2022년식 이상 신형 차량, 편안한 가죽 시트, 와이파이 완비 및 차분한 노선 전문 기사님.
           </p>
         </header>
 

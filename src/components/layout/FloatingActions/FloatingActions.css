@@ -1,131 +1,130 @@
-/* Floating Actions - Light Korean Travel Theme */
+/* =========================================================
+   Super EZ Tour — Compact Luxury Floating Actions V2
+   Refined Korean Luxury Travel Aesthetic
+========================================================= */
 
-.floating-actions-container {
+.floating-actions-cluster {
   position: fixed;
-  right: 24px;
-  bottom: 32px;
+  right: 28px;
+  bottom: 30px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 10px;
-  z-index: 900;
+  z-index: 950;
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-.floating-btn {
-  display: flex;
+.floating-actions-cluster > * {
+  pointer-events: auto;
+}
+
+/* IntersectionObserver tuck-away state when Footer is in view */
+.floating-actions-cluster.is-hidden-by-footer {
+  opacity: 0;
+  pointer-events: none !important;
+  transform: translateY(16px);
+}
+
+.floating-actions-cluster.is-hidden-by-footer > * {
+  pointer-events: none !important;
+}
+
+/* Primary Consultation Pill Button */
+.floating-primary-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 9px;
+  padding: 12px 20px;
   border-radius: 9999px;
-  background-color: #FFFFFF;
-  color: #24343B;
-  border: 1px solid #E7E3DC;
-  box-shadow: 0 6px 20px rgba(36, 52, 59, 0.12);
-  font-size: 0.82rem;
+  background-color: #23343B;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(24, 34, 40, 0.2);
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.floating-primary-btn .btn-icon {
+  color: #E96932;
+  transition: transform 0.2s ease;
+}
+
+.floating-primary-btn:hover {
+  background-color: #E96932;
+  border-color: #E96932;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(233, 105, 50, 0.32);
+}
+
+.floating-primary-btn:hover .btn-icon {
+  color: #FFFFFF;
+  transform: scale(1.1);
+}
+
+/* Back to Top Button */
+.floating-sub-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #FFFFFF;
+  color: #64747B;
+  border: 1px solid #EAE6E0;
+  box-shadow: 0 4px 14px rgba(35, 52, 59, 0.08);
+  font-size: 0.78rem;
+  cursor: pointer;
   transition: all 0.2s ease;
-  text-decoration: none;
-  position: relative;
   font-family: inherit;
 }
 
-.floating-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(36, 52, 59, 0.18);
-}
-
-/* Chat Button (Kakao yellow) */
-.floating-btn.chat-btn {
-  background-color: #FEE500;
-  color: #191600;
-  border-color: #E8CE00;
-}
-
-.floating-btn.chat-btn:hover {
-  background-color: #FADA0A;
-}
-
-/* Quote Button (Brand Orange) */
-.floating-btn.quote-btn {
-  background-color: #E66B37;
-  color: #FFFFFF;
-  border-color: #E66B37;
-  box-shadow: 0 6px 22px rgba(230, 107, 55, 0.4);
-}
-
-.floating-btn.quote-btn:hover {
-  background-color: #D05A26;
-}
-
-.floating-pulse-ring {
-  position: absolute;
-  inset: -3px;
-  border-radius: 9999px;
-  border: 2px solid #E66B37;
-  opacity: 0.6;
-  animation: floatingPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-  pointer-events: none;
-}
-
-@keyframes floatingPulse {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.15);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.15);
-    opacity: 0;
-  }
-}
-
-/* Phone Button */
-.floating-btn.phone-btn {
-  background-color: #FFFFFF;
-  color: #24343B;
-}
-
-.floating-btn.phone-btn:hover {
-  color: #E66B37;
-  border-color: #E66B37;
-}
-
-/* Top Button */
-.floating-btn.top-btn {
-  width: 44px;
-  height: 44px;
+.floating-sub-btn.top-btn {
+  width: 38px;
+  height: 38px;
   padding: 0;
-  justify-content: center;
-  align-self: flex-end;
-  background-color: #24343B;
+  background-color: #FAF9F6;
+  color: #64747B;
+}
+
+.floating-sub-btn.top-btn:hover {
+  background-color: #23343B;
   color: #FFFFFF;
-  border: none;
+  border-color: #23343B;
+  transform: translateY(-2px);
 }
 
-.floating-btn.top-btn:hover {
-  background-color: #E66B37;
-}
-
+/* =========================================================
+   MOBILE RESPONSIVENESS
+========================================================= */
 @media (max-width: 768px) {
-  .floating-actions-container {
+  .floating-actions-cluster {
     right: 16px;
-    bottom: 24px;
+    bottom: 22px;
     gap: 8px;
   }
-  .floating-btn-label {
-    display: none;
+
+  .floating-primary-btn {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    box-shadow: 0 6px 18px rgba(24, 34, 40, 0.22);
   }
-  .floating-btn {
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    justify-content: center;
-    border-radius: 50%;
+
+  .floating-sub-btn.top-btn {
+    width: 36px;
+    height: 36px;
   }
-  .floating-pulse-ring {
-    border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-actions-cluster,
+  .floating-primary-btn,
+  .floating-sub-btn {
+    transition: none !important;
   }
 }

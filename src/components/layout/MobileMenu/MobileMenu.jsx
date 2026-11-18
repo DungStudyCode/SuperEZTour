@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { X, ChevronDown, Phone, MessageSquare, MapPin, Globe, Search, Sparkles, Clock, ArrowRight } from 'lucide-react';
+import { X, ChevronDown, MapPin, Globe, Search, ArrowRight, MessageSquare } from 'lucide-react';
 import { VIETNAM_DESTINATIONS, VIETNAM_REGIONS } from '../../../data/vietnamDestinations';
 import { BRAND_CONFIG } from '../../../constants/brand.config';
 import { useLanguage } from '../../../context/LanguageContext';
 import './MobileMenu.css';
 
 const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
-  const [expandedRegion, setExpandedRegion] = useState('central'); // Default open central for Da Nang
-  const { language, setLanguage, t, isKorean } = useLanguage();
+  const [expandedRegion, setExpandedRegion] = useState(null);
+  const { setLanguage, t, isKorean } = useLanguage();
 
   // Escape key handler
   useEffect(() => {
@@ -41,10 +41,15 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
 
   const regions = VIETNAM_REGIONS.filter((r) => r.id !== 'all');
 
-  const handleComingSoonClick = (dest) => {
-    onClose();
-    if (onOpenQuoteModal) {
-      onOpenQuoteModal({ source: 'mobile-menu', destinationId: dest.id });
+  const handleDestinationClick = (dest) => {
+    const isPublished = dest.experienceStatus === 'published' || (dest.id === 'da-nang' && dest.isAvailable);
+    if (!isPublished) {
+      onClose();
+      if (onOpenQuoteModal) {
+        onOpenQuoteModal({ source: 'mobile-menu', destinationId: dest.id });
+      }
+    } else {
+      onClose();
     }
   };
 
@@ -64,7 +69,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
             type="button"
             className="mobile-menu-close"
             onClick={onClose}
-            aria-label={t('nav.closeMenu', '메뉴 닫기')}
+            aria-label={t('nav.closeMenu', isKorean ? '메뉴 닫기' : 'Đóng menu')}
           >
             <X size={22} />
           </button>
@@ -105,7 +110,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
             }}
           >
             <Search size={16} className="text-orange" />
-            <span>{t('nav.searchPlaceholder', '어디로 떠나고 싶으신가요?')}</span>
+            <span>{t('nav.searchPlaceholder', isKorean ? '어디로 떠나고 싶으신가요?' : 'Bạn muốn du lịch tới đâu?')}</span>
           </button>
         </div>
 
@@ -119,14 +124,14 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
               onOpenQuoteModal && onOpenQuoteModal({ source: 'mobile-menu' });
             }}
           >
-            <span>{t('nav.primaryCta', '맞춤 여행 상담')}</span>
+            <span>{t('nav.primaryCta', isKorean ? '맞춤 여행 상담' : 'Tư vấn hành trình')}</span>
             <ArrowRight size={15} />
           </button>
         </div>
 
         {/* Scrollable Navigation */}
         <div className="mobile-menu-body">
-          {/* 10 Vietnam Destinations by Region */}
+          {/* 10 Vietnam Destinations by Region — Uniform Design System */}
           <div className="mobile-nav-group">
             <div className="mobile-nav-group-title">
               <MapPin size={16} className="text-orange" />
@@ -157,42 +162,34 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
                     {isExpanded && (
                       <div className="mobile-dest-sublist animate-slide-down">
                         {dests.map((dest) => {
-                          const isAvailable = dest.isAvailable;
-                          return isAvailable ? (
+                          const isPublished = dest.experienceStatus === 'published' || (dest.id === 'da-nang' && dest.isAvailable);
+                          const destTitle = isKorean ? dest.nameKr : dest.nameVi;
+
+                          return isPublished && dest.route ? (
                             <Link
                               key={dest.id}
                               to={dest.route}
-                              className="mobile-dest-link is-available"
+                              className="mobile-dest-link"
                               onClick={onClose}
                             >
                               <div className="dest-link-titles">
-                                <span className="dest-link-main orange-text">
-                                  {isKorean ? dest.nameKr : dest.nameVi}
-                                </span>
+                                <span className="dest-link-main">{destTitle}</span>
                                 <span className="dest-link-sub">{dest.name}</span>
                               </div>
-                              <span className="dest-link-tag available">
-                                <Sparkles size={11} />
-                                {t('common.availableNow', '3D 투어')}
-                              </span>
+                              <ArrowRight size={13} className="dest-link-arrow" />
                             </Link>
                           ) : (
                             <button
                               key={dest.id}
                               type="button"
-                              className="mobile-dest-link coming-soon"
-                              onClick={() => handleComingSoonClick(dest)}
+                              className="mobile-dest-link"
+                              onClick={() => handleDestinationClick(dest)}
                             >
                               <div className="dest-link-titles">
-                                <span className="dest-link-main">
-                                  {isKorean ? dest.nameKr : dest.nameVi}
-                                </span>
+                                <span className="dest-link-main">{destTitle}</span>
                                 <span className="dest-link-sub">{dest.name}</span>
                               </div>
-                              <span className="dest-link-tag coming-soon">
-                                <Clock size={10} />
-                                {t('common.comingSoon', '준비 중')}
-                              </span>
+                              <ArrowRight size={13} className="dest-link-arrow" />
                             </button>
                           );
                         })}
@@ -206,49 +203,43 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
 
           <div className="mobile-nav-divider" />
 
-          {/* 4 Main Navigation Links (Clean & Aligned with Desktop) */}
+          {/* 4 Main Navigation Links */}
           <div className="mobile-nav-group">
             <a href="#destinations" className="mobile-main-link" onClick={onClose}>
-              <span>{t('nav.destinations', '여행지')}</span>
+              <span>{t('nav.destinations', isKorean ? '여행지' : 'Điểm đến')}</span>
             </a>
             <a href="#signature-journeys" className="mobile-main-link" onClick={onClose}>
-              <span>{t('nav.privateTours', '프라이빗 투어')}</span>
+              <span>{t('nav.privateTours', isKorean ? '프라이빗 투어' : 'Hành trình riêng')}</span>
             </a>
             <a href="#travel-services" className="mobile-main-link" onClick={onClose}>
-              <span>{t('nav.services', '여행 서비스')}</span>
+              <span>{t('nav.services', isKorean ? '여행 서비스' : 'Dịch vụ cao cấp')}</span>
             </a>
             <a href="#why-us" className="mobile-main-link" onClick={onClose}>
-              <span>{t('nav.aboutUs', '회사 소개')}</span>
+              <span>{t('nav.aboutUs', isKorean ? '회사 소개' : 'Vì sao chọn chúng tôi')}</span>
             </a>
           </div>
 
           <div className="mobile-nav-divider" />
 
-          {/* Direct Contact Options */}
+          {/* Direct Consultation Action */}
           <div className="mobile-contact-bar">
             <button
               type="button"
-              className="mobile-contact-btn kakao"
+              className="mobile-contact-btn consult"
               onClick={() => {
                 onClose();
-                onOpenQuoteModal && onOpenQuoteModal({ source: 'mobile-menu', contactMethod: 'kakao' });
+                onOpenQuoteModal && onOpenQuoteModal({ source: 'mobile-menu' });
               }}
             >
-              <span>KakaoTalk @superez</span>
+              <MessageSquare size={15} />
+              <span>{isKorean ? '1:1 맞춤 여행 상담' : 'Tư vấn hành trình riêng'}</span>
             </button>
-            <a
-              href={`tel:${BRAND_CONFIG.contact.hotline.replace(/\s+/g, '')}`}
-              className="mobile-contact-btn hotline"
-            >
-              <Phone size={14} />
-              <span>{BRAND_CONFIG.contact.hotline}</span>
-            </a>
           </div>
 
           {/* Legal / Copyright */}
           <div className="mobile-user-section">
             <p className="mobile-footer-text">
-              © Super EZ Tour Travel Joint Stock Company<br />
+              © Super EZ Tour. All rights reserved.<br />
               100% {isKorean ? '단독 프라이빗 투어' : 'Tour riêng cao cấp'}
             </p>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Phone, Mail, MapPin, ShieldCheck, Heart, ArrowUp } from 'lucide-react';
-import { BRAND_CONFIG } from '../../../../constants/brand.config';
+import { Phone, MapPin, ShieldCheck, ArrowUp } from 'lucide-react';
+import { BRAND_CONFIG, companyInfo } from '../../../../constants/brand.config';
 import './DestinationFooter.css';
 
 const DestinationFooter = ({ destination }) => {
@@ -24,15 +24,6 @@ const DestinationFooter = ({ destination }) => {
                 ? 'Super EZ Tour · 아시아 최고의 100% 프라이빗 맞춤 여행 플랫폼'
                 : `${BRAND_CONFIG.slogan} · Nền tảng tour riêng cao cấp hàng đầu Châu Á`}
             </p>
-            <div className="dest-footer-hotline-box">
-              <span className="dest-footer-hotline-lbl">
-                {isKorean ? '24시간 한국어 케어 고객센터' : 'Tổng đài tư vấn 24/7'}
-              </span>
-              <a href="tel:19008899" className="dest-footer-hotline-val">
-                <Phone size={18} />
-                <span>1900 8899</span>
-              </a>
-            </div>
           </div>
 
           <div className="dest-footer-nav-col">
@@ -113,55 +104,49 @@ const DestinationFooter = ({ destination }) => {
 
           <div className="dest-footer-nav-col">
             <h4 className="dest-footer-col-title">
-              {isKorean ? '현지 운영 지사' : 'Văn Phòng Điều Hành'}
+              {isKorean ? '프라이빗 컨시어지' : 'Dịch Vụ Concierge'}
             </h4>
             <div className="dest-footer-addresses">
               <div className="dest-footer-addr-item">
                 <MapPin size={14} className="dest-footer-pin" />
                 <span>
-                  <strong>{isKorean ? '다낭 지사:' : 'Đà Nẵng:'}</strong> {BRAND_CONFIG.legal.daNangOffice}
+                  <strong>{isKorean ? '맞춤 상담:' : 'Tư vấn riêng:'}</strong> {isKorean ? '100% 프라이빗 1:1 일정 설계' : 'Thiết kế hành trình riêng 100%'}
                 </span>
               </div>
               <div className="dest-footer-addr-item">
-                <MapPin size={14} className="dest-footer-pin" />
+                <ShieldCheck size={14} className="dest-footer-pin" />
                 <span>
-                  <strong>{isKorean ? '호치민 본사:' : 'TP. HCM:'}</strong> {BRAND_CONFIG.legal.headquarters}
-                </span>
-              </div>
-              <div className="dest-footer-addr-item">
-                <MapPin size={14} className="dest-footer-pin" />
-                <span>
-                  <strong>{isKorean ? '하노이 지사:' : 'Hà Nội:'}</strong> {BRAND_CONFIG.legal.hanoiOffice}
+                  <strong>{isKorean ? '케어 서비스:' : 'Tiêu chuẩn:'}</strong> {isKorean ? '현지 한국어 전담 가이드' : 'HDV bản địa tận tâm & xe riêng VIP'}
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Legal & Compliance Strip */}
-        <div className="dest-footer-middle">
-          <div className="dest-footer-legal-box">
-            <div className="dest-legal-badge">
-              <ShieldCheck size={16} />
-              <span>
-                {isKorean
-                  ? '베트남 국가관광국 공인 국제여행업 정식 면허 보유 법인'
-                  : 'Pháp nhân được cấp phép lữ hành quốc tế'}
-              </span>
+        {/* Legal & Compliance Strip (Rendered only when verified) */}
+        {companyInfo.legal?.isVerified && (
+          <div className="dest-footer-middle">
+            <div className="dest-footer-legal-box">
+              <div className="dest-legal-badge">
+                <ShieldCheck size={16} />
+                <span>
+                  {isKorean
+                    ? '베트남 국가관광국 공인 국제여행업 정식 면허 보유 법인'
+                    : 'Pháp nhân được cấp phép lữ hành quốc tế'}
+                </span>
+              </div>
+              <p>
+                <strong>{companyInfo.legal.legalName}</strong>
+                {companyInfo.legal.travelLicense ? ` · GP LHQT: ${companyInfo.legal.travelLicense}` : ''}
+              </p>
             </div>
-            <p>
-              <strong>{BRAND_CONFIG.legal.companyName}</strong> · GP LHQT: {BRAND_CONFIG.legal.travelLicense} do Cục Du lịch Quốc gia Việt Nam cấp.
-            </p>
-            <p>
-              Mã số doanh nghiệp: {BRAND_CONFIG.legal.businessLicense}. Đại diện pháp luật: {BRAND_CONFIG.legal.representative}.
-            </p>
           </div>
-        </div>
+        )}
 
         {/* Bottom Bar */}
         <div className="dest-footer-bottom">
           <p className="dest-footer-copy">
-            {BRAND_CONFIG.legal.companyName}. All Rights Reserved. Slogan: {BRAND_CONFIG.slogan}.
+            © {new Date().getFullYear()} {BRAND_CONFIG.brandName}. All Rights Reserved.
           </p>
 
           <button type="button" className="dest-footer-backtotop" onClick={scrollToTop}>

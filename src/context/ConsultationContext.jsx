@@ -214,7 +214,7 @@ export const ConsultationProvider = ({ children, onAddQuote: globalOnAddQuote })
 
     const newSessionId = `CS-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
     const themeTitle = isKorean ? theme.titleKr : theme.titleVi;
-    const defaultDest = theme.suggestedDestinationIds?.[0] || 'da-nang';
+    const defaultDest = theme.suggestedDestinationIds?.[0] || '';
 
     const newDraft = {
       sessionId: newSessionId,
@@ -269,7 +269,7 @@ export const ConsultationProvider = ({ children, onAddQuote: globalOnAddQuote })
    */
   const continueFromDrawer = useCallback((customizations = {}) => {
     setDraft((prev) => {
-      const destId = customizations.destinationId || prev.destinationId || 'da-nang';
+      const destId = customizations.destinationId || prev.destinationId || '';
       return {
         ...prev,
         destinationId: destId,
@@ -342,4 +342,3 @@ export const useConsultation = () => {
   return context;
 };
 
-export default ConsultationContext;

@@ -29,7 +29,6 @@ function AppContent({ quotes, handleAddQuote }) {
               <>
                 <Header onOpenQuoteModal={(opts) => openNewConsultation(opts || { source: 'navbar' })} />
                 <Home
-                  quotes={quotes}
                   onOpenQuoteModal={openNewConsultation}
                   onSelectDestination={(destId) =>
                     openNewConsultation({ source: 'destination-card', destinationId: destId })

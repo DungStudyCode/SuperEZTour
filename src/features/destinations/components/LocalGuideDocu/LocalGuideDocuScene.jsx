@@ -43,24 +43,24 @@ const LocalGuideDocuScene = ({ guideData }) => {
         { y: -40, scale: 1.05, ease: 'none' },
         0
       )
-      .fromTo(
-        photoSubRef.current,
-        { y: -60, rotate: -4 },
-        { y: 40, rotate: 2, ease: 'none' },
-        0
-      )
-      .fromTo(
-        quotePlateRef.current,
-        { opacity: 0, x: -40 },
-        { opacity: 1, x: 0, ease: 'power2.out' },
-        0.2
-      )
-      .fromTo(
-        contentColRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, ease: 'power2.out' },
-        0.1
-      );
+        .fromTo(
+          photoSubRef.current,
+          { y: -60, rotate: -4 },
+          { y: 40, rotate: 2, ease: 'none' },
+          0
+        )
+        .fromTo(
+          quotePlateRef.current,
+          { opacity: 0, x: -40 },
+          { opacity: 1, x: 0, ease: 'power2.out' },
+          0.2
+        )
+        .fromTo(
+          contentColRef.current,
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, ease: 'power2.out' },
+          0.1
+        );
     }, sceneRef);
 
     return () => ctx.revert();
@@ -129,7 +129,7 @@ const LocalGuideDocuScene = ({ guideData }) => {
           </h2>
 
           <p className="guide-docu-subtitle">
-            Không chỉ tham quan, mà thực sự hiểu điểm đến.
+            단순한 관광을 넘어, 여행지를 진정으로 이해하다.
           </p>
 
           <p className="guide-docu-lead">

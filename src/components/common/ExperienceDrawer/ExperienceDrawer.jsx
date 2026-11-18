@@ -125,7 +125,7 @@ const ExperienceDrawer = ({
     { id: '6-10', label: t('experienceDrawer.groups.group', isKorean ? '6인 이상 (단체)' : '6+ khách (Đoàn riêng)') },
   ];
 
-  const selectedDestId = draft.destinationId || theme.suggestedDestinationIds?.[0] || 'da-nang';
+  const selectedDestId = draft.destinationId || theme.suggestedDestinationIds?.[0] || '';
   const selectedDuration = draft.duration || '4d3n';
   const selectedGroup = draft.travelers || '3-5';
   const specialRequests = draft.specialRequests || '';
@@ -394,7 +394,9 @@ const ExperienceDrawer = ({
             <span>
               {t(
                 'experienceDrawer.trustSubtext',
-                '100% Tour riêng · Xe riêng & HDV chuyên tuyến · Báo giá trong 30 phút'
+                isKorean
+                  ? '100% 단독 프라이빗 투어 · 전담 차량 & 가이드 · 맞춤 여정 설계'
+                  : '100% Tour riêng · Xe riêng & HDV chuyên tuyến · Tư vấn chu đáo theo yêu cầu'
               )}
             </span>
           </div>

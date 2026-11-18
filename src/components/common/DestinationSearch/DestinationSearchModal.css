@@ -230,26 +230,6 @@
   object-fit: cover;
 }
 
-.card-status-badge {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  font-size: 0.6rem;
-  font-weight: 800;
-  padding: 1px 6px;
-  border-radius: 4px;
-}
-
-.card-status-badge.available {
-  background: #E66B37;
-  color: #FFFFFF;
-}
-
-.card-status-badge.coming-soon {
-  background: rgba(36, 52, 59, 0.8);
-  color: #FFFFFF;
-}
-
 .card-info {
   flex: 1;
   display: flex;
@@ -373,13 +353,6 @@
   background: #F1EEE8;
   border-color: #E66B37;
   color: #E66B37;
-}
-
-.quick-tag-chip.active {
-  background: #FFF4E5;
-  border-color: #E66B37;
-  color: #E66B37;
-  font-weight: 700;
 }
 
 @media (max-width: 640px) {

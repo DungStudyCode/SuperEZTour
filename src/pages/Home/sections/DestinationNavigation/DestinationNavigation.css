@@ -181,13 +181,8 @@
 
 .dest-strip-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(26, 43, 50, 0.06);
+  box-shadow: 0 10px 24px rgba(26, 43, 50, 0.08);
   border-color: #DDD7CB;
-}
-
-.dest-strip-card.is-danang-live:hover {
-  border-color: #E66B37;
-  box-shadow: 0 10px 24px rgba(230, 107, 55, 0.1);
 }
 
 /* Media Wrap: 4:3 Ratio */
@@ -260,28 +255,6 @@
   font-size: 0.72rem;
   color: #8C7D70;
   font-weight: 500;
-}
-
-/* Da Nang 3D Exclusive Badge (Minimal) */
-.card-live-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  background-color: #E66B37;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(230, 107, 55, 0.35);
-  line-height: 1.2;
-}
-
-.badge-sparkle-icon {
-  flex-shrink: 0;
 }
 
 /* Card Body */

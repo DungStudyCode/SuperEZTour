@@ -135,7 +135,7 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
 
           <div className="search-results-grid">
             {results.map((dest) => {
-              const isDaNang = dest.isAvailable;
+              const isPublished = dest.experienceStatus === 'published' || (dest.id === 'da-nang' && dest.isAvailable);
               const destTitle = isKorean ? dest.nameKr : (dest.nameVi || dest.name);
               const destTagline = isKorean ? dest.tagline : (dest.taglineVi || dest.tagline);
               const destRegion = isKorean ? dest.regionKr : (dest.regionVi || dest.region);
@@ -143,22 +143,11 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
               return (
                 <div
                   key={dest.id}
-                  className={`search-dest-card ${isDaNang ? 'is-available' : 'is-coming-soon'}`}
+                  className="search-dest-card"
                   onClick={() => handleSelectDestination(dest)}
                 >
                   <div className="card-thumb-wrap">
                     <img src={dest.image} alt={destTitle} className="card-thumb" />
-                    {isDaNang ? (
-                      <span className="card-status-badge available">
-                        <Sparkles size={11} />
-                        {t('common.availableNow', '3D 투어 오픈')}
-                      </span>
-                    ) : (
-                      <span className="card-status-badge coming-soon">
-                        <Clock size={11} />
-                        {t('common.comingSoon', '준비 중')}
-                      </span>
-                    )}
                   </div>
 
                   <div className="card-info">
@@ -169,17 +158,10 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
                     </div>
                     <p className="card-tagline">{destTagline}</p>
                     <div className="card-action-row">
-                      {isDaNang ? (
-                        <span className="card-link-action">
-                          <span>{t('home.gallery.viewDaNang', '3D 인터랙티브 투어 바로가기')}</span>
-                          <ArrowRight size={14} />
-                        </span>
-                      ) : (
-                        <span className="card-link-action muted">
-                          <span>{t('home.gallery.preInquiry', '맞춤 일정 사전 상담 가능')}</span>
-                          <ChevronRightIcon size={14} />
-                        </span>
-                      )}
+                      <span className="card-link-action">
+                        <span>{t('home.destinationStrip.ctaExplore', isKorean ? '여행 둘러보기' : 'Khám phá')}</span>
+                        <ArrowRight size={14} />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -210,10 +192,10 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
             <span className="quick-tag-label">{isKorean ? '추천 검색:' : 'Gợi ý:'}</span>
             <button
               type="button"
-              className="quick-tag-chip active"
-              onClick={() => handleSelectDestination(VIETNAM_DESTINATIONS.find((d) => d.id === 'da-nang'))}
+              className="quick-tag-chip"
+              onClick={() => setSearchTerm(isKorean ? '다낭' : 'Đà Nẵng')}
             >
-              ★ {isKorean ? '다낭 (3D 가상투어)' : 'Đà Nẵng (Tour 3D)'}
+              {isKorean ? '다낭' : 'Đà Nẵng'}
             </button>
             <button
               type="button"

@@ -60,8 +60,8 @@
     "spotlightTitle": "Tour 3D Tương tác Đà Nẵng",
     "spotlightDesc": "Cửa sổ máy bay oval, 3D Bà Nà Hills, biệt thự 5 sao & phim tài liệu ẩm thực",
     "spotlightCta": "Khám phá 3D Đà Nẵng ngay",
-    "trust1": "100% Tour riêng không ghép đoàn · Không phụ phí ẩn · Không ép mua sắm",
-    "trust2": "Đánh giá 4.98/5 · Văn phòng điều hành hỗ trợ 24/7 trực tiếp tại điểm đến",
+    "trust1": "100% Tour riêng biệt · Minh bạch chi phí · Lịch trình linh hoạt theo nhu cầu",
+    "trust2": "Đội ngũ chuyên tuyến tận tâm · Đồng hành trực tiếp tại điểm đến",
     "trust3": "Xe Limousine/SUV riêng đời mới & Hướng dẫn viên bản địa chuyên nghiệp"
   },
   "home": {
@@ -198,17 +198,75 @@
       "cta": "Khám phá trải nghiệm"
     },
     "whyUs": {
-      "kicker": "THE SUPER EZ TOUR ADVANTAGE",
-      "title": "Vì sao chọn Super EZ Tour?",
-      "subtitle": "Giải pháp du lịch riêng tư hoàn hảo, xóa bỏ hoàn toàn bất tiện của tour ghép đoàn 30-40 người truyền thống.",
+      "kicker": "THE FREEDOM TO TRAVEL",
+      "eyebrow": "THE FREEDOM TO TRAVEL",
+      "title": "Du lịch theo cách của riêng bạn.",
+      "heading": "Du lịch theo cách của riêng bạn.",
+      "subtitle": "Mỗi chuyến đi đều có một nhịp riêng. Khám phá sự khác biệt giữa hành trình theo đoàn và trải nghiệm được thiết kế dành riêng cho bạn.",
+      "colStandardKicker": "STANDARD JOURNEY",
+      "colStandardTitle": "Tour ghép truyền thống",
+      "colStandardDesc": "Hành trình chung theo đoàn",
+      "colSuperEzKicker": "SUPER EZ TOUR",
+      "colSuperEzTitle": "Hành trình riêng tư",
+      "colSuperEzDesc": "Thiết kế riêng cho bạn",
+      "quoteBtn": "Thiết kế hành trình riêng",
+      "ctaBtn": "Thiết kế hành trình riêng",
+      "editorialFooter": "Không phải một hành trình dành cho tất cả. Mà là một hành trình dành cho bạn.",
+      "criteria": {
+        "itinerary": {
+          "num": "01",
+          "category": "Lịch trình",
+          "categoryLabel": "01 / Lịch trình",
+          "standard": "Theo chương trình chung của đoàn.",
+          "private": "Thiết kế theo sở thích và thời gian của bạn."
+        },
+        "transport": {
+          "num": "02",
+          "category": "Không gian di chuyển",
+          "categoryLabel": "02 / Không gian di chuyển",
+          "standard": "Di chuyển cùng những khách khác.",
+          "private": "Phương tiện dành riêng cho nhóm của bạn."
+        },
+        "experiences": {
+          "num": "03",
+          "category": "Trải nghiệm & Hoạt động",
+          "categoryLabel": "03 / Trải nghiệm & Hoạt động",
+          "standard": "Các hoạt động theo lịch trình có sẵn.",
+          "private": "Lựa chọn trải nghiệm phù hợp với nhóm."
+        },
+        "guide": {
+          "num": "04",
+          "category": "Hướng dẫn & Đồng hành",
+          "categoryLabel": "04 / Hướng dẫn & Đồng hành",
+          "standard": "Hướng dẫn viên phục vụ cả đoàn.",
+          "private": "Hướng dẫn viên đồng hành cùng nhóm riêng."
+        }
+      },
       "colCategory": "Hạng mục so sánh",
       "colSuperEz": "Super EZ Tour (Tour riêng)",
       "colGeneral": "Tour ghép đoàn đại trà",
-      "badgeExclusive": "ĐỘC QUYỀN",
-      "calloutTitle": "Nhận ngay lịch trình may đo riêng cho gia đình bạn",
-      "calloutDesc": "Chỉ cần cung cấp ngày khởi hành và số lượng thành viên, chuyên viên sẽ gửi phương án tối ưu trong vòng 30 phút.",
-      "calloutBtnPrimary": "Đăng ký nhận báo giá nhanh 30 phút",
-      "calloutBtnKakao": "Tư vấn trực tiếp 1:1 qua Zalo / Hotline"
+      "badgeExclusive": "100% PRIVATE"
+    },
+    "travelerStories": {
+      "eyebrow": "TRAVELER STORIES",
+      "heading": "Những chuyến đi đáng nhớ, qua góc nhìn du khách.",
+      "description": "Những khoảnh khắc, câu chuyện và cảm nhận được chia sẻ từ các hành trình khám phá Việt Nam.",
+      "shareAction": "Chia sẻ khoảnh khắc",
+      "momentsTitle": "Thước phim khoảnh khắc",
+      "momentsNote": "※ Video trải nghiệm thực tế tỉ lệ 9:16",
+      "reviewsTitle": "Cảm nhận từ khách hàng",
+      "communityBannerTitle": "Bạn vừa có một chuyến đi tuyệt vời cùng Super EZ Tour?",
+      "communityBannerDesc": "Chia sẻ thước phim ngắn hoặc hình ảnh kỷ niệm của bạn để lan tỏa cảm hứng tới những hành trình sắp tới.",
+      "communityBannerBtn": "Chia sẻ khoảnh khắc của bạn",
+      "readMore": "Xem toàn bộ cảm nhận",
+      "emptyTitle": "Chưa có khoảnh khắc nào tại điểm đến này",
+      "emptyDesc": "Chúng tôi đang chuẩn bị thêm nhiều câu chuyện thực tế. Bạn có thể xem toàn bộ hoặc các điểm đến khác.",
+      "emptyReset": "Xem tất cả khoảnh khắc"
+    },
+    "reviews": {
+      "eyebrow": "TRAVELER STORIES",
+      "title": "Những chuyến đi đáng nhớ, qua góc nhìn du khách.",
+      "subtitle": "Những khoảnh khắc, câu chuyện và cảm nhận được chia sẻ từ các hành trình khám phá Việt Nam."
     },
     "quote": {
       "kicker": "REAL-TIME 1:1 CONSULTATION & RAPID QUOTE",
@@ -232,26 +290,21 @@
     }
   },
   "footer": {
-    "desc": "Tour riêng 100% · Không ghép đoàn · Không ép mua sắm. Xe đưa đón riêng đời mới, hướng dẫn viên chuyên nghiệp và an tâm trọn vẹn tại Việt Nam.",
-    "cskhTitle": "Trung tâm chăm sóc & Tư vấn đặt tour",
-    "cskhHours": "Thứ 2 - Chủ Nhật: 08:30 ~ 22:00 (Hỗ trợ khẩn cấp 24/7)",
-    "destTitle": "10 Điểm đến danh tiếng Việt Nam",
-    "northRegion": "Miền Bắc:",
-    "centralRegion": "Miền Trung:",
-    "southRegion": "Miền Nam:",
-    "daNang3dBadge": "Đà Nẵng (Tour 3D khả dụng)",
-    "daNangLive": "Tour 3D tương tác Đà Nẵng đang hoạt động",
-    "quickLinksTitle": "Tiện ích & Dịch vụ",
-    "linkAllDest": "Danh mục 10 điểm đến",
-    "linkFamily": "Tour gia đình cao cấp",
-    "linkCouple": "Tour cặp đôi & Trăng mật",
-    "linkReviews": "Đánh giá từ du khách",
-    "linkQuote": "Yêu cầu báo giá nhanh",
-    "linkWhy": "Cam kết tour riêng 100%",
-    "connectTitle": "Kênh kết nối chính thức",
-    "legalName": "Công ty Cổ phần Du lịch Super EZ Tour",
-    "legalLicense": "Giấy phép kinh doanh lữ hành quốc tế số 79-1988/2024/TCDL-GP LHQT",
-    "copyright": "Bản quyền © 2026 Super EZ Tour Corporation. Bảo lưu mọi quyền."
+    "brandEyebrow": "SUPER EZ TOUR · PRIVATE JOURNEYS",
+    "brandHeadline": "Your Vietnam. Your Journey.",
+    "brandDesc": "Khám phá Việt Nam theo cách riêng của bạn, với những hành trình được thiết kế linh hoạt theo sở thích và nhu cầu.",
+    "brandCta": "Khám phá điểm đến",
+    "groupExplore": "Khám phá",
+    "groupSuperEz": "Super EZ Tour",
+    "groupConnect": "Kết nối",
+    "linkDestinations": "Điểm đến Việt Nam",
+    "linkJourneys": "Hành trình tour riêng",
+    "linkThemes": "Chủ đề du lịch",
+    "linkServices": "Dịch vụ du lịch",
+    "linkWhyUs": "Vì sao chọn chúng tôi",
+    "linkConsult": "Tư vấn hành trình",
+    "tagline": "Made for extraordinary journeys.",
+    "copyright": "Bản quyền © Super EZ Tour. Bảo lưu mọi quyền."
   },
   "modal": {
     "eyebrow": "SUPER EZ TOUR · PRIVATE JOURNEYS",
@@ -383,7 +436,7 @@
     },
     "notesLabel": "Yêu cầu đặc biệt cho chuyến đi",
     "btnSubmit": "Yêu cầu thiết kế hành trình riêng",
-    "trustSubtext": "100% Tour riêng · Xe riêng & HDV chuyên tuyến · Báo giá trong 30 phút",
+    "trustSubtext": "100% Tour riêng · Xe riêng & HDV chuyên tuyến · Tư vấn chu đáo theo yêu cầu",
     "selectedBadge": "Đang chọn"
   }
 }

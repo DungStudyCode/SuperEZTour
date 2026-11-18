@@ -114,7 +114,6 @@ const SignatureJourneys = ({ onOpenQuoteModal }) => {
         ========================================================= */}
         <div className="signature-grid">
           {SIGNATURE_JOURNEYS.map((journey) => {
-            const isDaNang = journey.isAvailable;
             const title = isKorean
               ? journey.titleKr || journey.title
               : journey.titleVi || journey.title;
@@ -140,7 +139,7 @@ const SignatureJourneys = ({ onOpenQuoteModal }) => {
                 role="button"
                 aria-haspopup="dialog"
                 aria-label={`${title} - ${t('tourPreview.cardQuickPreviewHint', isKorean ? '여행 빠른 미리보기' : 'Xem nhanh hành trình')}`}
-                className={`signature-card ${isDaNang ? 'is-featured' : ''}`}
+                className="signature-card"
                 onClick={(e) => handleCardClick(journey, e)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -167,14 +166,6 @@ const SignatureJourneys = ({ onOpenQuoteModal }) => {
                   )}
 
                   <div className="signature-media-overlay" />
-
-                  {/* Subtle Featured Badge for Da Nang */}
-                  {isDaNang && (
-                    <div className="signature-badge-featured">
-                      <Sparkles size={11} className="badge-sparkle-icon" />
-                      <span>{t('home.journeys.featuredTag', 'FEATURED')}</span>
-                    </div>
-                  )}
 
                   {/* Hover Quick Preview Hint Pill */}
                   <div className="signature-card-hover-hint">
@@ -212,13 +203,9 @@ const SignatureJourneys = ({ onOpenQuoteModal }) => {
 
                   {/* Unified Bottom CTA */}
                   <div className="signature-card-cta-wrap">
-                    <div
-                      className={`signature-cta-btn ${isDaNang ? 'is-route' : 'is-quote'}`}
-                    >
+                    <div className="signature-cta-btn">
                       <span>
-                        {isDaNang
-                          ? t('home.journeys.viewJourney', isKorean ? '여행 자세히 보기' : 'Khám phá hành trình')
-                          : t('home.journeys.consultJourney', isKorean ? '여행 상담하기' : 'Tư vấn hành trình')}
+                        {t('home.journeys.viewJourney', isKorean ? '여행 자세히 보기' : 'Khám phá hành trình')}
                       </span>
                       <ArrowRight size={15} className="cta-arrow-icon" />
                     </div>

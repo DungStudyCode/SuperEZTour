@@ -271,3 +271,107 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Destination Coming Soon Screen */
+.dest-coming-soon-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #061426;
+  color: #FFFFFF;
+  padding: 40px 24px;
+  font-family: var(--font-body);
+}
+
+.dest-coming-soon-card {
+  max-width: 600px;
+  text-align: center;
+  background: rgba(8, 29, 66, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 48px 36px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.dest-coming-soon-kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #FFB52B;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.dest-coming-soon-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+}
+
+.dest-coming-soon-lead {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.dest-coming-soon-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.dest-coming-soon-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dest-coming-soon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+
+.dest-coming-soon-btn.primary {
+  background-color: #FF681E;
+  color: #FFFFFF;
+  border: 1px solid #FF681E;
+  box-shadow: 0 4px 16px rgba(255, 104, 30, 0.35);
+}
+
+.dest-coming-soon-btn.primary:hover {
+  background-color: #E55712;
+  transform: translateY(-2px);
+}
+
+.dest-coming-soon-btn.secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.dest-coming-soon-btn.secondary:hover {
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}

@@ -390,7 +390,7 @@ const HeroBanner = ({ onOpenQuoteModal }) => {
                     {slide.isAvailable && slide.route ? (
                       <Link
                         to={slide.route}
-                        className="slide-primary-cta is-available"
+                        className="slide-primary-cta"
                       >
                         <span>{ctaText}</span>
                         <ArrowRight size={15} className="slide-cta-arrow" />
@@ -398,7 +398,7 @@ const HeroBanner = ({ onOpenQuoteModal }) => {
                     ) : (
                       <button
                         type="button"
-                        className={`slide-primary-cta ${isBrandStory ? 'is-brand-cta' : 'is-outline'}`}
+                        className="slide-primary-cta"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleCtaClick(slide);

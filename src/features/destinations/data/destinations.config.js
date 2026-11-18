@@ -22,8 +22,8 @@ export function getDestinationConfig(slug) {
     return DESTINATION_REGISTRY[normalized];
   }
 
-  // Fallback to Da Nang if not found or return default structure
-  return DA_NANG_CONFIG;
+  // Return null when a destination has not yet published its 3D config
+  return null;
 }
 
 export default DESTINATION_REGISTRY;

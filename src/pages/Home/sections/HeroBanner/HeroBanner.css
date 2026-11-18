@@ -250,34 +250,17 @@
   transition: all 0.25s ease;
 }
 
-.slide-primary-cta.is-available,
-.slide-primary-cta.is-brand-cta {
+.slide-primary-cta {
   background: #E66B37;
   color: #FFFFFF;
   border: 1px solid #E66B37;
   box-shadow: 0 4px 16px rgba(230, 107, 55, 0.35);
 }
 
-.slide-primary-cta.is-available:hover,
-.slide-primary-cta.is-brand-cta:hover {
+.slide-primary-cta:hover {
   background: #D05A26;
   border-color: #D05A26;
   box-shadow: 0 6px 20px rgba(230, 107, 55, 0.45);
-  transform: translateY(-1px);
-}
-
-.slide-primary-cta.is-outline {
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #FFFFFF;
-}
-
-.slide-primary-cta.is-outline:hover {
-  background: #E66B37;
-  border-color: #E66B37;
-  box-shadow: 0 4px 16px rgba(230, 107, 55, 0.35);
   transform: translateY(-1px);
 }
 

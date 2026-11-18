@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import {
   VIETNAM_DESTINATIONS,
   VIETNAM_REGIONS,
@@ -12,7 +12,7 @@ import './DestinationNavigation.css';
 /**
  * Editorial Destination Strip — 5-Column Discovery Grid
  * Light Luxury Korean Travel Editorial Experience
- * 10 Verified Authentic Vietnam Destinations | Zero Broken Images
+ * 10 Verified Authentic Vietnam Destinations | Equal Visual Priority
  */
 const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
   const [selectedRegion, setSelectedRegion] = useState('all');
@@ -32,8 +32,9 @@ const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
   };
 
   const handleCardClick = (dest) => {
-    if (dest.id === 'da-nang' && dest.isAvailable) {
-      navigate(dest.route || '/destinations/da-nang');
+    const isPublished = dest.experienceStatus === 'published' || (dest.id === 'da-nang' && dest.isAvailable);
+    if (isPublished && dest.route) {
+      navigate(dest.route);
     } else {
       if (onOpenQuoteModal) {
         onOpenQuoteModal({
@@ -138,7 +139,6 @@ const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
           aria-live="polite"
         >
           {filteredDestinations.map((dest) => {
-            const isDaNang = dest.id === 'da-nang' && dest.isAvailable;
             const displayName = isKorean ? dest.nameKr : (dest.nameVi || dest.name);
             const subName = isKorean ? (dest.nameVi || dest.name) : (dest.nameEn || dest.name);
             const description = isKorean
@@ -149,15 +149,11 @@ const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
             return (
               <article
                 key={dest.id}
-                className={`dest-strip-card ${isDaNang ? 'is-danang-live' : ''}`}
+                className="dest-strip-card"
                 onClick={() => handleCardClick(dest)}
                 tabIndex={0}
                 role="button"
-                aria-label={`${displayName} (${subName}) - ${
-                  isDaNang
-                    ? (isKorean ? '3D 여행 둘러보기' : 'Khám phá 3D')
-                    : (isKorean ? '여행 상담하기' : 'Tư vấn chuyến đi')
-                }`}
+                aria-label={`${displayName} (${subName})`}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -189,14 +185,6 @@ const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
                   )}
 
                   <div className="card-media-overlay" />
-
-                  {/* Only Da Nang has the subtle 3D Interactive Badge */}
-                  {isDaNang && (
-                    <div className="card-live-badge">
-                      <Sparkles size={11} className="badge-sparkle-icon" />
-                      <span>{isKorean ? '3D 투어' : 'Tour 3D'}</span>
-                    </div>
-                  )}
                 </div>
 
                 {/* Editorial Card Body */}
@@ -210,9 +198,7 @@ const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
 
                   <div className="card-footer-action">
                     <span className="card-action-label">
-                      {isDaNang
-                        ? t('home.destinationStrip.ctaDaNang', isKorean ? '3D 여행 둘러보기' : 'Khám phá 3D')
-                        : t('home.destinationStrip.ctaConsult', isKorean ? '여행 상담하기' : 'Tư vấn chuyến đi')}
+                      {t('home.destinationStrip.ctaExplore', isKorean ? '여행 둘러보기' : 'Khám phá hành trình')}
                     </span>
                     <ArrowRight size={13} className="card-action-arrow" />
                   </div>

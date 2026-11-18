@@ -141,200 +141,42 @@
   transition: background-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
   text-align: left;
+  color: #24343B;
 }
 
-/* Disabled / Coming soon destinations */
-.dest-item-btn.is-coming-soon {
-  color: #718087;
-}
-
-.dest-item-btn.is-coming-soon .dest-item-name {
+.dest-item-btn .dest-item-name {
   font-size: 0.92rem;
   font-weight: 500;
-  color: #718087;
+  color: #24343B;
   transition: color 0.2s ease;
 }
 
-.dest-item-btn.is-coming-soon .dest-item-arrow {
-  color: #A0ABB0;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.dest-item-btn.is-coming-soon:hover,
-.dest-item-btn.is-coming-soon:focus-visible {
-  background-color: #FAF9F6;
-}
-
-.dest-item-btn.is-coming-soon:hover .dest-item-name,
-.dest-item-btn.is-coming-soon:focus-visible .dest-item-name {
-  color: #24343B;
-}
-
-.dest-item-btn.is-coming-soon:hover .dest-item-arrow,
-.dest-item-btn.is-coming-soon:focus-visible .dest-item-arrow {
-  opacity: 0.7;
-  transform: translateX(0);
-}
-
-/* Available destinations (Da Nang) */
-.dest-item-btn.is-available {
-  color: #24343B;
-}
-
-.dest-item-btn.is-available .dest-item-name {
-  font-size: 0.94rem;
-  font-weight: 700;
-  color: #24343B;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  transition: color 0.2s ease;
-}
-
-.available-indicator {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #E66B37;
-  box-shadow: 0 0 6px rgba(230, 107, 55, 0.45);
-}
-
-.dest-item-btn.is-available .dest-item-arrow {
-  color: #718087;
+.dest-item-btn .dest-item-arrow {
+  color: #8E9BA1;
   opacity: 0.5;
   transform: translateX(-2px);
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
-.dest-item-btn.is-available:hover,
-.dest-item-btn.is-available:focus-visible {
-  background-color: #FFF9F5;
+.dest-item-btn:hover,
+.dest-item-btn:focus-visible {
+  background-color: #FAF9F6;
 }
 
-.dest-item-btn.is-available:hover .dest-item-name,
-.dest-item-btn.is-available:focus-visible .dest-item-name {
+.dest-item-btn:hover .dest-item-name,
+.dest-item-btn:focus-visible .dest-item-name {
   color: #E66B37;
 }
 
-.dest-item-btn.is-available:hover .dest-item-arrow,
-.dest-item-btn.is-available:focus-visible .dest-item-arrow {
+.dest-item-btn:hover .dest-item-arrow,
+.dest-item-btn:focus-visible .dest-item-arrow {
   opacity: 1;
   color: #E66B37;
-  transform: translateX(3px);
+  transform: translateX(2px);
 }
 
 /* =========================================================
-   03. FEATURED EDITORIAL STRIP (Light & Compact)
-========================================================= */
-.megamenu-strip-section {
-  padding-top: 18px;
-  border-top: 1px solid #E9E6DF;
-}
-
-.megamenu-editorial-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 12px 18px;
-  background-color: #FAF9F6;
-  border: 1px solid #EBE7DF;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.megamenu-editorial-strip:hover,
-.megamenu-editorial-strip:focus-visible {
-  background-color: #F5F2EB;
-  border-color: #DDD7CB;
-  box-shadow: 0 6px 18px rgba(36, 52, 59, 0.05);
-}
-
-.strip-media-wrap {
-  flex-shrink: 0;
-  width: 130px;
-  height: 80px;
-  border-radius: 7px;
-  overflow: hidden;
-  background-color: #EAE6DF;
-}
-
-.strip-media-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.35s ease;
-  display: block;
-}
-
-.megamenu-editorial-strip:hover .strip-media-img {
-  transform: scale(1.03);
-}
-
-.strip-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.strip-kicker {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #B18B59;
-  margin-bottom: 3px;
-}
-
-.strip-title {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #24343B;
-  margin: 0 0 3px 0;
-  transition: color 0.2s ease;
-}
-
-.megamenu-editorial-strip:hover .strip-title {
-  color: #E66B37;
-}
-
-.strip-desc {
-  font-size: 0.8rem;
-  color: #718087;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.strip-arrow-wrap {
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #FFFFFF;
-  border: 1px solid #E2DED6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #24343B;
-  transition: all 0.25s ease;
-}
-
-.megamenu-editorial-strip:hover .strip-arrow-wrap {
-  background-color: #E66B37;
-  border-color: #E66B37;
-  color: #FFFFFF;
-  transform: translateX(3px);
-}
-
-.strip-arrow-icon {
-  flex-shrink: 0;
-}
-
-/* =========================================================
-   04. TRANSITIONS & RESPONSIVE
+   03. TRANSITIONS & RESPONSIVE
 ========================================================= */
 @keyframes fadeSlideDown {
   from {

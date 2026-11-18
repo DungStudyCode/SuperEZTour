@@ -1,248 +1,555 @@
 /* =========================================================
-   SUPER EZ TOUR — WHY US & VALUE COMPARISON MATRIX
-   Concept: BOBTOUR & Guideman Value Comparison Matrix
+   SUPER EZ TOUR — ULTRA-PREMIUM WHY CHOOSE US REDESIGN
+   Concept: "THE FREEDOM TO TRAVEL — TWO WAYS TO TRAVEL"
+   Luxury Split Comparison · Cinematic Interaction
+   Palette: Warm Ivory #FAF9F6, Pristine White #FFFFFF,
+            Champagne Gold #B9915A, Brand Orange #E96932,
+            Charcoal Navy #23343B, Muted Slate #75848B,
+            Hairline Border #EAE6E0
    ========================================================= */
 
-.why-us-section {
+.editorial-comparison-section {
   position: relative;
   background-color: #FAF9F6;
-  color: #24343B;
-  padding: 85px 0 95px;
+  color: #23343B;
+  padding: 92px 0 100px;
   border-bottom: 1px solid #EAE6E0;
   box-sizing: border-box;
 }
 
-.why-header {
-  text-align: center;
-  max-width: 760px;
-  margin: 0 auto 40px;
+.comparison-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-.why-eyebrow {
+/* =========================================================
+   01. EDITORIAL SECTION HEADER
+   ========================================================= */
+.comparison-editorial-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 52px;
+}
+
+.comparison-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #E66B37;
-  background: rgba(230, 107, 55, 0.08);
-  border: 1px solid rgba(230, 107, 55, 0.2);
-  padding: 4px 14px;
-  border-radius: 9999px;
-  margin-bottom: 14px;
+  letter-spacing: 0.16em;
+  color: #B9915A;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
-.why-title {
-  font-size: 2.3rem;
-  font-weight: 900;
-  color: #24343B;
-  margin: 0 0 12px 0;
+.eyebrow-icon {
+  color: #B9915A;
+}
+
+.comparison-main-heading {
   font-family: 'Playfair Display', Georgia, serif;
-  letter-spacing: -0.02em;
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #23343B;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+  margin: 0 0 14px;
 }
 
-.why-subtitle {
+.comparison-main-heading.is-korean {
+  font-family: 'Noto Serif KR', 'Noto Sans KR', serif;
+  font-size: 2.15rem;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.comparison-lead-desc {
   font-size: 0.95rem;
-  color: #64747B;
-  line-height: 1.65;
+  color: #75848B;
+  line-height: 1.7;
   margin: 0;
 }
 
-.text-orange {
-  color: #E66B37;
-}
-
-/* Comparison Table */
-.comparison-table-wrap {
-  max-width: 980px;
-  margin: 0 auto;
-  background: #FFFFFF;
+/* =========================================================
+   02. LUXURY SPLIT COMPARISON FRAME
+   ========================================================= */
+.luxury-split-frame {
+  background-color: #FFFFFF;
   border: 1px solid #EAE6E0;
-  border-radius: 18px;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(35, 52, 59, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(36, 52, 59, 0.06);
+  transition: border-color 0.3s ease;
 }
 
-.comparison-table-header {
+/* Header Grid: Standard vs. Super EZ Tour */
+.split-frame-header {
   display: grid;
-  grid-template-columns: 200px 1.25fr 1fr;
-  background: #F1EEE8;
+  grid-template-columns: 1fr 1px 1fr;
   border-bottom: 1px solid #EAE6E0;
-  padding: 18px 24px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #24343B;
+  align-items: stretch;
 }
 
-.comparison-table-header .col-superez {
+/* Left Header: Standard Journey */
+.split-header-col.standard-header {
+  background-color: #FAF9F7;
+  padding: 32px 40px 28px;
+  box-sizing: border-box;
+}
+
+.standard-header .header-kicker {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #8E9BA1;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.standard-header .header-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #4E5968;
+  margin: 0 0 5px;
+  line-height: 1.3;
+}
+
+.standard-header .header-subtitle {
+  font-size: 0.85rem;
+  color: #8E9BA1;
+  margin: 0;
+}
+
+/* Central Hairline Divider */
+.split-center-divider {
+  background-color: #EAE6E0;
+  width: 1px;
+  height: 100%;
+}
+
+/* Right Header: Super EZ Tour */
+.split-header-col.superez-header {
+  background-color: #FFFDF9;
+  padding: 32px 40px 28px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Subtle Champagne/Orange top accent line */
+.split-header-col.superez-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #E96932 0%, #B9915A 100%);
+}
+
+.superez-header .header-badge-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  color: #E66B37;
+  margin-bottom: 8px;
 }
 
-.badge-exclusive {
-  font-size: 0.65rem;
-  font-weight: 900;
-  background: #E66B37;
-  color: #FFFFFF;
-  padding: 2px 7px;
-  border-radius: 4px;
+.header-kicker-gold {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #B9915A;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.comparison-table-header .col-general {
-  color: #8E9BA1;
+.kicker-sparkle {
+  color: #B9915A;
 }
 
-.comparison-table-body {
+.header-private-tag {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  background: rgba(233, 105, 50, 0.08);
+  color: #E96932;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  border: 1px solid rgba(233, 105, 50, 0.2);
+}
+
+.superez-header .header-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #23343B;
+  margin: 0 0 5px;
+  line-height: 1.3;
+}
+
+.superez-header .header-subtitle {
+  font-size: 0.85rem;
+  color: #64747B;
+  margin: 0;
+}
+
+/* =========================================================
+   COMPARISON ROWS CONTAINER
+   ========================================================= */
+.split-rows-container {
   display: flex;
   flex-direction: column;
 }
 
-.comparison-row {
-  display: grid;
-  grid-template-columns: 200px 1.25fr 1fr;
-  border-bottom: 1px solid #F1EEE8;
-  transition: background 0.15s ease;
+.split-criterion-row {
+  border-bottom: 1px solid #EAE6E0;
+  transition: background-color 0.25s ease;
+  position: relative;
 }
 
-.comparison-row:last-child {
+.split-criterion-row:last-child {
   border-bottom: none;
 }
 
-.comparison-row:hover {
-  background: #FFFDF9;
-}
-
-.col-category {
-  padding: 18px 24px;
+/* Row Category Tag Bar */
+.row-category-bar {
+  padding: 14px 40px 0;
   display: flex;
   align-items: center;
 }
 
-.category-tag {
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: #24343B;
+.row-category-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #B9915A;
+  text-transform: uppercase;
 }
 
-.col-superez {
-  padding: 18px 24px;
-  background: #FFF8F5;
+/* Split Content Grid (Left cell | Divider | Right cell) */
+.row-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: stretch;
+}
+
+.row-cell {
+  padding: 10px 40px 24px;
+  box-sizing: border-box;
+}
+
+/* Standard Cell */
+.standard-cell {
+  background-color: transparent;
+}
+
+.standard-text {
+  font-size: 0.95rem;
+  color: #75848B;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Divider Continuation */
+.row-center-divider {
+  background-color: #EAE6E0;
+  width: 1px;
+  height: 100%;
+}
+
+/* Super EZ Tour Cell */
+.superez-cell {
+  background-color: rgba(255, 253, 249, 0.45);
+  position: relative;
+}
+
+.superez-text {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #23343B;
+  line-height: 1.6;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+/* Elegant Micro-Interactions on Hover */
+.split-criterion-row:hover {
+  background-color: #FFFDF9;
+}
+
+.split-criterion-row:hover .superez-text {
+  color: #E96932;
+}
+
+/* Mobile labels hidden on desktop */
+.mobile-party-label {
+  display: none;
+}
+
+/* =========================================================
+   03. EDITORIAL FOOTER STATEMENT
+   ========================================================= */
+.comparison-editorial-footer {
+  margin-top: 44px;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.editorial-closing-quote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #23343B;
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.editorial-closing-quote.is-korean {
+  font-family: 'Noto Serif KR', serif;
+  font-style: normal;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+/* =========================================================
+   04. SINGLE CONSULTATION CTA
+   ========================================================= */
+.comparison-cta-wrap {
+  margin-top: 28px;
   display: flex;
-  align-items: center;
+  justify-content: center;
 }
 
-.col-general {
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  background: #FFFFFF;
-}
-
-.cell-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.cell-text {
-  font-size: 0.85rem;
-  line-height: 1.45;
-}
-
-.cell-text.bold {
-  font-weight: 700;
-  color: #24343B;
-}
-
-.cell-text.muted {
-  color: #8E9BA1;
-}
-
-.win-icon {
-  margin-top: 1px;
-  flex-shrink: 0;
-}
-
-.lose-icon {
-  color: #CBD5E1;
-  margin-top: 1px;
-  flex-shrink: 0;
-}
-
-.comparison-table-footer {
-  padding: 20px 24px;
-  background: #F1EEE8;
-  border-top: 1px solid #EAE6E0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.footer-callout {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
-  color: #64747B;
-  line-height: 1.4;
-}
-
-.comparison-quote-btn {
+.comparison-primary-cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: #E66B37;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background-color: #E96932;
   color: #FFFFFF;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 9999px;
-  font-size: 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
   font-weight: 700;
+  border: none;
   cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(233, 105, 50, 0.22);
+  text-decoration: none;
 }
 
-.comparison-quote-btn:hover {
-  background: #D05A26;
-  box-shadow: 0 4px 14px rgba(230, 107, 55, 0.35);
+.comparison-primary-cta:hover {
+  background-color: #D45823;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(233, 105, 50, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .why-us-section {
-    padding: 65px 0 75px;
+.comparison-primary-cta:active {
+  transform: translateY(0);
+}
+
+.comparison-primary-cta:focus-visible {
+  outline: 2px solid #E96932;
+  outline-offset: 2px;
+}
+
+.cta-arrow {
+  transition: transform 0.2s ease;
+}
+
+.comparison-primary-cta:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+/* Tablet (768px – 1199px) */
+@media (max-width: 1199px) {
+  .comparison-container {
+    max-width: 980px;
   }
-  .why-title {
-    font-size: 1.85rem;
+
+  .split-header-col.standard-header,
+  .split-header-col.superez-header {
+    padding: 28px 28px 24px;
   }
-  .comparison-table-header {
+
+  .row-category-bar {
+    padding: 12px 28px 0;
+  }
+
+  .row-cell {
+    padding: 8px 28px 20px;
+  }
+
+  .comparison-main-heading {
+    font-size: 2.1rem;
+  }
+
+  .comparison-main-heading.is-korean {
+    font-size: 1.95rem;
+  }
+}
+
+/* Mobile (< 768px): Sequential Comparison Pairs */
+@media (max-width: 767px) {
+  .editorial-comparison-section {
+    padding: 60px 0 72px;
+  }
+
+  .comparison-container {
+    padding: 0 16px;
+  }
+
+  .comparison-editorial-header {
+    margin-bottom: 32px;
+  }
+
+  .comparison-main-heading {
+    font-size: 1.65rem;
+    line-height: 1.3;
+  }
+
+  .comparison-main-heading.is-korean {
+    font-size: 1.55rem;
+  }
+
+  .comparison-lead-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .luxury-split-frame {
+    border-radius: 18px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Hide top 2-column header and vertical dividers on mobile */
+  .split-frame-header,
+  .split-center-divider,
+  .row-center-divider {
     display: none;
   }
-  .comparison-row {
-    grid-template-columns: 1fr;
+
+  .split-rows-container {
+    gap: 16px;
+  }
+
+  /* Mobile Comparison Pair Card */
+  .split-criterion-row {
+    background-color: #FFFFFF;
+    border: 1px solid #EAE6E0;
+    border-radius: 16px;
     padding: 16px;
+    box-shadow: 0 4px 16px rgba(35, 52, 59, 0.03);
+  }
+
+  .row-category-bar {
+    padding: 0 0 12px;
+    border-bottom: 1px solid #F1EEE8;
+    margin-bottom: 12px;
+  }
+
+  .row-content-grid {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
   }
-  .col-category,
-  .col-superez,
-  .col-general {
-    padding: 6px 0;
+
+  .row-cell {
+    padding: 12px 14px;
+    border-radius: 10px;
   }
-  .col-superez {
-    background: transparent;
+
+  /* Standard Journey Box on Mobile */
+  .standard-cell {
+    background-color: #FAF9F7;
+    border: 1px solid #EAE6E0;
   }
-  .comparison-table-footer {
-    flex-direction: column;
-    align-items: stretch;
+
+  /* Super EZ Tour Box on Mobile */
+  .superez-cell {
+    background-color: #FFFDF9;
+    border: 1px solid rgba(185, 145, 90, 0.35);
+    border-left: 3px solid #E96932;
   }
-  .comparison-quote-btn {
+
+  /* Mobile Party Tag Labels */
+  .mobile-party-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #8E9BA1;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .mobile-party-label.superez {
+    color: #E96932;
+  }
+
+  .standard-text {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .superez-text {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .comparison-editorial-footer {
+    margin-top: 32px;
+  }
+
+  .editorial-closing-quote {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .editorial-closing-quote.is-korean {
+    font-size: 0.98rem;
+  }
+
+  .comparison-cta-wrap {
+    margin-top: 22px;
+  }
+
+  .comparison-primary-cta {
     width: 100%;
-    justify-content: center;
+    padding: 14px 20px;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .comparison-header-anim,
+  .split-center-divider,
+  .row-center-divider,
+  .split-criterion-row,
+  .comparison-footer-anim {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .comparison-primary-cta,
+  .cta-arrow,
+  .superez-text {
+    transition: none !important;
+    transform: none !important;
   }
 }
