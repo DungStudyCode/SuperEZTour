@@ -35,11 +35,11 @@ const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
     if (dest.id === 'da-nang' && dest.isAvailable) {
       navigate(dest.route || '/destinations/da-nang');
     } else {
-      if (onSelectDestination) {
-        onSelectDestination(dest.id);
-      }
       if (onOpenQuoteModal) {
-        onOpenQuoteModal(dest.id);
+        onOpenQuoteModal({
+          source: 'destination-card',
+          destinationId: dest.id,
+        });
       }
     }
   };

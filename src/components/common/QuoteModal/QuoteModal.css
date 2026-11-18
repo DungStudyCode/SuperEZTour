@@ -147,6 +147,80 @@
 }
 
 /* =========================================================
+   CONSULTATION CONTEXT SUMMARY CARD
+========================================================= */
+.consultation-context-summary {
+  background-color: #FAF9F6;
+  border: 1px solid #ECE8E1;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #B18B59;
+  text-transform: uppercase;
+}
+
+.summary-guarantee-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #24343B;
+  background-color: #FFFFFF;
+  border: 1px solid #E2DED5;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.summary-details-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.summary-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.summary-chip .chip-key {
+  color: #718087;
+  font-weight: 500;
+}
+
+.summary-chip .chip-val {
+  color: #24343B;
+  font-weight: 700;
+  background-color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #EAE6E0;
+}
+
+/* =========================================================
    FORM GRID & GROUPS
 ========================================================= */
 .quote-modal-form {

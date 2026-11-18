@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   X,
-  CheckCircle,
-  MapPin,
-  User,
+  Send,
   Phone,
   MessageCircle,
   MessageSquare,
@@ -11,33 +9,17 @@ import {
   Clock,
   Calendar,
   Sparkles,
+  CheckCircle,
+  MapPin,
+  User,
   ArrowRight,
+  ShieldCheck,
 } from 'lucide-react';
 import { VIETNAM_DESTINATIONS } from '../../../data/vietnamDestinations';
 import { BRAND_CONFIG } from '../../../constants/brand.config';
 import { useLanguage } from '../../../context/LanguageContext';
+import { useConsultation, resolveCanonicalDestinationId } from '../../../context/ConsultationContext';
 import './QuoteModal.css';
-
-/**
- * Robust helper to resolve destination input (ID, slug, or alias)
- * to a canonical destination ID in VIETNAM_DESTINATIONS.
- */
-const resolveDestinationId = (input) => {
-  if (!input) return 'da-nang';
-  if (typeof input === 'object' && input !== null) {
-    const raw = input.destinationId || input.destinationSlug || input.id || input.destination;
-    return resolveDestinationId(raw);
-  }
-  const norm = String(input).toLowerCase().trim();
-  if (norm === 'kakao') return 'da-nang';
-  const matched = VIETNAM_DESTINATIONS.find(
-    (d) =>
-      d.id === norm ||
-      d.slug === norm ||
-      (d.aliases && d.aliases.some((a) => a.toLowerCase() === norm))
-  );
-  return matched ? matched.id : 'da-nang';
-};
 
 const DURATION_LABELS = {
   flexible: { vi: 'Chưa xác định', ko: '미정' },
@@ -56,32 +38,48 @@ const GROUP_LABELS = {
   '10+': { vi: 'Trên 10 người', ko: '10명 초과' },
 };
 
+/**
+ * Super EZ Tour — Unified QuoteModal
+ * Single form component for submitting private travel consultation requests.
+ * Fully synchronized with ConsultationContext and ExperienceDetailDrawer.
+ */
 const QuoteModal = ({
-  isOpen,
-  onClose,
+  isOpen: propIsOpen,
+  onClose: propOnClose,
   onAddQuote,
   defaultDestination = '',
 }) => {
   const { t, isKorean } = useLanguage();
+  const {
+    draft,
+    modalOpen: contextModalOpen,
+    updateConsultation,
+    closeConsultation,
+  } = useConsultation();
+
+  // Resolve effective open status and close handler
+  const isOpen = propIsOpen !== undefined ? propIsOpen : contextModalOpen;
+  const handleClose = propOnClose || closeConsultation;
 
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);
   const prevActiveElementRef = useRef(null);
 
+  // Form State initialized strictly from ConsultationContext draft
   const [formData, setFormData] = useState({
-    destinationId: resolveDestinationId(defaultDestination),
-    name: '',
-    contactMethod: defaultDestination === 'kakao' ? 'kakao' : 'phone',
-    countryCode: isKorean ? '+82' : '+84',
-    phone: '',
-    kakaoId: '',
-    zaloAccount: '',
-    travelGroup: '2',
-    travelDuration: '4d3n',
-    customDuration: '',
-    travelDate: '',
-    notes: '',
-    agreePrivacy: false,
+    destinationId: draft.destinationId || resolveCanonicalDestinationId(defaultDestination) || '',
+    name: draft.customerName || '',
+    contactMethod: draft.contactMethod || (defaultDestination === 'kakao' ? 'kakao' : 'phone'),
+    countryCode: draft.countryCode || (isKorean ? '+82' : '+84'),
+    phone: draft.phone || '',
+    kakaoId: draft.kakaoId || '',
+    zaloAccount: draft.zaloAccount || '',
+    travelGroup: draft.travelers || '2',
+    travelDuration: draft.duration || '4d3n',
+    customDuration: draft.customDuration || '',
+    travelDate: draft.departureDate || '',
+    notes: draft.specialRequests || '',
+    agreePrivacy: draft.consent || false,
   });
 
   const [errors, setErrors] = useState({});
@@ -90,39 +88,36 @@ const QuoteModal = ({
   const [isSuccess, setIsSuccess] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
 
-  // Sync default destination, tour context, or kakao trigger when prop changes
+  // Re-sync form state whenever a new consultation session starts or modal opens
   useEffect(() => {
-    if (defaultDestination) {
-      if (typeof defaultDestination === 'object' && defaultDestination !== null) {
-        const resolved = resolveDestinationId(defaultDestination);
-        setFormData((prev) => ({
-          ...prev,
-          destinationId: resolved,
-          ...(defaultDestination.duration ? { travelDuration: defaultDestination.duration } : {}),
-          ...(defaultDestination.tourTitle ? {
-            notes: prev.notes
-              ? prev.notes
-              : (isKorean
-                  ? `[${defaultDestination.tourTitle}] 일정 맞춤 상담 요청`
-                  : `Tư vấn hành trình: ${defaultDestination.tourTitle}`),
-          } : {}),
-        }));
-      } else if (defaultDestination === 'kakao') {
-        setFormData((prev) => ({
-          ...prev,
-          contactMethod: 'kakao',
-        }));
-      } else {
-        const resolved = resolveDestinationId(defaultDestination);
-        setFormData((prev) => ({
-          ...prev,
-          destinationId: resolved,
-        }));
-      }
-    }
-  }, [defaultDestination, isKorean]);
+    if (isOpen) {
+      setIsSuccess(false);
+      setSubmitError(null);
+      setErrors({});
 
-  // Sync country code with language change if phone input is empty
+      const resolvedDest = draft.destinationId || resolveCanonicalDestinationId(defaultDestination) || '';
+
+      setFormData((prev) => ({
+        ...prev,
+        destinationId: resolvedDest,
+        name: draft.customerName || prev.name || '',
+        contactMethod: draft.contactMethod || (defaultDestination === 'kakao' ? 'kakao' : prev.contactMethod),
+        countryCode: draft.countryCode || prev.countryCode || (isKorean ? '+82' : '+84'),
+        phone: draft.phone || prev.phone || '',
+        kakaoId: draft.kakaoId || prev.kakaoId || '',
+        zaloAccount: draft.zaloAccount || prev.zaloAccount || '',
+        travelGroup: draft.travelers || prev.travelGroup || '2',
+        travelDuration: draft.duration || prev.travelDuration || '4d3n',
+        customDuration: draft.customDuration || prev.customDuration || '',
+        travelDate: draft.departureDate || prev.travelDate || '',
+        // STRICTLY preserve user's typed notes only — no stale tour descriptions!
+        notes: draft.specialRequests || '',
+        agreePrivacy: draft.consent || false,
+      }));
+    }
+  }, [isOpen, draft.sessionId, defaultDestination]);
+
+  // Keep country code synced with language toggle if phone is empty
   useEffect(() => {
     setFormData((prev) => {
       if (!prev.phone) {
@@ -148,7 +143,6 @@ const QuoteModal = ({
           'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
         );
         if (focusable.length > 0) {
-          // Focus the close button or first interactive element
           focusable[0].focus();
         }
       }
@@ -192,14 +186,18 @@ const QuoteModal = ({
     return () => {
       clearTimeout(focusTimer);
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-      if (prevActiveElementRef.current && prevActiveElementRef.current.focus) {
-        prevActiveElementRef.current.focus();
+      if (document.body) {
+        document.body.style.overflow = '';
+      }
+      try {
+        if (prevActiveElementRef.current && typeof prevActiveElementRef.current.focus === 'function') {
+          prevActiveElementRef.current.focus();
+        }
+      } catch (err) {
+        // Safe fallback if target element unmounted
       }
     };
   }, [isOpen]);
-
-  if (!isOpen) return null;
 
   const todayString = new Date().toISOString().split('T')[0];
 
@@ -208,6 +206,19 @@ const QuoteModal = ({
     const val = type === 'checkbox' ? checked : value;
 
     setFormData((prev) => ({ ...prev, [name]: val }));
+
+    // Keep ConsultationContext synchronized in real-time
+    if (name === 'destinationId') {
+      updateConsultation({ destinationId: val });
+    } else if (name === 'travelDuration') {
+      updateConsultation({ duration: val });
+    } else if (name === 'travelGroup') {
+      updateConsultation({ travelers: val });
+    } else if (name === 'notes') {
+      updateConsultation({ specialRequests: val });
+    } else if (name === 'name') {
+      updateConsultation({ customerName: val });
+    }
 
     // Clear inline error when user interacts with field
     if (errors[name]) {
@@ -230,6 +241,7 @@ const QuoteModal = ({
 
   const handleMethodChange = (method) => {
     setFormData((prev) => ({ ...prev, contactMethod: method }));
+    updateConsultation({ contactMethod: method });
     if (errors.contact) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -240,27 +252,23 @@ const QuoteModal = ({
   };
 
   const isDirty = Boolean(
-    formData.name.trim() ||
-      formData.phone.trim() ||
-      formData.kakaoId.trim() ||
-      formData.zaloAccount.trim() ||
-      formData.notes.trim()
+    (formData.name && formData.name.trim()) ||
+    (formData.phone && formData.phone.trim()) ||
+    (formData.kakaoId && formData.kakaoId.trim()) ||
+    (formData.zaloAccount && formData.zaloAccount.trim()) ||
+    (formData.notes && formData.notes.trim())
   );
 
   const handleBackdropClick = (e) => {
-    // Only trigger if click was directly on the overlay background
     if (e.target !== e.currentTarget) return;
-
     if (isSuccess) {
       handleResetAndClose();
       return;
     }
-
-    // If user has entered data, avoid accidental close on backdrop click
+    // Prevent accidental dismissal if user typed personal data
     if (isDirty) {
       return;
     }
-
     handleResetAndClose();
   };
 
@@ -268,21 +276,44 @@ const QuoteModal = ({
     setIsSuccess(false);
     setSubmitError(null);
     setErrors({});
-    onClose();
+    handleClose();
   };
 
-  const selectedDest =
-    VIETNAM_DESTINATIONS.find((d) => d.id === formData.destinationId) ||
-    VIETNAM_DESTINATIONS.find((d) => d.id === 'da-nang');
+  // Resolve current active destination
+  const effectiveDestId = formData.destinationId || draft.destinationId;
+  const selectedDest = VIETNAM_DESTINATIONS.find((d) => d.id === effectiveDestId);
+  const destDisplayName = selectedDest
+    ? (isKorean ? selectedDest.nameKr : selectedDest.nameVi || selectedDest.name)
+    : (effectiveDestId ? effectiveDestId : '');
 
-  const destDisplayName = isKorean
-    ? selectedDest?.nameKr
-    : selectedDest?.nameVi || selectedDest?.name;
+  // Resolve smart placeholder based on theme or tour
+  const contextualPlaceholder = useMemo(() => {
+    if (draft.themeId) {
+      const themeSpecific = t(`modal.notesPlaceholders.${draft.themeId}`);
+      if (themeSpecific && !themeSpecific.startsWith('modal.')) {
+        return themeSpecific;
+      }
+    }
+    return t(
+      'modal.notesPlaceholder',
+      isKorean
+        ? '예: 5성급 호텔, 전용 차량, 전담 가이드, 현지 미식 체험 등'
+        : 'Ví dụ: Khách sạn 5 sao, xe riêng, hướng dẫn viên chuyên tuyến, trải nghiệm ẩm thực...'
+    );
+  }, [draft.themeId, isKorean, t]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const newErrors = {};
+
+    // 0. Validate Destination selection if none chosen
+    if (!formData.destinationId) {
+      newErrors.destinationId = t(
+        'modal.destRequired',
+        isKorean ? '희망 여행지를 선택해 주세요' : 'Vui lòng chọn điểm đến du lịch'
+      );
+    }
 
     // 1. Validate Name
     if (!formData.name.trim()) {
@@ -345,7 +376,6 @@ const QuoteModal = ({
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // Focus first error field
       if (modalRef.current) {
         const firstErrField = modalRef.current.querySelector('.is-invalid, .privacy-checkbox');
         if (firstErrField && firstErrField.focus) {
@@ -358,7 +388,7 @@ const QuoteModal = ({
     setIsSubmitting(true);
     setSubmitError(null);
 
-    // Prepare payload
+    // Prepare standard backend-ready payload
     const rawName = formData.name.trim();
     const maskedName =
       rawName.length > 2
@@ -399,13 +429,18 @@ const QuoteModal = ({
       ? `${formData.travelDate} (${durationDisplayKr})`
       : `${durationDisplayKr} (일정 협의)`;
 
+    // Standardized quote object for live status boards and future Admin API
     const newQuote = {
       id: `Q-${Date.now().toString().slice(-8)}`,
+      sessionId: draft.sessionId || `CS-${Date.now()}`,
+      source: draft.source || 'direct',
       customerName: `${maskedName} (${rawName.slice(0, 3)})`,
       customerNameVi: maskedName,
       destination: isKorean ? selectedDest?.nameKr : (selectedDest?.nameVi || selectedDest?.name),
       destinationVi: selectedDest?.nameVi || selectedDest?.name,
       destinationId: formData.destinationId,
+      themeId: draft.themeId || null,
+      journeyId: draft.journeyId || null,
       travelGroup: isKorean ? `${groupLabelKr} (단독 투어)` : `${groupLabelVi} (Tour riêng)`,
       travelGroupVi: `${groupLabelVi} (Tour riêng)`,
       travelDates: isKorean ? dateDisplayKr : dateDisplayVi,
@@ -455,6 +490,8 @@ const QuoteModal = ({
       }
     }, 550);
   };
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -603,21 +640,63 @@ const QuoteModal = ({
               </p>
             </div>
 
+            {/* Compact Consultation Context Summary Card (if context is present) */}
+            {Boolean(draft.themeTitle || draft.journeyTitle || destDisplayName) && (
+              <div className="consultation-context-summary">
+                <div className="summary-badge-row">
+                  <span className="summary-eyebrow">
+                    <Sparkles size={12} className="text-gold" />
+                    <span>{t('modal.interestedTripTitle', isKorean ? '관심 있는 여행' : 'CHUYẾN ĐI BẠN ĐANG QUAN TÂM')}</span>
+                  </span>
+                  <span className="summary-guarantee-tag">
+                    <ShieldCheck size={12} />
+                    <span>{t('modal.summaryGuarantee', isKorean ? '100% 단독 투어' : '100% Tour riêng')}</span>
+                  </span>
+                </div>
+                <div className="summary-details-row">
+                  {draft.themeTitle && (
+                    <div className="summary-chip">
+                      <span className="chip-key">{t('modal.summaryTheme', isKorean ? '테마:' : 'Chủ đề:')}</span>
+                      <strong className="chip-val">{draft.themeTitle}</strong>
+                    </div>
+                  )}
+                  {draft.journeyTitle && (
+                    <div className="summary-chip">
+                      <span className="chip-key">{t('modal.summaryJourney', isKorean ? '여정:' : 'Hành trình:')}</span>
+                      <strong className="chip-val">{draft.journeyTitle}</strong>
+                    </div>
+                  )}
+                  {destDisplayName && (
+                    <div className="summary-chip">
+                      <span className="chip-key">{t('modal.summaryDestination', isKorean ? '희망 여행지:' : 'Điểm đến:')}</span>
+                      <strong className="chip-val">{destDisplayName}</strong>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="form-fields-grid">
               {/* FIELD 01 — DESTINATION */}
               <div className="form-group full-width">
                 <label htmlFor="quote-dest-select" className="form-label">
                   <MapPin size={15} className="label-icon text-gold" />
                   <span>{t('modal.destLabel', isKorean ? '희망 여행지' : 'Điểm đến mong muốn')}</span>
+                  <span className="required-mark" aria-hidden="true">*</span>
                 </label>
                 <div className="select-input-wrapper">
                   <select
                     id="quote-dest-select"
                     name="destinationId"
-                    className="form-select"
+                    className={`form-select ${errors.destinationId ? 'is-invalid' : ''}`}
                     value={formData.destinationId}
                     onChange={handleChange}
                   >
+                    {!formData.destinationId && (
+                      <option value="">
+                        {t('modal.selectDestinationPrompt', isKorean ? '— 여행하실 목적지를 선택해 주세요 —' : '— Chọn điểm đến bạn muốn khám phá —')}
+                      </option>
+                    )}
                     {VIETNAM_DESTINATIONS.map((d) => {
                       const destName = isKorean ? d.nameKr : d.nameVi || d.name;
                       const regionLabel = isKorean ? d.regionKr : d.regionVi;
@@ -629,6 +708,11 @@ const QuoteModal = ({
                     })}
                   </select>
                 </div>
+                {errors.destinationId && (
+                  <span className="field-error-msg" role="alert">
+                    {errors.destinationId}
+                  </span>
+                )}
               </div>
 
               {/* FIELD 02 — FULL NAME */}
@@ -895,7 +979,7 @@ const QuoteModal = ({
                 )}
               </div>
 
-              {/* FIELD 07 — SPECIAL REQUESTS */}
+              {/* FIELD 07 — SPECIAL REQUESTS (User Input Only) */}
               <div className="form-group full-width">
                 <label htmlFor="quote-notes-input" className="form-label">
                   <Sparkles size={15} className="label-icon text-gold" />
@@ -908,12 +992,7 @@ const QuoteModal = ({
                   id="quote-notes-input"
                   name="notes"
                   rows={3}
-                  placeholder={t(
-                    'modal.notesPlaceholder',
-                    isKorean
-                      ? '예: 5성급 호텔, 전용 차량, 한국어 가이드, 현지 미식 체험 등'
-                      : 'Ví dụ: Khách sạn 5 sao, xe riêng, hướng dẫn viên tiếng Hàn, trải nghiệm ẩm thực...'
-                  )}
+                  placeholder={contextualPlaceholder}
                   className="form-textarea"
                   value={formData.notes}
                   onChange={handleChange}

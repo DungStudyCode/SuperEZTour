@@ -28,7 +28,7 @@ const Footer = ({ onOpenQuoteModal }) => {
             <button
               type="button"
               className="banner-quote-btn"
-              onClick={onOpenQuoteModal}
+              onClick={() => onOpenQuoteModal && onOpenQuoteModal({ source: 'footer' })}
             >
               {t('footer.requestQuote', '30분 빠른 견적 요청')}
             </button>
@@ -177,7 +177,7 @@ const Footer = ({ onOpenQuoteModal }) => {
                 <button
                   type="button"
                   className="social-btn kakao-channel"
-                  onClick={() => onOpenQuoteModal && onOpenQuoteModal('kakao')}
+                  onClick={() => onOpenQuoteModal && onOpenQuoteModal({ source: 'footer', contactMethod: 'kakao' })}
                 >
                   <span className="social-badge">K</span>
                   <span>{isKorean ? '카카오톡 1:1 상담 (@superez)' : 'KakaoTalk 1:1'}</span>

@@ -44,7 +44,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
   const handleComingSoonClick = (dest) => {
     onClose();
     if (onOpenQuoteModal) {
-      onOpenQuoteModal(dest.id);
+      onOpenQuoteModal({ source: 'mobile-menu', destinationId: dest.id });
     }
   };
 
@@ -116,7 +116,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
             className="mobile-primary-cta-btn"
             onClick={() => {
               onClose();
-              onOpenQuoteModal && onOpenQuoteModal();
+              onOpenQuoteModal && onOpenQuoteModal({ source: 'mobile-menu' });
             }}
           >
             <span>{t('nav.primaryCta', '맞춤 여행 상담')}</span>
@@ -231,7 +231,7 @@ const MobileMenu = ({ isOpen, onClose, onOpenQuoteModal, onOpenSearch }) => {
               className="mobile-contact-btn kakao"
               onClick={() => {
                 onClose();
-                onOpenQuoteModal && onOpenQuoteModal('kakao');
+                onOpenQuoteModal && onOpenQuoteModal({ source: 'mobile-menu', contactMethod: 'kakao' });
               }}
             >
               <span>KakaoTalk @superez</span>

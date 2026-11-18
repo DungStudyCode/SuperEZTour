@@ -3,6 +3,7 @@ import HeroBanner from './sections/HeroBanner/HeroBanner';
 import DestinationNavigation from './sections/DestinationNavigation/DestinationNavigation';
 import SignatureJourneys from './sections/SignatureJourneys/SignatureJourneys';
 import TravelThemes from './sections/TravelThemes/TravelThemes';
+import PremiumServices from './sections/PremiumServices/PremiumServices';
 import WhyChooseUs from './sections/WhyChooseUs/WhyChooseUs';
 import TravelReviews from './sections/TravelReviews/TravelReviews';
 import QuickQuote from './sections/QuickQuote/QuickQuote';
@@ -26,7 +27,10 @@ const Home = ({ quotes, onOpenQuoteModal, onSelectDestination }) => {
       {/* 04. Travel by Theme (8 Curated Luxury Themes) */}
       <TravelThemes onOpenQuoteModal={onOpenQuoteModal} />
 
-      {/* 05. Premium Travel Services (4 Pillars) & Why Super EZ Tour (Comparison Matrix) */}
+      {/* 05. The Art of Private Travel — Premium Services Editorial Experience */}
+      <PremiumServices onOpenQuoteModal={onOpenQuoteModal} />
+
+      {/* 06. Why Super EZ Tour (BOBTOUR & Guideman Value Comparison Matrix) */}
       <WhyChooseUs onOpenQuoteModal={onOpenQuoteModal} />
 
       {/* 06. Verified Customer Testimonials & Reviews */}

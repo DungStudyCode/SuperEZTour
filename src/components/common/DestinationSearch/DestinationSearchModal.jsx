@@ -51,7 +51,7 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
   const handleAdvanceInquiry = (dest) => {
     onClose();
     if (onOpenQuoteModal) {
-      onOpenQuoteModal(dest.id);
+      onOpenQuoteModal({ source: 'search', destinationId: dest.id });
     }
   };
 

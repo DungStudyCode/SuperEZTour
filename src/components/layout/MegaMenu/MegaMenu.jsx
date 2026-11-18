@@ -33,7 +33,7 @@ const MegaMenu = ({ isOpen, onClose, onOpenQuoteModal }) => {
     e.preventDefault();
     onClose();
     if (onOpenQuoteModal) {
-      onOpenQuoteModal(dest.id);
+      onOpenQuoteModal({ source: 'megamenu', destinationId: dest.id });
     }
   };
 

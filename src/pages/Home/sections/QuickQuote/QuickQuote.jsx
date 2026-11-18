@@ -100,7 +100,13 @@ const QuickQuote = ({ quotes = INITIAL_QUOTES, onOpenQuoteModal }) => {
                 <button
                   type="button"
                   className="fast-btn-primary"
-                  onClick={() => onOpenQuoteModal && onOpenQuoteModal(selectedDestId)}
+                  onClick={() =>
+                    onOpenQuoteModal &&
+                    onOpenQuoteModal({
+                      source: 'quick-quote',
+                      destinationId: selectedDestId,
+                    })
+                  }
                 >
                   <Send size={16} />
                   <span>
@@ -112,7 +118,14 @@ const QuickQuote = ({ quotes = INITIAL_QUOTES, onOpenQuoteModal }) => {
                 <button
                   type="button"
                   className="fast-btn-kakao"
-                  onClick={() => onOpenQuoteModal && onOpenQuoteModal('kakao')}
+                  onClick={() =>
+                    onOpenQuoteModal &&
+                    onOpenQuoteModal({
+                      source: 'quick-quote',
+                      destinationId: selectedDestId,
+                      contactMethod: 'kakao',
+                    })
+                  }
                 >
                   <MessageSquare size={16} />
                   <span>{t('home.quote.kakaoBtn', '카카오톡 1:1 실시간 상담')}</span>

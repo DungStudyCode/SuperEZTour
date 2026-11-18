@@ -174,7 +174,7 @@ const Header = ({ onOpenQuoteModal }) => {
                 <button
                   type="button"
                   className="header-primary-cta"
-                  onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
+                  onClick={() => onOpenQuoteModal && onOpenQuoteModal({ source: 'navbar' })}
                 >
                   <span>{t('nav.primaryCta', '맞춤 여행 상담')}</span>
                   <ArrowRight size={14} className="cta-arrow" />

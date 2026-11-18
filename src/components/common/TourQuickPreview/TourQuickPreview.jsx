@@ -10,7 +10,6 @@ import {
   Utensils,
   ArrowRight,
   MessageSquare,
-  Heart,
   Sparkles,
   MapPin,
 } from 'lucide-react';
@@ -19,8 +18,8 @@ import './TourQuickPreview.css';
 
 /**
  * Super EZ Tour — Tour Quick Preview Modal
- * Luxury Korean Travel Editorial Experience
- * 2-Column Desktop Grid | Gallery Carousel | Rich Tour Specifications | Pricing & Direct Action
+ * Concept: Luxury Travel Editorial — Curated Journey Preview
+ * 2-Column Desktop Grid | Gallery Carousel | 2x2 Compact Services | Pricing & Direct Action
  */
 const TourQuickPreview = ({
   tour,
@@ -32,7 +31,6 @@ const TourQuickPreview = ({
   const { t, isKorean } = useLanguage();
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);
   const prevActiveElementRef = useRef(null);
@@ -49,45 +47,6 @@ const TourQuickPreview = ({
   useEffect(() => {
     setCurrentImgIndex(0);
   }, [tour?.id]);
-
-  // Sync wishlist status from localStorage
-  useEffect(() => {
-    if (tour?.id && typeof window !== 'undefined') {
-      try {
-        const savedFavs = JSON.parse(
-          localStorage.getItem('super_ez_tour_favorites') || '[]'
-        );
-        setIsFavorite(savedFavs.includes(tour.id));
-      } catch (e) {
-        setIsFavorite(false);
-      }
-    }
-  }, [tour?.id]);
-
-  const toggleFavorite = (e) => {
-    e.stopPropagation();
-    if (!tour?.id || typeof window === 'undefined') return;
-
-    try {
-      const savedFavs = JSON.parse(
-        localStorage.getItem('super_ez_tour_favorites') || '[]'
-      );
-      let nextFavs;
-      if (savedFavs.includes(tour.id)) {
-        nextFavs = savedFavs.filter((id) => id !== tour.id);
-        setIsFavorite(false);
-      } else {
-        nextFavs = [...savedFavs, tour.id];
-        setIsFavorite(true);
-      }
-      localStorage.setItem(
-        'super_ez_tour_favorites',
-        JSON.stringify(nextFavs)
-      );
-    } catch (e) {
-      console.warn('Favorite storage error:', e);
-    }
-  };
 
   const handlePrevImage = useCallback((e) => {
     e?.stopPropagation();
@@ -189,54 +148,56 @@ const TourQuickPreview = ({
     : tour.durationVi || tour.duration;
 
   // Highlights (prioritize previewHighlights, fallback to highlights)
-  const highlights = isKorean
+  const rawHighlights = isKorean
     ? tour.previewHighlightsKr || tour.highlightsKr || tour.highlights
     : tour.previewHighlightsVi || tour.highlightsVi || tour.highlights;
+  // Maximum 3 concise highlights as specified
+  const highlights = (rawHighlights || []).slice(0, 3);
 
   // Services
   const services = tour.services || [
     {
       type: 'stay',
       titleVi: 'Lưu trú',
-      titleKr: '숙소',
-      descVi: 'Khách sạn/Resort 5 sao',
-      descKr: '5성급 럭셔리 숙소',
+      titleKr: '숙박',
+      descVi: 'Resort cao cấp',
+      descKr: '프리미엄 리조트',
     },
     {
       type: 'vehicle',
-      titleVi: 'Xe riêng',
-      titleKr: '전용 차량',
-      descVi: 'Limousine riêng',
-      descKr: '단독 전용 리무진',
+      titleVi: 'Di chuyển',
+      titleKr: '이동',
+      descVi: 'Xe riêng theo hành trình',
+      descKr: '전용 차량',
     },
     {
       type: 'guide',
-      titleVi: 'Local Guide',
-      titleKr: '전담 가이드',
-      descVi: 'HDV chuyên nghiệp',
-      descKr: '한국어 전문 가이드',
+      titleVi: 'Hướng dẫn viên',
+      titleKr: '가이드',
+      descVi: 'Hỗ trợ tiếng Hàn',
+      descKr: '한국어 안내',
     },
     {
       type: 'dining',
       titleVi: 'Ẩm thực',
-      titleKr: '미식 만찬',
-      descVi: 'Đặc sản địa phương',
-      descKr: '로컬 미식 특식',
+      titleKr: '미식',
+      descVi: 'Trải nghiệm địa phương',
+      descKr: '현지 음식 체험',
     },
   ];
 
   const getServiceIcon = (type) => {
     switch (type) {
       case 'stay':
-        return <Building size={16} className="service-icon text-gold" />;
+        return <Building size={18} className="service-icon" />;
       case 'vehicle':
-        return <Car size={16} className="service-icon text-gold" />;
+        return <Car size={18} className="service-icon" />;
       case 'guide':
-        return <Compass size={16} className="service-icon text-gold" />;
+        return <Compass size={18} className="service-icon" />;
       case 'dining':
-        return <Utensils size={16} className="service-icon text-gold" />;
+        return <Utensils size={18} className="service-icon" />;
       default:
-        return <Sparkles size={16} className="service-icon text-gold" />;
+        return <Sparkles size={18} className="service-icon" />;
     }
   };
 
@@ -249,9 +210,9 @@ const TourQuickPreview = ({
   const priceFrom = isKorean ? tour.priceFromKr : tour.priceFromVi;
   const priceSubtext = isKorean
     ? tour.priceSubtextKr ||
-      t('tourPreview.priceSubtext', '출발일 및 인원에 따른 맞춤 견적 기준.')
+      t('tourPreview.priceSubtext', '출발일, 인원 및 선택 서비스에 따라 요금이 달라질 수 있습니다.')
     : tour.priceSubtextVi ||
-      t('tourPreview.priceSubtext', 'Giá tham khảo, tùy ngày đi và số lượng khách.');
+      t('tourPreview.priceSubtext', 'Giá có thể thay đổi theo ngày đi, số khách và dịch vụ lựa chọn.');
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -275,11 +236,11 @@ const TourQuickPreview = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* =========================================================
-            MODAL MAIN BODY: 2 Columns on Desktop
+            MODAL MAIN BODY: 2 Columns on Desktop (45% Gallery / 55% Info)
         ========================================================= */}
         <div className="tour-preview-main">
           {/* =========================================================
-              LEFT COLUMN: Interactive Image Gallery
+              LEFT COLUMN: Curated Image Gallery
           ========================================================= */}
           <div className="tour-preview-gallery-col">
             <div className="preview-hero-media">
@@ -287,25 +248,26 @@ const TourQuickPreview = ({
                 <img
                   key={currentImgIndex}
                   src={galleryImages[currentImgIndex]}
-                  alt={`${title} - ảnh ${currentImgIndex + 1}`}
+                  alt={`${title} - ${isKorean ? '사진' : 'ảnh'} ${currentImgIndex + 1}`}
                   className="preview-hero-img animate-crossfade"
+                  loading={currentImgIndex === 0 ? 'eager' : 'lazy'}
                 />
               )}
 
               {/* Signature Badge */}
               <div className="preview-badge-signature">
                 <span className="badge-crown-icon" aria-hidden="true">♛</span>
-                <span>{t('tourPreview.badgeSignature', 'Tour riêng Signature')}</span>
+                <span>{t('tourPreview.badgeSignature', isKorean ? '시그니처 단독 투어' : 'Tour riêng Signature')}</span>
               </div>
 
-              {/* Gallery Navigation Buttons (if > 1 image) */}
+              {/* Gallery Navigation Controls (if > 1 image) */}
               {galleryImages.length > 1 && (
                 <>
                   <button
                     type="button"
                     className="gallery-nav-btn prev"
                     onClick={handlePrevImage}
-                    aria-label={t('tourPreview.prevImage', 'Ảnh trước')}
+                    aria-label={t('tourPreview.prevImage', isKorean ? '이전 사진' : 'Ảnh trước')}
                   >
                     <ChevronLeft size={18} />
                   </button>
@@ -313,16 +275,16 @@ const TourQuickPreview = ({
                     type="button"
                     className="gallery-nav-btn next"
                     onClick={handleNextImage}
-                    aria-label={t('tourPreview.nextImage', 'Ảnh sau')}
+                    aria-label={t('tourPreview.nextImage', isKorean ? '다음 사진' : 'Ảnh sau')}
                   >
                     <ChevronRight size={18} />
                   </button>
 
-                  {/* Counter Pill */}
+                  {/* Counter Pill with Leading Zero (01 / 04) */}
                   <div className="gallery-counter-pill">
-                    <span>{currentImgIndex + 1}</span>
+                    <span>{String(currentImgIndex + 1).padStart(2, '0')}</span>
                     <span className="counter-slash">/</span>
-                    <span>{galleryImages.length}</span>
+                    <span>{String(galleryImages.length).padStart(2, '0')}</span>
                   </div>
                 </>
               )}
@@ -333,7 +295,7 @@ const TourQuickPreview = ({
               <div
                 className="preview-thumbnails-scroll"
                 role="tablist"
-                aria-label="Gallery thumbnails"
+                aria-label={isKorean ? '여행 사진 미리보기' : 'Ảnh thu nhỏ hành trình'}
               >
                 {galleryImages.map((img, idx) => (
                   <button
@@ -341,11 +303,11 @@ const TourQuickPreview = ({
                     type="button"
                     role="tab"
                     aria-selected={idx === currentImgIndex}
-                    aria-label={`Ảnh ${idx + 1}`}
+                    aria-label={`${title} - ${isKorean ? '사진' : 'Ảnh'} ${idx + 1}`}
                     className={`preview-thumbnail-item ${idx === currentImgIndex ? 'is-active' : ''}`}
                     onClick={() => setCurrentImgIndex(idx)}
                   >
-                    <img src={img} alt="" className="thumbnail-img" />
+                    <img src={img} alt="" className="thumbnail-img" loading="lazy" />
                   </button>
                 ))}
               </div>
@@ -353,54 +315,30 @@ const TourQuickPreview = ({
           </div>
 
           {/* =========================================================
-              RIGHT COLUMN: Tour Information & Highlights
+              RIGHT COLUMN: Journey Information & Specifications
           ========================================================= */}
           <div className="tour-preview-info-col">
-            {/* Header Row: Meta, Wishlist & Close */}
+            {/* Header Row: Eyebrow Meta & Close Button (No dummy heart) */}
             <div className="preview-info-header">
               <div className="preview-meta-pill">
                 <span className="meta-dest-label">{destination}</span>
-                <span className="meta-dot">·</span>
+                <span className="meta-dot">/</span>
                 <span className="meta-duration-label">{duration}</span>
               </div>
 
-              <div className="preview-header-actions">
-                {/* Wishlist Heart */}
-                <button
-                  type="button"
-                  className={`preview-action-icon-btn ${isFavorite ? 'is-active' : ''}`}
-                  onClick={toggleFavorite}
-                  aria-label={
-                    isFavorite
-                      ? t('tourPreview.favoriteRemove', 'Bỏ lưu yêu thích')
-                      : t('tourPreview.favoriteAdd', 'Lưu vào yêu thích')
-                  }
-                  title={
-                    isFavorite
-                      ? t('tourPreview.favoriteRemove', 'Bỏ lưu yêu thích')
-                      : t('tourPreview.favoriteAdd', 'Lưu vào yêu thích')
-                  }
-                >
-                  <Heart
-                    size={18}
-                    className={isFavorite ? 'fill-current text-orange' : ''}
-                  />
-                </button>
-
-                {/* Close Button */}
-                <button
-                  ref={closeBtnRef}
-                  type="button"
-                  className="preview-close-btn"
-                  onClick={onClose}
-                  aria-label={t('tourPreview.closeAria', 'Đóng xem nhanh hành trình')}
-                >
-                  <X size={20} />
-                </button>
-              </div>
+              {/* Close Button */}
+              <button
+                ref={closeBtnRef}
+                type="button"
+                className="preview-close-btn"
+                onClick={onClose}
+                aria-label={t('tourPreview.closeAria', isKorean ? '여행 미리보기 창 닫기' : 'Đóng xem nhanh hành trình')}
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            {/* Title & Description */}
+            {/* Title & Short Editorial Description */}
             <div className="preview-title-block">
               <h2 id="quick-preview-title" className="preview-main-title">
                 {title}
@@ -410,22 +348,26 @@ const TourQuickPreview = ({
               </p>
             </div>
 
-            {/* 4 Premium Service Highlights */}
+            {/* 4 Premium Services (Compact 2x2 Utility Grid — No Dashboard Style) */}
             <div className="preview-services-panel">
               <h3 className="preview-panel-heading">
-                {t('tourPreview.servicesTitle', 'Dịch vụ đẳng cấp')}
+                {t('tourPreview.servicesTitle', isKorean ? '포함 서비스' : 'Dịch vụ hành trình')}
               </h3>
-              <div className="preview-services-grid">
+              <div className="preview-services-compact-grid">
                 {services.map((srv, idx) => {
-                  const srvTitle = isKorean ? srv.titleKr : srv.titleVi;
-                  const srvDesc = isKorean ? srv.descKr : srv.descVi;
+                  const srvTitle = isKorean
+                    ? (srv.titleKr || srv.titleVi)
+                    : (srv.titleVi || srv.titleKr);
+                  const srvDesc = isKorean
+                    ? (srv.descKr || srv.descVi)
+                    : (srv.descVi || srv.descKr);
                   return (
-                    <div key={idx} className="preview-service-item">
-                      <div className="service-icon-box">
+                    <div key={idx} className="preview-service-compact-item">
+                      <div className="service-icon-wrap" aria-hidden="true">
                         {getServiceIcon(srv.type)}
                       </div>
                       <div className="service-text-group">
-                        <span className="service-name">{srvTitle}</span>
+                        <span className="service-label">{srvTitle}</span>
                         <span className="service-desc">{srvDesc}</span>
                       </div>
                     </div>
@@ -434,12 +376,12 @@ const TourQuickPreview = ({
               </div>
             </div>
 
-            {/* Tour Highlights */}
+            {/* Tour Highlights (Max 3 Concise Points) */}
             {highlights && highlights.length > 0 && (
               <div className="preview-highlights-panel">
                 <h3 className="preview-panel-heading">
-                  <Sparkles size={14} className="text-gold" />
-                  <span>{t('tourPreview.highlightsTitle', 'Điểm nổi bật')}</span>
+                  <Sparkles size={14} className="heading-icon text-gold" />
+                  <span>{t('tourPreview.highlightsTitle', isKorean ? '여정 하이라이트' : 'Điểm nổi bật')}</span>
                 </h3>
                 <ul className="preview-highlights-list">
                   {highlights.map((item, idx) => (
@@ -452,12 +394,12 @@ const TourQuickPreview = ({
               </div>
             )}
 
-            {/* Minimalist Route Visualization */}
+            {/* Minimalist Route Timeline */}
             {routeStops && routeStops.length > 1 && (
               <div className="preview-route-panel">
                 <h3 className="preview-panel-heading">
-                  <MapPin size={14} className="text-gold" />
-                  <span>{t('tourPreview.routeTitle', 'Tuyến hành trình minh họa')}</span>
+                  <MapPin size={14} className="heading-icon text-gold" />
+                  <span>{t('tourPreview.routeTitle', isKorean ? '주요 경유지' : 'Lịch trình tóm tắt')}</span>
                 </h3>
                 <div className="preview-route-steps">
                   {routeStops.map((stop, idx) => (
@@ -478,52 +420,50 @@ const TourQuickPreview = ({
         </div>
 
         {/* =========================================================
-            MODAL FOOTER: Reference Pricing & Action Buttons
+            MODAL STICKY FOOTER: Reference Pricing & Action Buttons
         ========================================================= */}
         <div className="tour-preview-footer">
           {/* Left: Reference Pricing */}
           <div className="preview-footer-price">
+            <span className="price-label">
+              {t('tourPreview.priceFromLabel', isKorean ? '맞춤 견적 기준' : 'Giá tham khảo từ')}
+            </span>
             {priceFrom ? (
-              <>
-                <div className="price-main-line">
-                  <span className="price-from-label">
-                    {t('tourPreview.priceFromLabel', 'Từ')}
-                  </span>
-                  <span className="price-amount">{priceFrom}</span>
-                  <span className="price-unit">
-                    {t('tourPreview.priceUnit', '/ khách')}
-                  </span>
-                </div>
-                <span className="price-sub-note">{priceSubtext}</span>
-              </>
+              <div className="price-main-line">
+                <span className="price-amount">{priceFrom}</span>
+                <span className="price-unit">
+                  {t('tourPreview.priceUnit', isKorean ? '/ 1인' : '/ khách')}
+                </span>
+              </div>
             ) : (
               <div className="price-main-line">
-                <span className="price-amount">
-                  {t('tourPreview.priceOnRequest', 'Giá thiết kế theo yêu cầu')}
+                <span className="price-on-request">
+                  {t('tourPreview.priceOnRequest', isKorean ? '맞춤 견적 문의' : 'Liên hệ để nhận báo giá riêng')}
                 </span>
               </div>
             )}
+            <span className="price-sub-note">{priceSubtext}</span>
           </div>
 
           {/* Right: Actions */}
           <div className="preview-footer-actions">
-            {/* Button 1: Nhận tư vấn riêng */}
+            {/* Button 1: Tư vấn riêng */}
             <button
               type="button"
               className="preview-btn consult-btn"
               onClick={() => onConsult && onConsult(tour)}
             >
               <MessageSquare size={16} className="btn-icon" />
-              <span>{t('tourPreview.btnConsult', 'Nhận tư vấn riêng')}</span>
+              <span>{t('tourPreview.btnConsult', isKorean ? '맞춤 여행 상담' : 'Tư vấn riêng')}</span>
             </button>
 
-            {/* Button 2: Xem lịch trình chi tiết */}
+            {/* Button 2: Xem hành trình */}
             <button
               type="button"
               className="preview-btn details-btn"
               onClick={() => onViewDetails && onViewDetails(tour)}
             >
-              <span>{t('tourPreview.btnDetails', 'Xem lịch trình chi tiết')}</span>
+              <span>{t('tourPreview.btnDetails', isKorean ? '여행 자세히 보기' : 'Xem hành trình')}</span>
               <ArrowRight size={16} className="btn-icon" />
             </button>
           </div>

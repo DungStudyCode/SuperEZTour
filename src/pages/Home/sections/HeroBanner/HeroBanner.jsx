@@ -254,10 +254,16 @@ const HeroBanner = ({ onOpenQuoteModal }) => {
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else if (onOpenQuoteModal) {
-        onOpenQuoteModal(slide.destId || '');
+        onOpenQuoteModal({
+          source: 'hero',
+          destinationId: slide.destId || '',
+        });
       }
     } else if (onOpenQuoteModal) {
-      onOpenQuoteModal(slide.destId || '');
+      onOpenQuoteModal({
+        source: 'hero',
+        destinationId: slide.destId || '',
+      });
     }
   };
 

@@ -1,9 +1,9 @@
 /* =========================================================
    SUPER EZ TOUR — TOUR QUICK PREVIEW MODAL STYLING
-   Concept: Luxury Korean Travel Editorial Experience
-   Palette: Background #FAF8F5 (Warm Ivory/Cream), Cards #FFFFFF,
+   Concept: Luxury Travel Editorial — Curated Journey Preview
+   Palette: Background #FAF9F7 (Warm Ivory), Cards #FFFFFF,
             Text #24343B, Secondary #718087, Warm Gold #B18B59,
-            Champagne Gold #C8A265, Brand Orange #E96932, Border #EAE4DA
+            Champagne Gold #C8A265, Brand Orange #E96932, Border #EAE6E0
 ========================================================= */
 
 .tour-preview-overlay {
@@ -31,16 +31,16 @@
 }
 
 /* =========================================================
-   MODAL DIALOG CONTAINER: Max 1440px / Warm Ivory Cream
+   MODAL DIALOG CONTAINER: min(1320px, calc(100vw - 48px)) / 90dvh
 ========================================================= */
 .tour-preview-dialog {
-  background-color: #FAF8F5;
+  background-color: #FAF9F7;
   border-radius: 24px;
-  border: 1px solid #EAE4DA;
+  border: 1px solid #EAE6E0;
   box-shadow: 0 32px 80px rgba(26, 43, 50, 0.22), 0 4px 16px rgba(0, 0, 0, 0.04);
-  max-width: min(1440px, calc(100vw - 64px));
+  max-width: min(1320px, calc(100vw - 48px));
   width: 100%;
-  max-height: calc(100dvh - 48px);
+  max-height: 90dvh;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@
 }
 
 /* =========================================================
-   MAIN 2-COLUMN SPLIT (50% / 50%)
+   MAIN 2-COLUMN SPLIT (45% Gallery / 55% Content)
 ========================================================= */
 .tour-preview-main {
   display: flex;
@@ -72,28 +72,30 @@
 }
 
 /* =========================================================
-   01. LEFT COLUMN: IMAGE GALLERY
+   01. LEFT COLUMN: IMAGE GALLERY (45%)
 ========================================================= */
 .tour-preview-gallery-col {
-  width: 48%;
-  min-width: 380px;
+  flex: 0 0 45%;
+  max-width: 45%;
+  min-width: 360px;
   display: flex;
   flex-direction: column;
-  padding: 28px 24px 24px 32px;
-  background-color: #FAF8F5;
+  padding: 28px 20px 24px 30px;
+  background-color: #FAF9F7;
   box-sizing: border-box;
-  gap: 16px;
+  gap: 14px;
+  overflow: hidden;
 }
 
 .preview-hero-media {
   position: relative;
   width: 100%;
   flex: 1;
-  min-height: 380px;
-  max-height: 520px;
-  border-radius: 20px;
+  min-height: 320px;
+  max-height: 440px;
+  border-radius: 18px;
   overflow: hidden;
-  background-color: #EAE4DA;
+  background-color: #EAE6E0;
   box-shadow: 0 6px 20px rgba(36, 52, 59, 0.06);
 }
 
@@ -110,7 +112,7 @@
 
 @keyframes imgCrossfade {
   from {
-    opacity: 0.65;
+    opacity: 0.7;
   }
   to {
     opacity: 1;
@@ -120,13 +122,13 @@
 /* Signature Badge */
 .preview-badge-signature {
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 16px;
+  left: 16px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: rgba(26, 43, 50, 0.82);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -134,7 +136,7 @@
   color: #E5C583;
   font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 2;
 }
@@ -149,28 +151,28 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(4px);
   color: #24343B;
-  border: 1px solid rgba(234, 228, 218, 0.8);
+  border: 1px solid rgba(234, 230, 224, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
   z-index: 3;
 }
 
 .gallery-nav-btn.prev {
-  left: 14px;
+  left: 12px;
 }
 
 .gallery-nav-btn.next {
-  right: 14px;
+  right: 12px;
 }
 
 .gallery-nav-btn:hover {
@@ -187,14 +189,14 @@
 /* Counter Pill */
 .gallery-counter-pill {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 14px;
+  right: 14px;
   display: inline-flex;
   align-items: center;
   gap: 3px;
   padding: 4px 10px;
   border-radius: 9999px;
-  background-color: rgba(26, 43, 50, 0.75);
+  background-color: rgba(26, 43, 50, 0.78);
   backdrop-filter: blur(4px);
   color: #FFFFFF;
   font-size: 11px;
@@ -212,7 +214,7 @@
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
 }
@@ -227,17 +229,17 @@
 }
 
 .preview-thumbnail-item {
-  width: 82px;
-  height: 60px;
-  min-width: 82px;
-  border-radius: 12px;
+  width: 78px;
+  height: 56px;
+  min-width: 78px;
+  border-radius: 10px;
   overflow: hidden;
   border: 2px solid transparent;
   padding: 0;
-  background: #EAE4DA;
+  background: #EAE6E0;
   cursor: pointer;
   opacity: 0.65;
-  transition: all 0.22s ease;
+  transition: all 0.2s ease;
 }
 
 .preview-thumbnail-item:hover {
@@ -247,7 +249,7 @@
 .preview-thumbnail-item.is-active {
   opacity: 1;
   border-color: #C8A265;
-  box-shadow: 0 2px 8px rgba(200, 162, 101, 0.28);
+  box-shadow: 0 2px 8px rgba(200, 162, 101, 0.25);
 }
 
 .thumbnail-img {
@@ -258,21 +260,22 @@
 }
 
 /* =========================================================
-   02. RIGHT COLUMN: TOUR INFORMATION
+   02. RIGHT COLUMN: JOURNEY INFORMATION (55%)
 ========================================================= */
 .tour-preview-info-col {
-  flex: 1;
-  padding: 28px 36px 28px 20px;
+  flex: 0 0 55%;
+  max-width: 55%;
+  padding: 26px 32px 28px 18px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
   box-sizing: border-box;
 }
 
 /* Custom Scrollbar for Info Column */
 .tour-preview-info-col::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .tour-preview-info-col::-webkit-scrollbar-track {
@@ -288,7 +291,7 @@
   background-color: #C8C2B7;
 }
 
-/* Header Row */
+/* Header Row: Eyebrow Meta & Close Button */
 .preview-info-header {
   display: flex;
   align-items: center;
@@ -300,19 +303,20 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #B18B59;
   background-color: #F1EEE8;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 9999px;
-  border: 1px solid #EAE4DA;
+  border: 1px solid #EAE6E0;
 }
 
 .meta-dot {
   color: #D6D0C7;
+  font-weight: 400;
 }
 
 .meta-duration-label {
@@ -320,39 +324,21 @@
   font-weight: 600;
 }
 
-.preview-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.preview-action-icon-btn,
 .preview-close-btn {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #FFFFFF;
-  border: 1px solid #EAE4DA;
+  border: 1px solid #EAE6E0;
   color: #718087;
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0;
-}
-
-.preview-action-icon-btn:hover {
-  background-color: #F1EEE8;
-  color: #E96932;
-  border-color: #D6D0C7;
-}
-
-.preview-action-icon-btn.is-active {
-  color: #E96932;
-  border-color: rgba(233, 105, 50, 0.4);
 }
 
 .preview-close-btn:hover {
@@ -362,8 +348,7 @@
   transform: rotate(90deg);
 }
 
-.preview-close-btn:focus-visible,
-.preview-action-icon-btn:focus-visible {
+.preview-close-btn:focus-visible {
   outline: 2px solid #E96932;
   outline-offset: 2px;
 }
@@ -372,29 +357,29 @@
 .preview-title-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .preview-main-title {
   font-family: 'Playfair Display', Georgia, 'Plus Jakarta Sans', serif;
-  font-size: 2.15rem;
+  font-size: 1.95rem;
   font-weight: 700;
   color: #1A2B32;
   letter-spacing: -0.02em;
-  line-height: 1.22;
+  line-height: 1.24;
   margin: 0;
 }
 
 .preview-main-desc {
-  font-size: 0.95rem;
+  font-size: 0.925rem;
   color: #718087;
-  line-height: 1.6;
+  line-height: 1.58;
   margin: 0;
 }
 
 /* Panel Headings */
 .preview-panel-heading {
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -402,55 +387,45 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 }
 
-/* 4 Premium Service Highlights */
-.preview-services-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-.preview-services-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.preview-service-item {
-  background-color: #FFFFFF;
-  border: 1px solid #EAE4DA;
-  border-radius: 14px;
-  padding: 12px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(36, 52, 59, 0.02);
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.preview-service-item:hover {
-  border-color: #C8A265;
-  transform: translateY(-2px);
-}
-
-.service-icon-box {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background-color: #FAF8F5;
-  border: 1px solid #EAE4DA;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.heading-icon {
+  flex-shrink: 0;
 }
 
 .text-gold {
   color: #B18B59;
 }
 
-.text-orange {
-  color: #E96932;
+/* 4 Premium Services (Compact 2x2 Utility Grid — No Dashboard Style) */
+.preview-services-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-services-compact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 18px;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE6E0;
+  border-radius: 16px;
+  padding: 14px 18px;
+}
+
+.preview-service-compact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.service-icon-wrap {
+  flex-shrink: 0;
+  color: #B18B59;
+  display: flex;
+  align-items: center;
+  margin-top: 1px;
 }
 
 .service-text-group {
@@ -459,28 +434,25 @@
   gap: 2px;
 }
 
-.service-name {
-  font-size: 11px;
+.service-label {
+  font-size: 0.8rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #8E9BA1;
+  color: #24343B;
+  letter-spacing: 0.01em;
 }
 
 .service-desc {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: #24343B;
-  line-height: 1.3;
+  font-size: 0.8rem;
+  color: #718087;
+  line-height: 1.35;
 }
 
 /* Tour Highlights Panel */
 .preview-highlights-panel {
   background-color: #FFFFFF;
-  border: 1px solid #EAE4DA;
+  border: 1px solid #EAE6E0;
   border-radius: 16px;
-  padding: 18px 20px;
-  box-shadow: 0 2px 8px rgba(36, 52, 59, 0.02);
+  padding: 16px 18px;
 }
 
 .preview-highlights-list {
@@ -489,14 +461,14 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 8px;
 }
 
 .preview-highlight-item {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 0.885rem;
+  font-size: 0.875rem;
   color: #24343B;
   line-height: 1.48;
 }
@@ -510,10 +482,9 @@
 /* Route Visualization Panel */
 .preview-route-panel {
   background-color: #FFFFFF;
-  border: 1px solid #EAE4DA;
+  border: 1px solid #EAE6E0;
   border-radius: 16px;
-  padding: 18px 20px;
-  box-shadow: 0 2px 8px rgba(36, 52, 59, 0.02);
+  padding: 16px 18px;
 }
 
 .preview-route-steps {
@@ -521,37 +492,36 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  margin-top: 8px;
-  padding: 4px 6px;
+  margin-top: 6px;
+  padding: 2px 4px;
 }
 
 .route-stop-node {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   position: relative;
   z-index: 2;
   text-align: center;
 }
 
 .route-node-dot {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background-color: #F7F5F0;
   border: 1.5px solid #C8A265;
   color: #8C6D3F;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .route-node-label {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #24343B;
   white-space: nowrap;
@@ -562,7 +532,7 @@
   height: 1px;
   border-top: 1.5px dashed #D6D0C7;
   margin: 0 8px;
-  transform: translateY(-10px);
+  transform: translateY(-8px);
 }
 
 /* =========================================================
@@ -573,9 +543,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 18px 36px;
-  background-color: #FAF8F5;
-  border-top: 1px solid #EAE4DA;
+  padding: 16px 32px;
+  background-color: #FAF9F7;
+  border-top: 1px solid #EAE6E0;
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -587,20 +557,22 @@
   gap: 2px;
 }
 
+.price-label {
+  font-size: 0.725rem;
+  color: #718087;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .price-main-line {
   display: flex;
   align-items: baseline;
-  gap: 5px;
-}
-
-.price-from-label {
-  font-size: 0.8rem;
-  color: #718087;
-  font-weight: 600;
+  gap: 4px;
 }
 
 .price-amount {
-  font-size: 1.45rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: #E96932;
   letter-spacing: -0.02em;
@@ -612,16 +584,23 @@
   font-weight: 600;
 }
 
+.price-on-request {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #24343B;
+}
+
 .price-sub-note {
-  font-size: 11.5px;
+  font-size: 11px;
   color: #8E9BA1;
+  line-height: 1.35;
 }
 
 /* Right: Action Buttons */
 .preview-footer-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .preview-btn {
@@ -629,10 +608,10 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 48px;
-  padding: 0 20px;
+  height: 46px;
+  padding: 0 18px;
   border-radius: 12px;
-  font-size: 0.9rem;
+  font-size: 0.885rem;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
@@ -647,12 +626,12 @@
   transition: transform 0.2s ease;
 }
 
-/* Button 1: Nhận tư vấn riêng */
+/* Button 1: Tư vấn riêng */
 .preview-btn.consult-btn {
   background-color: #FFFFFF;
   border: 1.5px solid #C8A265;
   color: #24343B;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .preview-btn.consult-btn:hover {
@@ -662,18 +641,18 @@
   transform: translateY(-1px);
 }
 
-/* Button 2: Xem lịch trình chi tiết */
+/* Button 2: Xem hành trình */
 .preview-btn.details-btn {
   background-color: #24343B;
   border: 1.5px solid #24343B;
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(36, 52, 59, 0.18);
+  box-shadow: 0 4px 12px rgba(36, 52, 59, 0.15);
 }
 
 .preview-btn.details-btn:hover {
   background-color: #E96932;
   border-color: #E96932;
-  box-shadow: 0 4px 16px rgba(233, 105, 50, 0.32);
+  box-shadow: 0 4px 14px rgba(233, 105, 50, 0.28);
   transform: translateY(-1px);
 }
 
@@ -692,34 +671,33 @@
 @media (max-width: 1024px) {
   .tour-preview-dialog {
     max-width: calc(100vw - 32px);
-    max-height: calc(100dvh - 32px);
+    max-height: 90dvh;
   }
 
   .tour-preview-gallery-col {
-    width: 44%;
-    min-width: 320px;
-    padding: 24px 18px 20px 24px;
+    flex: 0 0 42%;
+    max-width: 42%;
+    min-width: 300px;
+    padding: 22px 16px 20px 22px;
   }
 
   .tour-preview-info-col {
-    padding: 24px 24px 20px 16px;
-    gap: 18px;
+    flex: 0 0 58%;
+    max-width: 58%;
+    padding: 22px 24px 20px 16px;
+    gap: 16px;
   }
 
   .preview-main-title {
-    font-size: 1.85rem;
-  }
-
-  .preview-services-grid {
-    grid-template-columns: repeat(2, 1fr);
+    font-size: 1.7rem;
   }
 
   .tour-preview-footer {
-    padding: 16px 24px;
+    padding: 14px 24px;
   }
 }
 
-/* Mobile Screens (≤ 767px): Full-Screen Sheet */
+/* Mobile Screens (≤ 767px): Full-Height Bottom Sheet */
 @media (max-width: 767px) {
   .tour-preview-overlay {
     padding: 0;
@@ -729,7 +707,7 @@
   .tour-preview-dialog {
     max-width: 100vw;
     width: 100%;
-    max-height: 94dvh;
+    max-height: 92dvh;
     border-radius: 20px 20px 0 0;
     border-bottom: none;
   }
@@ -740,36 +718,42 @@
   }
 
   .tour-preview-gallery-col {
+    flex: none;
+    max-width: 100%;
     width: 100%;
     min-width: auto;
-    padding: 20px 16px 0;
-    gap: 12px;
+    padding: 18px 16px 0;
+    gap: 10px;
   }
 
   .preview-hero-media {
-    min-height: 220px;
-    max-height: 280px;
-    border-radius: 16px;
+    min-height: 210px;
+    max-height: 260px;
+    border-radius: 14px;
   }
 
   .tour-preview-info-col {
-    padding: 16px 16px 24px;
-    gap: 18px;
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+    padding: 14px 16px 24px;
+    gap: 16px;
     overflow-y: visible;
   }
 
   .preview-main-title {
-    font-size: 1.55rem;
+    font-size: 1.45rem;
   }
 
-  .preview-services-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+  .preview-services-compact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 12px 14px;
   }
 
   .preview-route-steps {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
     justify-content: flex-start;
   }
 
@@ -799,7 +783,7 @@
 
   .preview-btn {
     width: 100%;
-    height: 46px;
+    height: 44px;
   }
 }
 
