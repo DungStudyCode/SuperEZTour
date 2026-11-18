@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../../../../context/LanguageContext';
 import {
   Compass,
   Clock,
@@ -184,10 +185,7 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
   }, [itineraries, activeItineraryId]);
 
   const days = useMemo(() => activeItinerary?.days || [], [activeItinerary]);
-  const isKorean = Boolean(
-    activeItinerary?.title?.match(/[\uac00-\ud7af]/) ||
-    activeItinerary?.overview?.match(/[\uac00-\ud7af]/)
-  );
+  const { isKorean } = useLanguage();
 
   // Handle manual day selection via click with scroll sync
   const handleDayClick = useCallback(

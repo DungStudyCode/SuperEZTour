@@ -1,9 +1,11 @@
 import React from 'react';
 import { Star, Quote, CheckCircle2, Heart } from 'lucide-react';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './CustomerStories.css';
 
 const CustomerStories = ({ storiesData }) => {
   const stories = storiesData || [];
+  const { isKorean } = useLanguage();
 
   if (!stories.length) return null;
 
@@ -26,13 +28,13 @@ const CustomerStories = ({ storiesData }) => {
           </span>
 
           <h2 className="dest-title-editorial stories-title">
-            {stories[0]?.quote?.match(/[\uac00-\ud7af]/)
+            {isKorean
               ? '고객들이 직접 전하는 생생한 여행 이야기'
               : 'Những Kỷ Niệm Thật Cùng Super EZ Tour'}
           </h2>
 
           <p className="dest-subtitle stories-sub">
-            {stories[0]?.quote?.match(/[\uac00-\ud7af]/)
+            {isKorean
               ? 'Super EZ Tour와 함께 특별한 여정을 경험한 실제 고객님들의 솔직한 후기.'
               : 'Lắng nghe cảm nhận chân thực từ những du khách đã đồng hành cùng chuyến đi riêng của Super EZ Tour.'}
           </p>
@@ -77,7 +79,7 @@ const CustomerStories = ({ storiesData }) => {
                 <div className="story-photos-strip">
                   {story.photos.map((photo, pIdx) => (
                     <div key={pIdx} className="dest-img-mask story-photo-item">
-                      <img src={photo} alt={`Kỷ niệm ${story.author}`} loading="lazy" />
+                      <img src={photo} alt={isKorean ? `${story.author} 여행 사진` : `Kỷ niệm ${story.author}`} loading="lazy" />
                     </div>
                   ))}
                 </div>

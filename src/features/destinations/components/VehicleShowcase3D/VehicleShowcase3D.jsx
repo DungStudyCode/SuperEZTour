@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Car, Users, Briefcase, CheckCircle2, ArrowRight, ShieldCheck, Sparkles, Orbit } from 'lucide-react';
 import { useTripBuilder } from '../../context/TripBuilderContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './VehicleShowcase3D.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,7 +12,7 @@ const defaultAngleLabels = ['Toàn cảnh ngoại thất', 'Góc nghiêng thân 
 const koAngleLabels = ['외관 전면', '측면 프로필', '인테리어'];
 
 const VehicleShowcase3D = ({ transportData }) => {
-  const isKorean = transportData?.badgeMaintenance?.includes('점검') || transportData?.seatsLabel?.includes('정원');
+  const { isKorean } = useLanguage();
   const angleLabels = isKorean ? koAngleLabels : defaultAngleLabels;
   const containerRef = useRef(null);
   const vehicleStageRef = useRef(null);
@@ -78,11 +79,13 @@ const VehicleShowcase3D = ({ transportData }) => {
         <header className="vehicle-3d-header">
           <span className="dest-kicker vehicle-3d-kicker">
             <Car size={14} className="vehicle-kicker-icon" />
-            <span>AUTOMOTIVE LUXURY SHOWROOM</span>
+            <span>{transportData?.kicker || 'AUTOMOTIVE LUXURY SHOWROOM'}</span>
           </span>
-          <h2 className="vehicle-3d-title">Every Mile. Your Style.</h2>
+          <h2 className="vehicle-3d-title">{transportData?.title || 'Every Mile. Your Style.'}</h2>
           <p className="vehicle-3d-subtitle">
-            프리미엄 전용 차량 쇼룸 · 100% 2022년식 이상 신형 차량, 편안한 가죽 시트, 와이파이 완비 및 차분한 노선 전문 기사님.
+            {transportData?.subtitle || (isKorean
+              ? '프리미엄 전용 차량 쇼룸 · 100% 2022년식 이상 신형 차량, 편안한 가죽 시트, 와이파이 완비 및 차분한 노선 전문 기사님.'
+              : 'Showroom xe riêng cao cấp · 100% đời mới từ 2022 trở lên, ghế da êm ái, wifi đầy đủ và tài xế chuyên tuyến điềm đạm.')}
           </p>
         </header>
 

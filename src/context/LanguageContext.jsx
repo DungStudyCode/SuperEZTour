@@ -1,10 +1,24 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import koTranslations from '../locales/ko.json';
 import viTranslations from '../locales/vi.json';
+import daNangKo from '../locales/destinations/da-nang/ko.json';
+import daNangVi from '../locales/destinations/da-nang/vi.json';
 
 const TRANSLATIONS = {
-  ko: koTranslations,
-  vi: viTranslations,
+  ko: {
+    ...koTranslations,
+    destinations: {
+      ...(koTranslations.destinations || {}),
+      daNang: daNangKo,
+    },
+  },
+  vi: {
+    ...viTranslations,
+    destinations: {
+      ...(viTranslations.destinations || {}),
+      daNang: daNangVi,
+    },
+  },
 };
 
 const LanguageContext = createContext({

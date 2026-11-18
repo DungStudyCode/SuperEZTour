@@ -3,7 +3,7 @@
  * Powers the dynamic Destination Landing Engine for all 16 destinations.
  */
 
-import { DA_NANG_CONFIG } from './da-nang.config.js';
+import { DA_NANG_CONFIG, getLocalizedDaNangConfig } from './da-nang.config.js';
 import { HA_NOI_CONFIG } from './ha-noi.config.js';
 
 export const DESTINATION_REGISTRY = {
@@ -16,12 +16,18 @@ export const DESTINATION_REGISTRY = {
 };
 
 /**
- * Get destination configuration by slug or id
+ * Get destination configuration by slug or id, with language localization support
  * @param {string} slug
- * @returns {object} Destination config object
+ * @param {string} language 'ko' | 'vi'
+ * @returns {object|null} Destination config object
  */
-export function getDestinationConfig(slug) {
+export function getDestinationConfig(slug, language = 'ko') {
   const normalized = (slug || '').toLowerCase().trim();
+
+  if (normalized === 'da-nang' || normalized === 'vietnam-danang' || normalized === 'danang') {
+    return getLocalizedDaNangConfig(language);
+  }
+
   if (DESTINATION_REGISTRY[normalized]) {
     return DESTINATION_REGISTRY[normalized];
   }

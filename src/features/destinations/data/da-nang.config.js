@@ -4,6 +4,8 @@
  * Korean Luxury Localization Edition
  */
 
+import daNangVi from '../../../locales/destinations/da-nang/vi.json' with { type: 'json' };
+
 export const DA_NANG_CONFIG = {
   id: 'da-nang',
   slug: 'da-nang',
@@ -860,5 +862,159 @@ export const DA_NANG_CONFIG = {
     }
   }
 };
+
+/**
+ * Returns localized Da Nang configuration.
+ * When language === 'ko' (or default), returns the untouched baseline DA_NANG_CONFIG.
+ * When language === 'vi', merges DA_NANG_CONFIG with Vietnamese translations while preserving all technical
+ * IDs, coordinates, image/model URLs, and technical keys.
+ */
+export function getLocalizedDaNangConfig(language = 'ko') {
+  if (language !== 'vi') {
+    return DA_NANG_CONFIG;
+  }
+
+  const vi = daNangVi;
+  const base = DA_NANG_CONFIG;
+
+  return {
+    ...base,
+    locale: 'vi',
+    name: vi.name || base.name,
+    nameEn: vi.nameEn || base.nameEn,
+    nameKr: vi.nameKr || base.nameKr,
+    subtitle: vi.subtitle || base.subtitle,
+    hero: {
+      ...base.hero,
+      ...vi.hero,
+      quickStats: base.hero.quickStats.map((s, i) => ({
+        ...s,
+        ...(vi.hero?.quickStats?.[i] || {})
+      })),
+      scrollPrompt: {
+        ...base.hero.scrollPrompt,
+        ...(vi.hero?.scrollPrompt || {})
+      }
+    },
+    intro: {
+      ...base.intro,
+      ...vi.intro,
+      paragraphs: vi.intro?.paragraphs ? [...vi.intro.paragraphs] : base.intro.paragraphs,
+      features: base.intro.features.map((f, i) => ({
+        ...f,
+        ...(vi.intro?.features?.[i] || {})
+      }))
+    },
+    ecosystem: {
+      ...base.ecosystem,
+      ...vi.ecosystem,
+      services: base.ecosystem.services.map((s, i) => ({
+        ...s,
+        ...(vi.ecosystem?.services?.[i] || {})
+      }))
+    },
+    accommodation: {
+      ...base.accommodation,
+      ...vi.accommodation,
+      categories: (vi.accommodation?.categories || []).map((c, i) => ({
+        ...(base.accommodation.categories?.[i] || {}),
+        ...c
+      })),
+      items: base.accommodation.items.map((item, i) => ({
+        ...item,
+        ...(vi.accommodation?.items?.[i] || {})
+      }))
+    },
+    localGuide: {
+      ...base.localGuide,
+      ...vi.localGuide,
+      pillars: base.localGuide.pillars.map((p, i) => ({
+        ...p,
+        ...(vi.localGuide?.pillars?.[i] || {})
+      }))
+    },
+    flights: {
+      ...base.flights,
+      ...vi.flights,
+      perks: vi.flights?.perks ? [...vi.flights.perks] : base.flights.perks,
+      domesticRoutes: base.flights.domesticRoutes.map((r, i) => ({
+        ...r,
+        ...(vi.flights?.domesticRoutes?.[i] || {})
+      })),
+      intlRoutes: base.flights.intlRoutes.map((r, i) => ({
+        ...r,
+        ...(vi.flights?.intlRoutes?.[i] || {})
+      }))
+    },
+    transportation: {
+      ...base.transportation,
+      ...vi.transportation,
+      vehicles: base.transportation.vehicles.map((v, i) => ({
+        ...v,
+        ...(vi.transportation?.vehicles?.[i] || {}),
+        features: vi.transportation?.vehicles?.[i]?.features
+          ? [...vi.transportation.vehicles[i].features]
+          : v.features
+      }))
+    },
+    attractions: {
+      ...base.attractions,
+      ...vi.attractions,
+      items: base.attractions.items.map((item, i) => ({
+        ...item,
+        ...(vi.attractions?.items?.[i] || {}),
+        tags: vi.attractions?.items?.[i]?.tags
+          ? [...vi.attractions.items[i].tags]
+          : item.tags
+      }))
+    },
+    culinary: {
+      ...base.culinary,
+      ...vi.culinary,
+      categories: (vi.culinary?.categories || []).map((c, i) => ({
+        ...(base.culinary.categories?.[i] || {}),
+        ...c
+      })),
+      items: base.culinary.items.map((item, i) => ({
+        ...item,
+        ...(vi.culinary?.items?.[i] || {}),
+        highlights: vi.culinary?.items?.[i]?.highlights
+          ? [...vi.culinary.items[i].highlights]
+          : item.highlights
+      }))
+    },
+    privateValues: {
+      ...base.privateValues,
+      ...vi.privateValues,
+      items: base.privateValues.items.map((item, i) => ({
+        ...item,
+        ...(vi.privateValues?.items?.[i] || {})
+      }))
+    },
+    itineraries: base.itineraries.map((it, i) => ({
+      ...it,
+      ...(vi.itineraries?.[i] || {}),
+      days: it.days.map((d, di) => ({
+        ...d,
+        ...(vi.itineraries?.[i]?.days?.[di] || {}),
+        highlights: vi.itineraries?.[i]?.days?.[di]?.highlights
+          ? [...vi.itineraries[i].days[di].highlights]
+          : d.highlights
+      }))
+    })),
+    customerStories: base.customerStories.map((cs, i) => ({
+      ...cs,
+      ...(vi.customerStories?.[i] || {})
+    })),
+    finalCta: {
+      ...base.finalCta,
+      ...vi.finalCta,
+      actions: {
+        ...base.finalCta.actions,
+        ...(vi.finalCta?.actions || {})
+      }
+    }
+  };
+}
 
 export default DA_NANG_CONFIG;

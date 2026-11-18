@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Sun, Sunset, Moon, Sunrise, ShieldCheck, Sparkles, Clock } from 'lucide-react';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './TimeTransformationScene.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -65,10 +66,7 @@ const TimeTransformationScene = ({ privateValuesData }) => {
   const skyBgRef = useRef(null);
   const [activePhaseIndex, setActivePhaseIndex] = useState(0);
   const phases = privateValuesData?.timePhases || TIME_PHASES;
-  const isKorean = Boolean(
-    privateValuesData?.items?.[0]?.desc?.match(/[\uac00-\ud7af]/) ||
-    privateValuesData?.title?.includes('Your')
-  );
+  const { isKorean } = useLanguage();
 
   useEffect(() => {
     const mm = gsap.matchMedia();

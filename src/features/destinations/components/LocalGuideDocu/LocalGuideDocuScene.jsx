@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Compass, BookOpen, Clock, Languages, ArrowRight, CheckCircle2, UserCheck } from 'lucide-react';
 import { useTripBuilder } from '../../context/TripBuilderContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './LocalGuideDocuScene.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -21,6 +22,7 @@ const LocalGuideDocuScene = ({ guideData }) => {
   const contentColRef = useRef(null);
   const quotePlateRef = useRef(null);
 
+  const { isKorean } = useLanguage();
   const { preselectService } = useTripBuilder();
 
   useEffect(() => {
@@ -94,25 +96,27 @@ const LocalGuideDocuScene = ({ guideData }) => {
             />
             <div className="guide-docu-badge">
               <UserCheck size={14} />
-              <span>{guideData?.badgeExpert || 'Chuyên viên bản địa miền Trung'}</span>
+              <span>{guideData?.badgeExpert || (isKorean ? '베트남 중부 전문 가이드' : 'Chuyên viên bản địa miền Trung')}</span>
             </div>
           </div>
 
           <div className="guide-docu-photo-sub" ref={photoSubRef}>
             <img
               src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=700&q=80"
-              alt="Hành trình khám phá văn hóa"
+              alt={isKorean ? '문화 탐방 여정' : 'Hành trình khám phá văn hóa'}
               loading="lazy"
             />
           </div>
 
           <div className="guide-docu-quote-plate" ref={quotePlateRef}>
             <p className="guide-docu-quote-text">
-              {guideData?.quote || '“Một chuyến đi hoàn hảo không đến từ việc bạn đi qua bao nhiêu điểm, mà ở việc bạn đã cảm nhận nơi đó sâu sắc đến nhường nào.”'}
+              {guideData?.quote || (isKorean
+                ? '“진정한 여행은 단순히 유명한 장소를 방문하는 것이 아니라, 그 도시의 숨결과 문화를 마음 깊이 느끼는 것입니다.”'
+                : '“Một chuyến đi hoàn hảo không đến từ việc bạn đi qua bao nhiêu điểm, mà ở việc bạn đã cảm nhận nơi đó sâu sắc đến nhường nào.”')}
             </p>
             <div className="guide-docu-quote-meta">
               <CheckCircle2 size={15} className="guide-check-gold" />
-              <span>{guideData?.badgeCommitment || 'Cam kết người bạn đồng hành 1:1 tận tâm'}</span>
+              <span>{guideData?.badgeCommitment || (isKorean ? '1:1 전담 동행 케어 보장' : 'Cam kết người bạn đồng hành 1:1 tận tâm')}</span>
             </div>
           </div>
         </div>
@@ -121,15 +125,17 @@ const LocalGuideDocuScene = ({ guideData }) => {
         <div className="guide-docu-content-col" ref={contentColRef}>
           <span className="dest-kicker guide-docu-kicker">
             <Compass size={14} />
-            <span>TRAVEL DOCUMENTARY · LOCAL EXPERT</span>
+            <span>{guideData?.kicker || 'TRAVEL DOCUMENTARY · LOCAL EXPERT'}</span>
           </span>
 
           <h2 className="guide-docu-title">
-            Explore Like a Local.
+            {guideData?.title || 'Explore Like a Local.'}
           </h2>
 
           <p className="guide-docu-subtitle">
-            단순한 관광을 넘어, 여행지를 진정으로 이해하다.
+            {guideData?.subtitle || (isKorean
+              ? '단순한 관광을 넘어, 여행지를 진정으로 이해하다.'
+              : 'Vượt trên một chuyến tham quan thuần túy, thấu hiểu trọn vẹn văn hóa và linh hồn vùng đất.')}
           </p>
 
           <p className="guide-docu-lead">
@@ -159,7 +165,7 @@ const LocalGuideDocuScene = ({ guideData }) => {
               className="dest-btn-primary guide-docu-cta-btn"
               onClick={handleRequestGuide}
             >
-              <span>{guideData?.ctaRequest || 'Yêu cầu hướng dẫn viên riêng'}</span>
+              <span>{guideData?.ctaRequest || (isKorean ? '전담 현지 가이드 상담하기' : 'Yêu cầu hướng dẫn viên riêng')}</span>
               <ArrowRight size={16} />
             </button>
           </div>

@@ -34,9 +34,9 @@ gsap.registerPlugin(ScrollTrigger);
 const DestinationPage = ({ onAddQuote, slugProp }) => {
   const { slug: routeSlug } = useParams();
   const slug = slugProp || routeSlug || 'da-nang';
-  const destination = getDestinationConfig(slug);
+  const { language, isKorean } = useLanguage();
+  const destination = getDestinationConfig(slug, language);
   const destinationMeta = VIETNAM_DESTINATIONS.find((d) => d.id === slug) || null;
-  const { isKorean } = useLanguage();
   const { openNewConsultation } = useConsultation();
 
   useEffect(() => {
