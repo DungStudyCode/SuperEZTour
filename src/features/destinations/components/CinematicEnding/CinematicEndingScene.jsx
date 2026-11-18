@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Compass, Phone, MessageCircle, Sparkles } from 'lucide-react';
 import { BRAND_CONFIG } from '../../../../constants/brand.config';
+import { useConsultation } from '../../../../context/ConsultationContext';
 import './CinematicEndingScene.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,6 +12,7 @@ const CinematicEndingScene = ({ ctaData }) => {
   const containerRef = useRef(null);
   const sunsetBgRef = useRef(null);
   const typographyRef = useRef(null);
+  const { openNewConsultation } = useConsultation();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -43,9 +45,16 @@ const CinematicEndingScene = ({ ctaData }) => {
     return () => ctx.revert();
   }, []);
 
-  const scrollToBuilder = () => {
-    const el = document.getElementById('trip-builder');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  const handleAction = () => {
+    if (ctaData?.openConsultation || !document.getElementById('trip-builder')) {
+      openNewConsultation({
+        source: 'cinematic-ending',
+        destinationId: ctaData?.destinationId || 'ha-noi'
+      });
+    } else {
+      const el = document.getElementById('trip-builder');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -53,8 +62,8 @@ const CinematicEndingScene = ({ ctaData }) => {
       {/* Sunset Background Image with Slow Pullback */}
       <div className="ending-sunset-plane" ref={sunsetBgRef}>
         <img
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85"
-          alt="Hoàng hôn trên biển Đà Nẵng"
+          src={ctaData?.image || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85"}
+          alt={ctaData?.title || "Hoàng hôn phong cảnh"}
           className="ending-sunset-img"
         />
         <div className="ending-sunset-vignette" />
@@ -68,15 +77,15 @@ const CinematicEndingScene = ({ ctaData }) => {
 
         <span className="dest-kicker ending-kicker">
           <Sparkles size={14} />
-          <span>CINEMATIC FINALE</span>
+          <span>{ctaData?.kicker || 'CINEMATIC FINALE'}</span>
         </span>
 
         <h2 className="ending-title">
-          DA NANG IS CALLING.
+          {ctaData?.title || 'DA NANG IS CALLING.'}
         </h2>
 
         <p className="ending-philosophy-quote">
-          Your Destination. Your Experience. Your Schedule. Your Way.
+          {ctaData?.subtitle || 'Your Destination. Your Experience. Your Schedule. Your Way.'}
         </p>
 
         <p className="ending-desc">
@@ -87,26 +96,19 @@ const CinematicEndingScene = ({ ctaData }) => {
           <button
             type="button"
             className="dest-btn-primary ending-cta-main"
-            onClick={scrollToBuilder}
+            onClick={handleAction}
           >
-            <span>{ctaData?.actions?.primary || 'Bắt đầu thiết kế chuyến đi'}</span>
+            <span>{ctaData?.ctaText || ctaData?.actions?.primary || 'Bắt đầu thiết kế chuyến đi'}</span>
             <Compass size={18} />
           </button>
 
-          <a href="tel:19008899" className="dest-btn-ghost ending-cta-hotline">
-            <Phone size={16} />
-            <span>{ctaData?.actions?.secondary || 'Hotline 24/7: 1900 8899'}</span>
-          </a>
-
-          <a
-            href="https://zalo.me"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ending-cta-zalo"
+          <button
+            type="button"
+            className="dest-btn-ghost ending-cta-hotline"
+            onClick={() => openNewConsultation({ source: 'ending-cta-quote', destinationId: ctaData?.destinationId || 'ha-noi' })}
           >
-            <MessageCircle size={16} />
-            <span>{ctaData?.actions?.kakao || ctaData?.actions?.zalo || 'Tư vấn qua Zalo'}</span>
-          </a>
+            <span>{ctaData?.ctaSecondaryText || 'Tư vấn hành trình riêng 1:1'}</span>
+          </button>
         </div>
       </div>
     </section>

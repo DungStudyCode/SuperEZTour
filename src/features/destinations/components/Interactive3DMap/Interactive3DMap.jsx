@@ -209,33 +209,45 @@ const Interactive3DMap = ({ attractionsData }) => {
   const panelRef = useRef(null);
   const cartBadgeRef = useRef(null);
 
-  const [selectedLandmarkId, setSelectedLandmarkId] = useState('ba-na-hills');
+  const initialLandmarkId = attractionsData?.items?.[0]?.id || 'ba-na-hills';
+  const [selectedLandmarkId, setSelectedLandmarkId] = useState(initialLandmarkId);
   const [isOverviewMode, setIsOverviewMode] = useState(true);
   const [mapLoaded, setMapLoaded] = useState(false);
 
   const { tripState, toggleAttraction } = useTripBuilder();
 
+  // Active overview camera configuration based on destination
+  const activeOverviewCamera = useMemo(() => {
+    return attractionsData?.overviewCamera || {
+      center: attractionsData?.mapCenter || OVERVIEW_CAMERA.center,
+      zoom: attractionsData?.defaultZoom || OVERVIEW_CAMERA.zoom,
+      pitch: OVERVIEW_CAMERA.pitch,
+      bearing: OVERVIEW_CAMERA.bearing
+    };
+  }, [attractionsData]);
+
+  // Update initial selected landmark when destination config changes
+  useEffect(() => {
+    if (attractionsData?.items?.[0]?.id) {
+      setSelectedLandmarkId(attractionsData.items[0].id);
+    }
+  }, [attractionsData]);
+
   // Merge config data with verified geographic coordinates & authentic imagery
   const destinations = useMemo(() => {
     const rawItems = attractionsData?.items || [];
-    return DEFAULT_DESTINATIONS.map((dest) => {
-      const configItem = rawItems.find((item) => item.id === dest.id);
-      return {
-        ...dest,
-        name: configItem?.name || dest.name,
-        category: configItem?.category || dest.category,
-        description: configItem?.description || dest.description,
-        tags: configItem?.tags || dest.tags,
-        image: configItem?.image || dest.image,
-        slogan: configItem?.slogan || dest.slogan,
-        elevation: configItem?.elevation || dest.elevation,
-        lng: configItem?.lng || dest.lng,
-        lat: configItem?.lat || dest.lat,
-        bearing: configItem?.bearing !== undefined ? configItem.bearing : dest.bearing,
-        pitch: configItem?.pitch !== undefined ? configItem.pitch : dest.pitch,
-        zoom: configItem?.zoom !== undefined ? configItem.zoom : dest.zoom
-      };
-    });
+    if (rawItems.length > 0) {
+      return rawItems.map((item, index) => ({
+        ...item,
+        routeIndex: item.routeIndex || (index < 9 ? `0${index + 1}` : `${index + 1}`),
+        bearing: item.bearing !== undefined ? item.bearing : -20,
+        pitch: item.pitch !== undefined ? item.pitch : 50,
+        zoom: item.zoom !== undefined ? item.zoom : 15,
+        elevation: item.elevation || 'Đồng bằng',
+        tags: item.tags || []
+      }));
+    }
+    return DEFAULT_DESTINATIONS;
   }, [attractionsData]);
 
   const activeLandmark = useMemo(() => {
@@ -260,10 +272,10 @@ const Interactive3DMap = ({ attractionsData }) => {
         mapInstance = new maplibregl.Map({
           container: mapContainerRef.current,
           style: SATELLITE_3D_STYLE,
-          center: OVERVIEW_CAMERA.center,
-          zoom: OVERVIEW_CAMERA.zoom,
-          pitch: OVERVIEW_CAMERA.pitch,
-          bearing: OVERVIEW_CAMERA.bearing,
+          center: activeOverviewCamera.center,
+          zoom: activeOverviewCamera.zoom,
+          pitch: activeOverviewCamera.pitch,
+          bearing: activeOverviewCamera.bearing,
           maxPitch: 85,
           antialias: true,
           attributionControl: true
@@ -471,15 +483,15 @@ const Interactive3DMap = ({ attractionsData }) => {
     if (!map) return;
 
     map.flyTo({
-      center: OVERVIEW_CAMERA.center,
-      zoom: OVERVIEW_CAMERA.zoom,
-      pitch: OVERVIEW_CAMERA.pitch,
-      bearing: OVERVIEW_CAMERA.bearing,
+      center: activeOverviewCamera.center,
+      zoom: activeOverviewCamera.zoom,
+      pitch: activeOverviewCamera.pitch,
+      bearing: activeOverviewCamera.bearing,
       speed: 0.85,
       curve: 1.4,
       essential: true
     });
-  }, []);
+  }, [activeOverviewCamera]);
 
   // =========================================================================
   // 5. CINEMATIC SCROLLTRIGGER TIMELINE (Luxury Scroll Reveal & Interaction Hold)
@@ -570,7 +582,7 @@ const Interactive3DMap = ({ attractionsData }) => {
           <div>
             <span className="dest-kicker map-kicker" ref={kickerRef}>
               <Compass size={14} className="map-kicker-icon" aria-hidden="true" />
-              <span>THE DA NANG DISCOVERY ATLAS</span>
+              <span>{attractionsData?.kicker || 'THE DISCOVERY ATLAS'}</span>
             </span>
             <h2 className="map-3d-title" ref={titleRef}>
               {attractionsData?.title || 'Những Tọa Độ Không Thể Bỏ Lỡ'}
@@ -596,10 +608,10 @@ const Interactive3DMap = ({ attractionsData }) => {
               type="button"
               className={`map-reset-view-btn ${!isOverviewMode ? 'active' : ''}`}
               onClick={resetToOverview}
-              title={attractionsData?.resetViewText || 'Khôi phục góc nhìn toàn cảnh Đà Nẵng'}
+              title={attractionsData?.resetViewText || 'Khôi phục góc nhìn toàn cảnh'}
             >
               <RotateCcw size={13} />
-              <span>{attractionsData?.resetViewText || 'Toàn cảnh Đà Nẵng'}</span>
+              <span>{attractionsData?.resetViewText || 'Toàn cảnh'}</span>
             </button>
 
             {/* Satellite Live Badge */}
@@ -630,7 +642,7 @@ const Interactive3DMap = ({ attractionsData }) => {
             </div>
 
             <div className="panel-content-body">
-              <span className="panel-route-index">{activeLandmark.routeIndex} / THE DA NANG ATLAS</span>
+              <span className="panel-route-index">{activeLandmark.routeIndex} / {attractionsData?.atlasName || 'THE ATLAS'}</span>
               <h3 className="panel-title">{activeLandmark.name}</h3>
               <p className="panel-slogan">{activeLandmark.slogan}</p>
               <p className="panel-desc">{activeLandmark.description}</p>

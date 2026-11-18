@@ -12,6 +12,7 @@ import './styles/destination-theme.css';
 
 // Upgraded Immersive 3D Cinematic Scenes
 import DestinationHeader from './components/DestinationHeader/DestinationHeader';
+import HanoiExperiencePage from './components/Hanoi/HanoiExperiencePage';
 import AirplanePortalScene from './components/AirplanePortal/AirplanePortalScene';
 import FlyThroughScene from './components/FlyThrough/FlyThroughScene';
 import ExperiencesCinematicSequence from './components/ExperiencesSequence/ExperiencesCinematicSequence';
@@ -55,15 +56,15 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
       };
     }
 
-    const isKoreanDestination = destination.locale === 'ko' || destination.id === 'da-nang';
+    const destTitle = isKorean
+      ? destination.nameKr || destination.name
+      : destination.name || destination.nameVi || destination.nameKr;
 
-    document.title = isKoreanDestination
-      ? `${destination.nameKr || destination.name} — 럭셔리 프라이빗 맞춤 여행 | Super EZ Tour`
-      : `${destination.name} — Immersive 3D Experience | Super EZ Tour - Tour Riêng 100%`;
+    document.title = isKorean
+      ? `${destTitle} — 럭셔리 프라이빗 맞춤 여행 | Super EZ Tour`
+      : `${destTitle} — Trải nghiệm Độc Bản 3D | Super EZ Tour - Tour Riêng 100%`;
 
-    if (isKoreanDestination) {
-      document.documentElement.lang = 'ko';
-    }
+    document.documentElement.lang = isKorean ? 'ko' : 'vi';
 
     // Initialize Lenis Smooth Scroll synchronized with GSAP ScrollTrigger
     const lenis = initSmoothScroll();
@@ -132,55 +133,59 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
 
   return (
     <TripBuilderProvider destinationConfig={destination}>
-      <div className="dest-engine dest-engine-immersive">
-        {/* Persistent Smart Navigation Header */}
-        <DestinationHeader destination={destination} />
+      {destination.id === 'ha-noi' ? (
+        <HanoiExperiencePage destination={destination} onAddQuote={onAddQuote} onOpenConsultModal={openNewConsultation} />
+      ) : (
+        <div className={`dest-engine dest-engine-immersive dest-theme-${destination.id}`}>
+          {/* Persistent Smart Navigation Header */}
+          <DestinationHeader destination={destination} onOpenConsultModal={openNewConsultation} />
 
-        {/* Scene 01: Airplane Cabin Oval Window Portal */}
-        <AirplanePortalScene heroData={destination.hero} />
+          {/* Scene 01: Airplane Cabin Oval Window Portal */}
+          <AirplanePortalScene heroData={destination.hero} />
 
-        {/* Scene 02: Multi-Plane Fly Through Da Nang */}
-        <FlyThroughScene introData={destination.intro} />
+          {/* Scene 02: Multi-Plane Fly Through Da Nang */}
+          <FlyThroughScene introData={destination.intro} />
 
-        {/* Scene 03: Six Travel Experiences Cinematic Sequence */}
-        <ExperiencesCinematicSequence ecosystemData={destination.ecosystem} />
+          {/* Scene 03: Six Travel Experiences Cinematic Sequence */}
+          <ExperiencesCinematicSequence ecosystemData={destination.ecosystem} />
 
-        {/* Scene 04: Luxury Accommodation 3D Architectural Scene */}
-        <Accommodation3DScene accommodationData={destination.accommodation} />
+          {/* Scene 04: Luxury Accommodation 3D Architectural Scene */}
+          <Accommodation3DScene accommodationData={destination.accommodation} />
 
-        {/* Scene 05: Local Guide Travel Documentary Scene */}
-        <LocalGuideDocuScene guideData={destination.localGuide} />
+          {/* Scene 05: Local Guide Travel Documentary Scene */}
+          <LocalGuideDocuScene guideData={destination.localGuide} />
 
-        {/* Scene 06: Flight Aviation 3D Curved Trajectory Scene */}
-        <Flight3DScene flightData={destination.flights} />
+          {/* Scene 06: Flight Aviation 3D Curved Trajectory Scene */}
+          <Flight3DScene flightData={destination.flights} />
 
-        {/* Scene 07: Automotive Showroom 3D Vehicle Turntable */}
-        <VehicleShowcase3D transportData={destination.transportation} />
+          {/* Scene 07: Automotive Showroom 3D Vehicle Turntable */}
+          <VehicleShowcase3D transportData={destination.transportation} />
 
-        {/* Scene 08: Interactive 3D Destination Map & Cart */}
-        <Interactive3DMap attractionsData={destination.attractions} />
+          {/* Scene 08: Interactive 3D Destination Map & Cart */}
+          <Interactive3DMap attractionsData={destination.attractions} />
 
-        {/* Scene 09: Culinary Macro Film Experience */}
-        <CulinaryFilmScene culinaryData={destination.culinary} />
+          {/* Scene 09: Culinary Macro Film Experience */}
+          <CulinaryFilmScene culinaryData={destination.culinary} />
 
-        {/* Scene 10: 24h Time Transformation (Dawn to Night) & Private Tour Philosophy */}
-        <TimeTransformationScene privateValuesData={destination.privateValues} />
+          {/* Scene 10: 24h Time Transformation (Dawn to Night) & Private Tour Philosophy */}
+          <TimeTransformationScene privateValuesData={destination.privateValues} />
 
-        {/* Scene 11: Interactive Itinerary Chapter Timeline */}
-        <ItineraryStickyTimeline itinerariesData={destination.itineraries} />
+          {/* Scene 11: Interactive Itinerary Chapter Timeline */}
+          <ItineraryStickyTimeline itinerariesData={destination.itineraries} />
 
-        {/* Scene 12: Trip Builder Morphing Engine (7-Step Wizard & Sticky Summary) */}
-        <TripBuilderMorph onAddQuote={onAddQuote} destinationConfig={destination} />
+          {/* Scene 12: Trip Builder Morphing Engine (7-Step Wizard & Sticky Summary) */}
+          <TripBuilderMorph onAddQuote={onAddQuote} destinationConfig={destination} />
 
-        {/* Scene 13: Customer Stories Travel Journal */}
-        <CustomerStories storiesData={destination.customerStories} />
+          {/* Scene 13: Customer Stories Travel Journal */}
+          <CustomerStories storiesData={destination.customerStories} />
 
-        {/* Scene 14: Cinematic Pullback Ending (Da Nang Is Calling) */}
-        <CinematicEndingScene ctaData={destination.finalCta} />
+          {/* Scene 14: Cinematic Pullback Ending (Da Nang Is Calling) */}
+          <CinematicEndingScene ctaData={destination.finalCta} />
 
-        {/* Destination Footer */}
-        <DestinationFooter destination={destination} />
-      </div>
+          {/* Destination Footer */}
+          <DestinationFooter destination={destination} />
+        </div>
+      )}
     </TripBuilderProvider>
   );
 };

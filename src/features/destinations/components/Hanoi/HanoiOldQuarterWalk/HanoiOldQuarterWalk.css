@@ -1,0 +1,456 @@
+/* ==========================================================================
+   SCENE 02: WALK THROUGH THE OLD QUARTER (Interactive 3D Street Experience)
+   ========================================================================== */
+
+.hanoi-old-quarter-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  background-color: #182026;
+}
+
+.old-quarter-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.old-quarter-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 60%, transparent 40%, rgba(14, 20, 25, 0.7) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Top Floating HUD */
+.old-quarter-hud-header {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: min(92%, 840px);
+  text-align: center;
+  color: #F7F4ED;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hud-badge-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.hud-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(180, 139, 86, 0.22);
+  border: 1px solid rgba(180, 139, 86, 0.45);
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E2B880;
+  backdrop-filter: blur(8px);
+}
+
+.hud-dest-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(238, 230, 217, 0.8);
+  letter-spacing: 0.05em;
+}
+
+.hud-scene-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 10px 0;
+  color: #F7F4ED;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
+}
+
+.hud-scene-desc {
+  font-size: 0.92rem;
+  color: rgba(247, 244, 237, 0.85);
+  max-width: 640px;
+  line-height: 1.55;
+  margin: 0 0 14px 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.hud-walk-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(24, 32, 38, 0.75);
+  border: 1px solid rgba(226, 184, 128, 0.35);
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+}
+
+.walk-counter-label {
+  font-size: 0.75rem;
+  color: rgba(238, 230, 217, 0.7);
+  text-transform: uppercase;
+}
+
+.walk-counter-val {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.15rem;
+  color: #E2B880;
+}
+
+.walk-counter-total {
+  font-size: 0.75rem;
+  color: rgba(238, 230, 217, 0.5);
+}
+
+/* Hotspots Floating Dock */
+.old-quarter-hotspots-dock {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(94%, 960px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.dock-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(247, 244, 237, 0.75);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.dock-buttons-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dock-spot-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(24, 32, 38, 0.85);
+  border: 1px solid rgba(180, 139, 86, 0.4);
+  border-radius: 9999px;
+  color: #F7F4ED;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock-spot-btn:hover {
+  background: rgba(182, 106, 75, 0.4);
+  border-color: #B66A4B;
+  transform: translateY(-2px);
+}
+
+.dock-btn-active {
+  background: #B66A4B;
+  border-color: #C47A5C;
+  box-shadow: 0 6px 20px rgba(182, 106, 75, 0.45);
+}
+
+.dock-btn-icon-wrap {
+  display: flex;
+  align-items: center;
+  color: #E2B880;
+}
+
+.dock-btn-active .dock-btn-icon-wrap {
+  color: #FFFFFF;
+}
+
+.dock-btn-ping {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  background-color: #FFB52B;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #FFB52B;
+}
+
+/* Editorial Hotspot Modal */
+.old-quarter-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10, 15, 18, 0.78);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.old-quarter-modal-card {
+  position: relative;
+  width: min(94%, 680px);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #1F2B33;
+  border: 1px solid rgba(180, 139, 86, 0.45);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  color: #F7F4ED;
+  animation: cardScaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: #B66A4B;
+  transform: scale(1.08);
+}
+
+.modal-hero-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-top-left-radius: 19px;
+  border-top-right-radius: 19px;
+}
+
+.modal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.old-quarter-modal-card:hover .modal-hero-img {
+  transform: scale(1.03);
+}
+
+.modal-img-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(31, 43, 51, 0.95) 100%);
+}
+
+.modal-badge-group {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-category-badge {
+  padding: 5px 12px;
+  background: rgba(182, 106, 75, 0.85);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.modal-number-badge {
+  padding: 5px 12px;
+  background: rgba(24, 32, 38, 0.75);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #E2B880;
+}
+
+.modal-body-content {
+  padding: 24px 28px 32px;
+}
+
+.modal-spot-title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 4px 0;
+  color: #F7F4ED;
+}
+
+.modal-spot-sub {
+  font-size: 0.85rem;
+  color: #E2B880;
+  font-style: italic;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.modal-spot-summary {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(247, 244, 237, 0.9);
+  margin: 0 0 20px 0;
+}
+
+.modal-details-list {
+  background: rgba(24, 32, 38, 0.6);
+  border: 1px solid rgba(180, 139, 86, 0.25);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.details-list-head {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #E2B880;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal-details-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-details-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: rgba(238, 230, 217, 0.85);
+  line-height: 1.45;
+}
+
+.detail-check {
+  color: #B66A4B;
+  font-weight: 700;
+}
+
+.modal-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.modal-add-trip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #B66A4B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 24px rgba(182, 106, 75, 0.45);
+}
+
+.modal-add-trip-btn:hover {
+  background: #A0593D;
+  transform: translateY(-2px);
+}
+
+.modal-continue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  background: transparent;
+  color: rgba(247, 244, 237, 0.8);
+  border: 1px solid rgba(247, 244, 237, 0.25);
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-continue-btn:hover {
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cardScaleUp {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .old-quarter-hud-header {
+    top: 20px;
+  }
+  .hud-scene-title {
+    font-size: 1.6rem;
+  }
+  .hud-scene-desc {
+    display: none;
+  }
+  .dock-spot-btn {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+  .modal-hero-image-wrap {
+    height: 200px;
+  }
+  .modal-body-content {
+    padding: 18px 20px;
+  }
+}

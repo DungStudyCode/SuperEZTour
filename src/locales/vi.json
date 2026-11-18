@@ -438,5 +438,38 @@
     "btnSubmit": "Yêu cầu thiết kế hành trình riêng",
     "trustSubtext": "100% Tour riêng · Xe riêng & HDV chuyên tuyến · Tư vấn chu đáo theo yêu cầu",
     "selectedBadge": "Đang chọn"
+  },
+  "destinationNav": {
+    "privateBadge": "Tour Riêng 100%",
+    "currentViewing": "Điểm đến đang xem",
+    "primaryCta": "Thiết kế chuyến đi",
+    "hotlineLabel": "Hotline 24/7: 1900 8899",
+    "backHome": "Về trang chủ Super EZ Tour",
+    "backHomeShort": "Trang chủ",
+    "switchLangAria": "Chọn ngôn ngữ",
+    "menuAria": "Menu điều hướng",
+    "menuToggle": "Mở/đóng menu điều hướng",
+    "daNang": {
+      "discover": "Khám phá",
+      "services": "Dịch vụ riêng",
+      "accommodation": "Lưu trú cao cấp",
+      "attractions": "Tọa độ",
+      "itinerary": "Lịch trình",
+      "tripBuilder": "Thiết kế tour"
+    },
+    "haNoi": {
+      "oldQuarter": "Phố cổ 36 phố",
+      "heritage": "Không gian di sản",
+      "taste": "Mỹ vị Hà Nội",
+      "attractions": "Bản đồ 3D",
+      "itinerary": "Lịch trình",
+      "tripBuilder": "Thiết kế tour"
+    },
+    "default": {
+      "discover": "Khám phá",
+      "attractions": "Điểm tham quan",
+      "itinerary": "Lịch trình",
+      "tripBuilder": "Thiết kế tour"
+    }
   }
 }

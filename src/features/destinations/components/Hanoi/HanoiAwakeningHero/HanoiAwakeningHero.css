@@ -1,0 +1,326 @@
+/* ==========================================================================
+   SCENE 01: THE AWAKENING OF HANOI (Hồ Gươm 3D Cinematic Opening)
+   Editorial Luxury Travel Palette: Warm Ivory, Antique Gold, Deep Ink, Terracotta
+   ========================================================================== */
+
+.hanoi-awakening-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  background-color: #1a242c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hanoi-hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.hanoi-hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(20, 28, 34, 0.15) 0%, rgba(12, 18, 22, 0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hanoi-hero-amber-glow {
+  position: absolute;
+  top: 15%;
+  left: 60%;
+  width: 65vw;
+  height: 65vh;
+  transform: translate(-50%, -20%);
+  background: radial-gradient(circle, rgba(235, 175, 95, 0.18) 0%, rgba(255, 200, 120, 0.05) 50%, transparent 75%);
+  pointer-events: none;
+  z-index: 2;
+  filter: blur(40px);
+}
+
+.hanoi-hero-content-wrapper {
+  position: relative;
+  z-index: 3;
+  width: min(92%, 1240px);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #F7F4ED;
+}
+
+.hanoi-hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 960px;
+}
+
+.hanoi-hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #EEE6D9;
+}
+
+.hanoi-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(180, 139, 86, 0.18);
+  border: 1px solid rgba(180, 139, 86, 0.4);
+  border-radius: 9999px;
+  color: #E2B880;
+  backdrop-filter: blur(8px);
+}
+
+.kicker-sparkle-icon {
+  color: #E2B880;
+}
+
+.hanoi-kicker-dot {
+  color: rgba(238, 230, 217, 0.45);
+}
+
+.hanoi-kicker-sub {
+  color: rgba(238, 230, 217, 0.82);
+  font-size: 0.82rem;
+}
+
+.hanoi-hero-title {
+  font-family: var(--font-serif, 'Playfair Display', 'Noto Serif KR', Georgia, serif);
+  font-size: clamp(2.8rem, 6.5vw, 5.6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.6);
+}
+
+.hanoi-title-en {
+  color: #F7F4ED;
+}
+
+.hanoi-title-divider {
+  color: #B48B56;
+  font-weight: 300;
+}
+
+.hanoi-title-sub {
+  color: #E2B880;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hanoi-hero-tagline {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(247, 244, 237, 0.92);
+  margin: 0 0 34px 0;
+  max-width: 780px;
+  line-height: 1.6;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+.hanoi-hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.hanoi-hero-primary-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  background: #B66A4B;
+  color: #FFFFFF;
+  border: 1px solid #C47A5C;
+  border-radius: 9999px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 35px -8px rgba(182, 106, 75, 0.55);
+  overflow: hidden;
+}
+
+.hanoi-hero-primary-btn:hover {
+  background: #A0593D;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 42px -6px rgba(182, 106, 75, 0.7);
+}
+
+.btn-compass-icon {
+  transition: transform 0.4s ease;
+}
+
+.hanoi-hero-primary-btn:hover .btn-compass-icon {
+  transform: rotate(45deg);
+}
+
+.btn-glow-pulse {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.hanoi-hero-primary-btn:hover .btn-glow-pulse {
+  transform: translateX(100%);
+}
+
+.hanoi-hero-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #F7F4ED;
+  border: 1px solid rgba(247, 244, 237, 0.28);
+  border-radius: 9999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.hanoi-hero-ghost-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(247, 244, 237, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Stats Bar */
+.hanoi-hero-stats-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 32px);
+  padding: 14px clamp(18px, 4vw, 36px);
+  background: rgba(26, 36, 44, 0.7);
+  border: 1px solid rgba(180, 139, 86, 0.3);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+}
+
+.hanoi-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-num {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #E2B880;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: rgba(238, 230, 217, 0.75);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hanoi-stat-sep {
+  width: 1px;
+  height: 24px;
+  background: rgba(180, 139, 86, 0.3);
+}
+
+/* Scroll Cue */
+.hanoi-hero-scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: rgba(247, 244, 237, 0.7);
+  transition: color 0.25s ease;
+}
+
+.hanoi-hero-scroll-cue:hover {
+  color: #E2B880;
+}
+
+.scroll-cue-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scroll-cue-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-arrow-anim {
+  animation: hanoiBob 1.8s ease-in-out infinite;
+}
+
+@keyframes hanoiBob {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hanoi-hero-stats-bar {
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px 24px;
+  }
+  .hanoi-stat-sep {
+    display: none;
+  }
+  .hanoi-hero-title {
+    font-size: 2.4rem;
+  }
+  .hanoi-hero-tagline {
+    font-size: 1.05rem;
+  }
+}

@@ -1,0 +1,337 @@
+/* ==========================================================================
+   SCENE 04: THE TASTE OF HANOI (Immersive 3D Culinary Experience)
+   ========================================================================== */
+
+.hanoi-taste-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 740px;
+  overflow: hidden;
+  background-color: #1a2228;
+}
+
+.taste-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.taste-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(18, 24, 30, 0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Header Floating HUD */
+.taste-header-hud {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: min(92%, 760px);
+  text-align: center;
+  color: #F7F4ED;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.taste-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(180, 139, 86, 0.2);
+  border: 1px solid rgba(180, 139, 86, 0.45);
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E2B880;
+  backdrop-filter: blur(8px);
+  margin-bottom: 10px;
+}
+
+.taste-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.0rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 8px 0;
+  color: #F7F4ED;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
+}
+
+.taste-subtitle {
+  font-size: 0.95rem;
+  color: rgba(247, 244, 237, 0.85);
+  line-height: 1.55;
+  margin: 0 0 14px 0;
+  max-width: 620px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.taste-cup-zoom-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(24, 32, 38, 0.85);
+  border: 1px solid rgba(180, 139, 86, 0.4);
+  border-radius: 9999px;
+  color: #E2B880;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.taste-cup-zoom-hint:hover {
+  background: rgba(182, 106, 75, 0.4);
+  border-color: #B66A4B;
+  color: #FFFFFF;
+}
+
+/* Dishes Selector Tabs */
+.taste-dishes-selector {
+  position: absolute;
+  bottom: 270px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(94%, 980px);
+}
+
+.selector-scroll-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 6px;
+  scrollbar-width: none;
+  justify-content: center;
+}
+
+.selector-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.dish-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(24, 32, 38, 0.85);
+  border: 1px solid rgba(180, 139, 86, 0.3);
+  border-radius: 9999px;
+  color: rgba(247, 244, 237, 0.8);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.dish-tab-btn:hover {
+  background: rgba(182, 106, 75, 0.35);
+  border-color: #B66A4B;
+  color: #FFFFFF;
+}
+
+.dish-tab-active {
+  background: #B66A4B;
+  border-color: #C47A5C;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(182, 106, 75, 0.45);
+}
+
+.dish-num {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.78rem;
+  color: #E2B880;
+}
+
+.dish-tab-active .dish-num {
+  color: #FFFFFF;
+}
+
+/* Selected Dish Editorial Card */
+.taste-editorial-card {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(94%, 960px);
+  background: rgba(26, 36, 44, 0.92);
+  border: 1px solid rgba(180, 139, 86, 0.45);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  color: #F7F4ED;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  overflow: hidden;
+}
+
+.dish-card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+}
+
+.dish-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dish-img-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 60%, rgba(26, 36, 44, 0.9) 100%);
+}
+
+.dish-num-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 10px;
+  background: rgba(24, 32, 38, 0.85);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #E2B880;
+}
+
+.dish-card-info {
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dish-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.dish-cat-kicker {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B66A4B;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dish-title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  color: #F7F4ED;
+}
+
+.dish-en-name {
+  font-size: 0.82rem;
+  color: #E2B880;
+  font-style: italic;
+  display: block;
+  margin-top: 2px;
+}
+
+.dish-add-trip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #B66A4B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.dish-add-trip-btn:hover {
+  background: #A0593D;
+}
+
+.dish-added {
+  background: #3B6B58;
+}
+
+.dish-tagline {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  color: #E2B880;
+  margin: 0 0 6px 0;
+}
+
+.dish-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: rgba(247, 244, 237, 0.85);
+  margin: 0 0 12px 0;
+}
+
+.dish-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid rgba(180, 139, 86, 0.2);
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+
+.dish-meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.meta-lbl {
+  color: rgba(238, 230, 217, 0.65);
+}
+
+.meta-val {
+  color: #F7F4ED;
+  font-weight: 600;
+}
+
+@media (max-width: 820px) {
+  .taste-editorial-card {
+    grid-template-columns: 1fr;
+    bottom: 16px;
+  }
+  .dish-card-img-wrap {
+    height: 140px;
+  }
+  .taste-dishes-selector {
+    bottom: 300px;
+  }
+  .dish-desc {
+    display: none;
+  }
+}

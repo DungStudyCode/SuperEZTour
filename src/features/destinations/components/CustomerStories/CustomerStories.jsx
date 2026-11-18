@@ -33,8 +33,8 @@ const CustomerStories = ({ storiesData }) => {
 
           <p className="dest-subtitle stories-sub">
             {stories[0]?.quote?.match(/[\uac00-\ud7af]/)
-              ? 'Super EZ Tour와 함께 특별한 다낭을 경험한 실제 고객님들의 솔직한 후기.'
-              : 'Lắng nghe cảm nhận chân thực từ những du khách đã đồng hành cùng chúng tôi tại Đà Nẵng.'}
+              ? 'Super EZ Tour와 함께 특별한 여정을 경험한 실제 고객님들의 솔직한 후기.'
+              : 'Lắng nghe cảm nhận chân thực từ những du khách đã đồng hành cùng chuyến đi riêng của Super EZ Tour.'}
           </p>
         </div>
 

@@ -1,22 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Compass, Menu, X, Phone, ArrowUpRight, ChevronRight } from 'lucide-react';
+import { Menu, X, Phone, ArrowUpRight, ChevronRight } from 'lucide-react';
 import { BRAND_CONFIG } from '../../../../constants/brand.config';
+import { useLanguage } from '../../../../context/LanguageContext';
+import { useConsultation } from '../../../../context/ConsultationContext';
+import { getDestinationNav } from '../../data/destinationNav.config';
+import { getLenis } from '../../motion/LenisManager';
 import './DestinationHeader.css';
 
+/**
+ * Super EZ Tour — Destination Smart Navigation Header
+ * Standardized across all 3D Interactive Destination pages (Da Nang, Hanoi, etc.)
+ * Architectural Principle: "ONE SHARED HEADER — MULTIPLE DESTINATION IDENTITIES"
+ */
 const DestinationHeader = ({ destination, onOpenConsultModal }) => {
-  const isKorean = destination?.locale === 'ko' || destination?.id === 'da-nang';
+  const { language, setLanguage, t, isKorean } = useLanguage();
+  const { openNewConsultation } = useConsultation();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
 
+  // Destination-specific navigation items from centralized registry
+  const navItems = useMemo(() => {
+    return getDestinationNav(destination?.id || destination?.slug);
+  }, [destination?.id, destination?.slug]);
+
+  // Destination dynamic localized name
+  const destDisplayName = isKorean
+    ? destination?.nameKr || destination?.name || '베트남'
+    : destination?.name || destination?.nameVi || 'Việt Nam';
+
+  // Scroll Progress & Hide/Show behavior
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      
+
       if (totalScroll > 0) {
         setScrollProgress((currentY / totalScroll) * 100);
       }
@@ -31,6 +54,11 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
         setIsHidden(false);
       }
 
+      // Clear activeSection when back at top hero
+      if (currentY < 150) {
+        setActiveSection('');
+      }
+
       setLastScrollY(currentY);
     };
 
@@ -38,79 +66,229 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, isMobileMenuOpen]);
 
-  const scrollToSection = (id) => {
+  // Active Section Observer via IntersectionObserver
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+
+    const sectionIds = navItems.map((item) => item.sectionId);
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const intersecting = entries.filter((entry) => entry.isIntersecting);
+        if (intersecting.length > 0) {
+          // Pick the section closest to the top offset
+          intersecting.sort(
+            (a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top)
+          );
+          setActiveSection(intersecting[0].target.id);
+        }
+      },
+      {
+        rootMargin: '-80px 0px -55% 0px',
+        threshold: [0, 0.2, 0.5],
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [navItems]);
+
+  // Prevent background scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Smooth scroll handler with Lenis support
+  const scrollToSection = useCallback((id) => {
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (!element) return;
+
+    const headerOffset = 76;
+    const lenis = getLenis();
+    if (lenis && typeof lenis.scrollTo === 'function') {
+      lenis.scrollTo(element, { offset: -headerOffset, duration: 1.2 });
+    } else {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
     }
-  };
+
+    setActiveSection(id);
+  }, []);
+
+  // CTA Click: Opens consultation context with destination or scrolls to TripBuilder
+  const handleCtaClick = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    if (typeof onOpenConsultModal === 'function') {
+      onOpenConsultModal({
+        destinationId: destination?.id || 'da-nang',
+        source: 'destination-header',
+      });
+      return;
+    }
+    const tripBuilderEl = document.getElementById('trip-builder');
+    if (tripBuilderEl) {
+      scrollToSection('trip-builder');
+    } else if (openNewConsultation) {
+      openNewConsultation({
+        destinationId: destination?.id || 'da-nang',
+        source: 'destination-header',
+      });
+    }
+  }, [destination?.id, onOpenConsultModal, openNewConsultation, scrollToSection]);
 
   return (
     <>
-      <header className={`dest-header ${isScrolled ? 'dest-header-scrolled' : ''} ${isHidden ? 'dest-header-hidden' : ''}`}>
+      <header
+        className={`dest-header ${isScrolled ? 'dest-header-scrolled' : ''} ${
+          isHidden ? 'dest-header-hidden' : ''
+        }`}
+      >
         {/* Scroll Progress Bar */}
-        <div className="dest-header-progress" style={{ width: `${scrollProgress}%` }} />
+        <div
+          className="dest-header-progress"
+          style={{ width: `${scrollProgress}%` }}
+          aria-hidden="true"
+        />
 
         <div className="dest-header-container">
           {/* Logo & Destination Badge */}
           <div className="dest-header-brand">
-            <Link to="/" className="dest-logo-link" title={isKorean ? 'Super EZ Tour 홈으로' : 'Về trang chủ Super EZ Tour'}>
-              <img src={BRAND_CONFIG.logo} alt={BRAND_CONFIG.brandName} className="dest-logo-img" />
+            <Link
+              to="/"
+              className="dest-logo-link"
+              title={
+                isKorean
+                  ? t('destinationNav.backHome', 'Super EZ Tour 홈으로')
+                  : t('destinationNav.backHome', 'Về trang chủ Super EZ Tour')
+              }
+            >
+              <img
+                src={BRAND_CONFIG.logo}
+                alt={BRAND_CONFIG.brandName}
+                className="dest-logo-img"
+              />
             </Link>
-            <div className="dest-header-divider" />
+            <div className="dest-header-divider" aria-hidden="true" />
             <div className="dest-header-cur-dest">
-              <span className="dest-header-flag">🇻🇳</span>
-              <span className="dest-header-dest-name">
-                {isKorean ? (destination?.nameKr || destination?.name || '다낭') : (destination?.name || 'Đà Nẵng')}
+              <span className="dest-header-flag" aria-hidden="true">🇻🇳</span>
+              <span className="dest-header-dest-name">{destDisplayName}</span>
+              <span className="dest-header-tag">
+                {t('destinationNav.privateBadge', isKorean ? '100% 프라이빗 투어' : 'Tour Riêng 100%')}
               </span>
-              <span className="dest-header-tag">{isKorean ? '100% 프라이빗 투어' : 'Private Tour'}</span>
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="dest-header-nav">
-            <button type="button" onClick={() => scrollToSection('discover')} className="dest-nav-link">
-              {isKorean ? '도시 탐방' : 'Khám phá'}
-            </button>
-            <button type="button" onClick={() => scrollToSection('services')} className="dest-nav-link">
-              {isKorean ? '서비스 생태계' : 'Hệ sinh thái'}
-            </button>
-            <button type="button" onClick={() => scrollToSection('attractions')} className="dest-nav-link">
-              {isKorean ? '주요 명소' : 'Tọa độ'}
-            </button>
-            <button type="button" onClick={() => scrollToSection('itinerary')} className="dest-nav-link">
-              {isKorean ? '추천 일정' : 'Lịch trình'}
-            </button>
-            <button type="button" onClick={() => scrollToSection('why-private')} className="dest-nav-link">
-              {isKorean ? '프라이빗 가치' : 'Tour riêng'}
-            </button>
-            <button type="button" onClick={() => scrollToSection('trip-builder')} className="dest-nav-link dest-nav-link-highlight">
-              {isKorean ? '맞춤 여행 만들기' : 'Thiết kế tour'}
-            </button>
+          {/* Dynamic Desktop Navigation Links */}
+          <nav
+            className="dest-header-nav"
+            aria-label={t('destinationNav.menuAria', 'Destination navigation')}
+          >
+            {navItems.map((item) => {
+              const label = t(item.labelKey, isKorean ? item.labelKo : item.labelVi);
+              const isActive = activeSection === item.sectionId;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToSection(item.sectionId)}
+                  className={`dest-nav-link ${isActive ? 'is-active' : ''} ${
+                    item.isHighlight ? 'dest-nav-link-highlight' : ''
+                  }`}
+                  aria-current={isActive ? 'true' : undefined}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </nav>
 
-          {/* Action CTAs */}
+          {/* Action CTAs & Language Switcher */}
           <div className="dest-header-actions">
-            <a href="tel:19008899" className="dest-header-hotline" title={isKorean ? '24시간 한국어 케어 1900 8899' : 'Gọi hotline 1900 8899'}>
+            {/* Desktop Language Switcher */}
+            <div
+              className="dest-header-lang-switcher"
+              role="group"
+              aria-label={t('common.switchLangAria', 'Language selection')}
+            >
+              <button
+                type="button"
+                className={`dest-lang-btn ${isKorean ? 'is-active' : ''}`}
+                onClick={() => setLanguage('ko')}
+                title={t('common.langKorean', '한국어')}
+                aria-pressed={isKorean}
+                aria-label="한국어 (Korean)"
+              >
+                KO
+              </button>
+              <span className="dest-lang-divider" aria-hidden="true">/</span>
+              <button
+                type="button"
+                className={`dest-lang-btn ${!isKorean ? 'is-active' : ''}`}
+                onClick={() => setLanguage('vi')}
+                title={t('common.langVietnamese', 'Tiếng Việt')}
+                aria-pressed={!isKorean}
+                aria-label="Tiếng Việt (Vietnamese)"
+              >
+                VI
+              </button>
+            </div>
+
+            {/* Hotline Link */}
+            <a
+              href="tel:19008899"
+              className="dest-header-hotline"
+              title={
+                isKorean
+                  ? t('destinationNav.hotlineLabel', '24시간 한국어 케어 1900 8899')
+                  : t('destinationNav.hotlineLabel', 'Hotline 24/7: 1900 8899')
+              }
+            >
               <Phone size={14} className="dest-hotline-icon" />
               <span>1900 8899</span>
             </a>
+
+            {/* Primary Action Button */}
             <button
               type="button"
-              onClick={() => scrollToSection('trip-builder')}
+              onClick={handleCtaClick}
               className="dest-header-btn-quote"
             >
-              <span>{isKorean ? '나만의 여행 만들기' : 'Thiết kế chuyến đi'}</span>
+              <span>
+                {t(
+                  'destinationNav.primaryCta',
+                  isKorean ? '나만의 여행 만들기' : 'Thiết kế chuyến đi'
+                )}
+              </span>
               <ArrowUpRight size={16} />
             </button>
-            
+
             {/* Mobile Menu Toggle */}
             <button
               type="button"
               className="dest-mobile-toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle navigation menu"
+              aria-label={t('destinationNav.menuToggle', 'Toggle navigation menu')}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -119,69 +297,128 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
       </header>
 
       {/* Mobile Navigation Drawer */}
-      <div className={`dest-mobile-drawer ${isMobileMenuOpen ? 'dest-mobile-drawer-open' : ''}`}>
-        <div className="dest-mobile-drawer-backdrop" onClick={() => setIsMobileMenuOpen(false)} />
-        <div className="dest-mobile-drawer-content">
+      <div
+        className={`dest-mobile-drawer ${
+          isMobileMenuOpen ? 'dest-mobile-drawer-open' : ''
+        }`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div
+          className="dest-mobile-drawer-backdrop"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+        <div className="dest-mobile-drawer-content" role="dialog" aria-modal="true">
           <div className="dest-mobile-drawer-header">
-            <a href="/" className="dest-logo-link" title={isKorean ? 'Super EZ Tour 홈으로' : 'Về trang chủ Super EZ Tour'}>
-              <img src="/images/logo.png" alt="Super EZ Tour" className="dest-logo-img" />
-            </a>
-            <button type="button" className="dest-mobile-close" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link
+              to="/"
+              className="dest-logo-link"
+              onClick={() => setIsMobileMenuOpen(false)}
+              title={
+                isKorean
+                  ? t('destinationNav.backHome', 'Super EZ Tour 홈으로')
+                  : t('destinationNav.backHome', 'Về trang chủ Super EZ Tour')
+              }
+            >
+              <img
+                src={BRAND_CONFIG.logo}
+                alt={BRAND_CONFIG.brandName}
+                className="dest-logo-img"
+              />
+            </Link>
+            <button
+              type="button"
+              className="dest-mobile-close"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close navigation"
+            >
               <X size={22} />
             </button>
           </div>
 
+          {/* Current Destination Context Banner */}
           <div className="dest-mobile-dest-info">
-            <span className="dest-mobile-dest-label">{isKorean ? '현재 여행지' : 'Điểm đến đang xem'}</span>
+            <span className="dest-mobile-dest-label">
+              {t('destinationNav.currentViewing', isKorean ? '현재 여행지' : 'Điểm đến đang xem')}
+            </span>
             <h3 className="dest-mobile-dest-title">
-              {isKorean
-                ? `${destination?.nameKr || destination?.name || '다낭'} — 100% 프라이빗 투어`
-                : `${destination?.name || 'Đà Nẵng'} — Private Tour 100%`}
+              {destDisplayName} —{' '}
+              {t('destinationNav.privateBadge', isKorean ? '100% 프라이빗 투어' : 'Tour Riêng 100%')}
             </h3>
           </div>
 
-          <nav className="dest-mobile-nav">
-            <button type="button" onClick={() => scrollToSection('discover')}>
-              <span>{isKorean ? '01. 도시 탐방' : '01. Khám phá thành phố'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('services')}>
-              <span>{isKorean ? '02. 6대 프리미엄 서비스' : '02. Hệ sinh thái 6 dịch vụ'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('accommodation')}>
-              <span>{isKorean ? '03. 최고급 호텔 & 리조트' : '03. Lưu trú cao cấp'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('transportation')}>
-              <span>{isKorean ? '04. 프라이빗 전용 차량' : '04. Xe dịch vụ riêng'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('attractions')}>
-              <span>{isKorean ? '05. 시그니처 명소 탐방' : '05. Tọa độ tham quan'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('culinary')}>
-              <span>{isKorean ? '06. 다낭 미식 큐레이션' : '06. Ẩm thực đặc sản'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('itinerary')}>
-              <span>{isKorean ? '07. 추천 맞춤 일정' : '07. Lịch trình đề xuất'}</span>
-              <ChevronRight size={18} />
-            </button>
-            <button type="button" onClick={() => scrollToSection('trip-builder')} className="dest-mobile-nav-featured">
-              <span>{isKorean ? '08. 나만의 여행 플래너' : '08. Trình thiết kế chuyến đi'}</span>
-              <ArrowUpRight size={18} />
-            </button>
+          {/* Mobile Language Switcher Row */}
+          <div className="dest-mobile-lang-wrap">
+            <span className="dest-mobile-lang-label">
+              {isKorean ? '언어 선택 (Language)' : 'Ngôn ngữ hiển thị'}:
+            </span>
+            <div className="dest-mobile-lang-pills">
+              <button
+                type="button"
+                className={`dest-mobile-lang-btn ${isKorean ? 'is-active' : ''}`}
+                onClick={() => setLanguage('ko')}
+                aria-pressed={isKorean}
+              >
+                한국어
+              </button>
+              <button
+                type="button"
+                className={`dest-mobile-lang-btn ${!isKorean ? 'is-active' : ''}`}
+                onClick={() => setLanguage('vi')}
+                aria-pressed={!isKorean}
+              >
+                Tiếng Việt
+              </button>
+            </div>
+          </div>
+
+          {/* Dynamic Mobile Navigation Links */}
+          <nav
+            className="dest-mobile-nav"
+            aria-label={t('destinationNav.menuAria', 'Mobile destination navigation')}
+          >
+            {navItems.map((item, index) => {
+              const numStr = String(index + 1).padStart(2, '0') + '. ';
+              const label = t(item.labelKey, isKorean ? item.labelKo : item.labelVi);
+              const isActive = activeSection === item.sectionId;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToSection(item.sectionId)}
+                  className={`${isActive ? 'dest-mobile-nav-active' : ''} ${
+                    item.isHighlight ? 'dest-mobile-nav-featured' : ''
+                  }`}
+                  aria-current={isActive ? 'true' : undefined}
+                >
+                  <span>
+                    {numStr}
+                    {label}
+                  </span>
+                  {item.isHighlight ? <ArrowUpRight size={18} /> : <ChevronRight size={18} />}
+                </button>
+              );
+            })}
           </nav>
 
+          {/* Mobile Footer CTAs */}
           <div className="dest-mobile-footer">
             <a href="tel:19008899" className="dest-mobile-hotline-btn">
               <Phone size={16} />
-              <span>{isKorean ? '24시간 한국어 케어: 1900 8899' : 'Hotline 24/7: 1900 8899'}</span>
+              <span>
+                {isKorean
+                  ? t('destinationNav.hotlineLabel', '24시간 한국어 케어: 1900 8899')
+                  : t('destinationNav.hotlineLabel', 'Hotline 24/7: 1900 8899')}
+              </span>
             </a>
-            <Link to="/" className="dest-mobile-back-home">
-              {isKorean ? '← Super EZ Tour 홈으로 이동' : '← Quay lại trang chủ Super EZ Tour'}
+            <Link
+              to="/"
+              className="dest-mobile-back-home"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {isKorean
+                ? t('destinationNav.backHome', '← Super EZ Tour 홈으로 이동')
+                : t('destinationNav.backHome', '← Quay lại trang chủ Super EZ Tour')}
             </Link>
           </div>
         </div>

@@ -1,6 +1,6 @@
 /* ==========================================================================
    Destination Header Component Styling
-   Glassmorphism, Scroll Progress, Smooth Hide/Show
+   Glassmorphism, Scroll Progress, Smooth Hide/Show, Bilingual KO/VI
    ========================================================================== */
 
 .dest-header {
@@ -9,7 +9,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1.25rem 0;
+  padding: 1.15rem 0;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.4s ease,
               padding 0.3s ease,
@@ -22,11 +22,11 @@
 }
 
 .dest-header-scrolled {
-  background-color: rgba(8, 29, 66, 0.88);
+  background-color: rgba(8, 29, 66, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 0.85rem 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -42,51 +42,39 @@
 }
 
 .dest-header-container {
-  width: min(94%, 1380px);
+  width: min(95%, 1400px);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 /* Brand */
 .dest-header-brand {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
+  flex-shrink: 0;
 }
 
 .dest-logo-link {
   display: flex;
   align-items: center;
   text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.dest-logo-link:hover {
+  opacity: 0.9;
 }
 
 .dest-logo-img {
-  height: 38px;
+  height: 36px;
   width: auto;
   aspect-ratio: 2111 / 459;
   object-fit: contain;
   display: block;
-  border-radius: 6px;
-}
-
-.dest-logo-super {
-  color: #FFFFFF;
-}
-
-.dest-logo-badge {
-  background-color: #ED2028;
-  color: #FFFFFF;
-  padding: 0.15rem 0.45rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 900;
-}
-
-.dest-logo-tour {
-  color: #FFFFFF;
-  font-weight: 700;
 }
 
 .dest-header-divider {
@@ -103,46 +91,51 @@
 
 .dest-header-flag {
   font-size: 1rem;
+  line-height: 1;
 }
 
 .dest-header-dest-name {
   color: #FFFFFF;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .dest-header-tag {
-  background: rgba(255, 104, 30, 0.2);
+  background: rgba(255, 104, 30, 0.18);
   color: #FFB52B;
-  border: 1px solid rgba(255, 181, 43, 0.3);
-  font-size: 0.7rem;
+  border: 1px solid rgba(255, 181, 43, 0.35);
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   padding: 0.15rem 0.5rem;
   border-radius: 9999px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 /* Navigation Links */
 .dest-header-nav {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
 }
 
 .dest-nav-link {
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-family: 'Manrope', sans-serif;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 0.45rem 0;
   position: relative;
   transition: color 0.2s ease;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .dest-nav-link::after {
@@ -164,30 +157,107 @@
   width: 100%;
 }
 
+/* Active State Indicator */
+.dest-nav-link.is-active {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.dest-nav-link.is-active::after {
+  width: 100%;
+  background-color: #FF681E;
+}
+
 .dest-nav-link-highlight {
   color: #FFB52B !important;
 }
 
-/* Actions */
+.dest-nav-link-highlight.is-active::after {
+  background-color: #FFB52B;
+}
+
+/* Actions Wrapper */
 .dest-header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
+  flex-shrink: 0;
 }
 
+/* Language Switcher (Desktop) */
+.dest-header-lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  padding: 2px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.dest-header-lang-switcher:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dest-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+  border-radius: 9999px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.dest-lang-btn:hover {
+  color: #FFFFFF;
+}
+
+.dest-lang-btn.is-active {
+  background-color: #FF681E;
+  color: #FFFFFF;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(255, 104, 30, 0.35);
+}
+
+.dest-lang-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.7rem;
+  user-select: none;
+  margin: 0 1px;
+}
+
+/* Hotline */
 .dest-header-hotline {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.88);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  padding: 0.5rem 0.85rem;
+  padding: 0.48rem 0.8rem;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .dest-header-hotline:hover {
@@ -197,23 +267,26 @@
 
 .dest-hotline-icon {
   color: #FF681E;
+  flex-shrink: 0;
 }
 
+/* Quote/Builder Button */
 .dest-header-btn-quote {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   background: #FF681E;
   color: #FFFFFF;
   border: none;
   border-radius: 9999px;
-  padding: 0.65rem 1.35rem;
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.85rem;
+  padding: 0.55rem 1.15rem;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 15px rgba(255, 104, 30, 0.3);
+  white-space: nowrap;
 }
 
 .dest-header-btn-quote:hover {
@@ -230,9 +303,17 @@
   color: #FFFFFF;
   cursor: pointer;
   padding: 0.25rem;
+  transition: opacity 0.2s ease;
 }
 
-/* Mobile Drawer */
+.dest-mobile-toggle:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Mobile Navigation Drawer
+   ========================================================================== */
+
 .dest-mobile-drawer {
   position: fixed;
   inset: 0;
@@ -250,8 +331,9 @@
 .dest-mobile-drawer-backdrop {
   position: absolute;
   inset: 0;
-  background-color: rgba(6, 20, 38, 0.7);
+  background-color: rgba(6, 20, 38, 0.75);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -265,15 +347,17 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(85vw, 360px);
+  width: min(88vw, 380px);
   background: #081D42;
   color: #FFFFFF;
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.5rem;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .dest-mobile-drawer-open .dest-mobile-drawer-content {
@@ -284,7 +368,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -294,35 +378,94 @@
   border: none;
   color: #FFFFFF;
   cursor: pointer;
+  padding: 0.25rem;
+  transition: opacity 0.2s ease;
 }
 
+.dest-mobile-close:hover {
+  opacity: 0.8;
+}
+
+/* Destination Context Card in Drawer */
 .dest-mobile-dest-info {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1rem;
+  padding: 0.9rem 1rem;
   border-radius: 12px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .dest-mobile-dest-label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #FFB52B;
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
 }
 
 .dest-mobile-dest-title {
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   font-weight: 700;
   margin: 0;
+  color: #FFFFFF;
 }
 
+/* Mobile Language Switcher Row */
+.dest-mobile-lang-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.dest-mobile-lang-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 500;
+}
+
+.dest-mobile-lang-pills {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.dest-mobile-lang-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.dest-mobile-lang-btn:hover {
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dest-mobile-lang-btn.is-active {
+  background: #FF681E;
+  color: #FFFFFF;
+  border-color: #FF681E;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 104, 30, 0.35);
+}
+
+/* Mobile Nav Links */
 .dest-mobile-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex: 1;
 }
 
@@ -333,10 +476,10 @@
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.85);
-  font-family: 'Manrope', sans-serif;
-  font-size: 0.95rem;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.92rem;
   font-weight: 600;
-  padding: 0.85rem 0.5rem;
+  padding: 0.75rem 0.65rem;
   border-radius: 8px;
   cursor: pointer;
   text-align: left;
@@ -348,6 +491,14 @@
   color: #FFFFFF;
 }
 
+.dest-mobile-nav button.dest-mobile-nav-active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-left: 3px solid #FF681E;
+  padding-left: 0.75rem;
+  font-weight: 700;
+}
+
 .dest-mobile-nav-featured {
   background: rgba(255, 104, 30, 0.15) !important;
   color: #FFB52B !important;
@@ -355,10 +506,10 @@
 }
 
 .dest-mobile-footer {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .dest-mobile-hotline-btn {
@@ -369,26 +520,48 @@
   background: #FF681E;
   color: #FFFFFF;
   text-decoration: none;
-  padding: 0.85rem;
+  padding: 0.8rem;
   border-radius: 9999px;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.dest-mobile-hotline-btn:hover {
+  background: #E55712;
 }
 
 .dest-mobile-back-home {
   text-align: center;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  font-size: 0.85rem;
-  padding: 0.5rem;
+  font-size: 0.82rem;
+  padding: 0.4rem;
+  transition: color 0.2s ease;
 }
 
 .dest-mobile-back-home:hover {
   color: #FFFFFF;
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 1080px) {
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .dest-header-nav {
+    gap: 1rem;
+  }
+  .dest-nav-link {
+    font-size: 0.82rem;
+  }
+  .dest-header-hotline {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 1040px) {
   .dest-header-nav {
     display: none;
   }
@@ -397,16 +570,31 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .dest-header-hotline {
     display: none;
   }
-  .dest-header-btn-quote {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
   .dest-header-divider,
   .dest-header-cur-dest {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .dest-header-btn-quote {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+  }
+  .dest-logo-img {
+    height: 30px;
+  }
+  .dest-header-container {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .dest-header-lang-switcher {
     display: none;
   }
 }

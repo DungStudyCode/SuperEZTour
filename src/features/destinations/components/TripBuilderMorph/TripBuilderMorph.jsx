@@ -18,6 +18,7 @@ import {
   FileCheck
 } from 'lucide-react';
 import { useTripBuilder } from '../../context/TripBuilderContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './TripBuilderMorph.css';
 
 const STEPS_VI = [
@@ -53,11 +54,15 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
     resetTrip
   } = useTripBuilder();
 
-  const isKorean =
-    destinationConfig?.locale === 'ko' ||
-    destinationConfig?.id === 'da-nang' ||
-    tripState.destination === '다낭' ||
-    tripState.destination === 'Đà Nẵng';
+  const { isKorean } = useLanguage();
+
+  const destNameDisplay = isKorean
+    ? (destinationConfig ? `${destinationConfig.nameKr} (${destinationConfig.nameEn})` : '다낭 (Da Nang)')
+    : (destinationConfig?.name || tripState.destination || 'Đà Nẵng');
+
+  const destShortName = isKorean
+    ? (destinationConfig?.nameKr || '다낭')
+    : (destinationConfig?.name || 'Đà Nẵng');
 
   const steps = isKorean ? STEPS_KO : STEPS_VI;
   const [formErrors, setFormErrors] = useState({});
@@ -124,7 +129,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
             </p>
 
             <div className="morph-success-summary-box">
-              <h4>{isKorean ? '다낭 100% 프라이빗 투어 상세 플랜:' : `Chi tiết cấu hình tour riêng ${tripState.destination}:`}</h4>
+              <h4>{isKorean ? `${destShortName} 100% 프라이빗 투어 상세 플랜:` : `Chi tiết cấu hình tour riêng ${destShortName}:`}</h4>
               <ul>
                 <li>
                   <strong>{isKorean ? '여행 기간:' : 'Thời gian:'}</strong>{' '}
@@ -159,7 +164,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
             <p className="morph-success-promise">
               {isKorean ? (
                 <>
-                  Super EZ Tour 다낭 전담 매니저가{' '}
+                  Super EZ Tour {destShortName} 전담 매니저가{' '}
                   <strong>
                     {tripState.preferredChannel === 'zalo' ? '카카오톡' : '전화'} ({tripState.contactPhone})
                   </strong>
@@ -167,7 +172,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                 </>
               ) : (
                 <>
-                  Chuyên viên điều hành Super EZ Tour chuyên trách Đà Nẵng sẽ liên hệ qua{' '}
+                  Chuyên viên điều hành Super EZ Tour chuyên trách {destShortName} sẽ liên hệ qua{' '}
                   <strong>
                     {tripState.preferredChannel === 'zalo' ? 'Zalo' : 'Điện thoại'} ({tripState.contactPhone})
                   </strong>{' '}
@@ -210,8 +215,8 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
           </h2>
           <p className="dest-subtitle trip-morph-sub">
             {isKorean
-              ? '원하시는 여행 스타일을 선택해 보세요 · Super EZ Tour 다낭 전담팀이 30분 이내에 독창적인 맞춤 견적서를 완성해 드립니다.'
-              : 'Chủ động lựa chọn từng dịch vụ theo sở thích · Đội ngũ chuyên gia Super EZ Tour sẽ hoàn thiện bản kế hoạch độc bản dành riêng cho bạn.'}
+              ? `원하시는 여행 스타일을 선택해 보세요 · Super EZ Tour ${destShortName} 전담팀이 30분 이내에 독창적인 맞춤 견적서를 완성해 드립니다.`
+              : `Chủ động lựa chọn từng dịch vụ theo sở thích · Đội ngũ chuyên gia Super EZ Tour chuyên trách ${destShortName} sẽ hoàn thiện bản kế hoạch độc bản dành riêng cho bạn.`}
           </p>
         </div>
 
@@ -263,7 +268,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                     <input
                       type="text"
                       className="morph-input"
-                      value={isKorean ? '다낭 (Da Nang)' : tripState.destination}
+                      value={destNameDisplay}
                       readOnly
                     />
                   </div>
@@ -335,21 +340,39 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                 </div>
 
                 <div className="morph-options-stack">
-                  {(isKorean
-                    ? [
-                        { id: 'resort', title: '5성급 럭셔리 비치 리조트', desc: '프라이빗 비치 & 인피니티 풀 보유 (하얏트, 인터컨티넨탈, 풀만)' },
-                        { id: 'villa', title: '프라이빗 풀빌라 (개별 수영장)', desc: '2~4베드룸 독채 빌라, 주방 & 프라이빗 바비큐 (프리미어 빌리지, 나만)' },
-                        { id: '5star', title: '5성급 시내 / 한강 뷰 호텔', desc: '한강 야경 및 시내 중심가 인접 특급 호텔 (노보텔, 힐튼)' },
-                        { id: '4star', title: '미케비치 인근 4성급 호텔', desc: '해변 접근성 우수, 오션뷰 가성비 호텔 (TMS, 살라)' },
-                        { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
-                      ]
-                    : [
-                        { id: 'resort', title: 'Luxury Resort 5 Sao Ven Biển', desc: 'Resort có bãi biển riêng, hồ bơi vô cực ngắm vịnh (Hyatt, InterCon, Pullman)' },
-                        { id: 'villa', title: 'Private Villa Có Hồ Bơi Riêng', desc: 'Biệt thự riêng tư 2-4 phòng ngủ, có bếp và BBQ cho gia đình (Premier Village, Naman)' },
-                        { id: '5star', title: 'Khách Sạn 5 Sao Trung Tâm / Ven Sông', desc: 'Tiện nghi quốc tế, ngắm toàn cảnh sông Hàn và các cây cầu (Novotel, Hilton)' },
-                        { id: '4star', title: 'Khách Sạn 4 Sao Sát Biển Mỹ Khê', desc: 'Vị trí đắc địa, chi phí tối ưu, phòng hướng biển (TMS, Sala, Belle Maison)' },
-                        { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
-                      ]
+                  {(destinationConfig?.id === 'ha-noi'
+                    ? (isKorean
+                        ? [
+                            { id: 'heritage', title: '5성급 프렌치 헤리티지 럭셔리 호텔', desc: '소피텔 레전드 메트로폴, 카펠라 하노이 등 역사와 예술의 공간' },
+                            { id: 'westlake', title: '서호 레이크뷰 5성급 럭셔리 호텔', desc: '인터컨티넨탈 하노이 웨스트레이크, 롯데호텔 등 탁 트인 호수 전망' },
+                            { id: 'boutique', title: '구시가지 최고급 부티크 호텔', desc: '디 오리엔탈 제이드, 라 시에스타 등 올드쿼터 중심의 감성 숙소' },
+                            { id: 'city5star', title: '시내 중심가 5성급 비즈니스 호텔', desc: '쇼핑몰 및 주요 명소 인접, 최적의 동선과 가성비' },
+                            { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
+                          ]
+                        : [
+                            { id: 'heritage', title: 'Khách Sạn Di Sản 5 Sao Phong Cách Pháp', desc: 'Sofitel Legend Metropole, Capella Hanoi — Đỉnh cao kiến trúc và nghệ thuật' },
+                            { id: 'westlake', title: 'Khách Sạn 5 Sao Ven Hồ Tây', desc: 'InterContinental Hanoi Westlake, Lotte Hotel — Không gian khoáng đạt ngắm trọn hồ Tây' },
+                            { id: 'boutique', title: 'Khách Sạn Boutique Cao Cấp Phố Cổ', desc: 'The Oriental Jade, La Siesta — Trải nghiệm lưu trú ấm cúng ngay lòng 36 phố phường' },
+                            { id: 'city5star', title: 'Khách Sạn 5 Sao Trung Tâm Hiện Đại', desc: 'Tiện nghi quốc tế, tối ưu thời gian di chuyển giữa các điểm đến' },
+                            { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
+                          ]
+                      )
+                    : (isKorean
+                        ? [
+                            { id: 'resort', title: '5성급 럭셔리 비치 리조트', desc: '프라이빗 비치 & 인피니티 풀 보유 (하얏트, 인터컨티넨탈, 풀만)' },
+                            { id: 'villa', title: '프라이빗 풀빌라 (개별 수영장)', desc: '2~4베드룸 독채 빌라, 주방 & 프라이빗 바비큐 (프리미어 빌리지, 나만)' },
+                            { id: '5star', title: '5성급 시내 / 한강 뷰 호텔', desc: '한강 야경 및 시내 중심가 인접 특급 호텔 (노보텔, 힐튼)' },
+                            { id: '4star', title: '미케비치 인근 4성급 호텔', desc: '해변 접근성 우수, 오션뷰 가성비 호텔 (TMS, 살라)' },
+                            { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
+                          ]
+                        : [
+                            { id: 'resort', title: 'Luxury Resort 5 Sao Ven Biển', desc: 'Resort có bãi biển riêng, hồ bơi vô cực ngắm vịnh (Hyatt, InterCon, Pullman)' },
+                            { id: 'villa', title: 'Private Villa Có Hồ Bơi Riêng', desc: 'Biệt thự riêng tư 2-4 phòng ngủ, có bếp và BBQ cho gia đình (Premier Village, Naman)' },
+                            { id: '5star', title: 'Khách Sạn 5 Sao Trung Tâm / Ven Sông', desc: 'Tiện nghi quốc tế, ngắm toàn cảnh sông Hàn và các cây cầu (Novotel, Hilton)' },
+                            { id: '4star', title: 'Khách Sạn 4 Sao Sát Biển Mỹ Khê', desc: 'Vị trí đắc địa, chi phí tối ưu, phòng hướng biển (TMS, Sala, Belle Maison)' },
+                            { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
+                          ]
+                      )
                   ).map((opt) => (
                     <div
                       key={opt.id}
@@ -497,10 +520,12 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                     {isKorean ? '05 / 07 단계' : 'Bước 05 / 07'}
                   </span>
                   <h3 className="morph-pane-title">
-                    {isKorean ? '다낭 항공권 예약 지원' : 'Hỗ Trợ Vé Máy Bay Đến Đà Nẵng'}
+                    {isKorean ? `${destShortName} 항공권 예약 지원` : `Hỗ Trợ Vé Máy Bay Đến ${destShortName}`}
                   </h3>
                   <p className="morph-pane-desc">
-                    {isKorean ? '최적 항공 스케줄 안내 및 DAD 공항 픽업/샌딩 연계.' : 'Tư vấn giờ bay đẹp và kết nối đưa đón sân bay DAD.'}
+                    {isKorean
+                      ? `최적 항공 스케줄 안내 및 ${destinationConfig?.id === 'ha-noi' ? 'HAN' : 'DAD'} 공항 픽업/샌딩 연계.`
+                      : `Tư vấn giờ bay đẹp và kết nối đưa đón sân bay ${destinationConfig?.id === 'ha-noi' ? 'Nội Bài (HAN)' : 'Đà Nẵng (DAD)'}.`}
                   </p>
                 </div>
 
@@ -508,12 +533,12 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                   {(isKorean
                     ? [
                         { id: 'need_support', title: '왕복 항공권 예약 지원 요청', desc: '최적 시간대 항공권 추천 및 전용 차량 공항 픽업 연계' },
-                        { id: 'have_ticket', title: '항공권 개별 발권 완료', desc: '도착 항공편 시간에 맞춰 DAD 공항 단독 픽업만 연결' },
+                        { id: 'have_ticket', title: '항공권 개별 발권 완료', desc: `도착 항공편 시간에 맞춰 ${destinationConfig?.id === 'ha-noi' ? 'HAN' : 'DAD'} 공항 단독 픽업만 연결` },
                         { id: 'undecided', title: '일정 확정 후 추후 결정', desc: '여행 일정 및 견적을 먼저 확인한 후 항공권 결정' }
                       ]
                     : [
                         { id: 'need_support', title: 'Cần Hỗ Trợ Đặt Vé Máy Bay Khứ Hồi', desc: 'Tư vấn giờ bay đẹp, kết hợp đón sân bay bằng xe riêng liền mạch' },
-                        { id: 'have_ticket', title: 'Đã Tự Đặt Vé Máy Bay', desc: 'Chỉ cần xe riêng đón tại sân bay Quốc tế Đà Nẵng DAD theo giờ hạ cánh' },
+                        { id: 'have_ticket', title: 'Đã Tự Đặt Vé Máy Bay', desc: `Chỉ cần xe riêng đón tại sân bay ${destinationConfig?.id === 'ha-noi' ? 'Nội Bài HAN' : 'Quốc tế Đà Nẵng DAD'} theo giờ hạ cánh` },
                         { id: 'undecided', title: 'Chưa Quyết Định (Tư vấn sau)', desc: 'Cần xem lịch trình tour trước rồi mới quyết định mua vé' }
                       ]
                   ).map((f) => (
@@ -539,7 +564,9 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                     <div className="morph-pills-row">
                       {(isKorean
                         ? ['인천 (ICN)', '부산 (PUS)', '대구 (TAE)', '기타 / 국내선']
-                        : ['Hà Nội (HAN)', 'TP. Hồ Chí Minh (SGN)', 'Hải Phòng (HPH)', 'Quốc tế']
+                        : (destinationConfig?.id === 'ha-noi'
+                            ? ['TP. Hồ Chí Minh (SGN)', 'Đà Nẵng (DAD)', 'Nha Trang (CXR)', 'Phú Quốc (PQC)', 'Quốc tế']
+                            : ['Hà Nội (HAN)', 'TP. Hồ Chí Minh (SGN)', 'Hải Phòng (HPH)', 'Quốc tế'])
                       ).map((city) => (
                         <button
                           key={city}
@@ -567,7 +594,9 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                     {isKorean ? '희망 명소 & 미식 큐레이션' : 'Tọa Độ Tham Quan & Ẩm Thực'}
                   </h3>
                   <p className="morph-pane-desc">
-                    {isKorean ? '다낭 및 호이안에서 꼭 경험하고 싶은 명소와 미식 스타일을 선택하세요.' : 'Chọn những điểm bạn muốn ghé thăm tại Đà Nẵng & Hội An.'}
+                    {isKorean
+                      ? `${destShortName}에서 꼭 경험하고 싶은 명소와 미식 스타일을 선택하세요.`
+                      : `Chọn những điểm bạn muốn ghé thăm tại ${destShortName}.`}
                   </p>
                 </div>
 
@@ -578,25 +607,31 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                       : `Tọa độ muốn ghé thăm (${tripState.selectedAttractions.length} đã chọn):`}
                   </label>
                   <div className="morph-check-grid">
-                    {(isKorean
-                      ? [
-                          { id: 'ba-na-hills', name: '바나힐 & 골든 브릿지' },
-                          { id: 'my-khe-beach', name: '미케 비치 해변' },
-                          { id: 'son-tra-peninsula', name: '손짜 반도 & 린응사' },
-                          { id: 'marble-mountains', name: '오행산 & 후옌콩 동굴' },
-                          { id: 'dragon-bridge', name: '용다리 야경 & 한강 유람선' },
-                          { id: 'hai-van-pass', name: '하이반 고개 & 랑코만' },
-                          { id: 'hoi-an-ancient-town', name: '호이안 올드타운 (투본강 소원배)' }
-                        ]
-                      : [
-                          { id: 'ba-na-hills', name: 'Bà Nà Hills & Cầu Vàng' },
-                          { id: 'my-khe-beach', name: 'Bãi biển Mỹ Khê' },
-                          { id: 'son-tra-peninsula', name: 'Bán đảo Sơn Trà & Chùa Linh Ứng' },
-                          { id: 'marble-mountains', name: 'Ngũ Hành Sơn & Động Huyền Không' },
-                          { id: 'dragon-bridge', name: 'Cầu Rồng & Du thuyền sông Hàn' },
-                          { id: 'hai-van-pass', name: 'Đèo Hải Vân & Vịnh Lăng Cô' },
-                          { id: 'hoi-an-ancient-town', name: 'Phố cổ Hội An (Thả hoa đăng sông Hoài)' }
-                        ]
+                    {(destinationConfig?.attractions?.items
+                      ? destinationConfig.attractions.items.map((spot) => ({
+                          id: spot.id,
+                          name: isKorean ? (spot.nameKr || spot.name) : (spot.nameVi || spot.name),
+                        }))
+                      : (isKorean
+                          ? [
+                              { id: 'ba-na-hills', name: '바나힐 & 골든 브릿지' },
+                              { id: 'my-khe-beach', name: '미케 비치 해변' },
+                              { id: 'son-tra-peninsula', name: '손짜 반도 & 린응사' },
+                              { id: 'marble-mountains', name: '오행산 & 후옌콩 동굴' },
+                              { id: 'dragon-bridge', name: '용다리 야경 & 한강 유람선' },
+                              { id: 'hai-van-pass', name: '하이반 고개 & 랑코만' },
+                              { id: 'hoi-an-ancient-town', name: '호이안 올드타운 (투본강 소원배)' }
+                            ]
+                          : [
+                              { id: 'ba-na-hills', name: 'Bà Nà Hills & Cầu Vàng' },
+                              { id: 'my-khe-beach', name: 'Bãi biển Mỹ Khê' },
+                              { id: 'son-tra-peninsula', name: 'Bán đảo Sơn Trà & Chùa Linh Ứng' },
+                              { id: 'marble-mountains', name: 'Ngũ Hành Sơn & Động Huyền Không' },
+                              { id: 'dragon-bridge', name: 'Cầu Rồng & Du thuyền sông Hàn' },
+                              { id: 'hai-van-pass', name: 'Đèo Hải Vân & Vịnh Lăng Cô' },
+                              { id: 'hoi-an-ancient-town', name: 'Phố cổ Hội An (Thả hoa đăng sông Hoài)' }
+                            ]
+                        )
                     ).map((spot) => {
                       const isChecked = tripState.selectedAttractions.includes(spot.id);
                       return (
@@ -620,19 +655,24 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                     {isKorean ? '선호하는 미식 스타일:' : 'Phong cách ẩm thực ưa thích:'}
                   </label>
                   <div className="morph-check-grid">
-                    {(isKorean
-                      ? [
-                          '현지 대표 미식 (미꽝, 반짱팃헤오 등)',
-                          '당일 조업 활 해산물 만찬',
-                          '비치 프론트 파인다이닝 / 로맨틱 캔들라이트 디너',
-                          '온 가족이 함께 즐기는 편안한 패밀리 다이닝'
-                        ]
-                      : [
-                          'Đặc sản địa phương (Mì Quảng, Bánh tráng thịt heo)',
-                          'Hải sản tươi sống bắt tại bể',
-                          'Nhà hàng Fine Dining / Tiệc tối lãng mạn bên biển',
-                          'Ẩm thực gia đình đa thế hệ'
-                        ]
+                    {(destinationConfig?.culinary?.dishes
+                      ? destinationConfig.culinary.dishes.map((dish) =>
+                          isKorean ? (dish.nameKr || dish.name) : (dish.nameVi || dish.name)
+                        )
+                      : (isKorean
+                          ? [
+                              '현지 대표 미식 (미꽝, 반짱팃헤오 등)',
+                              '당일 조업 활 해산물 만찬',
+                              '비치 프론트 파인다이닝 / 로맨틱 캔들라이트 디너',
+                              '온 가족이 함께 즐기는 편안한 패밀리 다이닝'
+                            ]
+                          : [
+                              'Đặc sản địa phương (Mì Quảng, Bánh tráng thịt heo)',
+                              'Hải sản tươi sống bắt tại bể',
+                              'Nhà hàng Fine Dining / Tiệc tối lãng mạn bên biển',
+                              'Ẩm thực gia đình đa thế hệ'
+                            ]
+                        )
                     ).map((food) => {
                       const isChecked = tripState.culinaryPreferences.includes(food);
                       return (
@@ -794,7 +834,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                 </span>
                 <h4 className="morph-sum-title">{isKorean ? '나의 맞춤 여행 플랜' : 'Hành Trình Của Bạn'}</h4>
                 <span className="morph-sum-dest">
-                  {isKorean ? '다낭 (Da Nang)' : tripState.destination}
+                  {destNameDisplay}
                 </span>
               </div>
 

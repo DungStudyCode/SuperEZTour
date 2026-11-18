@@ -1,10 +1,14 @@
 import React from 'react';
 import { Phone, MapPin, ShieldCheck, ArrowUp } from 'lucide-react';
 import { BRAND_CONFIG, companyInfo } from '../../../../constants/brand.config';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './DestinationFooter.css';
 
 const DestinationFooter = ({ destination }) => {
-  const isKorean = destination?.locale === 'ko' || destination?.id === 'da-nang';
+  const { isKorean } = useLanguage();
+  const destName = isKorean
+    ? destination?.nameKr || destination?.name || '베트남'
+    : destination?.name || 'Việt Nam';
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -53,12 +57,12 @@ const DestinationFooter = ({ destination }) => {
               </li>
               <li>
                 <a href="#attractions">
-                  {isKorean ? '05. 다낭 시그니처 명소 & 프라이빗 투어' : '05. Tọa độ tham quan độc bản'}
+                  {isKorean ? `05. ${destName} 시그니처 명소 & 프라이빗 투어` : `05. Tọa độ tham quan độc bản ${destName}`}
                 </a>
               </li>
               <li>
                 <a href="#culinary">
-                  {isKorean ? '06. 다낭 미식 큐레이션 & 파인다이닝' : '06. Ẩm thực đặc sản miền Trung'}
+                  {isKorean ? `06. ${destName} 미식 큐레이션 & 파인다이닝` : `06. Ẩm thực đặc sản ${destName}`}
                 </a>
               </li>
             </ul>

@@ -51,8 +51,8 @@ const HERO_SLIDES = [
     nameVi: 'HÀ NỘI',
     image: 'https://images.unsplash.com/photo-1689080492397-820b860a8606?auto=format&fit=crop&w=1920&q=85',
     objectPosition: 'center 40%',
-    actionType: 'quote',
-    isAvailable: false,
+    route: '/destinations/ha-noi',
+    isAvailable: true,
   },
   // 04. Signature Stays — Type B: Brand Story
   {

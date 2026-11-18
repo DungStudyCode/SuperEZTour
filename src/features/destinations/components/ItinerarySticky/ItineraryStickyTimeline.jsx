@@ -437,8 +437,9 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
           >
             {itineraries.map((it) => {
               const isSelected = activeItineraryId === it.id;
-              const shortLabel = it.label.split(' (')[0];
-              const isFavorite = it.id === '4d3n';
+              const rawLabel = it.label || it.durationLabel || it.badge || it.id || '';
+              const shortLabel = rawLabel.includes(' (') ? rawLabel.split(' (')[0] : rawLabel;
+              const isFavorite = it.id === '4d3n' || it.id === '3d2n';
 
               return (
                 <button
@@ -532,14 +533,15 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
                     {isKorean ? '오늘의 주요 하이라이트:' : 'Trải nghiệm nổi bật trong ngày:'}
                   </span>
                   <div className="journal-activities-list">
-                    {(d.highlights || []).map((hl, hIdx) => {
-                      const IconComponent = getActivityIcon(hl);
+                    {(d.highlights || d.activities || []).map((hl, hIdx) => {
+                      const text = typeof hl === 'string' ? hl : (hl.title || hl.text || '');
+                      const IconComponent = getActivityIcon(text);
                       return (
                         <div key={hIdx} className="journal-activity-item">
                           <span className="activity-icon-wrap" aria-hidden="true">
                             <IconComponent size={14} />
                           </span>
-                          <span className="activity-text">{hl}</span>
+                          <span className="activity-text">{text}</span>
                         </div>
                       );
                     })}

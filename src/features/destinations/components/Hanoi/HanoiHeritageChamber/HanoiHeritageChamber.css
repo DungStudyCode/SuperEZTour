@@ -1,0 +1,297 @@
+/* ==========================================================================
+   SCENE 03: THE HERITAGE CHAMBER (Interactive Architectural 3D)
+   ========================================================================== */
+
+.hanoi-heritage-chamber {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+  background-color: #1a2128;
+}
+
+.heritage-3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  cursor: grab;
+}
+
+.heritage-3d-canvas:active {
+  cursor: grabbing;
+}
+
+.heritage-chamber-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(18, 24, 30, 0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Header Floating Narrative */
+.heritage-chamber-header {
+  position: absolute;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: min(92%, 760px);
+  text-align: center;
+  color: #F7F4ED;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heritage-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(180, 139, 86, 0.2);
+  border: 1px solid rgba(180, 139, 86, 0.45);
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E2B880;
+  backdrop-filter: blur(8px);
+  margin-bottom: 12px;
+}
+
+.heritage-chamber-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.0rem, 4.2vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 10px 0;
+  color: #F7F4ED;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
+}
+
+.heritage-chamber-subtitle {
+  font-size: 0.95rem;
+  color: rgba(247, 244, 237, 0.85);
+  line-height: 1.55;
+  margin: 0 0 16px 0;
+  max-width: 620px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Mode Switcher */
+.heritage-mode-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  background: rgba(24, 32, 38, 0.85);
+  border: 1px solid rgba(180, 139, 86, 0.35);
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+}
+
+.mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: rgba(247, 244, 237, 0.75);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mode-btn:hover {
+  color: #FFFFFF;
+}
+
+.mode-btn-active {
+  background: #B66A4B;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(182, 106, 75, 0.45);
+}
+
+/* Bottom Card Row */
+.heritage-bottom-card-row {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(94%, 1180px);
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: end;
+}
+
+/* Preset Angles Stack */
+.heritage-presets-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.presets-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #E2B880;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.presets-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preset-angle-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: rgba(24, 32, 38, 0.85);
+  border: 1px solid rgba(180, 139, 86, 0.3);
+  border-radius: 12px;
+  color: #F7F4ED;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.preset-angle-btn:hover {
+  background: rgba(182, 106, 75, 0.35);
+  border-color: #B66A4B;
+  transform: translateX(4px);
+}
+
+.preset-btn-active {
+  background: rgba(182, 106, 75, 0.6);
+  border-color: #C47A5C;
+  box-shadow: 0 6px 18px rgba(182, 106, 75, 0.35);
+}
+
+.angle-btn-num {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #E2B880;
+}
+
+.angle-btn-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Info Narrative Card */
+.heritage-info-card {
+  background: rgba(26, 36, 44, 0.88);
+  border: 1px solid rgba(180, 139, 86, 0.4);
+  border-radius: 18px;
+  padding: 20px 26px;
+  backdrop-filter: blur(14px);
+  color: #F7F4ED;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.info-card-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E2B880;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.info-card-heading {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #F7F4ED;
+}
+
+.info-card-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(247, 244, 237, 0.85);
+  margin: 0 0 16px 0;
+}
+
+.info-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.heritage-add-cart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #B66A4B;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(182, 106, 75, 0.4);
+}
+
+.heritage-add-cart-btn:hover {
+  background: #A0593D;
+  transform: translateY(-2px);
+}
+
+.btn-already-added {
+  background: #3B6B58;
+}
+
+.btn-already-added:hover {
+  background: #325B4B;
+}
+
+.heritage-drag-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: rgba(238, 230, 217, 0.7);
+}
+
+.drag-spin-icon {
+  animation: spinSlow 6s linear infinite;
+  color: #E2B880;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+  .heritage-bottom-card-row {
+    grid-template-columns: 1fr;
+    bottom: 20px;
+  }
+  .heritage-presets-stack {
+    display: none;
+  }
+}

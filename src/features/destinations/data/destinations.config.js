@@ -4,11 +4,15 @@
  */
 
 import { DA_NANG_CONFIG } from './da-nang.config.js';
+import { HA_NOI_CONFIG } from './ha-noi.config.js';
 
 export const DESTINATION_REGISTRY = {
   'da-nang': DA_NANG_CONFIG,
   'vietnam-danang': DA_NANG_CONFIG,
   'danang': DA_NANG_CONFIG,
+  'ha-noi': HA_NOI_CONFIG,
+  'hanoi': HA_NOI_CONFIG,
+  'vietnam-hanoi': HA_NOI_CONFIG,
 };
 
 /**

@@ -438,5 +438,38 @@
     "btnSubmit": "맞춤 여행 상담 요청",
     "trustSubtext": "100% 단독 프라이빗 투어 · 전담 차량 & 가이드 · 맞춤 여정 설계",
     "selectedBadge": "선택됨"
+  },
+  "destinationNav": {
+    "privateBadge": "100% 프라이빗 투어",
+    "currentViewing": "현재 여행지",
+    "primaryCta": "나만의 여행 만들기",
+    "hotlineLabel": "24시간 한국어 케어 1900 8899",
+    "backHome": "Super EZ Tour 홈으로 이동",
+    "backHomeShort": "홈으로",
+    "switchLangAria": "언어 선택",
+    "menuAria": "내비게이션 메뉴",
+    "menuToggle": "메뉴 열기/닫기",
+    "daNang": {
+      "discover": "다낭 탐방",
+      "services": "여행 서비스",
+      "accommodation": "최고급 숙소",
+      "attractions": "주요 명소",
+      "itinerary": "추천 일정",
+      "tripBuilder": "맞춤 여행 만들기"
+    },
+    "haNoi": {
+      "oldQuarter": "36거리 골목",
+      "heritage": "천년 유산",
+      "taste": "미식 큐레이션",
+      "attractions": "3D 지도",
+      "itinerary": "추천 여정",
+      "tripBuilder": "맞춤 여행 만들기"
+    },
+    "default": {
+      "discover": "도시 탐방",
+      "attractions": "주요 명소",
+      "itinerary": "추천 일정",
+      "tripBuilder": "맞춤 여행"
+    }
   }
 }

@@ -375,3 +375,58 @@
   border-color: #FFFFFF;
   color: #FFFFFF;
 }
+
+/* ==========================================================================
+   Hanoi Heritage Editorial Theme Variant (.dest-theme-ha-noi)
+   Art Direction: Cinematic 3D Storytelling × Luxury Editorial × Cultural Heritage
+   Palette: Warm Ivory, Heritage Cream, Deep Ink, Antique Gold, Terracotta, Lake Green
+   ========================================================================== */
+
+.dest-theme-ha-noi {
+  --dest-warm-ivory: #F7F4ED;
+  --dest-heritage-cream: #EEE6D9;
+  --dest-deep-ink: #223139;
+  --dest-antique-gold: #B48B56;
+  --dest-terracotta: #B66A4B;
+  --dest-lake-green: #66867B;
+
+  --dest-ivory: #F7F4ED;
+  --dest-navy: #223139;
+  --dest-navy-deep: #162127;
+  --dest-navy-surface: #2E414B;
+  --dest-gold: #B48B56;
+  --dest-orange: #B66A4B;
+  --dest-orange-hover: #9E563A;
+  --dest-ivory-border: #DDD3C3;
+}
+
+.dest-theme-ha-noi .dest-badge-gold {
+  background: rgba(180, 139, 86, 0.12);
+  color: #B48B56;
+  border-color: rgba(180, 139, 86, 0.28);
+}
+
+.dest-theme-ha-noi .dest-btn-primary {
+  background: #B66A4B;
+  border-color: #B66A4B;
+  box-shadow: 0 12px 30px -8px rgba(182, 106, 75, 0.35);
+}
+
+.dest-theme-ha-noi .dest-btn-primary:hover {
+  background: #9E563A;
+  border-color: #9E563A;
+  transform: translateY(-2px);
+}
+
+.hanoi-experience-wrapper {
+  background-color: #172026;
+  color: #F7F4ED;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}

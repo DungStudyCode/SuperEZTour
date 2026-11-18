@@ -53,10 +53,18 @@ const TIME_PHASES = [
   }
 ];
 
+const PHASE_ICONS = { Sunrise, Sun, Sunset, Moon };
+
+const resolvePhaseIcon = (iconVal) => {
+  if (typeof iconVal === 'string') return PHASE_ICONS[iconVal] || Sun;
+  return iconVal || Sun;
+};
+
 const TimeTransformationScene = ({ privateValuesData }) => {
   const containerRef = useRef(null);
   const skyBgRef = useRef(null);
   const [activePhaseIndex, setActivePhaseIndex] = useState(0);
+  const phases = privateValuesData?.timePhases || TIME_PHASES;
   const isKorean = Boolean(
     privateValuesData?.items?.[0]?.desc?.match(/[\uac00-\ud7af]/) ||
     privateValuesData?.title?.includes('Your')
@@ -84,8 +92,8 @@ const TimeTransformationScene = ({ privateValuesData }) => {
           anticipatePin: 1,
           onUpdate: (self) => {
             const idx = Math.min(
-              TIME_PHASES.length - 1,
-              Math.floor(self.progress * TIME_PHASES.length)
+              phases.length - 1,
+              Math.floor(self.progress * phases.length)
             );
             setActivePhaseIndex(idx);
           },
@@ -100,10 +108,10 @@ const TimeTransformationScene = ({ privateValuesData }) => {
     }, containerRef);
 
     return () => mm.revert();
-  }, []);
+  }, [phases.length]);
 
-  const currentPhase = TIME_PHASES[activePhaseIndex] || TIME_PHASES[0];
-  const IconComponent = currentPhase.icon;
+  const currentPhase = phases[activePhaseIndex] || phases[0];
+  const IconComponent = resolvePhaseIcon(currentPhase.icon);
 
   return (
     <section className="time-trans-scene" ref={containerRef} id="why-private">
@@ -125,8 +133,8 @@ const TimeTransformationScene = ({ privateValuesData }) => {
       <div className="dest-container time-trans-content">
         {/* Top 24-Hour Slider Bar */}
         <div className="time-phases-nav">
-          {TIME_PHASES.map((phase, idx) => {
-            const PhaseIcon = phase.icon;
+          {phases.map((phase, idx) => {
+            const PhaseIcon = resolvePhaseIcon(phase.icon);
             return (
               <div
                 key={phase.id}
@@ -144,7 +152,7 @@ const TimeTransformationScene = ({ privateValuesData }) => {
         <div className="time-narrative-card">
           <div className="time-stamp-badge">
             <IconComponent size={16} />
-            <span>{currentPhase.time} · 24H DA NANG CINEMATIC</span>
+            <span>{currentPhase.time} · {privateValuesData?.kicker || 'ONE CITY, MANY MOODS'}</span>
           </div>
 
           <h2 className="time-phase-title">
