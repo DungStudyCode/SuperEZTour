@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, MapPin, Sparkles, ArrowRight, Clock, AlertCircle } from 'lucide-react';
 import { VIETNAM_DESTINATIONS, searchVietnamDestinations } from '../../../data/vietnamDestinations';
+import { useLanguage } from '../../../context/LanguageContext';
 import './DestinationSearchModal.css';
 
 const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
@@ -9,6 +10,7 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
   const [selectedComingSoon, setSelectedComingSoon] = useState(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const { t, isKorean } = useLanguage();
 
   useEffect(() => {
     if (isOpen) {
@@ -58,12 +60,12 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
       <div className="search-modal-window" onClick={(e) => e.stopPropagation()}>
         {/* Header Search Input */}
         <div className="search-modal-header">
-          <Search size={22} className="search-modal-icon" />
+          <Search size={22} className="search-modal-icon text-orange" />
           <input
             ref={inputRef}
             type="text"
             className="search-modal-input"
-            placeholder="어디로 떠나고 싶으신가요? (다낭, 하노이, 푸꾸옥...)"
+            placeholder={t('home.hero.searchPlaceholder', '어디로 떠나고 싶으신가요? (다낭, 하노이, 푸꾸옥...)')}
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -78,12 +80,12 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
                 setSearchTerm('');
                 if (inputRef.current) inputRef.current.focus();
               }}
-              aria-label="검색어 지우기"
+              aria-label="Clear Search"
             >
               <X size={18} />
             </button>
           )}
-          <button type="button" className="search-modal-close" onClick={onClose} aria-label="닫기">
+          <button type="button" className="search-modal-close" onClick={onClose} aria-label="Close">
             <span className="esc-badge">ESC</span>
           </button>
         </div>
@@ -92,11 +94,20 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
         {selectedComingSoon && (
           <div className="search-modal-notice animate-fade-in">
             <div className="notice-content">
-              <AlertCircle size={20} className="notice-icon" />
+              <AlertCircle size={20} className="notice-icon text-orange" />
               <div className="notice-text">
-                <strong>{selectedComingSoon.nameKr} ({selectedComingSoon.name})</strong> 상품은 현재 더 완벽한 3D 가상 투어와 단독 코스로 <strong>준비 중 (Coming Soon)</strong> 입니다.
+                <strong>
+                  {isKorean ? selectedComingSoon.nameKr : (selectedComingSoon.nameVi || selectedComingSoon.name)} ({selectedComingSoon.name})
+                </strong>{' '}
+                {isKorean
+                  ? '상품은 현재 더 완벽한 3D 가상 투어와 단독 코스로 준비 중 (Coming Soon) 입니다.'
+                  : 'hiện đang được chuẩn bị thêm hình ảnh 3D và lịch trình độc quyền (Sắp ra mắt).'}
                 <br />
-                <span className="notice-sub">사전 맞춤 상담 및 프라이빗 일정 설계는 지금 바로 1:1 전담 매니저를 통해 가능합니다.</span>
+                <span className="notice-sub">
+                  {isKorean
+                    ? '사전 맞춤 상담 및 프라이빗 일정 설계는 지금 바로 1:1 전담 매니저를 통해 가능합니다.'
+                    : 'Quý khách hoàn toàn có thể yêu cầu tư vấn 1:1 và báo giá ưu đãi sớm ngay hôm nay.'}
+                </span>
               </div>
             </div>
             <button
@@ -104,7 +115,11 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
               className="notice-cta-btn"
               onClick={() => handleAdvanceInquiry(selectedComingSoon)}
             >
-              <span>{selectedComingSoon.nameKr} 1:1 맞춤 견적 요청</span>
+              <span>
+                {isKorean
+                  ? `${selectedComingSoon.nameKr} 1:1 맞춤 견적 요청`
+                  : `Tư vấn tour riêng ${selectedComingSoon.nameVi || selectedComingSoon.name}`}
+              </span>
               <ArrowRight size={14} />
             </button>
           </div>
@@ -113,12 +128,18 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
         {/* Search Results / Destination List */}
         <div className="search-modal-body">
           <div className="search-section-label">
-            {searchTerm ? `검색 결과 (${results.length}개)` : '베트남 10대 명품 여행지'}
+            {searchTerm
+              ? `${isKorean ? '검색 결과' : 'Kết quả tìm kiếm'} (${results.length})`
+              : (isKorean ? '베트남 10대 명품 여행지' : '10 Điểm đến hàng đầu Việt Nam')}
           </div>
 
           <div className="search-results-grid">
             {results.map((dest) => {
               const isDaNang = dest.isAvailable;
+              const destTitle = isKorean ? dest.nameKr : (dest.nameVi || dest.name);
+              const destTagline = isKorean ? dest.tagline : (dest.taglineVi || dest.tagline);
+              const destRegion = isKorean ? dest.regionKr : (dest.regionVi || dest.region);
+
               return (
                 <div
                   key={dest.id}
@@ -126,36 +147,36 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
                   onClick={() => handleSelectDestination(dest)}
                 >
                   <div className="card-thumb-wrap">
-                    <img src={dest.image} alt={dest.nameKr} className="card-thumb" />
+                    <img src={dest.image} alt={destTitle} className="card-thumb" />
                     {isDaNang ? (
                       <span className="card-status-badge available">
                         <Sparkles size={11} />
-                        AVAILABLE
+                        {t('common.availableNow', '3D 투어 오픈')}
                       </span>
                     ) : (
                       <span className="card-status-badge coming-soon">
                         <Clock size={11} />
-                        준비 중
+                        {t('common.comingSoon', '준비 중')}
                       </span>
                     )}
                   </div>
 
                   <div className="card-info">
                     <div className="card-name-row">
-                      <span className="card-name-kr">{dest.nameKr}</span>
+                      <span className="card-name-main">{destTitle}</span>
                       <span className="card-name-en">{dest.name}</span>
-                      <span className="card-region-pill">{dest.regionKr}</span>
+                      <span className="card-region-pill">{destRegion}</span>
                     </div>
-                    <p className="card-tagline">{dest.tagline}</p>
+                    <p className="card-tagline">{destTagline}</p>
                     <div className="card-action-row">
                       {isDaNang ? (
                         <span className="card-link-action">
-                          <span>3D 인터랙티브 투어 바로가기</span>
+                          <span>{t('home.gallery.viewDaNang', '3D 인터랙티브 투어 바로가기')}</span>
                           <ArrowRight size={14} />
                         </span>
                       ) : (
                         <span className="card-link-action muted">
-                          <span>맞춤 일정 사전 상담 가능</span>
+                          <span>{t('home.gallery.preInquiry', '맞춤 일정 사전 상담 가능')}</span>
                           <ChevronRightIcon size={14} />
                         </span>
                       )}
@@ -168,8 +189,16 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
             {results.length === 0 && (
               <div className="search-no-results">
                 <MapPin size={32} className="no-res-icon" />
-                <p>'{searchTerm}'에 해당하는 베트남 여행지를 찾을 수 없습니다.</p>
-                <span>다낭, 하노이, 하롱베이, 나트랑, 호찌민, 푸꾸옥 등으로 검색해보세요.</span>
+                <p>
+                  {isKorean
+                    ? `'${searchTerm}'에 해당하는 베트남 여행지를 찾을 수 없습니다.`
+                    : `Không tìm thấy điểm đến phù hợp với '${searchTerm}'.`}
+                </p>
+                <span>
+                  {isKorean
+                    ? '다낭, 하노이, 하롱베이, 나트랑, 호찌민, 푸꾸옥 등으로 검색해보세요.'
+                    : 'Hãy thử tìm kiếm với Đà Nẵng, Hà Nội, Hạ Long, Nha Trang, Phú Quốc...'}
+                </span>
               </div>
             )}
           </div>
@@ -178,41 +207,41 @@ const DestinationSearchModal = ({ isOpen, onClose, onOpenQuoteModal }) => {
         {/* Footer Quick Shortcuts */}
         <div className="search-modal-footer">
           <div className="quick-tags-wrap">
-            <span className="quick-tag-label">추천 검색:</span>
+            <span className="quick-tag-label">{isKorean ? '추천 검색:' : 'Gợi ý:'}</span>
             <button
               type="button"
               className="quick-tag-chip active"
               onClick={() => handleSelectDestination(VIETNAM_DESTINATIONS.find((d) => d.id === 'da-nang'))}
             >
-              다낭 (Da Nang) ★ 3D 투어
+              ★ {isKorean ? '다낭 (3D 가상투어)' : 'Đà Nẵng (Tour 3D)'}
             </button>
             <button
               type="button"
               className="quick-tag-chip"
-              onClick={() => setSearchTerm('하노이')}
+              onClick={() => setSearchTerm(isKorean ? '하노이' : 'Hà Nội')}
             >
-              하노이
+              {isKorean ? '하노이' : 'Hà Nội'}
             </button>
             <button
               type="button"
               className="quick-tag-chip"
-              onClick={() => setSearchTerm('하롱베이')}
+              onClick={() => setSearchTerm(isKorean ? '하롱베이' : 'Hạ Long')}
             >
-              하롱베이
+              {isKorean ? '하롱베이' : 'Hạ Long'}
             </button>
             <button
               type="button"
               className="quick-tag-chip"
-              onClick={() => setSearchTerm('푸꾸옥')}
+              onClick={() => setSearchTerm(isKorean ? '푸꾸옥' : 'Phú Quốc')}
             >
-              푸꾸옥
+              {isKorean ? '푸꾸옥' : 'Phú Quốc'}
             </button>
             <button
               type="button"
               className="quick-tag-chip"
-              onClick={() => setSearchTerm('나트랑')}
+              onClick={() => setSearchTerm(isKorean ? '사파' : 'Sa Pa')}
             >
-              나트랑
+              {isKorean ? '사파' : 'Sa Pa'}
             </button>
           </div>
         </div>

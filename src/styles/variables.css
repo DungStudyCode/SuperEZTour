@@ -82,10 +82,10 @@
   /* Layout & Sizing */
   --container-max-width: 1240px;
   --container-padding: 20px;
-  --header-height-top: 36px;
-  --header-height-main: 78px;
-  --header-height-total: 114px;
-  --header-height-sticky: 70px;
+  --header-height-top: 0px;
+  --header-height-main: 76px;
+  --header-height-total: 76px;
+  --header-height-sticky: 76px;
   --mobile-bottom-nav-height: 64px;
 
   /* Spacing Scale */

@@ -43,6 +43,20 @@ p {
 .text-lg { font-size: var(--font-size-lg); }
 .text-xl { font-size: var(--font-size-xl); }
 
+/* Korean Typography Rules - Natural Editorial Flow (No mid-syllable breaks) */
+:lang(ko),
+[lang="ko"] {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Vietnamese & Latin Typography Rules */
+:lang(vi),
+[lang="vi"] {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
 .font-medium { font-weight: var(--font-weight-medium); }
 .font-semibold { font-weight: var(--font-weight-semibold); }
 .font-bold { font-weight: var(--font-weight-bold); }

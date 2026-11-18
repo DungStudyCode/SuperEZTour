@@ -1,230 +1,477 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
-import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck, Sparkles, Search, MapPin, Compass } from 'lucide-react';
-import { searchVietnamDestinations, VIETNAM_DESTINATIONS } from '../../../../data/vietnamDestinations';
-import DestinationSearchModal from '../../../../components/common/DestinationSearch/DestinationSearchModal';
+import { Navigation, Autoplay, Keyboard, A11y } from 'swiper/modules';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, ArrowRight, Compass, Sparkles, MapPin } from 'lucide-react';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './HeroBanner.css';
 
+/**
+ * Super EZ Tour — Cinematic Hero 2.0
+ * Alternating sequence of 9 slides: Type A (Destination) & Type B (Brand Story)
+ * 4.5s Autoplay — 650ms Smooth Cinematic Transition — Synchronized Real-Time Progress Bar
+ */
 const HERO_SLIDES = [
+  // 01. Da Nang — Type A: Destination
   {
-    id: 'da-nang-golden-bridge',
+    id: 'da-nang',
+    key: 'daNang',
+    type: 'destination',
+    destId: 'da-nang',
+    nameEn: 'DA NANG',
+    nameKr: '다낭',
+    nameVi: 'ĐÀ NẴNG',
     image: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1920&q=85',
-    destination: 'DA NANG · CENTRAL VIETNAM',
-    tag: '3D INTERACTIVE TOUR AVAILABLE',
-    badge: '100% PRIVATE ESCAPE',
-    title: 'VIETNAM, CURATED FOR YOU.',
-    titleKr: '당신만을 위한 특별한 베트남 여행.',
-    description: '구름 위의 골든 브릿지와 황금빛 미케 비치. 100% 단독 전용 차량과 전담 한국어 가이드로 완성되는 하이엔드 저니.',
+    objectPosition: 'center 45%',
     route: '/destinations/da-nang',
     isAvailable: true,
   },
+  // 02. Private Journeys — Type B: Brand Story
   {
-    id: 'ha-long-cruise',
-    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1920&q=85',
-    destination: 'HA LONG BAY · NORTH VIETNAM',
-    tag: 'ULTRA-LUXURY CRUISE',
-    badge: 'COMING SOON — PRE-INQUIRY',
-    title: 'THE DRAGON’S EMERALD HARBOR.',
-    titleKr: '에메랄드 만 위에 펼쳐지는 6성급 수상 쉼터.',
-    description: '2천 개의 카르스트 석회암 봉우리 사이로 흐르는 고요한 시간. 프라이빗 발코니에서 맞이하는 황홀한 선셋.',
+    id: 'private-journeys',
+    key: 'privateJourneys',
+    type: 'story',
+    destId: '',
+    nameEn: 'PRIVATE JOURNEYS',
+    nameKr: '프라이빗 맞춤 여행',
+    nameVi: 'TOUR RIÊNG BIỆT',
+    image: 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 35%',
+    actionType: 'quote',
     isAvailable: false,
-    destId: 'ha-long',
   },
+  // 03. Hanoi — Type A: Destination
   {
-    id: 'sapa-cloud-terraces',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1920&q=85',
-    destination: 'SA PA · NORTH HIGHLANDS',
-    tag: 'HIGHLAND RETREAT & TREKKING',
-    badge: 'COMING SOON — PRE-INQUIRY',
-    title: 'SANCTUARY ABOVE THE CLOUDS.',
-    titleKr: '인도차이나의 지붕 판시판과 계단식 논의 비경.',
-    description: '안개 자욱한 고산지대의 순수한 영혼과 럭셔리 산악 리조트. 둘만의 여유로운 산책과 힐링 스파.',
+    id: 'ha-noi',
+    key: 'haNoi',
+    type: 'destination',
+    destId: 'ha-noi',
+    nameEn: 'HANOI',
+    nameKr: '하노이',
+    nameVi: 'HÀ NỘI',
+    image: 'https://images.unsplash.com/photo-1689080492397-820b860a8606?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 40%',
+    actionType: 'quote',
     isAvailable: false,
+  },
+  // 04. Signature Stays — Type B: Brand Story
+  {
+    id: 'signature-stays',
+    key: 'signatureStays',
+    type: 'story',
+    destId: 'signature-stays',
+    nameEn: 'SIGNATURE STAYS',
+    nameKr: '시그니처 숙소',
+    nameVi: 'NGHỈ DƯỠNG TUYỂN CHỌN',
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 50%',
+    scrollTarget: '#travel-services',
+    isAvailable: false,
+  },
+  // 05. Ha Long — Type A: Destination
+  {
+    id: 'ha-long',
+    key: 'haLong',
+    type: 'destination',
+    destId: 'ha-long',
+    nameEn: 'HA LONG BAY',
+    nameKr: '하롱베이',
+    nameVi: 'HẠ LONG',
+    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 45%',
+    actionType: 'quote',
+    isAvailable: false,
+  },
+  // 06. Seamless Travel — Type B: Brand Story
+  {
+    id: 'seamless-travel',
+    key: 'seamlessTravel',
+    type: 'story',
+    destId: 'seamless-travel',
+    nameEn: 'SEAMLESS TRAVEL',
+    nameKr: '전용 차량 서비스',
+    nameVi: 'DỊCH VỤ XE RIÊNG',
+    image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 55%',
+    scrollTarget: '#travel-services',
+    isAvailable: false,
+  },
+  // 07. Sa Pa — Type A: Destination
+  {
+    id: 'sa-pa',
+    key: 'saPa',
+    type: 'destination',
     destId: 'sa-pa',
+    nameEn: 'SA PA',
+    nameKr: '사파',
+    nameVi: 'SA PA',
+    image: 'https://images.unsplash.com/photo-1787367897847-830be2c1b9d1?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 45%',
+    actionType: 'quote',
+    isAvailable: false,
+  },
+  // 08. Local Experiences — Type B: Brand Story
+  {
+    id: 'local-experiences',
+    key: 'localExperiences',
+    type: 'story',
+    destId: 'local-experiences',
+    nameEn: 'LOCAL EXPERIENCES',
+    nameKr: '로컬 미식 & 문화',
+    nameVi: 'TRẢI NGHIỆM BẢN ĐỊA',
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 50%',
+    scrollTarget: '#travel-themes',
+    isAvailable: false,
+  },
+  // 09. Phu Quoc — Type A: Destination
+  {
+    id: 'phu-quoc',
+    key: 'phuQuoc',
+    type: 'destination',
+    destId: 'phu-quoc',
+    nameEn: 'PHU QUOC',
+    nameKr: '푸꾸옥',
+    nameVi: 'PHÚ QUỐC',
+    image: 'https://images.unsplash.com/photo-1583402955903-68dd58b0d463?auto=format&fit=crop&w=1920&q=85',
+    objectPosition: 'center 55%',
+    actionType: 'quote',
+    isAvailable: false,
   },
 ];
 
 const HeroBanner = ({ onOpenQuoteModal }) => {
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [heroSearchInput, setHeroSearchInput] = useState('');
-  const navigate = useNavigate();
-
-  const handleHeroSearchSubmit = (e) => {
-    e.preventDefault();
-    setIsSearchModalOpen(true);
-  };
-
-  const handleQuickChip = (destId) => {
-    if (destId === 'da-nang') {
-      navigate('/destinations/da-nang');
-    } else {
-      setIsSearchModalOpen(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
-  };
+    return false;
+  });
 
-  const scrollToDestinations = (e) => {
-    e.preventDefault();
-    const el = document.getElementById('destinations');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  const swiperRef = useRef(null);
+  const sectionRef = useRef(null);
+  const progressFillRef = useRef(null);
+  const isVisibleRef = useRef(true);
+  const isTabActiveRef = useRef(true);
+
+  const navigate = useNavigate();
+  const { t, isKorean } = useLanguage();
+
+  const activeSlide = HERO_SLIDES[activeIndex] || HERO_SLIDES[0];
+
+  // Pause autoplay when tab is inactive or out of viewport
+  const pauseAutoplay = useCallback(() => {
+    if (swiperRef.current?.autoplay && swiperRef.current.autoplay.running && !swiperRef.current.autoplay.paused) {
+      swiperRef.current.autoplay.pause();
+    }
+  }, []);
+
+  // Resume autoplay when returned to viewport / active tab
+  const resumeAutoplay = useCallback(() => {
+    if (
+      swiperRef.current?.autoplay &&
+      !prefersReducedMotion &&
+      isVisibleRef.current &&
+      isTabActiveRef.current
+    ) {
+      if (swiperRef.current.autoplay.paused) {
+        swiperRef.current.autoplay.resume();
+      } else if (!swiperRef.current.autoplay.running) {
+        swiperRef.current.autoplay.start();
+      }
+    }
+  }, [prefersReducedMotion]);
+
+  // Accessibility: prefers-reduced-motion listener
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const handleMotionChange = (e) => {
+      setPrefersReducedMotion(e.matches);
+      if (e.matches) {
+        swiperRef.current?.autoplay?.stop();
+      } else {
+        resumeAutoplay();
+      }
+    };
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleMotionChange);
+      return () => mediaQuery.removeEventListener('change', handleMotionChange);
+    } else if (mediaQuery.addListener) {
+      mediaQuery.addListener(handleMotionChange);
+      return () => mediaQuery.removeListener(handleMotionChange);
+    }
+  }, [resumeAutoplay]);
+
+  // Pause when browser tab is inactive / hidden, resume smoothly when active
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isTabActiveRef.current = false;
+        pauseAutoplay();
+      } else {
+        isTabActiveRef.current = true;
+        resumeAutoplay();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [pauseAutoplay, resumeAutoplay]);
+
+  // IntersectionObserver: Pause when hero is scrolled out of viewport, resume when visible
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          resumeAutoplay();
+        } else {
+          pauseAutoplay();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(sectionEl);
+    return () => {
+      observer.disconnect();
+    };
+  }, [pauseAutoplay, resumeAutoplay]);
+
+  // CTA Click handler for different slide types
+  const handleCtaClick = (slide) => {
+    if (slide.route && slide.isAvailable) {
+      navigate(slide.route);
+    } else if (slide.scrollTarget) {
+      const el = document.querySelector(slide.scrollTarget);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (onOpenQuoteModal) {
+        onOpenQuoteModal(slide.destId || '');
+      }
+    } else if (onOpenQuoteModal) {
+      onOpenQuoteModal(slide.destId || '');
     }
   };
 
   return (
-    <section className="hero-banner-section" aria-label="Cinematic Hero">
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay, EffectFade]}
-        effect="fade"
-        speed={1200}
-        autoplay={{
-          delay: 6500,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        navigation={{
-          prevEl: '.hero-nav-arrow.prev',
-          nextEl: '.hero-nav-arrow.next',
-        }}
-        pagination={{
-          el: '.hero-custom-pagination',
-          clickable: true,
-        }}
-        className="hero-swiper-lux"
-      >
-        {HERO_SLIDES.map((slide) => (
-          <SwiperSlide key={slide.id} className="hero-slide-lux">
-            {/* Background Image with Cinematic Overlay */}
-            <div
-              className="hero-bg-layer"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="hero-vignette-overlay" />
-            </div>
+    <section
+      ref={sectionRef}
+      className="hero-banner-section"
+      aria-label="Center-Stage Hero Carousel"
+    >
+      {/* Center-Stage Carousel Container */}
+      <div className="hero-carousel-wrapper">
+        <Swiper
+          modules={[Navigation, Autoplay, Keyboard, A11y]}
+          centeredSlides={true}
+          loop={true}
+          loopAdditionalSlides={2}
+          speed={prefersReducedMotion ? 300 : 650}
+          initialSlide={0}
+          slideToClickedSlide={true}
+          slidesPerView={1.15}
+          spaceBetween={16}
+          autoplay={
+            prefersReducedMotion
+              ? false
+              : {
+                  delay: 4500,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: false, // Autoplay continues on hover as specified
+                }
+          }
+          navigation={{
+            prevEl: '.hero-control-btn.prev',
+            nextEl: '.hero-control-btn.next',
+          }}
+          keyboard={{ enabled: true }}
+          a11y={{ enabled: true }}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            setActiveIndex(swiper.realIndex);
+          }}
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.realIndex);
+            if (progressFillRef.current) {
+              progressFillRef.current.style.transform = 'scaleX(0)';
+            }
+          }}
+          onAutoplayTimeLeft={(swiper, timeLeft, progress) => {
+            if (progressFillRef.current && !prefersReducedMotion) {
+              const scale = Math.min(1, Math.max(0, 1 - progress));
+              progressFillRef.current.style.transform = `scaleX(${scale})`;
+            }
+          }}
+          className="hero-center-stage-swiper"
+          breakpoints={{
+            320: {
+              slidesPerView: 1.15,
+              spaceBetween: 14,
+            },
+            640: {
+              slidesPerView: 1.22,
+              spaceBetween: 18,
+            },
+            768: {
+              slidesPerView: 1.3,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 1.38,
+              spaceBetween: 24,
+            },
+            1280: {
+              slidesPerView: 1.44,
+              spaceBetween: 26,
+            },
+            1536: {
+              slidesPerView: 1.48,
+              spaceBetween: 28,
+            },
+          }}
+        >
+          {HERO_SLIDES.map((slide, idx) => {
+            const slideKey = slide.key;
+            const kicker = t(`home.hero.slides.${slideKey}.kicker`, `${String(idx + 1).padStart(2, '0')} / ${slide.nameEn}`);
+            const titleEn = t(`home.hero.slides.${slideKey}.titleEn`, 'BEYOND THE ORDINARY.');
+            const subtitle = t(`home.hero.slides.${slideKey}.subtitle`, isKorean ? slide.nameKr : slide.nameVi);
+            const ctaText = t(`home.hero.slides.${slideKey}.cta`, isKorean ? '맞춤 상담하기' : 'Khám phá ngay');
+            const isBrandStory = slide.type === 'story';
 
-            {/* Slide Foreground Content */}
-            <div className="container hero-container-lux">
-              <div className="hero-editorial-card">
-                <div className="hero-eyebrow-row">
-                  <span className="hero-dest-pill">
-                    <MapPin size={12} className="text-gold" />
-                    {slide.destination}
-                  </span>
-                  <span className="hero-badge-pill">
-                    <Sparkles size={11} className="badge-sparkle" />
-                    {slide.tag}
-                  </span>
+            return (
+              <SwiperSlide
+                key={slide.id}
+                className={`hero-stage-slide ${isBrandStory ? 'is-brand-story' : 'is-destination'}`}
+              >
+                {/* Media Layer with Cinematic Vignette */}
+                <div className="slide-media-wrap">
+                  <img
+                    src={slide.image}
+                    alt={`${slide.nameEn} - Super EZ Tour`}
+                    className="slide-img"
+                    style={{ objectPosition: slide.objectPosition }}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                  <div className={`slide-cinematic-gradient ${isBrandStory ? 'brand-story-gradient' : ''}`} />
                 </div>
 
-                <h1 className="hero-main-title">
-                  {slide.title}
-                  <span className="hero-sub-title-kr">{slide.titleKr}</span>
-                </h1>
-
-                <p className="hero-lead-desc">{slide.description}</p>
-
-                {/* Integrated Quick Search Bar (BOBTOUR Inspired) */}
-                <form className="hero-search-bar" onSubmit={handleHeroSearchSubmit}>
-                  <div className="search-input-wrap">
-                    <Search size={18} className="search-input-icon text-gold" />
-                    <input
-                      type="text"
-                      className="hero-search-input"
-                      placeholder="어디로 떠나고 싶으신가요? (다낭, 하노이, 푸꾸옥...)"
-                      value={heroSearchInput}
-                      onChange={(e) => setHeroSearchInput(e.target.value)}
-                      onFocus={() => setIsSearchModalOpen(true)}
-                      readOnly
-                    />
+                {/* Editorial Slide Content */}
+                <div className="slide-editorial-content">
+                  <div className="slide-kicker-wrap">
+                    <span className={`slide-kicker ${isBrandStory ? 'kicker-brand-story' : ''}`}>
+                      {isBrandStory ? (
+                        <Sparkles size={11} className="kicker-icon text-orange" />
+                      ) : (
+                        <MapPin size={11} className="kicker-icon text-gold" />
+                      )}
+                      <span>{kicker}</span>
+                    </span>
                   </div>
-                  <button type="button" className="hero-search-btn" onClick={() => setIsSearchModalOpen(true)}>
-                    <span>여행지 찾기</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </form>
 
-                {/* Quick Destination Chips */}
-                <div className="hero-quick-chips">
-                  <span className="chips-label">인기 추천:</span>
-                  <button
-                    type="button"
-                    className="chip-btn active"
-                    onClick={() => handleQuickChip('da-nang')}
-                  >
-                    ★ 다낭 (3D 가상투어)
-                  </button>
-                  <button
-                    type="button"
-                    className="chip-btn"
-                    onClick={() => handleQuickChip('ha-noi')}
-                  >
-                    하노이
-                  </button>
-                  <button
-                    type="button"
-                    className="chip-btn"
-                    onClick={() => handleQuickChip('ha-long')}
-                  >
-                    하롱베이
-                  </button>
-                  <button
-                    type="button"
-                    className="chip-btn"
-                    onClick={() => handleQuickChip('phu-quoc')}
-                  >
-                    푸꾸옥
-                  </button>
+                  <h2 className="slide-title-en">{titleEn}</h2>
+                  <p className="slide-title-loc">{subtitle}</p>
+
+                  {/* Single High-End CTA */}
+                  <div className="slide-cta-row">
+                    {slide.isAvailable && slide.route ? (
+                      <Link
+                        to={slide.route}
+                        className="slide-primary-cta is-available"
+                      >
+                        <span>{ctaText}</span>
+                        <ArrowRight size={15} className="slide-cta-arrow" />
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        className={`slide-primary-cta ${isBrandStory ? 'is-brand-cta' : 'is-outline'}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCtaClick(slide);
+                        }}
+                      >
+                        {isBrandStory ? (
+                          <Compass size={14} className="text-orange" />
+                        ) : (
+                          <Sparkles size={14} className="text-orange" />
+                        )}
+                        <span>{ctaText}</span>
+                        <ArrowRight size={15} className="slide-cta-arrow" />
+                      </button>
+                    )}
+                  </div>
                 </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
 
-                {/* Main Action CTAs */}
-                <div className="hero-actions-row">
-                  <a
-                    href="#destinations"
-                    onClick={scrollToDestinations}
-                    className="hero-cta-btn primary-gold"
-                  >
-                    <Compass size={16} />
-                    <span>시그니처 여행지 둘러보기</span>
-                    <ArrowRight size={14} />
-                  </a>
-
-                  <button
-                    type="button"
-                    className="hero-cta-btn secondary-glass"
-                    onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
-                  >
-                    <Sparkles size={16} className="text-gold" />
-                    <span>1:1 맞춤 견적 요청</span>
-                  </button>
-                </div>
-              </div>
+      {/* Navigation Controls Bar (Below Carousel) */}
+      <div className="hero-carousel-controls">
+        <div className="hero-controls-container">
+          {/* Left: Counter & Destination / Story Name */}
+          <div className="hero-controls-left">
+            <div className="hero-slide-counter">
+              <span className="counter-current">
+                {String(activeIndex + 1).padStart(2, '0')}
+              </span>
+              <span className="counter-divider">/</span>
+              <span className="counter-total">
+                {String(HERO_SLIDES.length).padStart(2, '0')}
+              </span>
             </div>
-          </SwiperSlide>
-        ))}
+            <span className="hero-active-dest-name">
+              {isKorean ? activeSlide.nameKr : activeSlide.nameVi}
+            </span>
+          </div>
 
-        {/* Custom Navigation Controls */}
-        <div className="hero-controls-bar">
-          <div className="container hero-controls-container">
+          {/* Center: Sleek Real-Time Autoplay Progress Indicator (4.5s Synchronized) */}
+          <div className="hero-controls-center">
+            <div
+              className="hero-progress-track"
+              role="progressbar"
+              aria-label="Carousel autoplay progress"
+              aria-valuenow={Math.round(((activeIndex + 1) / HERO_SLIDES.length) * 100)}
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <div
+                ref={progressFillRef}
+                className="hero-progress-fill"
+              />
+            </div>
+          </div>
+
+          {/* Right: Prev & Next Navigation Buttons */}
+          <div className="hero-controls-right">
             <div className="hero-nav-arrow-group">
-              <button type="button" className="hero-nav-arrow prev" aria-label="이전 슬라이드">
-                <ChevronLeft size={20} />
+              <button
+                type="button"
+                className="hero-control-btn prev"
+                aria-label={t('common.prevSlide', 'Previous slide')}
+              >
+                <ChevronLeft size={18} />
               </button>
-              <button type="button" className="hero-nav-arrow next" aria-label="다음 슬라이드">
-                <ChevronRight size={20} />
+              <button
+                type="button"
+                className="hero-control-btn next"
+                aria-label={t('common.nextSlide', 'Next slide')}
+              >
+                <ChevronRight size={18} />
               </button>
             </div>
-            <div className="hero-custom-pagination" />
           </div>
         </div>
-      </Swiper>
-
-      {/* Embedded Search Modal */}
-      <DestinationSearchModal
-        isOpen={isSearchModalOpen}
-        onClose={() => setIsSearchModalOpen(false)}
-        onOpenQuoteModal={onOpenQuoteModal}
-      />
+      </div>
     </section>
   );
 };

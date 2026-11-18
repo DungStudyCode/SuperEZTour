@@ -1,193 +1,227 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { VIETNAM_DESTINATIONS, VIETNAM_REGIONS, getDestinationsByRegion } from '../../../../data/vietnamDestinations';
-import SectionHeading from '../../../../components/common/SectionHeading/SectionHeading';
-import Container from '../../../../components/common/Container/Container';
-import { MapPin, Star, Sparkles, ArrowRight, Clock, ShieldCheck, Compass, Info } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Sparkles, ArrowRight, MapPin } from 'lucide-react';
+import {
+  VIETNAM_DESTINATIONS,
+  VIETNAM_REGIONS,
+  getDestinationsByRegion,
+} from '../../../../data/vietnamDestinations';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './DestinationNavigation.css';
 
+/**
+ * Editorial Destination Strip — 5-Column Discovery Grid
+ * Light Luxury Korean Travel Editorial Experience
+ * 10 Verified Authentic Vietnam Destinations | Zero Broken Images
+ */
 const DestinationNavigation = ({ onOpenQuoteModal, onSelectDestination }) => {
   const [selectedRegion, setSelectedRegion] = useState('all');
-  const [comingSoonToast, setComingSoonToast] = useState(null);
+  const [failedImages, setFailedImages] = useState(() => new Set());
   const navigate = useNavigate();
+  const { t, isKorean } = useLanguage();
 
   const filteredDestinations = getDestinationsByRegion(selectedRegion);
 
-  const handleDestinationAction = (dest) => {
-    if (dest.isAvailable) {
-      navigate(dest.route);
+  const handleImageError = (destId) => {
+    setFailedImages((prev) => {
+      if (prev.has(destId)) return prev;
+      const next = new Set(prev);
+      next.add(destId);
+      return next;
+    });
+  };
+
+  const handleCardClick = (dest) => {
+    if (dest.id === 'da-nang' && dest.isAvailable) {
+      navigate(dest.route || '/destinations/da-nang');
     } else {
-      setComingSoonToast(dest);
+      if (onSelectDestination) {
+        onSelectDestination(dest.id);
+      }
+      if (onOpenQuoteModal) {
+        onOpenQuoteModal(dest.id);
+      }
     }
   };
 
-  const handleInquiryFromToast = (dest) => {
-    setComingSoonToast(null);
-    onSelectDestination && onSelectDestination(dest.id);
-    onOpenQuoteModal && onOpenQuoteModal(dest.id);
+  const handleViewAll = () => {
+    setSelectedRegion('all');
+    const el = document.getElementById('destinations');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
-    <section id="destinations" className="section destination-nav-section" aria-label="Vietnam Destinations">
-      <Container>
-        {/* Section Heading */}
-        <div className="dest-gallery-header">
-          <div className="dest-gallery-eyebrow">
-            <Sparkles size={14} className="text-gold" />
-            <span>VIETNAM DESTINATION COLLECTION</span>
+    <section
+      id="destinations"
+      className="editorial-dest-strip-section"
+      aria-label="Explore Vietnam Destinations"
+    >
+      <div className="dest-strip-container">
+        {/* =========================================================
+            01. SECTION HEADER: Editorial Left & Right Actions
+        ========================================================= */}
+        <div className="dest-strip-header">
+          <div className="dest-strip-header-left">
+            <span className="dest-strip-eyebrow">EXPLORE VIETNAM</span>
+            <h2 className="dest-strip-title">
+              {t(
+                'home.destinationStrip.title',
+                isKorean ? '베트남 여행지 둘러보기' : 'Khám phá điểm đến'
+              )}
+            </h2>
+            <p className="dest-strip-subtitle">
+              {t(
+                'home.destinationStrip.subtitle',
+                isKorean
+                  ? '베트남 곳곳의 매력적인 여행지를 만나보세요.'
+                  : 'Những hành trình được tuyển chọn trên khắp Việt Nam.'
+              )}
+            </p>
           </div>
-          <h2 className="dest-gallery-title">
-            베트남 10대 명품 여행지 갤러리
-          </h2>
-          <p className="dest-gallery-subtitle">
-            북부 고도(古都)의 역사부터 중부의 황금빛 해변, 남부의 에메랄드 섬까지.
-            <br />
-            모든 여정은 100% 단독 전용 리무진과 1:1 전담 한국어 가이드로 진행됩니다.
-          </p>
+
+          <div className="dest-strip-header-right">
+            <button
+              type="button"
+              className="dest-strip-viewall-btn"
+              onClick={handleViewAll}
+            >
+              <span>
+                {t(
+                  'home.destinationStrip.viewAll',
+                  isKorean ? '전체 여행지 10곳 보기' : 'Xem tất cả 10 điểm đến'
+                )}
+              </span>
+              <ArrowRight size={15} className="viewall-arrow" />
+            </button>
+          </div>
         </div>
 
-        {/* Region Filter Tabs */}
-        <div className="region-tabs-scroll">
-          <div className="region-tabs-wrapper">
-            {VIETNAM_REGIONS.map((region) => {
-              const count = region.id === 'all'
-                ? VIETNAM_DESTINATIONS.length
-                : VIETNAM_DESTINATIONS.filter((d) => d.region === region.id).length;
+        {/* =========================================================
+            02. REGION FILTER TABS: Clean Horizontal Text Tabs
+        ========================================================= */}
+        <div
+          className="dest-region-tabs-nav"
+          role="tablist"
+          aria-label="Filter destinations by region"
+        >
+          {VIETNAM_REGIONS.map((region) => {
+            const isActive = selectedRegion === region.id;
+            const regionLabel = isKorean ? region.nameKr : region.nameVi;
 
-              return (
-                <button
-                  key={region.id}
-                  type="button"
-                  className={`region-tab-btn ${selectedRegion === region.id ? 'is-active' : ''}`}
-                  onClick={() => setSelectedRegion(region.id)}
-                >
-                  <span className="tab-name-kr">{region.nameKr}</span>
-                  <span className="tab-name-en">{region.nameEn}</span>
-                  <span className="tab-count-badge">{count}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Coming Soon Alert Banner if selected */}
-        {comingSoonToast && (
-          <div className="dest-toast-banner animate-fade-in">
-            <div className="toast-left">
-              <Info size={20} className="toast-icon text-gold" />
-              <div className="toast-msg">
-                <strong>{comingSoonToast.nameKr} ({comingSoonToast.name})</strong> 인터랙티브 3D 투어는 현재 제작 준비 중(Coming Soon)입니다.
-                <span>맞춤 프라이빗 일정 설계 및 항공·리조트 수배는 전담 매니저를 통해 즉시 상담 가능합니다.</span>
-              </div>
-            </div>
-            <div className="toast-actions">
-              <button
-                type="button"
-                className="toast-inquiry-btn"
-                onClick={() => handleInquiryFromToast(comingSoonToast)}
-              >
-                <span>{comingSoonToast.nameKr} 1:1 맞춤 견적 문의</span>
-                <ArrowRight size={14} />
-              </button>
-              <button
-                type="button"
-                className="toast-close-btn"
-                onClick={() => setComingSoonToast(null)}
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Destinations Grid (10 Vietnam Destinations) */}
-        <div className="destinations-grid-lux">
-          {filteredDestinations.map((dest) => {
-            const isDaNang = dest.isAvailable;
             return (
-              <div
-                key={dest.id}
-                id={`dest-${dest.id}`}
-                className={`destination-card-lux ${isDaNang ? 'is-available-card' : 'is-coming-soon-card'}`}
+              <button
+                key={region.id}
+                type="button"
+                role="tab"
+                id={`region-tab-${region.id}`}
+                aria-selected={isActive}
+                aria-controls="destinations-grid"
+                className={`region-tab-item ${isActive ? 'is-active' : ''}`}
+                onClick={() => setSelectedRegion(region.id)}
               >
-                {/* Card Image Wrap */}
-                <div className="dest-img-wrap">
-                  <img
-                    src={dest.image}
-                    alt={`${dest.nameKr} (${dest.name}) - Super EZ Tour`}
-                    loading="lazy"
-                    className="dest-card-img"
-                  />
-                  <div className="dest-card-badges">
-                    {isDaNang ? (
-                      <span className="status-pill available">
-                        <Sparkles size={11} />
-                        AVAILABLE NOW
-                      </span>
-                    ) : (
-                      <span className="status-pill coming-soon">
-                        <Clock size={11} />
-                        준비 중 (Coming Soon)
-                      </span>
-                    )}
-                    <span className="region-pill">{dest.regionKr}</span>
-                  </div>
-
-                  <div className="dest-category-pill">
-                    <span>{dest.category}</span>
-                  </div>
-                </div>
-
-                {/* Card Body */}
-                <div className="dest-card-body">
-                  <div className="dest-name-row">
-                    <div className="name-group">
-                      <h3 className="name-kr">{dest.nameKr}</h3>
-                      <span className="name-en">{dest.name}</span>
-                    </div>
-                    <div className="rating-wrap">
-                      <Star size={14} className="star-icon" />
-                      <span className="rating-val">{dest.rating}</span>
-                      <span className="rating-cnt">({dest.reviewsCount})</span>
-                    </div>
-                  </div>
-
-                  <p className="dest-tagline-text">{dest.tagline}</p>
-
-                  {/* Highlights list */}
-                  <div className="dest-highlights-list">
-                    {dest.highlights.map((item, idx) => (
-                      <div key={idx} className="highlight-item">
-                        <span className="highlight-bullet">•</span>
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Card Action Footer */}
-                  <div className="dest-footer-action">
-                    {isDaNang ? (
-                      <Link to={dest.route} className="dest-action-btn available">
-                        <span>3D 인터랙티브 여정 체험하기</span>
-                        <ArrowRight size={15} />
-                      </Link>
-                    ) : (
-                      <button
-                        type="button"
-                        className="dest-action-btn coming-soon"
-                        onClick={() => handleDestinationAction(dest)}
-                      >
-                        <Clock size={14} />
-                        <span>준비 중 — 1:1 사전 맞춤 상담</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+                <span className="tab-label">{regionLabel}</span>
+                {isActive && <span className="tab-active-indicator" />}
+              </button>
             );
           })}
         </div>
-      </Container>
+
+        {/* =========================================================
+            03. DESTINATION CARDS GRID: 5-Column Desktop Layout
+        ========================================================= */}
+        <div
+          id="destinations-grid"
+          className="dest-strip-grid"
+          role="region"
+          aria-live="polite"
+        >
+          {filteredDestinations.map((dest) => {
+            const isDaNang = dest.id === 'da-nang' && dest.isAvailable;
+            const displayName = isKorean ? dest.nameKr : (dest.nameVi || dest.name);
+            const subName = isKorean ? (dest.nameVi || dest.name) : (dest.nameEn || dest.name);
+            const description = isKorean
+              ? (dest.stripDescKr || dest.tagline)
+              : (dest.stripDescVi || dest.taglineVi || dest.tagline);
+            const hasError = failedImages.has(dest.id);
+
+            return (
+              <article
+                key={dest.id}
+                className={`dest-strip-card ${isDaNang ? 'is-danang-live' : ''}`}
+                onClick={() => handleCardClick(dest)}
+                tabIndex={0}
+                role="button"
+                aria-label={`${displayName} (${subName}) - ${
+                  isDaNang
+                    ? (isKorean ? '3D 여행 둘러보기' : 'Khám phá 3D')
+                    : (isKorean ? '여행 상담하기' : 'Tư vấn chuyến đi')
+                }`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCardClick(dest);
+                  }
+                }}
+              >
+                {/* Media Container with 4:3 Ratio */}
+                <div className="card-media-wrap">
+                  {!hasError ? (
+                    <img
+                      src={dest.image}
+                      alt={`${displayName} - Super EZ Tour`}
+                      loading="lazy"
+                      className="card-media-img"
+                      onError={() => handleImageError(dest.id)}
+                      style={{
+                        objectPosition: dest.objectPosition || 'center center',
+                      }}
+                    />
+                  ) : (
+                    <div className="card-media-fallback" aria-label={displayName}>
+                      <div className="fallback-inner">
+                        <MapPin size={22} className="fallback-icon" />
+                        <span className="fallback-title">{displayName}</span>
+                        <span className="fallback-sub">{subName}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="card-media-overlay" />
+
+                  {/* Only Da Nang has the subtle 3D Interactive Badge */}
+                  {isDaNang && (
+                    <div className="card-live-badge">
+                      <Sparkles size={11} className="badge-sparkle-icon" />
+                      <span>{isKorean ? '3D 투어' : 'Tour 3D'}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Editorial Card Body */}
+                <div className="card-content-body">
+                  <div className="card-title-row">
+                    <h3 className="card-primary-name">{displayName}</h3>
+                    <span className="card-sub-name">{subName}</span>
+                  </div>
+
+                  <p className="card-tagline-text">{description}</p>
+
+                  <div className="card-footer-action">
+                    <span className="card-action-label">
+                      {isDaNang
+                        ? t('home.destinationStrip.ctaDaNang', isKorean ? '3D 여행 둘러보기' : 'Khám phá 3D')
+                        : t('home.destinationStrip.ctaConsult', isKorean ? '여행 상담하기' : 'Tư vấn chuyến đi')}
+                    </span>
+                    <ArrowRight size={13} className="card-action-arrow" />
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 };

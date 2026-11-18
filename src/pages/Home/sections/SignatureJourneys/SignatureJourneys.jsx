@@ -1,115 +1,245 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SIGNATURE_JOURNEYS } from '../../../../data/vietnamDestinations';
-import Container from '../../../../components/common/Container/Container';
-import { ShieldCheck, Sparkles, ArrowRight, Clock, CheckCircle2, UserCheck, Car } from 'lucide-react';
+import { ArrowRight, Sparkles, MapPin, Eye } from 'lucide-react';
+import { useLanguage } from '../../../../context/LanguageContext';
+import TourQuickPreview from '../../../../components/common/TourQuickPreview/TourQuickPreview';
 import './SignatureJourneys.css';
 
+/**
+ * Super EZ Tour — Premium Editorial Signature Journeys
+ * Light Luxury Korean Travel Editorial Concept
+ * 2-Column Desktop Grid | Quick Preview Modal Integration | Curated Photography
+ */
 const SignatureJourneys = ({ onOpenQuoteModal }) => {
-  return (
-    <section id="signature-journeys" className="section signature-journeys-section" aria-label="Signature Private Journeys">
-      <Container>
-        {/* Header */}
-        <div className="signature-header">
-          <div className="signature-eyebrow">
-            <Sparkles size={14} className="text-gold" />
-            <span>100% PRIVATE CURATED ITINERARIES</span>
-          </div>
-          <h2 className="signature-title">시그니처 프라이빗 여정 컬렉션</h2>
-          <p className="signature-subtitle">
-            다른 일행과의 불편한 합승 없이, 오직 우리 일행만을 위해 맞춤 설계된 프리미엄 단독 투어.
-            <br />
-            정해진 시간에 쫓기지 않고 원하는 순간 머무는 진정한 럭셔리 여행을 경험하세요.
-          </p>
+  const { t, isKorean } = useLanguage();
+  const navigate = useNavigate();
 
-          <div className="signature-guarantees-bar">
-            <div className="guarantee-chip">
-              <ShieldCheck size={16} className="text-gold" />
-              <span>100% 단독 전용 차량</span>
-            </div>
-            <div className="guarantee-chip">
-              <UserCheck size={16} className="text-gold" />
-              <span>1:1 전담 한국어 가이드</span>
-            </div>
-            <div className="guarantee-chip">
-              <Car size={16} className="text-gold" />
-              <span>쇼핑 0회 · 옵션 강요 0%</span>
-            </div>
+  const [selectedTour, setSelectedTour] = useState(null);
+  const [failedImages, setFailedImages] = useState(() => new Set());
+  const lastTriggerRef = useRef(null);
+
+  const handleImageError = (journeyId) => {
+    setFailedImages((prev) => {
+      if (prev.has(journeyId)) return prev;
+      const next = new Set(prev);
+      next.add(journeyId);
+      return next;
+    });
+  };
+
+  const handleCardClick = (journey, event) => {
+    lastTriggerRef.current = event?.currentTarget || null;
+    setSelectedTour(journey);
+  };
+
+  const handleClosePreview = () => {
+    setSelectedTour(null);
+    if (lastTriggerRef.current && lastTriggerRef.current.focus) {
+      lastTriggerRef.current.focus();
+    }
+  };
+
+  const handleConsultFromPreview = (tour) => {
+    handleClosePreview();
+    if (onOpenQuoteModal) {
+      onOpenQuoteModal({
+        destinationId: tour.destinationSlug,
+        tourId: tour.id,
+        tourTitle: isKorean ? (tour.titleKr || tour.title) : (tour.titleVi || tour.title),
+        duration: tour.durationKey || '4d3n',
+      });
+    }
+  };
+
+  const handleViewDetailsFromPreview = (tour) => {
+    handleClosePreview();
+    if (tour.isAvailable && tour.route) {
+      navigate(tour.route);
+    } else {
+      if (onOpenQuoteModal) {
+        onOpenQuoteModal({
+          destinationId: tour.destinationSlug,
+          tourId: tour.id,
+          tourTitle: isKorean ? (tour.titleKr || tour.title) : (tour.titleVi || tour.title),
+          duration: tour.durationKey || '4d3n',
+        });
+      }
+    }
+  };
+
+  return (
+    <section
+      id="signature-journeys"
+      className="signature-journeys-section"
+      aria-label="Signature Journeys"
+    >
+      <div className="signature-journeys-container">
+        {/* =========================================================
+            01. SECTION HEADER: Editorial Left-Aligned with Tagline
+        ========================================================= */}
+        <div className="signature-header">
+          <div className="signature-header-main">
+            <span className="signature-eyebrow">SIGNATURE JOURNEYS</span>
+            <h2 className="signature-title">
+              {t(
+                'home.journeys.title',
+                isKorean ? '당신만을 위한 특별한 여행' : 'Hành trình được thiết kế riêng'
+              )}
+            </h2>
+            <p className="signature-subtitle">
+              {t(
+                'home.journeys.subtitle',
+                isKorean
+                  ? '당신의 취향과 여행 스타일에 맞춰 엄선한 베트남의 특별한 여정을 만나보세요.'
+                  : 'Khám phá Việt Nam theo nhịp điệu của riêng bạn, với những trải nghiệm được lựa chọn kỹ lưỡng.'
+              )}
+            </p>
+          </div>
+
+          <div className="signature-header-aside">
+            <span className="signature-service-tagline">
+              {t(
+                'home.journeys.serviceTagline',
+                isKorean
+                  ? '전용 차량 · 전담 가이드 · 유연한 일정'
+                  : 'Xe riêng · Hướng dẫn viên đồng hành · Lịch trình linh hoạt'
+              )}
+            </span>
           </div>
         </div>
 
-        {/* Journeys Cards Grid */}
+        {/* =========================================================
+            02. JOURNEY CARDS GRID: 2-Column Desktop
+        ========================================================= */}
         <div className="signature-grid">
           {SIGNATURE_JOURNEYS.map((journey) => {
             const isDaNang = journey.isAvailable;
+            const title = isKorean
+              ? journey.titleKr || journey.title
+              : journey.titleVi || journey.title;
+            const description = isKorean
+              ? journey.descKr || journey.pacing
+              : journey.descVi || journey.pacingVi;
+            const destination = isKorean
+              ? journey.destinationKr || journey.destination
+              : journey.destinationVi || journey.destination;
+            const duration = isKorean
+              ? journey.durationKr || journey.duration
+              : journey.durationVi || journey.duration;
+            const highlights = (isKorean
+              ? journey.highlightsKr || journey.highlights
+              : journey.highlightsVi || journey.highlights
+            ).slice(0, 3);
+            const hasError = failedImages.has(journey.id);
+
             return (
-              <div
+              <article
                 key={journey.id}
-                className={`signature-card ${isDaNang ? 'is-available-tour' : 'is-coming-soon-tour'}`}
+                tabIndex={0}
+                role="button"
+                aria-haspopup="dialog"
+                aria-label={`${title} - ${t('tourPreview.cardQuickPreviewHint', isKorean ? '여행 빠른 미리보기' : 'Xem nhanh hành trình')}`}
+                className={`signature-card ${isDaNang ? 'is-featured' : ''}`}
+                onClick={(e) => handleCardClick(journey, e)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCardClick(journey, e);
+                  }
+                }}
               >
-                {/* Image */}
-                <div className="signature-img-wrap">
-                  <img src={journey.image} alt={journey.title} className="signature-card-img" />
-                  <div className="signature-badge-top">
-                    <span className={`tour-badge ${isDaNang ? 'gold-badge' : 'coming-soon-badge'}`}>
-                      {journey.badge}
+                {/* Card Media Container (~16:9 Aspect Ratio) */}
+                <div className="signature-card-media">
+                  {!hasError ? (
+                    <img
+                      src={journey.image}
+                      alt={`${title} - Super EZ Tour`}
+                      className="signature-card-img"
+                      loading="lazy"
+                      onError={() => handleImageError(journey.id)}
+                    />
+                  ) : (
+                    <div className="signature-media-fallback" aria-label={destination}>
+                      <MapPin size={26} className="fallback-pin-icon" />
+                      <span className="fallback-text">{destination}</span>
+                    </div>
+                  )}
+
+                  <div className="signature-media-overlay" />
+
+                  {/* Subtle Featured Badge for Da Nang */}
+                  {isDaNang && (
+                    <div className="signature-badge-featured">
+                      <Sparkles size={11} className="badge-sparkle-icon" />
+                      <span>{t('home.journeys.featuredTag', 'FEATURED')}</span>
+                    </div>
+                  )}
+
+                  {/* Hover Quick Preview Hint Pill */}
+                  <div className="signature-card-hover-hint">
+                    <Eye size={13} className="hint-icon" />
+                    <span>
+                      {t('tourPreview.cardQuickPreviewHint', isKorean ? '여행 빠른 미리보기' : 'Xem nhanh hành trình')}
                     </span>
-                    <span className="duration-pill">
-                      <Clock size={12} />
-                      {journey.duration}
-                    </span>
-                  </div>
-                  <div className="destination-location-tag">
-                    <span>{journey.destination}</span>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="signature-content">
-                  <div className="signature-title-group">
-                    <h3 className="journey-title-kr">{journey.title}</h3>
-                    <span className="journey-title-en">{journey.titleEn}</span>
+                {/* Card Body */}
+                <div className="signature-card-body">
+                  {/* Meta: Destination · Duration */}
+                  <div className="signature-meta-row">
+                    <span className="signature-meta-dest">{destination}</span>
+                    <span className="signature-meta-divider" aria-hidden="true">·</span>
+                    <span className="signature-meta-duration">{duration}</span>
                   </div>
 
-                  <div className="pacing-row">
-                    <span className="pacing-label">여정 스타일:</span>
-                    <span className="pacing-val">{journey.pacing}</span>
-                  </div>
+                  {/* Journey Title */}
+                  <h3 className="signature-card-title">{title}</h3>
 
-                  {/* Highlights checklist */}
-                  <ul className="signature-highlights">
-                    {journey.highlights.map((item, idx) => (
-                      <li key={idx} className="highlight-row">
-                        <CheckCircle2 size={15} className="check-icon text-gold" />
+                  {/* Short Emotional Description */}
+                  <p className="signature-card-desc">{description}</p>
+
+                  {/* 3 Concise Highlights */}
+                  <ul className="signature-highlights-list" aria-label="Journey highlights">
+                    {highlights.map((item, idx) => (
+                      <li key={idx} className="signature-highlight-item">
+                        <span className="highlight-bullet" aria-hidden="true" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* CTA Button */}
-                  <div className="signature-card-cta">
-                    {isDaNang ? (
-                      <Link to={`/destinations/${journey.destinationSlug}`} className="journey-btn available">
-                        <span>다낭 3D 인터랙티브 투어 & 일정 상세</span>
-                        <ArrowRight size={15} />
-                      </Link>
-                    ) : (
-                      <button
-                        type="button"
-                        className="journey-btn quote"
-                        onClick={() => onOpenQuoteModal && onOpenQuoteModal(journey.destinationSlug)}
-                      >
-                        <Sparkles size={14} />
-                        <span>사전 맞춤 견적 및 1:1 일정 상담</span>
-                      </button>
-                    )}
+                  {/* Unified Bottom CTA */}
+                  <div className="signature-card-cta-wrap">
+                    <div
+                      className={`signature-cta-btn ${isDaNang ? 'is-route' : 'is-quote'}`}
+                    >
+                      <span>
+                        {isDaNang
+                          ? t('home.journeys.viewJourney', isKorean ? '여행 자세히 보기' : 'Khám phá hành trình')
+                          : t('home.journeys.consultJourney', isKorean ? '여행 상담하기' : 'Tư vấn hành trình')}
+                      </span>
+                      <ArrowRight size={15} className="cta-arrow-icon" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
-      </Container>
+      </div>
+
+      {/* =========================================================
+          GLOBAL QUICK PREVIEW MODAL
+      ========================================================= */}
+      <TourQuickPreview
+        tour={selectedTour}
+        isOpen={Boolean(selectedTour)}
+        onClose={handleClosePreview}
+        onConsult={handleConsultFromPreview}
+        onViewDetails={handleViewDetailsFromPreview}
+      />
     </section>
   );
 };

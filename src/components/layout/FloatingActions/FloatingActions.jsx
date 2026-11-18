@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { MessageSquare, FileText, Phone, ArrowUp } from 'lucide-react';
+import { BRAND_CONFIG } from '../../../constants/brand.config';
+import { useLanguage } from '../../../context/LanguageContext';
 import './FloatingActions.css';
 
 const FloatingActions = ({ onOpenQuoteModal }) => {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const { t, isKorean } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,52 +19,56 @@ const FloatingActions = ({ onOpenQuoteModal }) => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
   return (
     <div className="floating-actions-container">
-      {/* 1:1 Chat Consultation */}
+      {/* 1:1 Consultation */}
       <button
         type="button"
         className="floating-btn chat-btn"
-        onClick={onOpenQuoteModal}
-        aria-label="Tư vấn trực tuyến 1:1"
-        title="Tư vấn trực tuyến 1:1"
+        onClick={() => onOpenQuoteModal && onOpenQuoteModal('kakao')}
+        aria-label={isKorean ? '1:1 상담' : 'Tư vấn 1:1'}
+        title={isKorean ? '1:1 실시간 상담' : 'Tư vấn 1:1'}
       >
         <span className="floating-btn-icon">
-          <MessageSquare size={20} />
+          <MessageSquare size={19} />
         </span>
-        <span className="floating-btn-label">Tư vấn 1:1</span>
+        <span className="floating-btn-label">
+          {isKorean ? '1:1 상담' : 'Tư vấn 1:1'}
+        </span>
       </button>
 
       {/* Quick Quote Request */}
       <button
         type="button"
         className="floating-btn quote-btn"
-        onClick={onOpenQuoteModal}
-        aria-label="Yêu cầu báo giá nhanh 30 phút"
-        title="Yêu cầu báo giá nhanh"
+        onClick={() => onOpenQuoteModal && onOpenQuoteModal()}
+        aria-label={isKorean ? '30분 빠른 견적' : 'Báo giá nhanh 30 phút'}
+        title={isKorean ? '30분 빠른 견적' : 'Báo giá nhanh 30 phút'}
       >
         <span className="floating-btn-icon">
-          <FileText size={20} />
+          <FileText size={19} />
         </span>
-        <span className="floating-btn-label">Báo giá 30'</span>
+        <span className="floating-btn-label">
+          {isKorean ? "30분 견적" : "Báo giá 30'"}
+        </span>
         <span className="floating-pulse-ring" />
       </button>
 
       {/* Direct Phone Call */}
       <a
-        href="tel:16440435"
+        href={`tel:${BRAND_CONFIG.contact.hotline.replace(/\s+/g, '')}`}
         className="floating-btn phone-btn"
-        aria-label="Gọi hotline 1644-0435"
-        title="Gọi tổng đài 1644-0435"
+        aria-label={`Hotline ${BRAND_CONFIG.contact.hotline}`}
+        title={`Hotline ${BRAND_CONFIG.contact.hotline}`}
       >
         <span className="floating-btn-icon">
-          <Phone size={20} />
+          <Phone size={19} />
         </span>
-        <span className="floating-btn-label">1644-0435</span>
+        <span className="floating-btn-label">{BRAND_CONFIG.contact.hotline}</span>
       </a>
 
       {/* Scroll to Top */}
@@ -70,10 +77,10 @@ const FloatingActions = ({ onOpenQuoteModal }) => {
           type="button"
           className="floating-btn top-btn animate-fade-in"
           onClick={scrollToTop}
-          aria-label="Cuộn lên đầu trang"
-          title="Lên đầu trang"
+          aria-label="Top"
+          title="Scroll to Top"
         >
-          <ArrowUp size={20} />
+          <ArrowUp size={19} />
         </button>
       )}
     </div>

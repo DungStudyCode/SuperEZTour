@@ -1,104 +1,167 @@
-/* Signature Private Journeys Section */
+/* =========================================================
+   SUPER EZ TOUR — SIGNATURE JOURNEYS EDITORIAL STYLING
+   Design Concept: Premium Editorial Journey Collection
+   Palette: Background #FAF9F7, Cards #FFFFFF, Text #24343B,
+            Secondary #718087, Warm Gold #B18B59, Brand Orange #E96932
+========================================================= */
 
 .signature-journeys-section {
-  background: #0d1726;
-  color: #ffffff;
-  padding: 85px 0 95px;
   position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+  background-color: #FAF9F7;
+  border-top: 1px solid #EAE6E0;
+  border-bottom: 1px solid #EAE6E0;
+  padding: 64px 0 76px;
+  box-sizing: border-box;
 }
 
+.signature-journeys-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   01. SECTION HEADER: Editorial Left-Aligned with Tagline
+========================================================= */
 .signature-header {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.signature-header-main {
+  max-width: 720px;
 }
 
 .signature-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  padding: 4px 14px;
-  border-radius: 9999px;
-  margin-bottom: 14px;
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #B18B59;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
 .signature-title {
-  font-size: 2.3rem;
-  font-weight: 900;
-  color: #ffffff;
-  margin: 0 0 12px 0;
-  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #24343B;
+  letter-spacing: -0.02em;
+  line-height: 1.26;
+  margin: 0 0 6px;
 }
 
 .signature-subtitle {
-  font-size: 0.95rem;
-  color: #94a3b8;
-  line-height: 1.6;
-  margin: 0 0 24px 0;
+  font-size: 0.925rem;
+  color: #718087;
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0;
 }
 
-.signature-guarantees-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
+.signature-header-aside {
+  flex-shrink: 0;
 }
 
-.guarantee-chip {
+.signature-service-tagline {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  font-size: 0.78rem;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE6E0;
+  color: #8C6D3F;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: #e2e8f0;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-/* Grid */
+/* =========================================================
+   02. JOURNEYS GRID: 2-Column Desktop Layout
+========================================================= */
 .signature-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  gap: 28px;
 }
 
 .signature-card {
-  background: #09101b;
-  border-radius: 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE6E0;
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease;
+  box-shadow: 0 2px 10px rgba(36, 52, 59, 0.03);
+  cursor: pointer;
+  outline: none;
+  text-align: left;
 }
 
 .signature-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(212, 175, 55, 0.4);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(212, 175, 55, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(36, 52, 59, 0.08);
+  border-color: #D6D0C7;
 }
 
-.signature-card.is-available-tour {
-  border-color: rgba(212, 175, 55, 0.45);
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.07) 0%, #09101b 100%);
+.signature-card:focus-visible {
+  outline: 2px solid #E96932;
+  outline-offset: 3px;
 }
 
-.signature-img-wrap {
+/* Card Hover Quick Preview Hint */
+.signature-card-hover-hint {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background-color: rgba(26, 43, 50, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.25s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.signature-card:hover .signature-card-hover-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hint-icon {
+  color: #E5C583;
+}
+
+/* =========================================================
+   03. CARD MEDIA: ~16:9 Aspect Ratio
+========================================================= */
+.signature-card-media {
   position: relative;
   width: 100%;
-  height: 240px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
+  background-color: #F1EEE8;
 }
 
 .signature-card-img {
@@ -106,186 +169,285 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
 
 .signature-card:hover .signature-card-img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-.signature-badge-top {
+.signature-media-overlay {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 2;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26, 43, 50, 0.02) 0%, rgba(26, 43, 50, 0.12) 100%);
+  pointer-events: none;
 }
 
-.tour-badge {
-  font-size: 0.68rem;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-}
-
-.tour-badge.gold-badge {
-  background: #d4af37;
-  color: #09101b;
-}
-
-.tour-badge.coming-soon-badge {
-  background: rgba(9, 16, 27, 0.85);
-  color: #94a3b8;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-}
-
-.duration-pill {
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 9999px;
-  background: rgba(9, 16, 27, 0.8);
-  color: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-}
-
-.destination-location-tag {
+/* Image Fallback */
+.signature-media-fallback {
   position: absolute;
-  bottom: 12px;
-  left: 14px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: #f1cf6d;
-  background: rgba(9, 16, 27, 0.85);
-  padding: 4px 10px;
-  border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  backdrop-filter: blur(4px);
-}
-
-/* Content */
-.signature-content {
-  padding: 24px;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  flex: 1;
-}
-
-.signature-title-group {
-  margin-bottom: 12px;
-}
-
-.journey-title-kr {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 4px 0;
-}
-
-.journey-title-en {
-  font-size: 0.82rem;
-  color: #94a3b8;
-}
-
-.pacing-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  margin-bottom: 18px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.pacing-label {
-  color: #94a3b8;
-  font-weight: 600;
-}
-
-.pacing-val {
-  color: #f1cf6d;
-  font-weight: 700;
-}
-
-/* Highlights */
-.signature-highlights {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.highlight-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.84rem;
-  color: #cbd5e1;
-  line-height: 1.45;
-}
-
-.check-icon {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* Card CTA */
-.signature-card-cta {
-  margin-top: auto;
-}
-
-.journey-btn {
-  width: 100%;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  background-color: #F7F5F1;
+  color: #8E9BA1;
+}
+
+.fallback-pin-icon {
+  color: #B18B59;
+}
+
+.fallback-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #24343B;
+}
+
+/* Featured Badge */
+.signature-badge-featured {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #E96932;
+  font-size: 10.5px;
   font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
+  letter-spacing: 0.08em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 2;
 }
 
-.journey-btn.available {
-  background: linear-gradient(135deg, #d4af37 0%, #b89628 100%);
-  color: #09101b;
-  border: 1px solid #d4af37;
+.badge-sparkle-icon {
+  color: #E96932;
 }
 
-.journey-btn.available:hover {
-  background: linear-gradient(135deg, #f1cf6d 0%, #d4af37 100%);
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+/* =========================================================
+   04. CARD BODY: Editorial Spacing & Proportions
+========================================================= */
+.signature-card-body {
+  padding: 24px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+/* Meta: Destination · Duration */
+.signature-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.775rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.signature-meta-dest {
+  color: #B18B59;
+}
+
+.signature-meta-divider {
+  color: #D6D0C7;
+  user-select: none;
+}
+
+.signature-meta-duration {
+  color: #718087;
+  font-weight: 600;
+}
+
+/* Journey Title */
+.signature-card-title {
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: #24343B;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  margin: 0 0 8px;
+}
+
+/* Emotional Description */
+.signature-card-desc {
+  font-size: 0.885rem;
+  color: #718087;
+  line-height: 1.55;
+  margin: 0 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.75em;
+}
+
+/* 3 Concise Highlights */
+.signature-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.signature-highlight-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.835rem;
+  color: #24343B;
+  line-height: 1.4;
+}
+
+.highlight-bullet {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #E96932;
+  flex-shrink: 0;
   transform: translateY(-2px);
 }
 
-.journey-btn.quote {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #e2e8f0;
+/* =========================================================
+   05. CARD CTA FOOTER
+========================================================= */
+.signature-card-cta-wrap {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #F1EEE8;
 }
 
-.journey-btn.quote:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #d4af37;
-  color: #f1cf6d;
+.signature-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: #FAF9F7;
+  color: #24343B;
+  border: 1px solid #EAE6E0;
 }
 
-@media (max-width: 900px) {
+.signature-cta-btn:hover {
+  background-color: #E96932;
+  color: #FFFFFF;
+  border-color: #E96932;
+  box-shadow: 0 4px 14px rgba(233, 105, 50, 0.24);
+}
+
+.signature-cta-btn:hover .cta-arrow-icon {
+  transform: translateX(4px);
+}
+
+.signature-cta-btn:focus-visible {
+  outline: 2px solid #E96932;
+  outline-offset: 2px;
+}
+
+.cta-arrow-icon {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   06. RESPONSIVE BREAKPOINTS
+========================================================= */
+@media (max-width: 1024px) {
+  .signature-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .signature-grid {
+    gap: 20px;
+  }
+
+  .signature-card-body {
+    padding: 20px 22px 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .signature-journeys-section {
+    padding: 48px 0 56px;
+  }
+
+  .signature-journeys-container {
+    padding: 0 16px;
+  }
+
+  .signature-header {
+    margin-bottom: 24px;
+  }
+
+  .signature-title {
+    font-size: 1.55rem;
+  }
+
+  .signature-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .signature-service-tagline {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+
   .signature-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .signature-card {
+    border-radius: 16px;
+  }
+
+  .signature-card-body {
+    padding: 18px 18px 20px;
+  }
+
+  .signature-card-title {
+    font-size: 1.18rem;
+  }
+
+  .signature-card-desc {
+    min-height: auto;
+    margin-bottom: 14px;
+  }
+
+  .signature-highlights-list {
+    margin-bottom: 16px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .signature-card,
+  .signature-card-img,
+  .signature-cta-btn,
+  .cta-arrow-icon {
+    transition: none !important;
+    transform: none !important;
   }
 }

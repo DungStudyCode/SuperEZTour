@@ -1,451 +1,457 @@
-/* Destination Navigation - Luxury Vietnam 10 Destinations Gallery */
+/* =========================================================
+   SUPER EZ TOUR — EDITORIAL DESTINATION STRIP
+   Design Direction: Light Luxury Korean Travel Editorial
+   Max-width: 1280px | 5-Column Discovery Grid | Responsive
+========================================================= */
 
-.destination-nav-section {
+.editorial-dest-strip-section {
   position: relative;
-  background: #09101b;
-  color: #ffffff;
-  padding: 80px 0 90px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  width: 100%;
+  background-color: #FFFFFF;
+  border-top: 1px solid #EFECE6;
+  border-bottom: 1px solid #EFECE6;
+  padding: 56px 0 64px;
 }
 
-.dest-gallery-header {
-  text-align: center;
-  max-width: 760px;
-  margin: 0 auto 36px;
+.dest-strip-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-.dest-gallery-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.72rem;
+/* =========================================================
+   01. SECTION HEADER: Editorial Left & Right
+========================================================= */
+.dest-strip-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.dest-strip-header-left {
+  max-width: 680px;
+}
+
+.dest-strip-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #E66B37;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.dest-strip-title {
+  font-size: 1.85rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  padding: 4px 14px;
-  border-radius: 9999px;
-  margin-bottom: 14px;
-}
-
-.dest-gallery-title {
-  font-size: 2.3rem;
-  font-weight: 900;
-  color: #ffffff;
+  color: #1A2B32;
   letter-spacing: -0.02em;
-  margin: 0 0 12px 0;
-  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1.25;
+  margin: 0 0 6px;
 }
 
-.dest-gallery-subtitle {
-  font-size: 0.95rem;
-  color: #94a3b8;
-  line-height: 1.6;
+.dest-strip-subtitle {
+  font-size: 0.925rem;
+  color: #64747B;
+  font-weight: 400;
+  line-height: 1.5;
   margin: 0;
 }
 
-/* Region Tabs */
-.region-tabs-scroll {
-  overflow-x: auto;
-  padding-bottom: 6px;
-  margin-bottom: 34px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.region-tabs-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: max-content;
-  margin: 0 auto;
-}
-
-.region-tab-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 22px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
-
-.region-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(212, 175, 55, 0.4);
-  color: #ffffff;
-}
-
-.region-tab-btn.is-active {
-  background: linear-gradient(135deg, #d4af37 0%, #b89628 100%);
-  color: #09101b;
-  border-color: #d4af37;
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
-}
-
-.tab-name-kr {
-  font-weight: 800;
-}
-
-.tab-name-en {
-  font-size: 0.72rem;
-  opacity: 0.8;
-}
-
-.tab-count-badge {
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.25);
-  color: inherit;
-}
-
-/* Toast Banner */
-.dest-toast-banner {
-  background: linear-gradient(90deg, rgba(212, 175, 55, 0.15) 0%, rgba(13, 23, 38, 0.95) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 12px;
-  padding: 14px 20px;
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.toast-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-}
-
-.toast-icon {
+.dest-strip-header-right {
   flex-shrink: 0;
 }
 
-.toast-msg {
-  font-size: 0.88rem;
-  color: #e2e8f0;
-  line-height: 1.4;
-}
-
-.toast-msg span {
-  display: block;
-  font-size: 0.78rem;
-  color: #94a3b8;
-  margin-top: 2px;
-}
-
-.toast-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.toast-inquiry-btn {
+.dest-strip-viewall-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  background: #d4af37;
-  color: #09101b;
-  font-size: 0.82rem;
-  font-weight: 800;
+  background: none;
   border: none;
+  padding: 6px 0;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1A2B32;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
-.toast-inquiry-btn:hover {
-  background: #f1cf6d;
+.viewall-arrow {
+  color: #E66B37;
+  transition: transform 0.2s ease;
 }
 
-.toast-close-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #cbd5e1;
-  padding: 7px 12px;
-  border-radius: 6px;
-  font-size: 0.78rem;
+.dest-strip-viewall-btn:hover {
+  color: #E66B37;
+}
+
+.dest-strip-viewall-btn:hover .viewall-arrow {
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   02. REGION FILTER TABS: Clean Horizontal Underline
+========================================================= */
+.dest-region-tabs-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  border-bottom: 1px solid #EBE7DF;
+  margin-bottom: 28px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dest-region-tabs-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.region-tab-item {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 10px 4px 14px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #64747B;
   cursor: pointer;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Destinations Grid */
-.destinations-grid-lux {
+.region-tab-item:hover {
+  color: #1A2B32;
+}
+
+.region-tab-item.is-active {
+  color: #1A2B32;
+  font-weight: 700;
+}
+
+.tab-active-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background-color: #E66B37;
+  border-radius: 2px 2px 0 0;
+}
+
+/* =========================================================
+   03. DESTINATION CARDS GRID (5-Column Desktop)
+========================================================= */
+.dest-strip-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
-.destination-card-lux {
-  background: #0d1726;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Destination Card */
+.dest-strip-card {
   display: flex;
   flex-direction: column;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background-color: #FFFFFF;
+  border: 1px solid #EAE6DF;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.3s ease;
+  outline: none;
 }
 
-.destination-card-lux:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.12);
-  border-color: rgba(212, 175, 55, 0.35);
+.dest-strip-card:focus-visible {
+  border-color: #E66B37;
+  box-shadow: 0 0 0 3px rgba(230, 107, 55, 0.2);
 }
 
-.destination-card-lux.is-available-card {
-  border-color: rgba(212, 175, 55, 0.4);
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, #0d1726 100%);
+.dest-strip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(26, 43, 50, 0.06);
+  border-color: #DDD7CB;
 }
 
-.destination-card-lux.is-available-card:hover {
-  border-color: #d4af37;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.25);
+.dest-strip-card.is-danang-live:hover {
+  border-color: #E66B37;
+  box-shadow: 0 10px 24px rgba(230, 107, 55, 0.1);
 }
 
-/* Card Image */
-.dest-img-wrap {
+/* Media Wrap: 4:3 Ratio */
+.card-media-wrap {
   position: relative;
   width: 100%;
-  height: 220px;
+  aspect-ratio: 4 / 3;
+  background-color: #F5F3EF;
   overflow: hidden;
-  background-color: #1e293b;
 }
 
-.dest-card-img {
+.card-media-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.destination-card-lux:hover .dest-card-img {
-  transform: scale(1.06);
+.dest-strip-card:hover .card-media-img {
+  transform: scale(1.04);
 }
 
-.dest-card-badges {
+/* Gentle, non-intrusive vignette */
+.card-media-overlay {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 43, 50, 0.08) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* Safe Neutral Fallback Placeholder */
+.card-media-fallback {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  z-index: 2;
+  justify-content: center;
+  background-color: #F8F6F1;
+  border-bottom: 1px solid #EAE6DF;
+  padding: 16px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.status-pill {
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 4px;
+.fallback-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.fallback-icon {
+  color: #E66B37;
+  opacity: 0.85;
+}
+
+.fallback-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1A2B32;
+  line-height: 1.2;
+}
+
+.fallback-sub {
+  font-size: 0.72rem;
+  color: #8C7D70;
+  font-weight: 500;
+}
+
+/* Da Nang 3D Exclusive Badge (Minimal) */
+.card-live-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  letter-spacing: 0.04em;
-}
-
-.status-pill.available {
-  background: #d4af37;
-  color: #09101b;
-  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
-}
-
-.status-pill.coming-soon {
-  background: rgba(9, 16, 27, 0.85);
-  color: #94a3b8;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-}
-
-.region-pill {
+  padding: 3px 8px;
   font-size: 0.68rem;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: rgba(9, 16, 27, 0.75);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
+  color: #FFFFFF;
+  background-color: #E66B37;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(230, 107, 55, 0.35);
+  line-height: 1.2;
 }
 
-.dest-category-pill {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  font-size: 0.7rem;
-  color: #f1cf6d;
-  background: rgba(9, 16, 27, 0.8);
-  padding: 3px 10px;
-  border-radius: 4px;
-  font-weight: 600;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  backdrop-filter: blur(4px);
+.badge-sparkle-icon {
+  flex-shrink: 0;
 }
 
 /* Card Body */
-.dest-card-body {
-  padding: 20px 22px;
+.card-content-body {
+  padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.dest-name-row {
+.card-title-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.name-group {
-  display: flex;
-  align-items: baseline;
   gap: 8px;
+  margin-bottom: 6px;
 }
 
-.name-kr {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #ffffff;
+.card-primary-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1A2B32;
   margin: 0;
+  line-height: 1.3;
 }
 
-.name-en {
-  font-size: 0.84rem;
-  color: #94a3b8;
-}
-
-.rating-wrap {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.card-sub-name {
   font-size: 0.78rem;
+  font-weight: 500;
+  color: #8C7D70;
+  white-space: nowrap;
 }
 
-.star-icon {
-  color: #f59e0b;
-  fill: #f59e0b;
-}
-
-.rating-val {
-  font-weight: 800;
-  color: #ffffff;
-}
-
-.rating-cnt {
-  color: #64748b;
-  font-size: 0.72rem;
-}
-
-.dest-tagline-text {
-  font-size: 0.84rem;
-  color: #cbd5e1;
-  line-height: 1.5;
-  margin: 0 0 14px 0;
-  min-height: 38px;
-}
-
-/* Highlights */
-.dest-highlights-list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-bottom: 20px;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.highlight-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  font-size: 0.76rem;
-  color: #94a3b8;
-  line-height: 1.4;
-}
-
-.highlight-bullet {
-  color: #d4af37;
-  font-weight: 900;
+.card-tagline-text {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #5A6E75;
+  margin: 0 0 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
 }
 
 /* Footer Action */
-.dest-footer-action {
-  margin-top: auto;
-}
-
-.dest-action-btn {
-  width: 100%;
-  display: inline-flex;
+.card-footer-action {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 11px 16px;
-  border-radius: 8px;
-  font-size: 0.86rem;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #F0EDE6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #E66B37;
 }
 
-.dest-action-btn.available {
-  background: linear-gradient(135deg, #d4af37 0%, #b89628 100%);
-  color: #09101b;
-  border: 1px solid #d4af37;
+.card-action-arrow {
+  transition: transform 0.2s ease;
 }
 
-.dest-action-btn.available:hover {
-  background: linear-gradient(135deg, #f1cf6d 0%, #d4af37 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+.dest-strip-card:hover .card-action-arrow {
+  transform: translateX(3px);
 }
 
-.dest-action-btn.coming-soon {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
+/* =========================================================
+   04. RESPONSIVE BREAKPOINTS
+========================================================= */
+
+/* 1024px – 1279px (Laptops): 4 Columns */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .dest-strip-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .dest-strip-title {
+    font-size: 1.7rem;
+  }
 }
 
-.dest-action-btn.coming-soon:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(212, 175, 55, 0.3);
-  color: #ffffff;
+/* 768px – 1023px (Tablets): 3 Columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .editorial-dest-strip-section {
+    padding: 44px 0 52px;
+  }
+  .dest-strip-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .dest-strip-title {
+    font-size: 1.55rem;
+  }
+  .dest-region-tabs-nav {
+    gap: 20px;
+  }
 }
 
-@media (max-width: 1100px) {
-  .destinations-grid-lux {
+/* Under 768px (Mobile Devices): 2 Columns */
+@media (max-width: 767px) {
+  .editorial-dest-strip-section {
+    padding: 36px 0 44px;
+  }
+
+  .dest-strip-container {
+    padding: 0 16px;
+  }
+
+  .dest-strip-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .dest-strip-title {
+    font-size: 1.45rem;
+  }
+
+  .dest-strip-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .dest-region-tabs-nav {
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  .region-tab-item {
+    font-size: 0.88rem;
+    padding: 8px 2px 12px;
+  }
+
+  .dest-strip-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card-content-body {
+    padding: 10px 12px 12px;
+  }
+
+  .card-primary-name {
+    font-size: 0.95rem;
+  }
+
+  .card-sub-name {
+    font-size: 0.72rem;
+  }
+
+  .card-tagline-text {
+    font-size: 0.74rem;
+    -webkit-line-clamp: 2;
+    margin-bottom: 8px;
+  }
+
+  .card-footer-action {
+    font-size: 0.72rem;
+    padding-top: 8px;
   }
 }
 
-@media (max-width: 640px) {
-  .destinations-grid-lux {
-    grid-template-columns: 1fr;
-  }
-  .dest-gallery-title {
-    font-size: 1.8rem;
-  }
-  .region-tabs-wrapper {
-    justify-content: flex-start;
+/* =========================================================
+   05. ACCESSIBILITY: REDUCED MOTION
+========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .dest-strip-card,
+  .card-media-img,
+  .viewall-arrow,
+  .card-action-arrow {
+    transition: none !important;
+    transform: none !important;
   }
 }

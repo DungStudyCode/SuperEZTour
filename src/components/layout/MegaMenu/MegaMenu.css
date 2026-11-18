@@ -1,405 +1,359 @@
-/* Luxury MegaMenu - Super EZ Tour */
+/* MegaMenu Component - Light Editorial Destination Experience
+   A Mega Menu is for navigation, not for selling everything at once. */
 
 .megamenu-overlay {
   position: fixed;
   inset: 0;
-  top: var(--header-height-total, 120px);
-  background-color: rgba(5, 12, 24, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 1000;
-  animation: megaFadeIn 0.25s ease forwards;
+  top: 76px;
+  background: rgba(36, 52, 59, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
 }
 
-.header-sticky .megamenu-overlay {
-  top: var(--header-height-sticky, 70px);
-}
-
-@keyframes megaFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.site-header.header-sticky ~ div .megamenu-overlay {
+  top: 76px;
 }
 
 .megamenu-panel {
-  background: #0d1726;
-  border-bottom: 2px solid #d4af37;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-  padding: 30px 0 24px;
+  width: 100%;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E9E6DF;
+  box-shadow: 0 20px 48px rgba(36, 52, 59, 0.08);
+  padding: 30px 0 26px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
 }
 
 .megamenu-container {
-  max-width: 1320px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
+/* =========================================================
+   01. EDITORIAL HEADER
+========================================================= */
 .megamenu-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding-bottom: 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E9E6DF;
 }
 
-.megamenu-badge {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: #d4af37;
-  background-color: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  padding: 3px 10px;
-  border-radius: 9999px;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-}
-
-.megamenu-title {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-  margin: 0 0 4px 0;
-}
-
-.megamenu-subtitle {
-  font-size: 0.85rem;
-  color: #94a3b8;
-  margin: 0;
-}
-
-.megamenu-all-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #d4af37;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.megamenu-all-link:hover {
-  background: #d4af37;
-  color: #0d1726;
-  transform: translateY(-1px);
-}
-
-/* 4-Column Grid: North, Central, South, Spotlight */
-.megamenu-grid-lux {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1.3fr;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.megamenu-region-col {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 18px 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-.megamenu-region-col.central-featured-col {
-  border-color: rgba(212, 175, 55, 0.3);
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-}
-
-.region-col-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  margin-bottom: 12px;
-}
-
-.region-badge-pill {
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.06em;
-}
-
-.region-badge-pill.north {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-}
-
-.region-badge-pill.central {
-  background: rgba(212, 175, 55, 0.2);
-  color: #f1cf6d;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-}
-
-.region-badge-pill.south {
-  background: rgba(244, 114, 182, 0.15);
-  color: #f472b6;
-  border: 1px solid rgba(244, 114, 182, 0.3);
-}
-
-.region-titles {
-  display: flex;
-  flex-direction: column;
-}
-
-.region-name-kr {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.region-name-en {
+.megamenu-kicker {
+  display: block;
   font-size: 0.72rem;
-  color: #94a3b8;
-}
-
-/* Destination List inside Region Column */
-.megamenu-dest-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.megamenu-dest-item {
-  width: 100%;
-}
-
-.megamenu-dest-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  text-align: left;
-}
-
-.megamenu-dest-btn.available-link {
-  background: rgba(212, 175, 55, 0.12);
-  border-color: rgba(212, 175, 55, 0.35);
-}
-
-.megamenu-dest-btn.available-link:hover {
-  background: rgba(212, 175, 55, 0.22);
-  border-color: #d4af37;
-  transform: translateX(3px);
-}
-
-.megamenu-dest-btn.coming-soon-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.dest-btn-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dest-bullet {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #475569;
-}
-
-.dest-bullet.gold-pulse {
-  background: #d4af37;
-  box-shadow: 0 0 8px #d4af37;
-}
-
-.dest-text-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.dest-kr {
-  font-size: 0.88rem;
   font-weight: 700;
-  color: #e2e8f0;
-}
-
-.dest-kr.gold-text {
-  color: #ffd966;
-  font-size: 0.94rem;
-}
-
-.dest-en {
-  font-size: 0.72rem;
-  color: #94a3b8;
-}
-
-.dest-status-badge {
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 3px 6px;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.dest-status-badge.available-badge {
-  background: #d4af37;
-  color: #0b1320;
-}
-
-.dest-status-badge.coming-soon {
-  background: rgba(255, 255, 255, 0.06);
-  color: #94a3b8;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Spotlight Box */
-.megamenu-spotlight-box {
-  background: #09101b;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.spotlight-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 2;
-  font-size: 0.62rem;
-  font-weight: 800;
-  background: #d4af37;
-  color: #0b1320;
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-}
-
-.spotlight-image-wrap {
-  position: relative;
-  height: 100%;
-  min-height: 220px;
-  overflow: hidden;
-}
-
-.spotlight-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.megamenu-spotlight-box:hover .spotlight-img {
-  transform: scale(1.05);
-}
-
-.spotlight-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(9, 16, 27, 0.2) 0%, rgba(9, 16, 27, 0.95) 85%);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.spotlight-dest-tag {
-  font-size: 0.72rem;
-  color: #d4af37;
-  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #B18B59;
   margin-bottom: 4px;
 }
 
-.spotlight-headline {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 4px 0;
+.megamenu-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #24343B;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.spotlight-desc {
-  font-size: 0.76rem;
-  color: #cbd5e1;
-  line-height: 1.4;
-  margin: 0 0 12px 0;
-}
-
-.spotlight-cta-btn {
+.megamenu-view-all {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #d4af37;
-  color: #09101b;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #718087;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
+  padding: 4px 0;
 }
 
-.spotlight-cta-btn:hover {
-  background: #ffd966;
-  transform: translateY(-1px);
+.megamenu-view-all:hover {
+  color: #E66B37;
 }
 
-/* Footer Trust Banner */
-.megamenu-footer-banner {
+.view-all-arrow {
+  transition: transform 0.2s ease;
+}
+
+.megamenu-view-all:hover .view-all-arrow {
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   02. THREE REGION COLUMNS (No Card Borders / Clean Whitespace)
+========================================================= */
+.megamenu-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin: 26px 0 24px;
+}
+
+.megamenu-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #E9E6DF;
+  margin-bottom: 12px;
+}
+
+.column-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B18B59;
+}
+
+.column-dest-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dest-list-item {
+  width: 100%;
+}
+
+.dest-item-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
-  color: #cbd5e1;
-  font-size: 0.78rem;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  font-family: inherit;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  text-align: left;
 }
 
-.megamenu-feature-item {
+/* Disabled / Coming soon destinations */
+.dest-item-btn.is-coming-soon {
+  color: #718087;
+}
+
+.dest-item-btn.is-coming-soon .dest-item-name {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #718087;
+  transition: color 0.2s ease;
+}
+
+.dest-item-btn.is-coming-soon .dest-item-arrow {
+  color: #A0ABB0;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dest-item-btn.is-coming-soon:hover,
+.dest-item-btn.is-coming-soon:focus-visible {
+  background-color: #FAF9F6;
+}
+
+.dest-item-btn.is-coming-soon:hover .dest-item-name,
+.dest-item-btn.is-coming-soon:focus-visible .dest-item-name {
+  color: #24343B;
+}
+
+.dest-item-btn.is-coming-soon:hover .dest-item-arrow,
+.dest-item-btn.is-coming-soon:focus-visible .dest-item-arrow {
+  opacity: 0.7;
+  transform: translateX(0);
+}
+
+/* Available destinations (Da Nang) */
+.dest-item-btn.is-available {
+  color: #24343B;
+}
+
+.dest-item-btn.is-available .dest-item-name {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #24343B;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: color 0.2s ease;
+}
+
+.available-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #E66B37;
+  box-shadow: 0 0 6px rgba(230, 107, 55, 0.45);
+}
+
+.dest-item-btn.is-available .dest-item-arrow {
+  color: #718087;
+  opacity: 0.5;
+  transform: translateX(-2px);
+  transition: all 0.2s ease;
+}
+
+.dest-item-btn.is-available:hover,
+.dest-item-btn.is-available:focus-visible {
+  background-color: #FFF9F5;
+}
+
+.dest-item-btn.is-available:hover .dest-item-name,
+.dest-item-btn.is-available:focus-visible .dest-item-name {
+  color: #E66B37;
+}
+
+.dest-item-btn.is-available:hover .dest-item-arrow,
+.dest-item-btn.is-available:focus-visible .dest-item-arrow {
+  opacity: 1;
+  color: #E66B37;
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   03. FEATURED EDITORIAL STRIP (Light & Compact)
+========================================================= */
+.megamenu-strip-section {
+  padding-top: 18px;
+  border-top: 1px solid #E9E6DF;
+}
+
+.megamenu-editorial-strip {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 18px;
+  background-color: #FAF9F6;
+  border: 1px solid #EBE7DF;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.feature-icon {
-  color: #d4af37;
+.megamenu-editorial-strip:hover,
+.megamenu-editorial-strip:focus-visible {
+  background-color: #F5F2EB;
+  border-color: #DDD7CB;
+  box-shadow: 0 6px 18px rgba(36, 52, 59, 0.05);
 }
 
-.feature-icon.star {
-  color: #f59e0b;
+.strip-media-wrap {
+  flex-shrink: 0;
+  width: 130px;
+  height: 80px;
+  border-radius: 7px;
+  overflow: hidden;
+  background-color: #EAE6DF;
 }
 
-@media (max-width: 1100px) {
-  .megamenu-grid-lux {
-    grid-template-columns: 1fr 1fr 1fr;
+.strip-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+  display: block;
+}
+
+.megamenu-editorial-strip:hover .strip-media-img {
+  transform: scale(1.03);
+}
+
+.strip-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.strip-kicker {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #B18B59;
+  margin-bottom: 3px;
+}
+
+.strip-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #24343B;
+  margin: 0 0 3px 0;
+  transition: color 0.2s ease;
+}
+
+.megamenu-editorial-strip:hover .strip-title {
+  color: #E66B37;
+}
+
+.strip-desc {
+  font-size: 0.8rem;
+  color: #718087;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.strip-arrow-wrap {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 1px solid #E2DED6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #24343B;
+  transition: all 0.25s ease;
+}
+
+.megamenu-editorial-strip:hover .strip-arrow-wrap {
+  background-color: #E66B37;
+  border-color: #E66B37;
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.strip-arrow-icon {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   04. TRANSITIONS & RESPONSIVE
+========================================================= */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
   }
-  .megamenu-spotlight-box {
-    display: none;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide {
+  animation: fadeSlideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide desktop MegaMenu on tablets & mobile (< 1024px) */
+@media (max-width: 1023px) {
+  .megamenu-overlay {
+    display: none !important;
   }
 }

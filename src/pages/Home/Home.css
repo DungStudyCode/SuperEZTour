@@ -1,5 +1,22 @@
+/* Light Korean Travel Editorial Theme Tokens */
 .home-page-main {
   width: 100%;
   position: relative;
   overflow: hidden;
+  background-color: #FAF9F6;
+  color: #24343B;
+  font-family: 'Noto Sans KR', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --korean-bg-primary: #FAF9F6;
+  --korean-bg-secondary: #F1EEE8;
+  --korean-bg-card: #FFFFFF;
+  --korean-text-primary: #24343B;
+  --korean-text-secondary: #64747B;
+  --korean-text-muted: #8E9BA1;
+  --korean-accent-orange: #E66B37;
+  --korean-accent-gold: #C5A67A;
+  --korean-border-subtle: #E7E3DC;
+  --korean-border-card: rgba(231, 227, 220, 0.9);
+  --korean-shadow-sm: 0 2px 8px rgba(36, 52, 59, 0.04);
+  --korean-shadow-md: 0 8px 24px rgba(36, 52, 59, 0.06);
+  --korean-shadow-lg: 0 16px 40px rgba(36, 52, 59, 0.08);
 }

@@ -2,57 +2,70 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { REVIEWS } from '../../../../data/reviews';
-import SectionHeading from '../../../../components/common/SectionHeading/SectionHeading';
 import Container from '../../../../components/common/Container/Container';
-import { Star, CheckCircle2, ChevronLeft, ChevronRight, ThumbsUp, MapPin, Quote } from 'lucide-react';
+import { Star, CheckCircle2, ChevronLeft, ChevronRight, ThumbsUp, MapPin, Quote, Sparkles } from 'lucide-react';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './TravelReviews.css';
 
 const TravelReviews = () => {
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const { t, isKorean } = useLanguage();
 
   const filterOptions = [
-    { id: 'all', label: 'Tất cả đánh giá' },
-    { id: 'Cebu', label: 'Cebu' },
-    { id: 'Đà Nẵng', label: 'Đà Nẵng' },
-    { id: 'Bali', label: 'Bali' },
-    { id: 'Kota Kinabalu', label: 'Kota Kinabalu' },
-    { id: 'Boracay', label: 'Boracay' }
+    { id: 'all', label: isKorean ? '전체 후기' : 'Tất cả đánh giá' },
+    { id: 'da-nang', label: isKorean ? '다낭' : 'Đà Nẵng' },
+    { id: 'ha-noi', label: isKorean ? '하노이' : 'Hà Nội' },
+    { id: 'ha-long', label: isKorean ? '하롱베이' : 'Hạ Long' },
+    { id: 'phu-quoc', label: isKorean ? '푸꾸옥' : 'Phú Quốc' },
+    { id: 'sa-pa', label: isKorean ? '사파' : 'Sa Pa' },
   ];
 
   const filteredReviews = selectedFilter === 'all'
     ? REVIEWS
-    : REVIEWS.filter((r) => r.destination === selectedFilter);
+    : REVIEWS.filter((r) => r.destinationId === selectedFilter);
 
   return (
-    <section id="reviews" className="section travel-reviews-section">
+    <section id="reviews" className="section travel-reviews-section" aria-label="Customer Reviews">
       <Container>
         {/* Section Header */}
         <div className="reviews-header-wrap">
-          <SectionHeading
-            tagline="85,000+ KHÁCH HÀNG ĐÃ TRẢI NGHIỆM"
-            title="Đánh giá thực tế từ du khách"
-            subtitle="100% cảm nhận chân thực của khách hàng đã sử dụng dịch vụ tour riêng không ghép đoàn của Super EZ Tour tại các điểm đến Châu Á."
-            align="left"
-          />
+          <div className="reviews-heading-left">
+            <div className="reviews-eyebrow">
+              <Sparkles size={14} className="text-orange" />
+              <span>
+                {isKorean ? '85,000+ 고객이 직접 경험한 신뢰' : '85,000+ KHÁCH HÀNG ĐÃ TRẢI NGHIỆM'}
+              </span>
+            </div>
+            <h2 className="reviews-main-title">
+              {isKorean ? '실제 여행객의 생생한 프라이빗 투어 후기' : 'Đánh giá thực tế từ du khách'}
+            </h2>
+            <p className="reviews-sub-desc">
+              {isKorean
+                ? 'Super EZ Tour 100% 단독 프라이빗 투어를 직접 이용하신 고객님들의 솔직한 이용 후기입니다.'
+                : '100% cảm nhận chân thực của khách hàng đã sử dụng dịch vụ tour riêng không ghép đoàn của Super EZ Tour.'}
+            </p>
+          </div>
 
           {/* Overall Rating Score Widget */}
           <div className="overall-rating-card">
             <div className="rating-score-large">
-              <span className="score-num">4.95</span>
+              <span className="score-num">4.98</span>
               <span className="score-max">/5.0</span>
             </div>
             <div className="rating-stars-group">
               <div className="stars-row">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={18} className="star-fill" />
+                  <Star key={i} size={16} className="star-fill" />
                 ))}
               </div>
-              <span className="rating-desc">Hơn 82,400+ đánh giá 5 sao</span>
+              <span className="rating-desc">
+                {isKorean ? '82,400+ 건 이상의 5점 만점 평가' : 'Hơn 82,400+ đánh giá 5 sao'}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Filter Chips */}
+        {/* Filter Chips & Arrows */}
         <div className="review-filters-bar">
           <div className="review-filters-scroll">
             {filterOptions.map((opt) => (
@@ -69,11 +82,11 @@ const TravelReviews = () => {
 
           {/* Navigation Arrows */}
           <div className="reviews-carousel-arrows">
-            <button type="button" className="rev-arrow-btn rev-prev" aria-label="Đánh giá trước">
-              <ChevronLeft size={20} />
+            <button type="button" className="rev-arrow-btn rev-prev" aria-label="Previous Reviews">
+              <ChevronLeft size={18} />
             </button>
-            <button type="button" className="rev-arrow-btn rev-next" aria-label="Đánh giá tiếp theo">
-              <ChevronRight size={20} />
+            <button type="button" className="rev-arrow-btn rev-next" aria-label="Next Reviews">
+              <ChevronRight size={18} />
             </button>
           </div>
         </div>
@@ -86,103 +99,99 @@ const TravelReviews = () => {
             slidesPerView={1}
             navigation={{
               prevEl: '.rev-arrow-btn.rev-prev',
-              nextEl: '.rev-arrow-btn.rev-next'
+              nextEl: '.rev-arrow-btn.rev-next',
             }}
             pagination={{
               clickable: true,
-              dynamicBullets: true
+              dynamicBullets: true,
             }}
             autoplay={{
               delay: 4500,
-              disableOnInteraction: false
+              disableOnInteraction: false,
             }}
             breakpoints={{
               640: {
-                slidesPerView: 1.5,
-                spaceBetween: 20
-              },
-              768: {
                 slidesPerView: 2,
-                spaceBetween: 20
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 24
-              }
+              },
             }}
             className="reviews-swiper"
           >
-            {filteredReviews.map((review) => (
-              <SwiperSlide key={review.id} className="review-slide">
-                <div className="review-card">
-                  {/* Card Image */}
-                  {review.tripImage && (
-                    <div className="review-card-media hover-zoom-container">
-                      <img
-                        src={review.tripImage}
-                        alt={review.title}
-                        loading="lazy"
-                        className="review-img hover-zoom-image"
-                      />
-                      <div className="review-dest-pill">
-                        <MapPin size={12} />
-                        <span>{review.destination}, {review.country}</span>
+            {filteredReviews.map((rev) => {
+              const reviewerName = isKorean ? rev.reviewerMasked : rev.reviewerMaskedVi;
+              const destName = isKorean ? rev.destination : rev.destinationVi;
+              const packName = isKorean ? rev.packName : rev.packNameVi;
+              const reviewTitle = isKorean ? rev.title : rev.titleVi;
+              const reviewContent = isKorean ? rev.content : rev.contentVi;
+
+              return (
+                <SwiperSlide key={rev.id}>
+                  <div className="review-card-lux">
+                    {/* Header */}
+                    <div className="rev-card-header">
+                      <div className="rev-user-profile">
+                        <img
+                          src={rev.avatar}
+                          alt={reviewerName}
+                          className="rev-user-avatar"
+                          loading="lazy"
+                        />
+                        <div className="rev-user-info">
+                          <strong className="rev-user-name">{reviewerName} 고객님</strong>
+                          <span className="rev-pack-name">{packName}</span>
+                        </div>
                       </div>
-                      <div className="review-pack-pill">
-                        {review.packName}
+                      <div className="rev-badge-tag">
+                        <MapPin size={11} className="text-orange" />
+                        <span>{destName}</span>
                       </div>
                     </div>
-                  )}
 
-                  <div className="review-card-body">
-                    {/* Rating & Verified */}
-                    <div className="review-meta-row">
-                      <div className="review-stars">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} size={15} className="star-fill" />
+                    {/* Stars & Verified */}
+                    <div className="rev-stars-row">
+                      <div className="rev-stars-list">
+                        {[...Array(rev.rating)].map((_, i) => (
+                          <Star key={i} size={14} className="star-fill" />
                         ))}
                       </div>
-                      {review.verified && (
-                        <div className="verified-badge">
-                          <CheckCircle2 size={13} className="text-success" />
-                          <span>Khách hàng xác thực</span>
-                        </div>
+                      {rev.verified && (
+                        <span className="rev-verified-pill">
+                          <CheckCircle2 size={12} />
+                          <span>{isKorean ? '실제 이용 검증' : 'Đã xác thực'}</span>
+                        </span>
                       )}
                     </div>
 
-                    {/* Title */}
-                    <h3 className="review-title">
-                      {review.title}
-                    </h3>
+                    {/* Body */}
+                    <h3 className="rev-body-title">{reviewTitle}</h3>
+                    <p className="rev-body-desc">{reviewContent}</p>
 
-                    {/* Content (Line clamped) */}
-                    <p className="review-content line-clamp-3">
-                      "{review.content}"
-                    </p>
-
-                    {/* Reviewer Details */}
-                    <div className="review-author-row">
-                      <div className="author-info">
+                    {/* Trip Photo Preview */}
+                    {rev.tripImage && (
+                      <div className="rev-photo-wrap">
                         <img
-                          src={review.avatar}
-                          alt={review.reviewer}
-                          className="author-avatar"
+                          src={rev.tripImage}
+                          alt={reviewTitle}
+                          className="rev-photo-img"
+                          loading="lazy"
                         />
-                        <div className="author-names">
-                          <span className="author-name">{review.reviewerMasked}</span>
-                          <span className="review-date">{review.date}</span>
-                        </div>
                       </div>
+                    )}
 
-                      <div className="review-likes">
-                        <ThumbsUp size={14} />
-                        <span>{review.likes}</span>
+                    {/* Footer */}
+                    <div className="rev-card-footer">
+                      <span className="rev-date">{rev.date}</span>
+                      <div className="rev-helpful">
+                        <ThumbsUp size={13} />
+                        <span>{rev.likes}</span>
                       </div>
                     </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </Container>
