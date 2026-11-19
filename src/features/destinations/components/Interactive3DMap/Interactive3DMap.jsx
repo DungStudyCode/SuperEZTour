@@ -356,10 +356,15 @@ const Interactive3DMap = ({ attractionsData }) => {
                 <span class="marker-beacon-dot"></span>
               </div>
               <div class="marker-floating-label">
-                <span class="marker-name">${dest.name}</span>
-                <span class="marker-alt">${dest.elevation}</span>
+                <span class="marker-name"></span>
+                <span class="marker-alt"></span>
               </div>
             `;
+
+            const nameEl = el.querySelector('.marker-name');
+            if (nameEl) nameEl.textContent = dest.name || '';
+            const altEl = el.querySelector('.marker-alt');
+            if (altEl) altEl.textContent = dest.elevation || '';
 
             el.addEventListener('click', (e) => {
               e.stopPropagation();
@@ -393,6 +398,30 @@ const Interactive3DMap = ({ attractionsData }) => {
       }
     };
   }, []);
+
+  // =========================================================================
+  // 2. REACTIVE MARKER LOCALIZATION (Updates marker labels safely on KO <-> VI)
+  // Uses stable destination IDs; modifies textContent without recreating Map
+  // =========================================================================
+  useEffect(() => {
+    if (!markersRef.current.length || !destinations.length) return;
+    markersRef.current.forEach((marker) => {
+      const el = marker.getElement();
+      if (!el) return;
+      const id = el.dataset.id;
+      const dest = destinations.find((d) => d.id === id);
+      if (dest) {
+        const nameEl = el.querySelector('.marker-name');
+        if (nameEl && nameEl.textContent !== dest.name) {
+          nameEl.textContent = dest.name;
+        }
+        const altEl = el.querySelector('.marker-alt');
+        if (altEl && dest.elevation && altEl.textContent !== dest.elevation) {
+          altEl.textContent = dest.elevation;
+        }
+      }
+    });
+  }, [destinations]);
 
   // =========================================================================
   // 2. UPDATE ROUTE CURVE WHEN SELECTIONS CHANGE (LIVING ITINERARY ROUTE)

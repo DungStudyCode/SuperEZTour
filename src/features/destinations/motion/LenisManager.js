@@ -5,10 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 let lenisInstance = null;
+let tickerCallback = null;
+let scrollHandler = null;
 
 /**
  * Initialize Lenis Smooth Scroll and synchronize with GSAP ScrollTrigger
- * @returns {Lenis}
+ * @returns {Lenis|null}
  */
 export function initSmoothScroll() {
   if (typeof window === 'undefined') return null;
@@ -19,8 +21,9 @@ export function initSmoothScroll() {
     return null;
   }
 
+  // If active instance already exists, reuse it without recreation
   if (lenisInstance) {
-    lenisInstance.destroy();
+    return lenisInstance;
   }
 
   lenisInstance = new Lenis({
@@ -34,12 +37,19 @@ export function initSmoothScroll() {
     infinite: false,
   });
 
-  // Synchronize Lenis with ScrollTrigger
-  lenisInstance.on('scroll', ScrollTrigger.update);
+  // Synchronize Lenis with ScrollTrigger using a named reference
+  scrollHandler = () => {
+    ScrollTrigger.update();
+  };
+  lenisInstance.on('scroll', scrollHandler);
 
-  gsap.ticker.add((time) => {
-    lenisInstance?.raf(time * 1000);
-  });
+  // Single named ticker callback attached to GSAP ticker
+  tickerCallback = (time) => {
+    if (lenisInstance) {
+      lenisInstance.raf(time * 1000);
+    }
+  };
+  gsap.ticker.add(tickerCallback);
 
   gsap.ticker.lagSmoothing(0);
 
@@ -47,7 +57,18 @@ export function initSmoothScroll() {
 }
 
 export function destroySmoothScroll() {
+  // Cleanly remove GSAP ticker callback via exact reference
+  if (tickerCallback) {
+    gsap.ticker.remove(tickerCallback);
+    tickerCallback = null;
+  }
+
+  // Remove Lenis scroll listener and destroy instance
   if (lenisInstance) {
+    if (scrollHandler) {
+      lenisInstance.off('scroll', scrollHandler);
+      scrollHandler = null;
+    }
     lenisInstance.destroy();
     lenisInstance = null;
   }

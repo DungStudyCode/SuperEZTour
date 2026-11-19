@@ -39,8 +39,29 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
   const destinationMeta = VIETNAM_DESTINATIONS.find((d) => d.id === slug) || null;
   const { openNewConsultation } = useConsultation();
 
+  // 1. ROUTE LIFECYCLE: Mount, Unmount & Destination navigation ([slug])
   useEffect(() => {
-    // Dynamic SEO Metadata
+    // Scroll to top ONLY upon landing on a new destination
+    window.scrollTo(0, 0);
+
+    // Initialize smooth scroll instance
+    initSmoothScroll();
+
+    // Initial layout stabilization after landing
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
+
+    return () => {
+      clearTimeout(timer);
+      destroySmoothScroll();
+      // Notice: No global ScrollTrigger.getAll().kill()!
+      // Each individual 3D scene owns and cleans up its own GSAP/Three.js resources on unmount.
+    };
+  }, [slug]);
+
+  // 2. LANGUAGE & SEO METADATA LIFECYCLE
+  useEffect(() => {
     const origTitle = document.title;
     const origLang = document.documentElement.lang;
 
@@ -49,7 +70,6 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
         ? destinationMeta?.nameKr || slug
         : destinationMeta?.nameVi || slug;
       document.title = `${destTitle} — Super EZ Tour | Tour Riêng 100%`;
-      window.scrollTo(0, 0);
       return () => {
         document.title = origTitle;
         document.documentElement.lang = origLang || 'vi';
@@ -66,23 +86,50 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
 
     document.documentElement.lang = isKorean ? 'ko' : 'vi';
 
-    // Initialize Lenis Smooth Scroll synchronized with GSAP ScrollTrigger
-    const lenis = initSmoothScroll();
-
-    // Scroll to top upon landing & refresh ScrollTrigger
-    window.scrollTo(0, 0);
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 200);
-
     return () => {
-      clearTimeout(timer);
-      destroySmoothScroll();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
       document.title = origTitle;
       document.documentElement.lang = origLang || 'vi';
     };
   }, [destination, isKorean, destinationMeta, slug]);
+
+  // 3. LAYOUT-AWARE SCROLLTRIGGER REFRESH (Handles DOM text expansion on KO <-> VI toggle)
+  useEffect(() => {
+    let isCancelled = false;
+    let rafId1 = null;
+    let rafId2 = null;
+
+    const performRefresh = () => {
+      if (isCancelled) return;
+      // Double rAF ensures the browser's layout engine has completed DOM reflow
+      rafId1 = requestAnimationFrame(() => {
+        if (isCancelled) return;
+        rafId2 = requestAnimationFrame(() => {
+          if (isCancelled) return;
+          // Refresh existing ScrollTrigger pinning offsets without destroying animation state or resetting scroll
+          ScrollTrigger.refresh();
+        });
+      });
+    };
+
+    // Wait for fonts to ensure text metrics have settled
+    if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+      document.fonts.ready
+        .then(() => {
+          if (!isCancelled) performRefresh();
+        })
+        .catch(() => {
+          if (!isCancelled) performRefresh();
+        });
+    } else {
+      performRefresh();
+    }
+
+    return () => {
+      isCancelled = true;
+      if (rafId1) cancelAnimationFrame(rafId1);
+      if (rafId2) cancelAnimationFrame(rafId2);
+    };
+  }, [language, destination]);
 
   if (!destination) {
     const destName = isKorean
