@@ -57,7 +57,7 @@ const ExperiencesCinematicSequence = ({ ecosystemData }) => {
     }, containerRef);
 
     return () => mm.revert();
-  }, [services]);
+  }, [services.length]);
 
   const scrollToTarget = (targetId) => {
     const el = document.getElementById(targetId);

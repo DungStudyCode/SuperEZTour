@@ -226,12 +226,13 @@ const Interactive3DMap = ({ attractionsData }) => {
     };
   }, [attractionsData]);
 
-  // Update initial selected landmark when destination config changes
+  // Update initial selected landmark only if current selection is invalid or empty
   useEffect(() => {
-    if (attractionsData?.items?.[0]?.id) {
-      setSelectedLandmarkId(attractionsData.items[0].id);
+    const validIds = (attractionsData?.items || []).map((it) => it.id);
+    if (validIds.length > 0 && (!selectedLandmarkId || !validIds.includes(selectedLandmarkId))) {
+      setSelectedLandmarkId(validIds[0]);
     }
-  }, [attractionsData]);
+  }, [attractionsData?.items, selectedLandmarkId]);
 
   // Merge config data with verified geographic coordinates & authentic imagery
   const destinations = useMemo(() => {

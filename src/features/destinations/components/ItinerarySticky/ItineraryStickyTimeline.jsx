@@ -403,7 +403,7 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
     );
 
     return () => mm.revert();
-  }, [days, activeItineraryId]);
+  }, [days.length, activeItineraryId]);
 
   return (
     <section className="itinerary-sticky-timeline" ref={containerRef} id="itinerary">

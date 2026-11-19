@@ -243,7 +243,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
     );
 
     return () => mm.revert();
-  }, [dishes]);
+  }, [dishes.length]);
 
   const chosenCount = tripState.culinaryPreferences.length;
 

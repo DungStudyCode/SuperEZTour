@@ -564,7 +564,7 @@ const AirplanePortalScene = ({ heroData }) => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [heroData]);
+  }, []);
 
   const scrollToNext = () => {
     const nextEl = document.getElementById('discover');
