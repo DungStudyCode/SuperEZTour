@@ -51,13 +51,21 @@ function AppContent({ quotes, handleAddQuote }) {
           {/* Dynamic Destination Landing Engine for all 16 destinations */}
           <Route
             path="/destinations/:slug"
-            element={<DestinationPage onAddQuote={handleAddQuote} />}
+            element={
+              <ErrorBoundary isolated>
+                <DestinationPage onAddQuote={handleAddQuote} />
+              </ErrorBoundary>
+            }
           />
 
           {/* Direct Route for Da Nang */}
           <Route
             path="/destinations/da-nang"
-            element={<DestinationPage onAddQuote={handleAddQuote} slugProp="da-nang" />}
+            element={
+              <ErrorBoundary isolated>
+                <DestinationPage onAddQuote={handleAddQuote} slugProp="da-nang" />
+              </ErrorBoundary>
+            }
           />
         </Routes>
 

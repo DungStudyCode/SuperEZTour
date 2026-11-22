@@ -51,11 +51,18 @@ class ErrorBoundary extends Component {
         return (
           <div className="error-boundary-isolated">
             <AlertCircle size={24} className="text-orange" />
-            <p className="error-isolated-text">
-              {isKorean
-                ? '일시적인 오류가 발생했습니다. 다시 시도해 주세요.'
-                : 'Đã xảy ra sự cố hiển thị nhỏ. Vui lòng tải lại.'}
-            </p>
+            <div style={{ flex: 1 }}>
+              <p className="error-isolated-text">
+                {isKorean
+                  ? '일시적인 오류가 발생했습니다. 다시 시도해 주세요.'
+                  : 'Đã xảy ra sự cố hiển thị nhỏ. Vui lòng tải lại.'}
+              </p>
+              {this.state.error && (
+                <small style={{ color: '#dc2626', display: 'block', fontSize: '11px', marginTop: '4px' }}>
+                  {this.state.error.name}: {this.state.error.message}
+                </small>
+              )}
+            </div>
             <button
               type="button"
               className="error-btn-retry"
@@ -86,6 +93,66 @@ class ErrorBoundary extends Component {
                 ? '일시적인 네트워크 지연 또는 브라우저 캐시 문제일 수 있습니다. 새로고침을 진행해 주세요.'
                 : 'Đã có sự cố hiển thị tạm thời. Quý khách vui lòng tải lại trang hoặc liên hệ hotline để được hỗ trợ tức thì.'}
             </p>
+
+            {/* Technical Diagnostics for Debugging & Rapid Triage */}
+            {this.state.error && (
+              <div
+                style={{
+                  margin: '16px 0',
+                  padding: '12px 14px',
+                  background: 'rgba(239, 68, 68, 0.08)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  borderRadius: '8px',
+                  textAlign: 'left',
+                  fontSize: '12px',
+                  color: '#b91c1c',
+                  maxWidth: '100%',
+                  overflowX: 'auto',
+                }}
+              >
+                <strong style={{ display: 'block', marginBottom: '4px', color: '#991b1b' }}>
+                  Lỗi kỹ thuật (Debug Exception):
+                </strong>
+                <code style={{ fontFamily: 'Consolas, monospace', fontSize: '12px', wordBreak: 'break-all' }}>
+                  {this.state.error.name}: {this.state.error.message}
+                </code>
+                {this.state.error.stack && (
+                  <pre
+                    style={{
+                      marginTop: '8px',
+                      padding: '8px',
+                      background: 'rgba(0,0,0,0.04)',
+                      borderRadius: '4px',
+                      fontSize: '11px',
+                      fontFamily: 'Consolas, monospace',
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-all',
+                      maxHeight: '180px',
+                      overflowY: 'auto',
+                    }}
+                  >
+                    {this.state.error.stack}
+                  </pre>
+                )}
+                {this.state.errorInfo?.componentStack && (
+                  <details style={{ marginTop: '8px', fontSize: '11px' }}>
+                    <summary style={{ cursor: 'pointer', color: '#7f1d1d' }}>Component Stack Trace</summary>
+                    <pre
+                      style={{
+                        marginTop: '4px',
+                        padding: '6px',
+                        background: 'rgba(0,0,0,0.04)',
+                        borderRadius: '4px',
+                        whiteSpace: 'pre-wrap',
+                        wordBreak: 'break-all',
+                      }}
+                    >
+                      {this.state.errorInfo.componentStack}
+                    </pre>
+                  </details>
+                )}
+              </div>
+            )}
 
             <div className="error-actions">
               <button

@@ -1,33 +1,73 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Compass, Sparkles, ChevronDown, Volume2, VolumeX, Eye } from 'lucide-react';
+import { Compass, Sparkles, ChevronDown, Eye, Layers } from 'lucide-react';
 import { useLanguage } from '../../../../../context/LanguageContext';
+import { getLenis } from '../../../motion/LenisManager';
+import {
+  createWeatheredStuccoTexture,
+  createWeatheredStuccoBumpMap,
+  createTerracottaBrickTexture,
+  createGlazedRoofTileTexture,
+  createLimestoneTexture,
+  createIsletBarkTexture,
+  createIsletFoliageTexture,
+  createDawnSky360Texture,
+} from './hanoiTextureGenerator';
 import './HanoiAwakeningHero.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * SCENE 01 — THE AWAKENING OF HANOI (Hồ Gươm 3D Cinematic Opening)
- * Concept: "HANOI — A LIVING MEMORY. Walk Through Time. Feel Every Moment."
- * Three.js WebGL: Hoan Kiem Lake at sunrise, Turtle Tower landmark, gentle mist, water reflections, sunbeams, drifting leaves.
+ * SUPER EZ TOUR — HANOI HERO: 360° CINEMATIC ORBIT
+ * Production Implementation · Hoan Kiem Lake Dawn · Turtle Tower Landmark
+ *
+ * Storyboard Architecture:
+ * - STAGE A (0% - 15%): Establishing Shot — Dawn Hoàn Kiếm panorama, Turtle Tower framed with willow.
+ * - STAGE B (15% - 85%): Full 360° Cinematic Camera Orbit around Turtle Tower in real 3D world space.
+ *                        Returns exactly to initial azimuth at 85% (0° -> 360°).
+ * - STAGE C (85% - 92%): Orbit Completion & Steady Lakeside Framing — calm dawn lake, natural lighting.
+ * - STAGE D (92% - 100%): Seamless Handoff into Screen 2 (#scene-old-quarter) — gentle golden mist, zero black veil.
  */
 const HanoiAwakeningHero = ({ heroData, onExploreClick }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const headlineRef = useRef(null);
+  const contentWrapperRef = useRef(null);
   const kickerRef = useRef(null);
+  const headlineRef = useRef(null);
   const subtitleRef = useRef(null);
   const ctaGroupRef = useRef(null);
   const statsRef = useRef(null);
+  const scrollCueRef = useRef(null);
+  const transitionFogRef = useRef(null);
+
+  // WebGL & Animation References
   const animationFrameRef = useRef(null);
   const rendererRef = useRef(null);
-  const sceneContextRef = useRef(null);
+  const sceneRef = useRef(null);
+  const cameraRef = useRef(null);
+  const waterMeshRef = useRef(null);
+  const initialWaterZRef = useRef(null);
+  const willowGroupRef = useRef(null);
+  const willowMaterialRef = useRef(null);
+  const scrollProgressRef = useRef(0);
+  const isLoadedRef = useRef(false);
 
   const { isKorean } = useLanguage();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [is3DReady, setIs3DReady] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
+
+  // Real-time Flight Telemetry State for HUD verification
+  const [hudData, setHudData] = useState({
+    stage: 'Stage A: Establishing Shot (0-15%)',
+    pct: 0,
+    angleDeg: '0.0°',
+    camX: '0.00',
+    camY: '8.20',
+    camZ: '25.00',
+  });
 
   const tagline = isKorean
     ? '하노이는 서두르지 않을 때 더욱 아름답습니다.'
@@ -40,348 +80,626 @@ const HanoiAwakeningHero = ({ heroData, onExploreClick }) => {
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
-    let width = container.clientWidth;
-    let height = container.clientHeight;
+    let width = container.clientWidth || (typeof window !== 'undefined' ? window.innerWidth : 1280);
+    let height = container.clientHeight || (typeof window !== 'undefined' ? window.innerHeight : 800);
 
-    // 1. Scene, Camera, Renderer
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // =========================================================================
+    // 1. THREE.JS SCENE, CAMERA & ACES FILMIC PBR RENDERER
+    // =========================================================================
     const scene = new THREE.Scene();
-    // Warm morning lake fog
-    scene.background = new THREE.Color(0x1a242c);
-    scene.fog = new THREE.FogExp2(0x1a242c, 0.022);
+    sceneRef.current = scene;
 
-    const camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 100);
-    camera.position.set(0, 1.8, 12);
+    // Soft, airy lake dawn mist (never dense black gloom)
+    scene.background = new THREE.Color(0x162736);
+    scene.fog = new THREE.FogExp2(0x182834, 0.0075);
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: false,
-      powerPreference: 'high-performance',
-    });
+    const isMobile = width < 768;
+    const camera = new THREE.PerspectiveCamera(isMobile ? 52 : 46, width / (height || 1), 0.1, 450);
+    cameraRef.current = camera;
+
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+        powerPreference: 'high-performance',
+        stencil: false,
+        depth: true,
+      });
+    } catch (e) {
+      console.warn('[HanoiAwakeningHero] WebGL fallback to photography:', e);
+      setIs3DReady(true);
+      return;
+    }
+
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min((typeof window !== 'undefined' ? window.devicePixelRatio : 1) || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.20;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     rendererRef.current = renderer;
 
-    // 2. Lighting System: Dawn over Hoan Kiem
-    const ambientLight = new THREE.AmbientLight(0x425666, 1.4);
+    // =========================================================================
+    // 2. NATURAL DAWN LIGHTING (Hoan Kiem Golden Sunrise Vector)
+    // =========================================================================
+    // Ambient dawn skylight (lifts shadow contrast on opposite side of tower)
+    const ambientLight = new THREE.AmbientLight(0x557385, 1.4);
     scene.add(ambientLight);
 
-    // Warm golden sunrise sun
-    const sunLight = new THREE.DirectionalLight(0xffdfa8, 2.8);
-    sunLight.position.set(8, 14, -18);
+    // Warm golden sunrise sun (matches physical solar azimuth ~110° over lake)
+    const sunLight = new THREE.DirectionalLight(0xffdf9a, 3.4);
+    sunLight.position.set(32, 26, -34);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 2048;
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.camera.near = 5;
+    sunLight.shadow.camera.far = 130;
+    sunLight.shadow.camera.left = -24;
+    sunLight.shadow.camera.right = 24;
+    sunLight.shadow.camera.top = 24;
+    sunLight.shadow.camera.bottom = -24;
+    sunLight.shadow.bias = -0.0004;
     scene.add(sunLight);
 
-    // Soft sky fill
-    const skyFill = new THREE.HemisphereLight(0xffeedd, 0x1a252e, 1.2);
-    scene.add(skyFill);
+    // Secondary sunrise horizon bounce (ensures north & west architectural faces remain lit)
+    const horizonFill = new THREE.DirectionalLight(0xffb870, 1.5);
+    horizonFill.position.set(-24, 14, 26);
+    scene.add(horizonFill);
 
-    // 3. Lake Water Surface Plane with Custom Ripple Shader/Animation
-    const waterGeo = new THREE.PlaneGeometry(60, 60, 48, 48);
+    // Soft sky-to-ground hemisphere light
+    const hemiLight = new THREE.HemisphereLight(0xffeedd, 0x223842, 1.2);
+    scene.add(hemiLight);
+
+    // =========================================================================
+    // 3. 360° SEAMLESS DAWN SKY DOME & ENVIRONMENT (Phase 4 Solution)
+    // Procedural 360° sky dome cylinder guarantees zero black voids or seams,
+    // overlaid with authentic Hoan Kiem photo on the iconic front sector.
+    // =========================================================================
+    const sky360Texture = createDawnSky360Texture(1024, 512);
+    const skyDomeGeo = new THREE.CylinderGeometry(180, 180, 110, 48, 1, true);
+    const skyDomeMat = new THREE.MeshBasicMaterial({
+      map: sky360Texture,
+      side: THREE.BackSide,
+      fog: true,
+      depthWrite: false,
+    });
+    const skyDomeMesh = new THREE.Mesh(skyDomeGeo, skyDomeMat);
+    skyDomeMesh.position.set(0, 24, 0);
+    scene.add(skyDomeMesh);
+
+    // Primary Sector Photo Backdrop Arc (Preserves real photography for front establishing shot)
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(
+      '/assets/destinations/hanoi/hoan_kiem_dawn_desktop.webp',
+      (photoTexture) => {
+        if (!sceneRef.current) return;
+        photoTexture.colorSpace = THREE.SRGBColorSpace;
+        photoTexture.wrapS = THREE.ClampToEdgeWrapping;
+        photoTexture.wrapT = THREE.ClampToEdgeWrapping;
+        photoTexture.repeat.set(1, 1);
+
+        const photoArcGeo = new THREE.CylinderGeometry(165, 165, 75, 48, 1, true, Math.PI * 0.60, Math.PI * 0.80);
+        const photoArcMat = new THREE.MeshBasicMaterial({
+          map: photoTexture,
+          side: THREE.BackSide,
+          fog: true,
+          depthWrite: false,
+        });
+        const photoArcMesh = new THREE.Mesh(photoArcGeo, photoArcMat);
+        photoArcMesh.position.set(0, 20, -5);
+        scene.add(photoArcMesh);
+      },
+      undefined,
+      (err) => console.warn('[HanoiAwakeningHero] Front photo arc fallback:', err)
+    );
+
+    // =========================================================================
+    // 4. DYNAMIC SPECTRAL EMERALD LAKE (Hồ Lục Thủy) WITH 3-PHASE WAVE DYNAMICS
+    // =========================================================================
+    const waterGeo = new THREE.PlaneGeometry(200, 200, 80, 80);
     const waterMat = new THREE.MeshStandardMaterial({
-      color: 0x1f343d,
-      roughness: 0.12,
-      metalness: 0.85,
+      color: 0x183e36, // Signature jade emerald of Hoan Kiem Lake
+      roughness: 0.14,
+      metalness: 0.45,
       flatShading: false,
     });
     const waterMesh = new THREE.Mesh(waterGeo, waterMat);
     waterMesh.rotation.x = -Math.PI / 2;
-    waterMesh.position.y = -0.6;
+    waterMesh.position.y = 1.05; // Physical waterline of the islet
+    waterMesh.receiveShadow = true;
     scene.add(waterMesh);
+    waterMeshRef.current = waterMesh;
 
-    // Record original water vertex heights for gentle harmonic wave motion
+    // Record initial vertex offsets for harmonic ripples
     const posAttr = waterGeo.attributes.position;
-    const initialZ = new Float32Array(posAttr.count);
+    const initialWaterZ = new Float32Array(posAttr.count);
     for (let i = 0; i < posAttr.count; i++) {
-      initialZ[i] = posAttr.getZ(i);
+      initialWaterZ[i] = posAttr.getZ(i);
     }
+    initialWaterZRef.current = initialWaterZ;
 
-    // 4. Turtle Tower (Tháp Rùa) Landmark 3D Group
-    const towerGroup = new THREE.Group();
-    towerGroup.position.set(0, -0.6, -14);
-
-    // Islet Mound (Mound of earth and green moss)
-    const moundGeo = new THREE.CylinderGeometry(4.2, 5.6, 0.9, 32);
-    const moundMat = new THREE.MeshStandardMaterial({
-      color: 0x243329,
-      roughness: 0.85,
-      metalness: 0.1,
-    });
-    const moundMesh = new THREE.Mesh(moundGeo, moundMat);
-    moundMesh.position.y = 0.45;
-    towerGroup.add(moundMesh);
-
-    // Tower Level 1 (Base tier with arches)
-    const tier1Geo = new THREE.BoxGeometry(3.6, 2.0, 2.6);
-    const stoneMat = new THREE.MeshStandardMaterial({
-      color: 0xc4b79b, // Weathered ancient Hanoi limestone
-      roughness: 0.75,
-      metalness: 0.15,
-    });
-    const tier1Mesh = new THREE.Mesh(tier1Geo, stoneMat);
-    tier1Mesh.position.y = 1.9;
-    towerGroup.add(tier1Mesh);
-
-    // Tier 1 Arches (carved negative depth)
-    const archMat = new THREE.MeshBasicMaterial({ color: 0x151f24 });
-    const arch1 = new THREE.Mesh(new THREE.BoxGeometry(0.7, 1.2, 2.65), archMat);
-    arch1.position.set(0, 1.8, 0);
-    towerGroup.add(arch1);
-
-    // Tower Level 2 (Middle tier with columns and windows)
-    const tier2Geo = new THREE.BoxGeometry(2.8, 1.6, 2.0);
-    const tier2Mesh = new THREE.Mesh(tier2Geo, stoneMat);
-    tier2Mesh.position.y = 3.7;
-    towerGroup.add(tier2Mesh);
-
-    // Tower Level 3 (Top pavilion tier)
-    const tier3Geo = new THREE.BoxGeometry(1.8, 1.2, 1.4);
-    const tier3Mesh = new THREE.Mesh(tier3Geo, stoneMat);
-    tier3Mesh.position.y = 5.1;
-    towerGroup.add(tier3Mesh);
-
-    // Pointed Curved Roof Top
-    const roofGeo = new THREE.ConeGeometry(1.5, 1.1, 4);
-    const roofMat = new THREE.MeshStandardMaterial({
-      color: 0x8a4b38, // Terracotta red clay ancient tile
-      roughness: 0.6,
-      metalness: 0.1,
-    });
-    const roofMesh = new THREE.Mesh(roofGeo, roofMat);
-    roofMesh.rotation.y = Math.PI / 4;
-    roofMesh.position.y = 6.2;
-    towerGroup.add(roofMesh);
-
-    // Soft warm lantern glow inside Turtle Tower
-    const lanternLight = new THREE.PointLight(0xffaa44, 2.5, 9, 2);
-    lanternLight.position.set(0, 3.5, 0);
-    towerGroup.add(lanternLight);
-
-    scene.add(towerGroup);
-
-    // 5. Surrounding Ancient Willow Trees (Cây liễu rủ ven hồ Hoàn Kiếm)
+    // =========================================================================
+    // 5. 3D WEEPING WILLOW FOREGROUND FRAMING (Liễu Rủ Hồ Gươm)
+    // =========================================================================
     const willowGroup = new THREE.Group();
-    const foliageMat = new THREE.MeshStandardMaterial({
-      color: 0x2d4838,
-      roughness: 0.8,
-      metalness: 0.05,
-    });
-
-    const createWillowBranch = (x, y, z, scale) => {
-      const branch = new THREE.Group();
-      branch.position.set(x, y, z);
-      branch.scale.setScalar(scale);
-
-      // Drooping foliage clusters
-      for (let j = 0; j < 5; j++) {
-        const cluster = new THREE.Mesh(
-          new THREE.SphereGeometry(1.2 + j * 0.2, 8, 8),
-          foliageMat
-        );
-        cluster.position.set((j - 2) * 0.8, -j * 0.7, (Math.random() - 0.5) * 0.8);
-        cluster.scale.set(1, 1.6, 1);
-        branch.add(cluster);
-      }
-      return branch;
-    };
-
-    // Left willow silhouette
-    willowGroup.add(createWillowBranch(-8, 2.5, -4, 1.2));
-    willowGroup.add(createWillowBranch(-6.5, 3.2, -6, 0.9));
-    // Right willow silhouette
-    willowGroup.add(createWillowBranch(7.5, 2.8, -5, 1.1));
-    willowGroup.add(createWillowBranch(9.0, 3.4, -7, 1.0));
     scene.add(willowGroup);
+    willowGroupRef.current = willowGroup;
 
-    // 6. Atmospheric Mist Layers (Layered textured planes drifting across the lake)
-    const mistGroup = new THREE.Group();
-    const createMistCanvas = () => {
-      const cvs = document.createElement('canvas');
-      cvs.width = 256;
-      cvs.height = 128;
-      const ctx = cvs.getContext('2d');
-      const grad = ctx.createRadialGradient(128, 64, 10, 128, 64, 120);
-      grad.addColorStop(0, 'rgba(235, 225, 210, 0.5)');
-      grad.addColorStop(0.5, 'rgba(210, 220, 225, 0.25)');
-      grad.addColorStop(1, 'rgba(30, 45, 55, 0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 256, 128);
-      return new THREE.CanvasTexture(cvs);
+    textureLoader.load(
+      '/assets/destinations/hanoi/hoan_kiem_willow_fg.webp',
+      (willowTex) => {
+        if (!sceneRef.current) return;
+        willowTex.colorSpace = THREE.SRGBColorSpace;
+
+        const willowMat = new THREE.MeshStandardMaterial({
+          map: willowTex,
+          transparent: true,
+          alphaTest: 0.05,
+          roughness: 0.75,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        });
+        willowMaterialRef.current = willowMat;
+
+        // Left willow branch
+        const willowLeft = new THREE.Mesh(new THREE.PlaneGeometry(14, 8), willowMat);
+        willowLeft.position.set(-4.5, 7.8, 18.0);
+        willowLeft.rotation.z = -0.08;
+        willowGroup.add(willowLeft);
+
+        // Right willow framing
+        const willowRight = new THREE.Mesh(new THREE.PlaneGeometry(12, 7), willowMat);
+        willowRight.position.set(5.2, 8.2, 16.5);
+        willowRight.scale.x = -1;
+        willowRight.rotation.z = 0.05;
+        willowGroup.add(willowRight);
+      },
+      undefined,
+      (err) => console.warn('[HanoiAwakeningHero] Willow fallback:', err)
+    );
+
+    // =========================================================================
+    // 6. PROCEDURAL PBR ARCHITECTURAL MATERIALS FOR TURTLE TOWER (1886)
+    // =========================================================================
+    const pbrMaterials = {
+      stucco: new THREE.MeshStandardMaterial({
+        map: createWeatheredStuccoTexture(512),
+        bumpMap: createWeatheredStuccoBumpMap(256),
+        bumpScale: 0.04,
+        roughness: 0.82,
+        metalness: 0.04,
+      }),
+      brick: new THREE.MeshStandardMaterial({
+        map: createTerracottaBrickTexture(512),
+        roughness: 0.88,
+        metalness: 0.05,
+      }),
+      roofTile: new THREE.MeshStandardMaterial({
+        map: createGlazedRoofTileTexture(512),
+        roughness: 0.45,
+        metalness: 0.22,
+        envMapIntensity: 1.4,
+      }),
+      limestone: new THREE.MeshStandardMaterial({
+        map: createLimestoneTexture(512),
+        roughness: 0.78,
+        metalness: 0.08,
+      }),
+      bark: new THREE.MeshStandardMaterial({
+        map: createIsletBarkTexture(256),
+        roughness: 0.86,
+        metalness: 0.04,
+      }),
+      foliage: new THREE.MeshStandardMaterial({
+        map: createIsletFoliageTexture(256),
+        roughness: 0.74,
+        metalness: 0.02,
+      }),
     };
 
-    const mistTex = createMistCanvas();
-    const mistMat = new THREE.MeshBasicMaterial({
-      map: mistTex,
-      transparent: true,
-      opacity: 0.42,
-      depthWrite: false,
-      blending: THREE.NormalBlending,
-    });
+    // Load Turtle Tower GLB & inject authentic historical materials
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load(
+      '/assets/destinations/hanoi/thap_rua_pbr.glb',
+      (gltf) => {
+        if (!sceneRef.current) return;
+        const model = gltf.scene;
+        model.position.set(0, 0, 0);
 
-    const mistPlanes = [];
-    for (let m = 0; m < 7; m++) {
-      const plane = new THREE.Mesh(new THREE.PlaneGeometry(16 + m * 3, 4 + m), mistMat);
-      plane.position.set((Math.random() - 0.5) * 14, 0.1 + m * 0.25, -4 - m * 1.8);
-      plane.rotation.y = (Math.random() - 0.5) * 0.2;
-      mistGroup.add(plane);
-      mistPlanes.push({ mesh: plane, speed: 0.0015 + m * 0.0008, baseZ: plane.position.z });
-    }
-    scene.add(mistGroup);
+        // Strip diorama plinth, lake disk and ripple rings
+        model.traverse((child) => {
+          if (
+            child.name === 'thaprua.plinth' ||
+            child.name === 'thaprua.lake' ||
+            (child.name && child.name.startsWith('thaprua.ripples'))
+          ) {
+            child.visible = false;
+            return;
+          }
 
-    // 7. Drifting Willow Leaf Particles (Lá liễu rơi khẽ)
-    const leafCount = 80;
-    const leafGeo = new THREE.BufferGeometry();
-    const leafPositions = new Float32Array(leafCount * 3);
-    const leafVelocities = [];
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
 
-    for (let i = 0; i < leafCount; i++) {
-      leafPositions[i * 3] = (Math.random() - 0.5) * 20;
-      leafPositions[i * 3 + 1] = Math.random() * 8 + 0.5;
-      leafPositions[i * 3 + 2] = (Math.random() - 0.5) * 16;
-      leafVelocities.push({
-        vx: (Math.random() - 0.5) * 0.008,
-        vy: -0.004 - Math.random() * 0.006,
-        vz: (Math.random() - 0.5) * 0.006,
-        swaySpeed: 1 + Math.random() * 2,
-        swayAmp: 0.01 + Math.random() * 0.02,
-      });
-    }
-    leafGeo.setAttribute('position', new THREE.BufferAttribute(leafPositions, 3));
+            const mat = child.material;
+            const matName = mat ? (Array.isArray(mat) ? mat[0]?.name : mat.name) : '';
 
-    const leafMat = new THREE.PointsMaterial({
-      color: 0xd4a359,
-      size: 0.14,
-      transparent: true,
-      opacity: 0.75,
-    });
-    const leafPoints = new THREE.Points(leafGeo, leafMat);
-    scene.add(leafPoints);
+            // Inject high-res procedural architectural PBR textures
+            if (matName === 'weathered plaster' || child.name?.includes('tower')) {
+              child.material = pbrMaterials.stucco;
+            } else if (matName === 'aged brick') {
+              child.material = pbrMaterials.brick;
+            } else if (matName === 'glazed roof tile') {
+              child.material = pbrMaterials.roofTile;
+            } else if (matName === 'ridge stone' || child.name?.includes('finial') || child.name?.includes('sweep')) {
+              child.material = pbrMaterials.limestone;
+            } else if (matName === 'bark' || child.name?.includes('taper')) {
+              child.material = pbrMaterials.bark;
+            } else if (matName === 'foliage' || matName === 'grass') {
+              child.material = pbrMaterials.foliage;
+            } else if (mat) {
+              if (typeof mat.roughness === 'number') {
+                mat.roughness = Math.max(mat.roughness, 0.55);
+              }
+              if ('envMapIntensity' in mat) {
+                mat.envMapIntensity = 1.25;
+              }
+            }
+          }
+        });
 
-    sceneContextRef.current = {
-      scene,
-      camera,
-      renderer,
-      waterGeo,
-      initialZ,
-      mistPlanes,
-      leafPoints,
-      leafPositions,
-      leafVelocities,
-      willowGroup,
-      towerGroup,
-    };
+        scene.add(model);
+        isLoadedRef.current = true;
+        setIs3DReady(true);
+      },
+      (xhr) => {
+        if (xhr.total > 0) {
+          const pct = Math.round((xhr.loaded / xhr.total) * 100);
+          setLoadProgress(pct);
+        }
+      },
+      (err) => {
+        console.warn('[HanoiAwakeningHero] GLB Model fallback:', err);
+        setIs3DReady(true);
+      }
+    );
 
-    // 8. Animation Loop
-    let clock = new THREE.Clock();
+    // =========================================================================
+    // 7. REAL-TIME 60FPS RENDER & 360° ORBIT CAMERA EVALUATOR
+    // =========================================================================
+    let isDisposed = false;
+    let isSceneActive = true;
+    const clock = new THREE.Clock();
+
+    // Tower Focal Center (Architectural centroid)
+    const focalCenter = new THREE.Vector3(0.0, 4.6, 0.0);
+    const orbitRadius = isMobile ? 24.0 : 21.0;
+
+    // Initial Camera Pose
+    const initialCamPos = new THREE.Vector3(0.0, 8.2, isMobile ? 29.0 : 25.0);
+    const initialTarget = new THREE.Vector3(0.0, 4.8, 0.0);
+    camera.position.copy(initialCamPos);
+    camera.lookAt(initialTarget);
+
+    const currentCamPos = new THREE.Vector3().copy(initialCamPos);
+    const currentTarget = new THREE.Vector3().copy(initialTarget);
+
     const animate = () => {
+      if (isDisposed) return;
+      if (!isSceneActive) {
+        animationFrameRef.current = null;
+        return;
+      }
+
       animationFrameRef.current = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Water Ripple wave displacement
-      const pos = waterGeo.attributes.position;
-      for (let i = 0; i < pos.count; i++) {
-        const u = pos.getX(i);
-        const v = pos.getY(i);
-        const z =
-          Math.sin(u * 0.35 + elapsed * 1.2) * 0.08 +
-          Math.cos(v * 0.3 + elapsed * 0.9) * 0.06;
-        pos.setZ(i, z);
-      }
-      pos.needsUpdate = true;
-
-      // Mist Drift
-      mistPlanes.forEach((p, idx) => {
-        p.mesh.position.x += p.speed;
-        if (p.mesh.position.x > 14) p.mesh.position.x = -14;
-      });
-
-      // Willow tree sway
-      willowGroup.children.forEach((b, i) => {
-        b.rotation.z = Math.sin(elapsed * 0.8 + i) * 0.025;
-      });
-
-      // Leaves falling
-      const leafPos = leafPoints.geometry.attributes.position.array;
-      for (let i = 0; i < leafCount; i++) {
-        const v = leafVelocities[i];
-        leafPos[i * 3 + 1] += v.vy;
-        leafPos[i * 3] += Math.sin(elapsed * v.swaySpeed + i) * v.swayAmp + v.vx;
-
-        if (leafPos[i * 3 + 1] < -0.4) {
-          leafPos[i * 3 + 1] = 7.5;
-          leafPos[i * 3] = (Math.random() - 0.5) * 18;
+      // Animate harmonic lake water ripples
+      if (waterMeshRef.current && initialWaterZRef.current) {
+        const pos = waterMeshRef.current.geometry?.attributes?.position;
+        const initZ = initialWaterZRef.current;
+        if (pos && pos.count) {
+          for (let i = 0; i < pos.count; i++) {
+            const u = pos.getX(i);
+            const v = pos.getY(i);
+            const wave =
+              Math.sin(u * 0.35 + elapsed * 1.2) * 0.045 +
+              Math.cos(v * 0.28 + elapsed * 0.95) * 0.035 +
+              Math.sin((u + v) * 0.55 + elapsed * 1.6) * 0.016;
+            pos.setZ(i, initZ[i] + wave);
+          }
+          pos.needsUpdate = true;
         }
       }
-      leafPoints.geometry.attributes.position.needsUpdate = true;
 
-      renderer.render(scene, camera);
+      // Gentle breeze sway on foreground weeping willow boughs
+      if (willowGroupRef.current) {
+        willowGroupRef.current.children.forEach((branch, idx) => {
+          branch.rotation.z = Math.sin(elapsed * 0.9 + idx * 1.2) * 0.018;
+        });
+      }
+
+      // -----------------------------------------------------------------------
+      // REAL 360° CAMERA ORBIT MATHEMATICS (Phase 2 & Phase 3)
+      // Clamped deterministic mapping directly driven by scroll progress
+      // -----------------------------------------------------------------------
+      if (!prefersReducedMotion) {
+        const rawProgress = scrollProgressRef.current;
+        const progress = Number.isFinite(rawProgress) ? rawProgress : 0;
+        const p = Math.max(0, Math.min(1, progress));
+
+        const targetCamPos = new THREE.Vector3();
+        const targetLookAt = new THREE.Vector3().copy(focalCenter);
+
+        let stageName = 'Stage A: Establishing Shot (0-15%)';
+        let angleDeg = 0.0;
+
+        if (p <= 0.15) {
+          // STAGE A — ESTABLISHING SHOT (0% - 15%)
+          // Wide framing of Turtle Tower at sunrise with willow boughs
+          stageName = 'Stage A: Establishing Shot (0-15%)';
+          angleDeg = 0.0;
+
+          const tA = p / 0.15;
+          const startZ = isMobile ? 29.0 : 25.0;
+          const endZ = orbitRadius;
+          const curZ = startZ + (endZ - startZ) * tA;
+          const curY = 8.2 + (7.5 - 8.2) * tA;
+          targetCamPos.set(0.0, curY, curZ);
+          targetLookAt.set(0.0, 4.8 + (4.6 - 4.8) * tA, 0.0);
+
+          // Willow foliage fully visible
+          if (willowMaterialRef.current) {
+            willowMaterialRef.current.opacity = 1.0;
+          }
+        } else if (p <= 0.85) {
+          // STAGE B — FULL CINEMATIC ORBIT 360° (15% - 85%)
+          // Completes exactly one 360° orbit in 3D world space (0° -> 360°)
+          const u = (p - 0.15) / 0.70; // 0.0 to 1.0
+          const angle = u * Math.PI * 2; // 0 to 2*PI radians
+          angleDeg = u * 360.0;
+
+          stageName = `Stage B: 360° Orbit (${angleDeg.toFixed(1)}°)`;
+
+          // Subtle harmonic height modulation (rises gently over east sunrise side)
+          const heightMod = Math.sin(angle) * 0.8;
+          const curY = 7.5 + heightMod;
+
+          // Orbit position: angle=0 is South (+Z), angle=PI/2 is East (+X), angle=PI is North (-Z), angle=3PI/2 is West (-X)
+          const curX = Math.sin(angle) * orbitRadius;
+          const curZ = Math.cos(angle) * orbitRadius;
+
+          targetCamPos.set(curX, curY, curZ);
+          targetLookAt.copy(focalCenter);
+
+          // Willow gently fades out during orbit so it does not obstruct opposite views
+          if (willowMaterialRef.current) {
+            const fadeT = Math.min(1, (p - 0.15) / 0.08);
+            willowMaterialRef.current.opacity = Math.max(0, 1 - fadeT);
+          }
+        } else if (p <= 0.92) {
+          // STAGE C — ORBIT COMPLETION & STEADY FRAMING (85% - 92%)
+          // Returned exactly to 360°/0° azimuth. Settles smoothly into lakeside composition.
+          stageName = 'Stage C: Orbit Completed (360.0°)';
+          angleDeg = 360.0;
+
+          const tC = (p - 0.85) / 0.07;
+          const curY = 7.5 + (6.2 - 7.5) * tC;
+          const curZ = orbitRadius + (19.0 - orbitRadius) * tC;
+          targetCamPos.set(0.0, curY, curZ);
+
+          const lookY = 4.6 + (3.8 - 4.6) * tC;
+          const lookZ = 0.0 + (-12.0 - 0.0) * tC;
+          targetLookAt.set(0.0, lookY, lookZ);
+
+          if (willowMaterialRef.current) {
+            willowMaterialRef.current.opacity = 0;
+          }
+        } else {
+          // STAGE D — OLD QUARTER TRANSITION (92% - 100%)
+          // Camera glides smoothly forward towards lakeside shoreline
+          stageName = 'Stage D: Transition to Old Quarter';
+          angleDeg = 360.0;
+
+          const tD = (p - 0.92) / 0.08;
+          const curY = 6.2 + (5.0 - 6.2) * tD;
+          const curZ = 19.0 + (16.5 - 19.0) * tD;
+          targetCamPos.set(0.0, curY, curZ);
+
+          const lookY = 3.8 + (3.5 - 3.8) * tD;
+          const lookZ = -12.0 + (-16.0 - (-12.0)) * tD;
+          targetLookAt.set(0.0, lookY, lookZ);
+        }
+
+        // Smooth damping for cinematic camera glide
+        currentCamPos.lerp(targetCamPos, 0.08);
+        currentTarget.lerp(targetLookAt, 0.08);
+
+        camera.position.copy(currentCamPos);
+        camera.lookAt(currentTarget);
+
+        // Update dev inspection HUD state
+        setHudData({
+          stage: stageName,
+          pct: Math.round(p * 100),
+          angleDeg: `${angleDeg.toFixed(1)}°`,
+          camX: currentCamPos.x.toFixed(2),
+          camY: currentCamPos.y.toFixed(2),
+          camZ: currentCamPos.z.toFixed(2),
+        });
+      }
+
+      if (renderer && scene && camera) {
+        try {
+          renderer.render(scene, camera);
+        } catch (renderErr) {
+          console.warn('[HanoiAwakeningHero] Render error:', renderErr);
+        }
+      }
     };
 
     animate();
-    setIsLoaded(true);
 
-    // 9. GSAP Cinematic Scroll Progression (Dolly Camera Forward into Hoan Kiem)
-    const tl = gsap.timeline({
-      scrollTrigger: {
+    // IntersectionObserver to pause WebGL loop when scrolled out of view (>150px)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        const isVisible = entry ? entry.isIntersecting : true;
+        isSceneActive = isVisible;
+
+        if (isVisible && !animationFrameRef.current && !isDisposed) {
+          animationFrameRef.current = requestAnimationFrame(animate);
+        }
+      },
+      { rootMargin: '150px' }
+    );
+    observer.observe(container);
+
+    // =========================================================================
+    // 8. GSAP SCROLLTRIGGER (Pinning & Synchronized Scrubbing)
+    // =========================================================================
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
         trigger: container,
         start: 'top top',
-        end: '+=160%',
+        end: '+=200%',
         pin: true,
         scrub: 1.2,
-      },
-    });
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const progress = Number.isFinite(self.progress) ? self.progress : 0;
+          scrollProgressRef.current = progress;
 
-    // Camera pushes smoothly from z=12 down towards the water at z=1.5
-    tl.to(
-      camera.position,
-      {
-        z: 3.5,
-        y: 1.1,
-        ease: 'none',
-      },
-      0
-    );
+          // [0% -> 15%]: Editorial typography dissolves and floats up
+          if (contentWrapperRef.current) {
+            const textOpacity = Math.max(0, 1 - progress * 6.5);
+            const textY = -progress * 160;
+            gsap.set(contentWrapperRef.current, {
+              opacity: textOpacity,
+              y: textY,
+            });
+          }
 
-    // Fade out initial text overlay as user enters the lake
-    tl.to(
-      [kickerRef.current, headlineRef.current, subtitleRef.current, ctaGroupRef.current, statsRef.current],
-      {
-        opacity: 0,
-        y: -30,
-        stagger: 0.04,
-        ease: 'power2.in',
-      },
-      0.15
-    );
+          if (scrollCueRef.current) {
+            const cueOpacity = Math.max(0, 0.85 - progress * 10);
+            gsap.set(scrollCueRef.current, { opacity: cueOpacity });
+          }
 
-    // Resize Handler
+          // [90% -> 100%]: Subtle warm sunrise mist for seamless match cut into Old Quarter
+          if (transitionFogRef.current) {
+            if (progress > 0.90) {
+              const fogT = (progress - 0.90) / 0.10;
+              gsap.set(transitionFogRef.current, { opacity: Math.min(0.20, fogT * 0.20) });
+            } else {
+              gsap.set(transitionFogRef.current, { opacity: 0 });
+            }
+          }
+        },
+      });
+
+      // Initial Entrance Animation
+      const introTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      const textNodes = [
+        kickerRef.current,
+        headlineRef.current,
+        subtitleRef.current,
+        ctaGroupRef.current,
+        statsRef.current,
+      ].filter(Boolean);
+
+      if (canvasRef.current) {
+        introTl.fromTo(
+          canvasRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 2.0, ease: 'power2.inOut' },
+          0
+        );
+      }
+
+      if (textNodes.length > 0) {
+        introTl.fromTo(
+          textNodes,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1.2, stagger: 0.12, ease: 'power3.out' },
+          1.2
+        );
+      }
+
+      if (scrollCueRef.current) {
+        introTl.fromTo(
+          scrollCueRef.current,
+          { opacity: 0 },
+          { opacity: 0.85, duration: 1.0 },
+          2.4
+        );
+      }
+    }, container);
+
+    // =========================================================================
+    // 9. RESIZE LISTENER
+    // =========================================================================
     const handleResize = () => {
-      if (!container || !rendererRef.current) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
+      if (!container || !rendererRef.current || !cameraRef.current) return;
+      const w = container.clientWidth || window.innerWidth || 1;
+      const h = container.clientHeight || window.innerHeight || 1;
+      cameraRef.current.aspect = w / h;
+      cameraRef.current.fov = w < 768 ? 52 : 46;
+      cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(w, h);
     };
     window.addEventListener('resize', handleResize);
 
+    // =========================================================================
+    // 10. CLEANUP (Strict Zero-Leak Lifecycle)
+    // =========================================================================
     return () => {
+      isDisposed = true;
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
-      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
-      if (tl.scrollTrigger) tl.scrollTrigger.kill();
-      tl.kill();
-      // Dispose WebGL
-      scene.traverse((obj) => {
-        if (obj.isMesh || obj.isPoints) {
-          if (obj.geometry) obj.geometry.dispose();
-          if (obj.material) {
-            if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose());
-            else obj.material.dispose();
+
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+
+      if (ctx) ctx.revert();
+
+      if (scene) {
+        scene.traverse((obj) => {
+          if (obj.isMesh || obj.isLine || obj.isPoints) {
+            if (obj.geometry && obj.geometry.dispose) {
+              try { obj.geometry.dispose(); } catch (_) {}
+            }
+            if (obj.material) {
+              const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+              mats.forEach((m) => {
+                if (m && m.dispose) {
+                  try { m.dispose(); } catch (_) {}
+                }
+              });
+            }
           }
-        }
-      });
-      renderer.dispose();
+        });
+      }
+
+      if (renderer && renderer.dispose) {
+        try { renderer.dispose(); } catch (_) {}
+      }
+
+      sceneRef.current = null;
+      rendererRef.current = null;
+      cameraRef.current = null;
+      waterMeshRef.current = null;
+      willowGroupRef.current = null;
+      willowMaterialRef.current = null;
     };
   }, []);
 
@@ -390,24 +708,71 @@ const HanoiAwakeningHero = ({ heroData, onExploreClick }) => {
       onExploreClick();
       return;
     }
+    const lenis = getLenis();
     const nextSection = document.getElementById('scene-old-quarter');
-    if (nextSection) {
+    if (lenis && nextSection) {
+      lenis.scrollTo(nextSection, { offset: 0, duration: 1.4 });
+    } else if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <section ref={containerRef} className="hanoi-awakening-hero" id="hanoi-hero">
-      {/* Three.js WebGL Canvas */}
+      {/* Real-Time Three.js WebGL Canvas */}
       <canvas ref={canvasRef} className="hanoi-hero-canvas" />
 
-      {/* Atmospheric Vignette & Color Film Grade */}
-      <div className="hanoi-hero-vignette" aria-hidden="true" />
-      <div className="hanoi-hero-amber-glow" aria-hidden="true" />
+      {/* Fallback Background & Preload HUD */}
+      {!is3DReady && (
+        <div className="hanoi-hero-loading-overlay">
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcSet="/assets/destinations/hanoi/hoan_kiem_dawn_mobile.webp"
+              type="image/webp"
+            />
+            <img
+              src="/assets/destinations/hanoi/hoan_kiem_dawn_desktop.webp"
+              alt="Hoan Kiem Lake Dawn"
+              className="hanoi-hero-static-fallback"
+            />
+          </picture>
+          <div className="hanoi-hero-loader-hud">
+            <span className="loader-hud-spinner" />
+            <span className="loader-hud-text">
+              {isKorean ? '하노이 360° 시네마틱 공간을 준비하는 중...' : 'Đang khởi tạo không gian 360° Hồ Gươm...'}
+            </span>
+            <span className="loader-hud-pct">{loadProgress}%</span>
+          </div>
+        </div>
+      )}
 
-      {/* Hero Editorial Narrative Overlay */}
-      <div className="hanoi-hero-content-wrapper">
+      {/* Atmospheric Vignette & Contrast Scrim */}
+      <div className="hanoi-hero-vignette" aria-hidden="true" />
+      <div className="hanoi-hero-scrim" aria-hidden="true" />
+
+      {/* Seamless Golden Morning Mist Transition into Old Quarter */}
+      <div ref={transitionFogRef} className="hanoi-hero-transition-fog" aria-hidden="true" />
+
+      {/* Telemetry HUD (Shows 360° orbit angle & coordinates during scroll) */}
+      <div className="hanoi-orbit-telemetry-hud" role="region" aria-label="360 Orbit Telemetry">
+        <div className="hud-orbit-badge">
+          <Sparkles size={11} />
+          <span>CINEMATIC 360° ORBIT</span>
+        </div>
+        <div className="hud-orbit-row">
+          <span className="hud-stage-name">{hudData.stage}</span>
+          <span className="hud-angle-val">{hudData.angleDeg}</span>
+        </div>
+        <div className="hud-coords-row">
+          <span>Scroll: {hudData.pct}% | Pos: ({hudData.camX}, {hudData.camY}, {hudData.camZ})</span>
+        </div>
+      </div>
+
+      {/* Preserved Editorial Typography & Interactive CTA */}
+      <div ref={contentWrapperRef} className="hanoi-hero-content-wrapper">
         <div className="hanoi-hero-header">
+          {/* Top Kicker Badge */}
           <div ref={kickerRef} className="hanoi-hero-kicker">
             <span className="hanoi-kicker-badge">
               <Sparkles size={13} className="kicker-sparkle-icon" />
@@ -419,16 +784,19 @@ const HanoiAwakeningHero = ({ heroData, onExploreClick }) => {
             </span>
           </div>
 
+          {/* Main Title */}
           <h1 ref={headlineRef} className="hanoi-hero-title">
             <span className="hanoi-title-en">HANOI</span>
             <span className="hanoi-title-divider" aria-hidden="true">—</span>
             <span className="hanoi-title-sub">A LIVING MEMORY</span>
           </h1>
 
+          {/* Editorial Tagline */}
           <p ref={subtitleRef} className="hanoi-hero-tagline">
             “{tagline}”
           </p>
 
+          {/* Interactive CTA Row */}
           <div ref={ctaGroupRef} className="hanoi-hero-cta-row">
             <button
               type="button"
@@ -483,9 +851,20 @@ const HanoiAwakeningHero = ({ heroData, onExploreClick }) => {
       </div>
 
       {/* Bottom Scroll Cue */}
-      <div className="hanoi-hero-scroll-cue" onClick={handleScrollToNext}>
+      <div
+        ref={scrollCueRef}
+        className="hanoi-hero-scroll-cue"
+        onClick={handleScrollToNext}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleScrollToNext();
+          }
+        }}
+      >
         <span className="scroll-cue-text">
-          {isKorean ? '아래로 스크롤하여 시간의 거리를 걷기' : 'Cuộn xuống để dạo bước qua miền ký ức'}
+          {isKorean ? '아래로 스크롤하여 360° 탑을 감상하고 시간의 거리를 걷기' : 'Cuộn xuống để chiêm ngưỡng 360° Tháp Rùa và dạo bước phố cổ'}
         </span>
         <div className="scroll-cue-icon-wrap">
           <ChevronDown size={18} className="scroll-arrow-anim" />

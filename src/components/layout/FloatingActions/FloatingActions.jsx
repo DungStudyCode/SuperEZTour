@@ -38,8 +38,10 @@ const FloatingActions = ({ onOpenQuoteModal }) => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const [entry] = entries;
-        setIsFooterInView(entry.isIntersecting);
+        const entry = entries && entries[0];
+        if (entry) {
+          setIsFooterInView(entry.isIntersecting);
+        }
       },
       {
         root: null,
