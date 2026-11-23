@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Compass, Phone, MessageCircle, Sparkles } from 'lucide-react';
 import { BRAND_CONFIG } from '../../../../constants/brand.config';
 import { useConsultation } from '../../../../context/ConsultationContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './CinematicEndingScene.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,6 +14,7 @@ const CinematicEndingScene = ({ ctaData }) => {
   const sunsetBgRef = useRef(null);
   const typographyRef = useRef(null);
   const { openNewConsultation } = useConsultation();
+  const { isKorean } = useLanguage();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -49,7 +51,7 @@ const CinematicEndingScene = ({ ctaData }) => {
     if (ctaData?.openConsultation || !document.getElementById('trip-builder')) {
       openNewConsultation({
         source: 'cinematic-ending',
-        destinationId: ctaData?.destinationId || 'ha-noi'
+        destinationId: ctaData?.destinationId || 'da-nang'
       });
     } else {
       const el = document.getElementById('trip-builder');
@@ -62,7 +64,7 @@ const CinematicEndingScene = ({ ctaData }) => {
       {/* Sunset Background Image with Slow Pullback */}
       <div className="ending-sunset-plane" ref={sunsetBgRef}>
         <img
-          src={ctaData?.image || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85"}
+          src={ctaData?.image || ctaData?.bgImage || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85"}
           alt={ctaData?.title || "Hoàng hôn phong cảnh"}
           className="ending-sunset-img"
         />
@@ -85,7 +87,7 @@ const CinematicEndingScene = ({ ctaData }) => {
         </h2>
 
         <p className="ending-philosophy-quote">
-          {ctaData?.subtitle || 'Your Destination. Your Experience. Your Schedule. Your Way.'}
+          {ctaData?.subtitle || ctaData?.lead || 'Your Destination. Your Experience. Your Schedule. Your Way.'}
         </p>
 
         <p className="ending-desc">
@@ -98,16 +100,16 @@ const CinematicEndingScene = ({ ctaData }) => {
             className="dest-btn-primary ending-cta-main"
             onClick={handleAction}
           >
-            <span>{ctaData?.ctaText || ctaData?.actions?.primary || 'Bắt đầu thiết kế chuyến đi'}</span>
+            <span>{ctaData?.ctaText || ctaData?.primaryCta || ctaData?.actions?.primary || 'Bắt đầu thiết kế chuyến đi'}</span>
             <Compass size={18} />
           </button>
 
           <button
             type="button"
             className="dest-btn-ghost ending-cta-hotline"
-            onClick={() => openNewConsultation({ source: 'ending-cta-quote', destinationId: ctaData?.destinationId || 'ha-noi' })}
+            onClick={() => openNewConsultation({ source: 'ending-cta-quote', destinationId: ctaData?.destinationId || 'da-nang' })}
           >
-            <span>{ctaData?.ctaSecondaryText || 'Tư vấn hành trình riêng 1:1'}</span>
+            <span>{ctaData?.ctaSecondaryText || ctaData?.secondaryCta || (isKorean ? '1:1 맞춤 여행 무료 상담' : 'Tư vấn hành trình riêng 1:1')}</span>
           </button>
         </div>
       </div>

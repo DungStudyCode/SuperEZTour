@@ -102,22 +102,34 @@ export const PHO_DOCUMENTARY_ACTS = [
     ctaKo: '하노이 쌀국수 체험 일정에 추가',
     ctaAddedVi: 'Đã thêm vào hành trình ẩm thực',
     ctaAddedKo: '미식 일정에 담김',
+    secondaryCtaVi: 'Khám phá Tứ đại Phở Hà Nội',
+    secondaryCtaKo: '하노이 4대 쌀국수 노포 탐구',
     assetId: 'pho-breakfast',
     layoutVariant: 'wide-ending',
     scrimGradient: 'wide-ending'
   }
 ];
 
+import { BUN_CHA_DOCUMENTARY_ACTS } from './bunChaScenes';
+
 /**
- * Extensible culinary library for future dishes
+ * Extensible culinary library for Hanoi dishes
  */
 export const CULINARY_STORIES = {
   'pho-bo': {
     id: 'pho-bo',
     slug: 'pho-bo-hanoi',
     nameVi: 'Phở Bò Gia Truyền Hà Nội',
-    nameKo: '하노이 정통 소고기 쌀국수 (Phở Bò)',
+    nameKo: '정통 하노이 소고기 쌀국수 (Phở Bò)',
     nameEn: 'Heirloom Hanoi Beef Pho',
     acts: PHO_DOCUMENTARY_ACTS
+  },
+  'bun-cha': {
+    id: 'bun-cha-hanoi',
+    slug: 'bun-cha-hanoi',
+    nameVi: 'Bún Chả Than Hoa Hà Nội',
+    nameKo: '하노이 숯불 분짜 (Bún Chả)',
+    nameEn: 'Charcoal Grilled Pork Bun Cha',
+    acts: BUN_CHA_DOCUMENTARY_ACTS
   }
 };

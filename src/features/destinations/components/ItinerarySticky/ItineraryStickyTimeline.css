@@ -210,7 +210,14 @@
   height: 100%;
   border-radius: 20px;
   overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
   will-change: opacity, transform, clip-path;
+}
+
+.itinerary-sticky-timeline .journal-visual-slide:first-child {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .itinerary-sticky-timeline .journal-img-wrap {
@@ -348,7 +355,14 @@
   justify-content: space-between;
   padding: clamp(1.25rem, 2vw, 1.85rem);
   box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
   will-change: opacity, transform;
+}
+
+.itinerary-sticky-timeline .journal-editorial-slide:first-child {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .itinerary-sticky-timeline .journal-story-header {

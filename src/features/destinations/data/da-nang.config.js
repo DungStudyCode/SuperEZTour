@@ -549,8 +549,8 @@ export const DA_NANG_CONFIG = {
         categoryLabel: '중부 꽝남 대표 미식',
         slogan: '강황을 넣어 뽑아낸 노란 쌀면과 진한 특제 육수, 고소한 참깨 라이스페이퍼의 조화.',
         desc: '쫄깃한 쌀국수 면에 새우, 돼지고기, 메추리알을 조려낸 깊은 특제 소스를 자작하게 붓고, 바삭한 참깨 라이스페이퍼와 9가지 신선한 야채를 곁들여 먹는 다낭 대표 국수.',
-        image: 'https://images.unsplash.com/photo-1790955333423-96ea0abb9b89?auto=format&fit=crop&w=1200&q=85',
-        fallbackImage: 'https://upload.wikimedia.org/wikipedia/commons/5/57/M%C3%AC_Qu%E1%BA%A3ng%2C_Da_Nang%2C_Vietnam.jpg',
+        image: 'https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85',
         spot: '30년 전통의 현지인 최애 미꽝 전문점',
         highlights: ['강황으로 반죽한 황금빛 면발', '짜꾸에 허브 마을의 9가지 신선 야채', '바삭한 전통 참깨 쌀과자', '고소하게 볶아낸 햇땅콩 고명'],
         flavorNotes: '깊은 감칠맛 · 고소함 · 은은한 매콤함 · 바삭한 식감'
@@ -564,8 +564,8 @@ export const DA_NANG_CONFIG = {
         categoryLabel: '다낭 전통 쌈 요리',
         slogan: '양끝 껍질의 쫄깃한 식감을 살린 수육과 햇살에 말린 쫀득한 라이스페이퍼, 매콤한 맘넴 소스.',
         desc: '지방과 살코기, 껍질이 절묘한 비율을 이루는 다이록 돼지고기 수육을 야들야들한 라이스페이퍼에 오이, 바나나꽃, 그린 망고와 함께 싸서 특제 맘넴 소스에 찍어 먹는 별미.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg',
-        fallbackImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg/1280px-B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg',
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=85',
         spot: '원조 다이록 돼지 수육 & 디껀 특제 발효 소스',
         highlights: ['양끝 껍질이 완벽히 살아있는 수육', '쫀득하고 얇은 다이록 라이스페이퍼', '마늘과 고추로 맛을 낸 특제 맘넴 장', '새콤한 스타프루트와 아삭한 야채'],
         flavorNotes: '고소한 육즙 · 아삭하고 상큼함 · 깊은 풍미 · 깔끔한 뒷맛'
@@ -580,7 +580,7 @@ export const DA_NANG_CONFIG = {
         slogan: '새벽 바다 전통 바구니배에서 갓 건져 올린 신선한 바다 본연의 맛.',
         desc: '갈릭 버터 랍스터 구이, 타마린드 소스 크랩 볶음, 생강 향을 머금은 총알오징어 찜, 땅콩 파기름 가리비 구이 등 보응우옌잡 해변가 수조에서 직접 고르는 최상급 해산물 성찬.',
         image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1200&q=85',
-        fallbackImage: 'https://images.unsplash.com/photo-1559737558-245cb351c4a4?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1200&q=85',
         spot: '정찰제 가격 보장 및 최상급 위생 관리 프리미엄 씨푸드 레스토랑',
         highlights: ['그린 칠리 소금 블랙타이거 새우 구이', '생강 향 가득한 부드러운 오징어 찜', '파기름과 고소한 땅콩 가리비 구이', '수조에서 즉석 선택 후 맞춤 조리'],
         flavorNotes: '탱글탱글한 탄력 · 천연의 단맛 · 은은한 숯불 향 · 바다의 풍미'
@@ -594,8 +594,8 @@ export const DA_NANG_CONFIG = {
         categoryLabel: '해안 도시의 소울푸드',
         slogan: '신선한 생선 뼈와 달콤한 단호박으로 우려낸 담백한 육수와 황금빛 수제 삼치 어묵.',
         desc: '바다 생선 뼈, 토마토, 파인애플, 양배추, 단호박을 넣고 푹 끓여 천연의 단맛을 낸 맑고 시원한 육수에 수제로 빚어 튀겨낸 쫄깃한 삼치 어묵을 듬뿍 얹은 아침 대표 국수.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Bun_cha_ca.jpg',
-        fallbackImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bun_cha_ca.jpg/1280px-Bun_cha_ca.jpg',
+        image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85',
+        fallbackImage: 'https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1200&q=85',
         spot: '응우옌찌탄 거리의 대를 이은 원조 어묵국수 명가',
         highlights: ['손으로 직접 치대어 빚은 쫄깃한 삼치 어묵', '단호박과 토마토의 달큰하고 시원한 육수', '감칠맛을 더하는 순수 맘루옥 양념', '새콤달콤하게 절인 샬롯 피클'],
         flavorNotes: '시원하고 맑은 단맛 · 쫄깃한 어묵 · 따뜻한 온기 · 개운함'
@@ -849,11 +849,16 @@ export const DA_NANG_CONFIG = {
 
   // Section 14 - Final CTA
   finalCta: {
+    destinationId: 'da-nang',
     kicker: 'YOUR ADVENTURE AWAITS',
     title: 'DA NANG IS CALLING.',
+    subtitle: '세상에 완전히 똑같은 두 개의 여행은 없습니다.',
     lead: '세상에 완전히 똑같은 두 개의 여행은 없습니다.',
     description: '원하시는 여행 스타일을 말씀해 주시면, 30분 이내에 고객님과 소중한 가족만을 위한 독창적인 프라이빗 여행 일정을 완성해 드립니다.',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85',
     bgImage: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85',
+    ctaText: '나만의 여행 만들기',
+    ctaSecondaryText: '1:1 맞춤 여행 무료 상담',
     actions: {
       primary: '나만의 여행 만들기',
       secondary: '24시간 한국어 케어: 1900 8899',
@@ -900,6 +905,10 @@ export function getLocalizedDaNangConfig(language = 'ko') {
       ...base.intro,
       ...vi.intro,
       paragraphs: vi.intro?.paragraphs ? [...vi.intro.paragraphs] : base.intro.paragraphs,
+      gallery: base.intro.gallery.map((g, i) => ({
+        ...g,
+        ...(vi.intro?.gallery?.[i] || {})
+      })),
       features: base.intro.features.map((f, i) => ({
         ...f,
         ...(vi.intro?.features?.[i] || {})
@@ -916,10 +925,15 @@ export function getLocalizedDaNangConfig(language = 'ko') {
     accommodation: {
       ...base.accommodation,
       ...vi.accommodation,
-      categories: (vi.accommodation?.categories || []).map((c, i) => ({
-        ...(base.accommodation.categories?.[i] || {}),
-        ...c
-      })),
+      categories: base.accommodation.categories.map((baseCat, i) => {
+        const matchedVi =
+          (vi.accommodation?.categories || []).find((c) => c.id === baseCat.id) ||
+          vi.accommodation?.categories?.[i];
+        return {
+          ...baseCat,
+          label: matchedVi?.label || baseCat.label
+        };
+      }),
       items: base.accommodation.items.map((item, i) => ({
         ...item,
         ...(vi.accommodation?.items?.[i] || {})

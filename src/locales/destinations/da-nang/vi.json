@@ -145,20 +145,20 @@
     "btnSelect": "Chọn khách sạn này",
     "categories": [
       {
-        "id": "all",
-        "label": "Tất cả"
-      },
-      {
         "id": "resort",
-        "label": "Khu nghỉ dưỡng Siêu sang"
-      },
-      {
-        "id": "beachfront",
         "label": "Resort Biển 5 Sao"
       },
       {
-        "id": "city-luxury",
-        "label": "Khách sạn Trung tâm"
+        "id": "villa",
+        "label": "Private Pool Villa"
+      },
+      {
+        "id": "5star",
+        "label": "Khách sạn 5 Sao"
+      },
+      {
+        "id": "4star",
+        "label": "Khách sạn 4 Sao Biển"
       }
     ],
     "items": [
@@ -525,7 +525,7 @@
     "title": "Mỹ Vị Ẩm Thực Bản Địa Đà Nẵng — Hội An",
     "subtitle": "Hành trình khám phá những hương vị truyền thống tinh hoa được chắt lọc qua nhiều thế hệ.",
     "lead": "Lựa chọn các phong vị đặc sản bạn yêu thích vào thực đơn. Chúng tôi chỉ đề xuất những nhà hàng uy tín hàng đầu, đảm bảo tiêu chuẩn vệ sinh cao cấp và nguyên liệu tươi ngon nhất mỗi ngày.",
-    "badgeText": "TINH HOA ẨM THỰC XỨ QUẢNG",
+    "badgeText": "món đã lưu vào thực đơn",
     "highlightsLabel": "Đặc trưng hương vị:",
     "btnChosen": "Đã chọn món này",
     "btnAdd": "Thêm vào thực đơn",
@@ -550,7 +550,7 @@
     "items": [
       {
         "id": "mi-quang",
-        "chapter": "MÓN 01",
+        "chapter": "01",
         "name": "Mì Quảng Ếch Niêu Đất Trứ Danh",
         "nameKr": "미꽝 (Mi Quang)",
         "categoryLabel": "Đặc sản dân dã biểu tượng",
@@ -567,7 +567,7 @@
       },
       {
         "id": "banh-trang-thit-heo",
-        "chapter": "MÓN 02",
+        "chapter": "02",
         "name": "Bánh Tráng Cuốn Thịt Heo Hai Đầu Da Đại Lộc",
         "nameKr": "반짱 팃헤오 (Thịt Heo Cuốn)",
         "categoryLabel": "Hương vị thanh tao xứ Đà",
@@ -584,7 +584,7 @@
       },
       {
         "id": "hai-san-tuoi",
-        "chapter": "MÓN 03",
+        "chapter": "03",
         "name": "Đại Tiệc Hải Sản Tươi Sống Bên Bờ Biển Mỹ Khê",
         "nameKr": "해산물 만찬 (Seafood Feast)",
         "categoryLabel": "Hương vị đại dương trác tuyệt",
@@ -601,7 +601,7 @@
       },
       {
         "id": "bun-cha-ca",
-        "chapter": "MÓN 04",
+        "chapter": "04",
         "name": "Bún Chả Cá Đà Nẵng Nước Dùng Thanh Ngọt",
         "nameKr": "분짜까 (Bun Cha Ca)",
         "categoryLabel": "Bữa sáng ấm nồng miền biển",
@@ -618,7 +618,7 @@
       },
       {
         "id": "la-maison-1888",
-        "chapter": "MÓN 05",
+        "chapter": "05",
         "name": "Fine Dining Tại La Maison 1888 (Michelin Selected)",
         "nameKr": "라 메종 1888 (Fine Dining)",
         "categoryLabel": "Đỉnh cao ẩm thực thượng lưu",

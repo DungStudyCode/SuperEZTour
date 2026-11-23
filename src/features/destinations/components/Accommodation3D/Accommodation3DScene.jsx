@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Star, MapPin, CheckCircle2, Bed, ArrowRight, Sparkles } from 'lucide-react';
 import { useTripBuilder } from '../../context/TripBuilderContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './Accommodation3DScene.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,6 +30,7 @@ const Accommodation3DScene = ({ accommodationData }) => {
   const [hoveredImage, setHoveredImage] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { tripState, preselectService } = useTripBuilder();
+  const { isKorean } = useLanguage();
 
   const categories = [
     { id: 'all', label: accommodationData?.allLabel || 'Tất cả lựa chọn' },
@@ -447,7 +449,7 @@ const Accommodation3DScene = ({ accommodationData }) => {
           <div className="acc-kicker-mask">
             <span className="dest-kicker acc-kicker" ref={kickerRef}>
               <Bed size={14} className="acc-kicker-icon" />
-              <span>PREMIUM ACCOMMODATION</span>
+              <span>{accommodationData?.kicker || 'PREMIUM ACCOMMODATION'}</span>
             </span>
           </div>
 
@@ -530,7 +532,7 @@ const Accommodation3DScene = ({ accommodationData }) => {
                       <div className="acc-deck-badges">
                         <span className="dest-badge dest-badge-white">
                           <Star size={11} fill="#FFB52B" color="#FFB52B" />
-                          <span>{item.stars} Sao</span>
+                          <span>{item.stars} {isKorean ? '성급' : 'Sao'}</span>
                         </span>
                         {item.badge && (
                           <span className="dest-badge dest-badge-gold">

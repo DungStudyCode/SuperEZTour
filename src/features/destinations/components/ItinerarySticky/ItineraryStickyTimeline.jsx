@@ -419,9 +419,11 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
           <div className="journal-header-left">
             <span className="dest-kicker journal-kicker">
               <Compass size={14} className="journal-kicker-icon" aria-hidden="true" />
-              <span>THE SIGNATURE JOURNEY</span>
+              <span>{isKorean ? 'THE SIGNATURE JOURNEY · 추천 일정' : 'HÀNH TRÌNH ĐỀ XUẤT · SIGNATURE JOURNEY'}</span>
             </span>
-            <h2 className="journal-title">A Journey Worth Remembering.</h2>
+            <h2 className="journal-title">
+              {isKorean ? '기억에 남을 단 하나의 다낭 여정.' : 'Hành Trình Đáng Nhớ Tại Đà Nẵng.'}
+            </h2>
             {activeItinerary?.overview && (
               <p className="journal-overview-text">{activeItinerary.overview}</p>
             )}
@@ -466,10 +468,6 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
                 key={d.day}
                 ref={(el) => (visualSlidesRef.current[idx] = el)}
                 className={`journal-visual-slide ${idx === activeDayIndex ? 'slide-active-day' : ''}`}
-                style={{
-                  opacity: idx === 0 ? 1 : 0,
-                  pointerEvents: idx === 0 ? 'auto' : 'none'
-                }}
               >
                 <div className="journal-img-wrap">
                   <img
@@ -508,10 +506,6 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
                 key={d.day}
                 ref={(el) => (editorialSlidesRef.current[idx] = el)}
                 className={`journal-editorial-slide ${idx === activeDayIndex ? 'slide-active-day' : ''}`}
-                style={{
-                  opacity: idx === 0 ? 1 : 0,
-                  pointerEvents: idx === 0 ? 'auto' : 'none'
-                }}
               >
                 <div className="journal-story-header">
                   <div className="journal-day-number-row">

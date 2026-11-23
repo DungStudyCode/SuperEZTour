@@ -78,10 +78,10 @@ const ExperiencesCinematicSequence = ({ ecosystemData }) => {
         <div className="exp-seq-header-left">
           <span className="dest-kicker exp-seq-kicker">
             <Layers size={14} />
-            <span>CORE ECOSYSTEM</span>
+            <span>{ecosystemData?.kicker || 'CORE ECOSYSTEM'}</span>
           </span>
           <h2 className="exp-seq-title">
-            Everything You Need. Nothing You Don’t.
+            {ecosystemData?.title || 'Everything You Need. Nothing You Don’t.'}
           </h2>
         </div>
 

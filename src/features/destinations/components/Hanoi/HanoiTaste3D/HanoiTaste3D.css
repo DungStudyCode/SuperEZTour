@@ -4,6 +4,12 @@
    Editorial Travel Styling & GSAP Scroll-Driven Layouts
    ========================================================================== */
 
+.hanoi-culinary-chapters {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
 .hanoi-taste-scene.pho-documentary-scene {
   position: relative;
   width: 100%;
@@ -13,6 +19,24 @@
   color: #F7F4ED;
   overflow: hidden;
   font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+.hanoi-taste-scene.buncha-documentary-scene {
+  background-color: #140f0c;
+}
+
+.buncha-documentary-scene .pho-kicker {
+  background: rgba(34, 24, 18, 0.78);
+  border-color: rgba(232, 168, 108, 0.45);
+  color: #F0C28E;
+}
+
+.buncha-documentary-scene .pho-kicker-icon {
+  color: #D4784A;
+}
+
+.buncha-documentary-scene .pho-subtitle {
+  color: #F0C28E;
 }
 
 /* ==========================================================================

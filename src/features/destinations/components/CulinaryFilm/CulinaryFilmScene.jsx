@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Utensils, Check, Sparkles, Flame, Plus, Award } from 'lucide-react';
-import { useTripBuilder } from '../../context/TripBuilderContext';
+import { useTripBuilder, isCulinarySelected } from '../../context/TripBuilderContext';
+import { useLanguage } from '../../../../context/LanguageContext';
 import './CulinaryFilmScene.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -31,6 +32,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
   const [activeNavIndex, setActiveNavIndex] = useState(0);
 
   const { tripState, toggleCulinary } = useTripBuilder();
+  const { isKorean } = useLanguage();
 
   // Navigation tab click: smoothly glides scroll position to that dish's dwell plateau
   const handleNavClick = useCallback((idx) => {
@@ -119,6 +121,18 @@ const CulinaryFilmScene = ({ culinaryData }) => {
         }
         if (navBarRef.current) {
           tl.fromTo(navBarRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.07 }, 0.04);
+        }
+
+        // Initialize all slides cleanly via GSAP (never inline JSX styles) so React re-renders don't reset scrubbed state
+        for (let idx = 0; idx < dishes.length; idx++) {
+          const vSlide = visualSlidesRef.current[idx];
+          const eSlide = editorialSlidesRef.current[idx];
+          if (vSlide) {
+            tl.set(vSlide, { opacity: idx === 0 ? 1 : 0, pointerEvents: idx === 0 ? 'auto' : 'none' }, 0);
+          }
+          if (eSlide) {
+            tl.set(eSlide, { opacity: idx === 0 ? 1 : 0, pointerEvents: idx === 0 ? 'auto' : 'none' }, 0);
+          }
         }
 
         // Dish 0 enters smoothly into 100% full reveal
@@ -287,10 +301,6 @@ const CulinaryFilmScene = ({ culinaryData }) => {
                 key={dish.id}
                 ref={(el) => (visualSlidesRef.current[i] = el)}
                 className={`culinary-visual-slide ${i === activeNavIndex ? 'slide-active-nav' : ''}`}
-                style={{
-                  opacity: i === 0 ? 1 : 0,
-                  pointerEvents: i === 0 ? 'auto' : 'none'
-                }}
               >
                 <div className="culinary-img-wrap">
                   <img
@@ -331,16 +341,12 @@ const CulinaryFilmScene = ({ culinaryData }) => {
           {/* Right: Stacked Editorial Aside Slides */}
           <aside className="culinary-editorial-aside">
             {dishes.map((dish, i) => {
-              const isChosen = tripState.culinaryPreferences.includes(dish.name);
+              const isChosen = isCulinarySelected(tripState.culinaryPreferences, dish.name);
               return (
                 <div
                   key={dish.id}
                   ref={(el) => (editorialSlidesRef.current[i] = el)}
                   className={`culinary-editorial-slide ${i === activeNavIndex ? 'slide-active-nav' : ''}`}
-                  style={{
-                    opacity: i === 0 ? 1 : 0,
-                    pointerEvents: i === 0 ? 'auto' : 'none'
-                  }}
                 >
                   <div className="culinary-story-body">
                     <div className="culinary-chapter-pretitle">
@@ -349,7 +355,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
                       <span>DA NANG GASTRONOMY</span>
                     </div>
 
-                    <h3 className="culinary-dish-title">{dish.nameKr || dish.name}</h3>
+                    <h3 className="culinary-dish-title">{isKorean ? (dish.nameKr || dish.name) : (dish.name || dish.nameKr)}</h3>
 
                     {dish.slogan && (
                       <p className="culinary-dish-slogan">{dish.slogan}</p>
@@ -414,7 +420,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
         >
           {dishes.map((dish, idx) => {
             const isActive = idx === activeNavIndex;
-            const isChosen = tripState.culinaryPreferences.includes(dish.name);
+            const isChosen = isCulinarySelected(tripState.culinaryPreferences, dish.name);
 
             return (
               <button
@@ -444,7 +450,7 @@ const CulinaryFilmScene = ({ culinaryData }) => {
 
                 <div className="nav-item-info">
                   <span className="nav-chapter-idx">{`CH.${dish.chapter || `0${idx + 1}`}`}</span>
-                  <span className="nav-dish-name">{dish.nameKr || dish.name}</span>
+                  <span className="nav-dish-name">{isKorean ? (dish.nameKr || dish.name) : (dish.name || dish.nameKr)}</span>
                 </div>
 
                 <span className="nav-active-bar" aria-hidden="true" />

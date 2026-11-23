@@ -125,9 +125,9 @@ const Flight3DScene = ({ flightData }) => {
         <div className="flight-3d-header">
           <span className="dest-kicker flight-3d-kicker">
             <Plane size={14} />
-            <span>AVIATION PREMIUM TRANSIT</span>
+            <span>{flightData?.kicker || 'AVIATION PREMIUM TRANSIT'}</span>
           </span>
-          <h2 className="flight-3d-title">Your Journey Begins Here.</h2>
+          <h2 className="flight-3d-title">{flightData?.title || 'Your Journey Begins Here.'}</h2>
           <p className="flight-3d-subtitle">
             {flightData?.subtitle || 'Hành trình bắt đầu từ bầu trời · Đồng bộ đón tiễn sân bay bằng xe riêng không phải chờ đợi.'}
           </p>

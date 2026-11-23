@@ -1,6 +1,109 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
 const TripBuilderContext = createContext(null);
+
+/**
+ * Canonical bilingual culinary alias groups
+ * Ensures selecting a dish in KO or VI synchronizes across Screen 4 / Scene 09 and TripBuilderMorph
+ * without duplicates or lost state on language switches.
+ */
+export const CULINARY_ALIAS_GROUPS = [
+  [
+    'pho-bo',
+    'pho-bo-hanoi',
+    'Phở Bò Gia Truyền Hà Nội',
+    'Phở Bò Gia Truyền Bát Đàn',
+    '정통 하노이 소고기 쌀국수 (Phở Bò)',
+    '하노이 정통 소고기 쌀국수 (퍼보)',
+    '하노이 정통 소고기 쌀국수 (Phở Bò)',
+    'Heirloom Hanoi Beef Pho'
+  ],
+  [
+    'bun-cha',
+    'bun-cha-hanoi',
+    'Bún Chả Than Hoa Hà Nội',
+    'Bún Chả Nướng Than Hoa Hàng Quạt',
+    '하노이 숯불 분짜 (Bún Chả)',
+    '참숯 직화 하노이 분짜',
+    'Charcoal Grilled Pork Bun Cha'
+  ],
+  [
+    'egg-coffee',
+    'Cà Phê Trứng Phố Cổ',
+    'Cà Phê Trứng Nguyên Bản Giảng',
+    '하노이 원조 에그커피 (Cà Phê Trứng)',
+    '원조 에그커피 (카페 쯩)'
+  ],
+  [
+    'cha-ca',
+    'cha-ca-la-vong',
+    'Chả Cá Lã Vọng',
+    'Chả Cá Lã Vọng Gia Truyền',
+    '짜까 라봉 (Chả Cá Lã Vọng)',
+    '짜까 라봉 (가물치 딜 볶음)',
+    '짜까 라봉 틸라피아 솥 요리 (Chả Cá)'
+  ],
+  [
+    'banh-cuon',
+    'Bánh Cuốn Thanh Trì',
+    '탄찌 전통 쌀전병 (Bánh Cuốn)'
+  ],
+  [
+    'bun-thang',
+    'Bún Thang Hà Nội',
+    'Bún Thang Thanh Tao Hà Thành',
+    '하노이 궁중 오색 국수 (Bún Thang)',
+    '분탕 (궁중 스타일 맑은 닭국수)'
+  ],
+  // Da Nang Culinary Aliases
+  [
+    'mi-quang',
+    'Mì Quảng Xứ Quảng',
+    'Mì Quảng Phú Chiêm & Tôm Thịt Trứng Cút',
+    '미꽝 (Mì Quảng · 다낭 황금 강황 비빔국수)',
+    'Đặc sản địa phương',
+    '다낭 로컬 명물 미식'
+  ],
+  [
+    'banh-trang-thit-heo',
+    'Bánh Tráng Cuốn Thịt Heo Hai Đầu Da',
+    'Bánh Tráng Cuốn Thịt Heo Đại Lộc',
+    '반짱 꾸온 팃헤오 (삼겹살 라이스페이퍼 쌈)'
+  ],
+  [
+    'hai-san-tuoi',
+    'Hải sản tươi sống',
+    'Hải Sản Tươi Sống Biển Đông',
+    'Hải Sản Tươi Sống Đánh Bắt Trong Ngày',
+    '다낭 미케비치 활어 해산물 만찬',
+    '미케비치 활어 씨푸드'
+  ],
+  [
+    'bun-cha-ca',
+    'Bún Chả Cá Đà Nẵng',
+    'Bún Chả Cá Thu Gia Truyền Đà Nẵng',
+    '다낭 어묵 쌀국수 (분짜까 · Bún Chả Cá)'
+  ],
+  [
+    'fine-dining-danang',
+    'Fine Dining & Ẩm Thực Đương Đại',
+    'La Maison 1888 & Tuyệt Tác Fine Dining',
+    '라 메종 1888 미쉐린 파인다이닝 & 선셋 다이닝',
+    '미쉐린 파인다이닝'
+  ]
+];
+
+export const getCulinaryAliasGroup = (preference) => {
+  if (!preference) return [];
+  const found = CULINARY_ALIAS_GROUPS.find((group) => group.includes(preference));
+  return found || [preference];
+};
+
+export const isCulinarySelected = (culinaryPreferences = [], targetPreference) => {
+  if (!Array.isArray(culinaryPreferences) || !targetPreference) return false;
+  const group = getCulinaryAliasGroup(targetPreference);
+  return culinaryPreferences.some((item) => group.includes(item));
+};
 
 export const DEFAULT_TRIP_STATE = {
   currentStep: 1,
@@ -44,7 +147,7 @@ export const DEFAULT_TRIP_STATE = {
 };
 
 export const TripBuilderProvider = ({ children, destinationConfig }) => {
-  const isKorean = destinationConfig?.locale === 'ko' || destinationConfig?.id === 'da-nang';
+  const isKorean = destinationConfig?.locale ? destinationConfig.locale === 'ko' : true;
 
   const [tripState, setTripState] = useState(() => ({
     ...DEFAULT_TRIP_STATE,
@@ -53,6 +156,26 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
     guideLanguage: isKorean ? '한국어 (전담)' : 'Tiếng Việt',
     departureCity: isKorean ? '인천 (ICN)' : 'Hà Nội'
   }));
+
+  useEffect(() => {
+    setTripState((prev) => ({
+      ...prev,
+      destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
+      destinationSlug: destinationConfig?.slug || prev.destinationSlug || 'da-nang',
+      guideLanguage:
+        prev.guideLanguage === '한국어 (전담)' || prev.guideLanguage === 'Tiếng Việt'
+          ? isKorean
+            ? '한국어 (전담)'
+            : 'Tiếng Việt'
+          : prev.guideLanguage,
+      departureCity:
+        prev.departureCity === '인천 (ICN)' || prev.departureCity === 'Hà Nội'
+          ? isKorean
+            ? '인천 (ICN)'
+            : 'Hà Nội'
+          : prev.departureCity
+    }));
+  }, [isKorean, destinationConfig?.nameKr, destinationConfig?.name, destinationConfig?.slug]);
 
   const setStep = useCallback((step) => {
     setTripState((prev) => ({
@@ -94,10 +217,10 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
 
   const toggleCulinary = useCallback((preference) => {
     setTripState((prev) => {
-      const exists = prev.culinaryPreferences.includes(preference);
-      const updated = exists
-        ? prev.culinaryPreferences.filter((p) => p !== preference)
-        : [...prev.culinaryPreferences, preference];
+      const group = getCulinaryAliasGroup(preference);
+      const exists = prev.culinaryPreferences.some((p) => group.includes(p));
+      const cleaned = prev.culinaryPreferences.filter((p) => !group.includes(p));
+      const updated = exists ? cleaned : [...cleaned, preference];
       return { ...prev, culinaryPreferences: updated };
     });
   }, []);

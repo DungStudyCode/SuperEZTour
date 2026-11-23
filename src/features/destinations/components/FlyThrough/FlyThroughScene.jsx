@@ -43,20 +43,29 @@ const FlyThroughScene = ({ introData }) => {
           'Với Super EZ Tour, bạn không bị bó buộc trong những đoàn khách 40 người hay lịch trình rập khuôn. Mỗi bước chân là một trải nghiệm độc bản do chính bạn làm chủ.',
         ];
 
-  const galleryItems = introData?.gallery || [
+  const DEFAULT_GALLERY_URLS = [
+    'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1400&q=80',
+    'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80',
+    'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80',
+  ];
+
+  const galleryItems = (introData?.gallery || [
     {
-      url: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1400&q=80',
+      url: DEFAULT_GALLERY_URLS[0],
       caption: 'Cầu Vàng Bà Nà Hills — Biểu tượng kiến trúc thế giới vươn giữa mây trời',
     },
     {
-      url: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80',
+      url: DEFAULT_GALLERY_URLS[1],
       caption: 'Bờ biển Mỹ Khê — Tuyệt tác đường chân trời đại dương miền nhiệt đới',
     },
     {
-      url: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80',
+      url: DEFAULT_GALLERY_URLS[2],
       caption: 'Phố cổ Hội An — Trầm tích di sản ngàn năm soi bóng sông Hoài',
     },
-  ];
+  ]).map((item, idx) => ({
+    ...item,
+    url: item?.url || DEFAULT_GALLERY_URLS[idx] || DEFAULT_GALLERY_URLS[0],
+  }));
 
   const features =
     Array.isArray(introData?.features) && introData.features.length > 0
@@ -167,6 +176,7 @@ const FlyThroughScene = ({ introData }) => {
     // Architectural frames with champagne gold bevels & photographic canvases
     // =========================================================================
     const textureLoader = new THREE.TextureLoader();
+    textureLoader.setCrossOrigin('anonymous');
 
     // Helper: Create high-aesthetic canvas placeholder texture
     const createPlaceholderTexture = (label) => {

@@ -17,7 +17,7 @@ import {
   Phone,
   FileCheck
 } from 'lucide-react';
-import { useTripBuilder } from '../../context/TripBuilderContext';
+import { useTripBuilder, isCulinarySelected } from '../../context/TripBuilderContext';
 import { useLanguage } from '../../../../context/LanguageContext';
 import './TripBuilderMorph.css';
 
@@ -674,7 +674,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                             ]
                         )
                     ).map((food) => {
-                      const isChecked = tripState.culinaryPreferences.includes(food);
+                      const isChecked = isCulinarySelected(tripState.culinaryPreferences, food);
                       return (
                         <div
                           key={food}

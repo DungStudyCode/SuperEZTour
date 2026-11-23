@@ -1,14 +1,14 @@
 /**
- * SUPER EZ TOUR — HANOI SCREEN 4 V1
- * PHỞ HÀ NỘI — GRAND CINEMATIC FOOD DOCUMENTARY
+ * SUPER EZ TOUR — HANOI SCREEN 4 V1 & V2
+ * GRAND CINEMATIC FOOD DOCUMENTARY — REUSABLE 5-ACT TIMELINE BUILDER
  *
- * GSAP ScrollTrigger Master Timeline Builder
  * Architecture:
- *  - Pinned full-viewport container
- *  - 5 Staged Acts with Dwell Holds (Reveal -> Ken Burns Drift -> Editorial Typography Reveal -> Reading Dwell -> Transition Out)
+ *  - Scoped to a single chapter containerEl (supports sequential independent chapters: Phở V1 -> Bún Chả V2)
+ *  - Pinned full-viewport container per chapter (no nested pins, no mega-timeline)
+ *  - 5 Staged Acts with Dwell Holds (Reveal -> Camera Motion Profile -> Editorial Typography Reveal -> Reading Dwell -> Transition Out)
+ *  - Supports per-act motionProfile ({ scaleStart, scaleEnd, panXStart, panXEnd, panYStart, panYEnd, extendedHold })
+ *    while defaulting to Phở V1's exact serene push-in ({ scaleStart: 1.0, scaleEnd: 1.06, panX: 0, panY: 0 })
  *  - 100% bidirectional / reverse-scroll deterministic tracking (gsap.set + non-overlapping tl.to tweens)
- *  - Layered opaque cross-dissolve (higher z-index fades in over previous slide before previous slide hides, preventing dark background bleed)
- *  - Scoped GSAP context cleanup
  */
 
 import gsap from 'gsap';
@@ -34,13 +34,14 @@ export const resolvePhoProgressState = (progress) => {
 };
 
 /**
- * Builds the GSAP Master Timeline for Screen 4 Phở Documentary
+ * Builds the GSAP Master Timeline for a 5-Act Culinary Documentary Chapter
  */
 export const buildPhoTimeline = ({
   containerEl,
   actSlideEls,
   actImageEls,
   actTextEls,
+  actsData,
   onProgressUpdate
 }) => {
   if (!containerEl || !actSlideEls || actSlideEls.length === 0) {
@@ -57,7 +58,7 @@ export const buildPhoTimeline = ({
       reduceMotion: '(prefers-reduced-motion: reduce)'
     },
     (context) => {
-      const { isDesktop, isTablet, reduceMotion } = context.conditions;
+      const { isDesktop, isTablet, isMobile, reduceMotion } = context.conditions;
 
       if (reduceMotion) {
         actSlideEls.forEach((slide) => {
@@ -69,6 +70,7 @@ export const buildPhoTimeline = ({
       }
 
       const pinDistance = isDesktop ? '+=520%' : isTablet ? '+=380%' : '+=290%';
+      const mobileFactor = isMobile ? 0.5 : 1;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -92,6 +94,20 @@ export const buildPhoTimeline = ({
       const numActs = actSlideEls.length;
       const actDuration = 20;
 
+      // Helper to resolve per-act motion profile (defaults to Phở V1 exact values)
+      const getMotion = (idx) => {
+        const mp = actsData?.[idx]?.motionProfile;
+        return {
+          scaleStart: mp?.scaleStart ?? 1.0,
+          scaleEnd: mp?.scaleEnd ?? 1.06,
+          panXStart: (mp?.panXStart ?? 0) * mobileFactor,
+          panXEnd: (mp?.panXEnd ?? 0) * mobileFactor,
+          panYStart: (mp?.panYStart ?? 0) * mobileFactor,
+          panYEnd: (mp?.panYEnd ?? 0) * mobileFactor,
+          extendedHold: Boolean(mp?.extendedHold)
+        };
+      };
+
       // 1. Deterministic Initial States at t = 0
       actSlideEls.forEach((slide, idx) => {
         if (!slide) return;
@@ -101,8 +117,14 @@ export const buildPhoTimeline = ({
         });
 
         const img = actImageEls[idx];
+        const m = getMotion(idx);
         if (img) {
-          gsap.set(img, { scale: 1.0, transformOrigin: '50% 50%' });
+          gsap.set(img, {
+            scale: m.scaleStart,
+            x: m.panXStart,
+            y: m.panYStart,
+            transformOrigin: '50% 50%'
+          });
         }
 
         const textBlock = actTextEls[idx];
@@ -128,6 +150,7 @@ export const buildPhoTimeline = ({
         const slide = actSlideEls[i];
         const img = actImageEls[i];
         const textBlock = actTextEls[i];
+        const m = getMotion(i);
         const actStart = i * actDuration;
         const actEnd = (i + 1) * actDuration;
 
@@ -136,11 +159,12 @@ export const buildPhoTimeline = ({
         // A. Enter current slide & reveal typography (for Acts 2..5)
         if (i > 0 && slide) {
           const prevSlide = actSlideEls[i - 1];
+          const fadeDur = m.extendedHold ? 2.6 : 3.2;
 
           // Fade in current slide over previous slide (zIndex: i + 1 > i)
           tl.to(
             slide,
-            { autoAlpha: 1, duration: 3.2, ease: 'power2.inOut' },
+            { autoAlpha: 1, duration: fadeDur, ease: 'power2.inOut' },
             actStart
           );
 
@@ -149,7 +173,7 @@ export const buildPhoTimeline = ({
             tl.to(
               prevSlide,
               { autoAlpha: 0, duration: 0.4, ease: 'none' },
-              actStart + 3.25
+              actStart + fadeDur + 0.05
             );
           }
 
@@ -159,50 +183,57 @@ export const buildPhoTimeline = ({
             const subtitle = textBlock.querySelector('.pho-subtitle');
             const story = textBlock.querySelector('.pho-story-para');
             const actions = textBlock.querySelector('.pho-act-actions');
+            const tOffset = m.extendedHold ? 1.4 : 1.8;
 
             if (kicker) {
               tl.to(
                 kicker,
                 { autoAlpha: 1, y: 0, duration: 1.8, ease: 'power2.out' },
-                actStart + 1.8
+                actStart + tOffset
               );
             }
             if (title) {
               tl.to(
                 title,
                 { autoAlpha: 1, y: 0, duration: 2.0, ease: 'power2.out' },
-                actStart + 2.4
+                actStart + tOffset + 0.6
               );
             }
             if (subtitle) {
               tl.to(
                 subtitle,
                 { autoAlpha: 1, y: 0, duration: 2.0, ease: 'power2.out' },
-                actStart + 3.0
+                actStart + tOffset + 1.2
               );
             }
             if (story) {
               tl.to(
                 story,
                 { autoAlpha: 1, y: 0, duration: 2.2, ease: 'power2.out' },
-                actStart + 3.6
+                actStart + tOffset + 1.8
               );
             }
             if (actions) {
               tl.to(
                 actions,
                 { autoAlpha: 1, y: 0, duration: 2.2, ease: 'power2.out' },
-                actStart + (i === numActs - 1 ? 4.6 : 4.2)
+                actStart + (i === numActs - 1 ? 4.6 : tOffset + 2.4)
               );
             }
           }
         }
 
-        // B. Continuous Ken Burns drift during this act's active window
+        // B. Continuous Camera Motion Profile during this act's active window
         if (img) {
           tl.to(
             img,
-            { scale: 1.06, ease: 'none', duration: actDuration },
+            {
+              scale: m.scaleEnd,
+              x: m.panXEnd,
+              y: m.panYEnd,
+              ease: 'none',
+              duration: actDuration
+            },
             actStart
           );
         }
