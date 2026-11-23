@@ -1,256 +1,216 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  Sparkles,
-  X,
-  ArrowRight,
-  Check,
-  Compass,
-  Clock,
-  Layers,
-  ChevronRight,
-  Info
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { useLanguage } from '../../../../../context/LanguageContext';
 import { useTripBuilder } from '../../../context/TripBuilderContext';
 import { getLenis } from '../../../motion/LenisManager';
-import { OLD_QUARTER_SCENES, TOTAL_SCENES } from './oldQuarterScenes';
+import { OLD_QUARTER_CHAPTERS, TOTAL_CHAPTERS } from './oldQuarterScenes';
+import { SCRIM_GRADIENTS } from './editorialLayouts';
+import { buildOldQuarterTimeline } from './buildOldQuarterTimeline';
+import OldQuarterDetailModal from './OldQuarterDetailModal';
 import './HanoiOldQuarterWalk.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
  * SUPER EZ TOUR — HANOI SCREEN 2: LIVING OLD QUARTER (36 PHỐ PHƯỜNG)
- * 
- * Cinematic 2.5D Photographic Parallax & Cultural Storytelling Experience.
- * Replaces procedural low-poly 3D street with authentic high-resolution
- * heritage photography, camera dolly depth, and editorial HUD.
+ *
+ * Version 3.4.1 — Typography Clarity & Cinematic Readability
+ *  - Per-beat localized directional gradient scrims (left-to-right, right-to-left, minimal-caption)
+ *  - Standardized High-Clarity Palette (#F8F5EF Headline, #F1F0EC Body, #D9D3C8 Metadata)
+ *  - Text-safe focal points (Chapter 04 flower vendor preserved on left, text shaded on right)
+ *  - Subpixel-sharp GSAP typography layer separated from image transforms
  */
 const HanoiOldQuarterWalk = () => {
   const containerRef = useRef(null);
-  const transitionFogRef = useRef(null);
-  const scenesTrackRef = useRef(null);
+  const mistRef = useRef(null);
+  const timelineRef = useRef(null);
 
-  // Active scene milestone index (0..3)
-  const [activeIndex, setActiveIndex] = useState(0);
-  // Modal state
-  const [activeModalSpot, setActiveModalSpot] = useState(null);
+  const stageRefs = useRef([]);
+  const photoFrameRefs = useRef([]);
+  const establishingScrimRefs = useRef([]);
+  const immersiveTitleRefs = useRef([]);
+  const editorialSurfaceRefs = useRef([]);
+  const ctaBarRefs = useRef([]);
+
+  const beatPhotoLayerRefs = useRef([[], [], [], []]);
+  const beatPhotoInnerRefs = useRef([[], [], [], []]);
+  const beatScrimRefs = useRef([[], [], [], []]);
+  const beatCaptionRefs = useRef([[], [], [], []]);
+  const beatRefs = useRef([[], [], [], []]);
+  const beatRailItemRefs = useRef([[], [], [], []]);
+  const beatRailFillRefs = useRef([[], [], [], []]);
+
+  const [activeChapterIndex, setActiveChapterIndex] = useState(0);
+  const [activeModalChapter, setActiveModalChapter] = useState(null);
 
   const { isKorean } = useLanguage();
   const { tripState, toggleAttraction } = useTripBuilder();
 
-  const currentScene = OLD_QUARTER_SCENES[activeIndex] || OLD_QUARTER_SCENES[0];
-  const isAttractionSaved = Boolean(
-    activeModalSpot && tripState?.selectedAttractions?.includes(activeModalSpot.id)
+  const activeChapter = OLD_QUARTER_CHAPTERS[activeChapterIndex] || OLD_QUARTER_CHAPTERS[0];
+
+  const isSaved = useCallback(
+    (chapterId) => Boolean(tripState?.selectedAttractions?.includes(chapterId)),
+    [tripState?.selectedAttractions]
   );
 
   // =========================================================================
-  // 1. GSAP SCROLLTRIGGER PINNING & 2.5D PARALLAX TIMELINE
+  // 1. PROGRESSIVE ASSET PRELOAD (Previous, Current & Next Chapter)
+  // =========================================================================
+  useEffect(() => {
+    const chaptersToPreload = Array.from(
+      new Set([
+        Math.max(0, activeChapterIndex - 1),
+        activeChapterIndex,
+        Math.min(TOTAL_CHAPTERS - 1, activeChapterIndex + 1)
+      ])
+    );
+    chaptersToPreload.forEach((chIdx) => {
+      const ch = OLD_QUARTER_CHAPTERS[chIdx];
+      if (!ch) return;
+      ch.beats.forEach((b) => {
+        if (b.image?.src) {
+          const img = new Image();
+          img.src = b.image.src;
+        }
+      });
+    });
+  }, [activeChapterIndex]);
+
+  // =========================================================================
+  // 2. MASTER GSAP SCROLLTRIGGER & MODULAR EDITORIAL TIMELINE
   // =========================================================================
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const prefersReducedMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const refs = {
+      stageRefs,
+      photoFrameRefs,
+      establishingScrimRefs,
+      immersiveTitleRefs,
+      editorialSurfaceRefs,
+      ctaBarRefs,
+      beatPhotoLayerRefs,
+      beatPhotoInnerRefs,
+      beatScrimRefs,
+      beatCaptionRefs,
+      beatRefs,
+      beatRailItemRefs,
+      beatRailFillRefs
+    };
 
-    const sceneEls = container.querySelectorAll('.photographic-scene-layer');
-    const imageEls = container.querySelectorAll('.photographic-image-wrap');
+    const mm = gsap.matchMedia();
 
     const ctx = gsap.context(() => {
-      // Create master scrubbed timeline
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          id: 'oldQuarterPinTrigger',
-          trigger: container,
-          start: 'top top',
-          end: '+=280%',
-          pin: true,
-          scrub: prefersReducedMotion ? false : 1.2,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            const progress = Number.isFinite(self.progress) ? self.progress : 0;
+      const handleProgressUpdate = (self) => {
+        const p = Number.isFinite(self.progress) ? self.progress : 0;
+        const chIdx = Math.min(TOTAL_CHAPTERS - 1, Math.floor(p * TOTAL_CHAPTERS));
+        setActiveChapterIndex((prev) => (prev !== chIdx ? chIdx : prev));
 
-            // Map progress to active milestone
-            // 0.00 .. 0.25 -> 0 (Hàng Bạc)
-            // 0.25 .. 0.50 -> 1 (Café Giảng)
-            // 0.50 .. 0.75 -> 2 (87 Mã Mây)
-            // 0.75 .. 1.00 -> 3 (Xe Hoa & Hàng Rong)
-            const newIndex = progress < 0.25 ? 0 : progress < 0.5 ? 1 : progress < 0.75 ? 2 : 3;
-            setActiveIndex((prev) => (prev !== newIndex ? newIndex : prev));
+        if (mistRef.current) {
+          if (p <= 0.05) {
+            gsap.set(mistRef.current, { opacity: Math.max(0, (1 - p / 0.05) * 0.14) });
+          } else {
+            gsap.set(mistRef.current, { opacity: 0 });
+          }
+        }
+      };
 
-            // Morning Mist Bridge: dissolves gracefully from 0.18 to 0 in first 15%
-            if (transitionFogRef.current) {
-              if (progress <= 0.15) {
-                const mistOpacity = (1 - progress / 0.15) * 0.18;
-                gsap.set(transitionFogRef.current, { opacity: Math.max(0, mistOpacity) });
-              } else {
-                gsap.set(transitionFogRef.current, { opacity: 0 });
-              }
-            }
-          },
-        },
+      // DESKTOP & TABLET LANDSCAPE (min-width: 769px)
+      mm.add('(min-width: 769px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            id: 'hanoiOldQuarterMasterTrigger',
+            trigger: container,
+            start: 'top top',
+            end: '+=754%',
+            pin: true,
+            scrub: 1.25,
+            anticipatePin: 1,
+            onUpdate: handleProgressUpdate
+          }
+        });
+        timelineRef.current = tl;
+        buildOldQuarterTimeline(tl, OLD_QUARTER_CHAPTERS, refs, false);
       });
 
-      if (!prefersReducedMotion && sceneEls.length >= 4 && imageEls.length >= 4) {
-        // SCENE 0: Hàng Bạc — slow push / zoom into the artisan street
-        gsap.set(sceneEls[0], { opacity: 1, zIndex: 1 });
-        gsap.set(imageEls[0], { scale: 1.0, y: 0 });
-
-        tl.to(imageEls[0], {
-          scale: 1.09,
-          y: -25,
-          ease: 'none',
-          duration: 0.28,
-        }, 0);
-
-        // Transition 0 -> 1 (at 0.20 - 0.28)
-        tl.to(sceneEls[0], {
-          opacity: 0,
-          ease: 'power2.inOut',
-          duration: 0.08,
-        }, 0.20);
-
-        // SCENE 1: Café Giảng — warm dolly-in
-        gsap.set(sceneEls[1], { opacity: 0, zIndex: 2 });
-        gsap.set(imageEls[1], { scale: 1.04, y: 15 });
-
-        tl.to(sceneEls[1], {
-          opacity: 1,
-          ease: 'power2.inOut',
-          duration: 0.08,
-        }, 0.20);
-
-        tl.to(imageEls[1], {
-          scale: 1.14,
-          y: -15,
-          ease: 'none',
-          duration: 0.28,
-        }, 0.22);
-
-        // Transition 1 -> 2 (at 0.45 - 0.53)
-        tl.to(sceneEls[1], {
-          opacity: 0,
-          ease: 'power2.inOut',
-          duration: 0.08,
-        }, 0.45);
-
-        // SCENE 2: 87 Mã Mây — horizontal tracking shot
-        gsap.set(sceneEls[2], { opacity: 0, zIndex: 3 });
-        gsap.set(imageEls[2], { scale: 1.06, x: 25 });
-
-        tl.to(sceneEls[2], {
-          opacity: 1,
-          ease: 'power2.inOut',
-          duration: 0.08,
-        }, 0.45);
-
-        tl.to(imageEls[2], {
-          scale: 1.09,
-          x: -25,
-          ease: 'none',
-          duration: 0.28,
-        }, 0.47);
-
-        // Transition 2 -> 3 (at 0.70 - 0.78)
-        tl.to(sceneEls[2], {
-          opacity: 0,
-          ease: 'power2.inOut',
-          duration: 0.08,
-        }, 0.70);
-
-        // SCENE 3: Xe Hoa & Gánh Hàng Rong — lateral glide
-        gsap.set(sceneEls[3], { opacity: 0, zIndex: 4 });
-        gsap.set(imageEls[3], { scale: 1.02, x: -20, y: 10 });
-
-        tl.to(sceneEls[3], {
-          opacity: 1,
-          ease: 'power2.inOut',
-          duration: 0.08,
-        }, 0.70);
-
-        tl.to(imageEls[3], {
-          scale: 1.11,
-          x: 20,
-          y: -10,
-          ease: 'none',
-          duration: 0.28,
-        }, 0.72);
-      } else {
-        // Fallback for reduced motion: show scenes directly based on activeIndex
-        sceneEls.forEach((el, idx) => {
-          gsap.set(el, { opacity: idx === activeIndex ? 1 : 0 });
+      // MOBILE PORTRAIT (max-width: 768px)
+      mm.add('(max-width: 768px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            id: 'hanoiOldQuarterMasterTrigger',
+            trigger: container,
+            start: 'top top',
+            end: '+=638%',
+            pin: true,
+            scrub: 1.05,
+            anticipatePin: 1,
+            onUpdate: handleProgressUpdate
+          }
         });
-      }
+        timelineRef.current = tl;
+        buildOldQuarterTimeline(tl, OLD_QUARTER_CHAPTERS, refs, true);
+      });
     }, container);
 
     return () => {
+      timelineRef.current = null;
+      mm.revert();
       ctx.revert();
     };
   }, []);
 
   // =========================================================================
-  // 2. MODAL ACCESSIBILITY & BODY SCROLL LOCK
+  // 3. DYNAMIC GSAP LABEL-BASED NAVIGATION
   // =========================================================================
-  useEffect(() => {
-    if (!activeModalSpot) return;
+  const scrollToLabel = useCallback((labelName, fallbackProgress) => {
+    const st = ScrollTrigger.getById('hanoiOldQuarterMasterTrigger');
+    const tl = timelineRef.current;
+    if (!st) return;
 
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        setActiveModalSpot(null);
+    let targetP = fallbackProgress;
+    if (tl && tl.duration() > 0) {
+      const labelTime = tl.labels[labelName];
+      if (typeof labelTime === 'number') {
+        targetP = labelTime / tl.duration();
       }
-    };
-    window.addEventListener('keydown', handleKeyDown);
+    }
 
-    // Pause Lenis smooth scroll while modal is active
+    const targetScrollY = st.start + targetP * (st.end - st.start);
     const lenis = getLenis();
     if (lenis) {
-      try { lenis.stop(); } catch (_) {}
-    }
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      if (lenis) {
-        try { lenis.start(); } catch (_) {}
-      }
-      document.body.style.overflow = originalOverflow;
-    };
-  }, [activeModalSpot]);
-
-  // =========================================================================
-  // 3. NAVIGATION HANDLERS
-  // =========================================================================
-  const handleScrollToMilestone = useCallback((index) => {
-    const progressTargets = [0.05, 0.35, 0.62, 0.88];
-    const targetP = progressTargets[index] ?? 0;
-    const st = ScrollTrigger.getById('oldQuarterPinTrigger');
-
-    if (st) {
-      const targetScroll = st.start + targetP * (st.end - st.start);
-      const lenis = getLenis();
-      if (lenis) {
-        lenis.scrollTo(targetScroll, { duration: 1.2 });
-      } else {
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-      }
+      lenis.scrollTo(targetScrollY, { duration: 1.15 });
+    } else {
+      window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
     }
   }, []);
 
-  const handleOpenSpotModal = (spot) => {
-    setActiveModalSpot(spot);
+  const handleJumpToChapter = useCallback(
+    (chapterIdx) => {
+      scrollToLabel(`chapter-${chapterIdx}-beat-0`, (chapterIdx + 0.185) / TOTAL_CHAPTERS);
+    },
+    [scrollToLabel]
+  );
+
+  const handleJumpToBeat = useCallback(
+    (chapterIdx, beatIdx) => {
+      const offsets = [0.185, 0.425, 0.665];
+      scrollToLabel(
+        `chapter-${chapterIdx}-beat-${beatIdx}`,
+        (chapterIdx + (offsets[beatIdx] || 0.185)) / TOTAL_CHAPTERS
+      );
+    },
+    [scrollToLabel]
+  );
+
+  const handlePrevChapter = () => {
+    if (activeChapterIndex > 0) handleJumpToChapter(activeChapterIndex - 1);
   };
 
-  const handleCloseSpotModal = () => {
-    setActiveModalSpot(null);
-  };
-
-  const handleToggleTripAttraction = (spotId) => {
-    toggleAttraction(spotId);
+  const handleNextChapter = () => {
+    if (activeChapterIndex < TOTAL_CHAPTERS - 1) handleJumpToChapter(activeChapterIndex + 1);
   };
 
   return (
@@ -258,286 +218,299 @@ const HanoiOldQuarterWalk = () => {
       ref={containerRef}
       className="hanoi-old-quarter-scene"
       id="scene-old-quarter"
-      aria-label={isKorean ? '하노이 36 구시가지 포토그래픽 2.5D 산책' : 'Hành trình 2.5D Phố Cổ Hà Nội'}
+      aria-label={isKorean ? '하노이 구시가지 시네마틱 포토 에디토리얼' : 'Phóng sự ảnh Điện ảnh Phố Cổ Hà Nội'}
     >
-      {/* ===================================================================
-          1. PHOTOGRAPHIC 2.5D VIEWPORT LAYERS
-          =================================================================== */}
-      <div ref={scenesTrackRef} className="photographic-scenes-track" aria-hidden="true">
-        {OLD_QUARTER_SCENES.map((scene, idx) => {
-          const isActive = idx === activeIndex;
+      {/* 1. SUBTLE MORNING MIST BRIDGE FROM SCREEN 1 */}
+      <div ref={mistRef} className="old-quarter-transition-fog" aria-hidden="true" />
+
+      {/* 2. MASTER EDITORIAL VIEWPORT */}
+      <div className="old-quarter-chapters-viewport">
+        {OLD_QUARTER_CHAPTERS.map((chapter, idx) => {
+          const isItemSaved = isSaved(chapter.id);
+
           return (
-            <div
-              key={scene.id}
-              className={`photographic-scene-layer ${isActive ? 'scene-current' : ''}`}
-              data-scene-id={scene.id}
+            <article
+              key={chapter.id}
+              className={`chapter-stage chapter-stage-${idx}`}
+              data-chapter-id={chapter.id}
+              ref={(el) => (stageRefs.current[idx] = el)}
             >
-              <div className="photographic-image-wrap">
-                <img
-                  src={scene.image}
-                  alt={scene.name}
-                  className="photographic-hero-image"
-                  loading={idx === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                />
-              </div>
-
-              {/* Natural Lighting & Atmospheric Overlays */}
-              <div className="scene-lighting-ray" />
-              <div className="scene-cinematic-vignette" />
-
-              {/* Interactive In-Scene Hotspot Beacon */}
-              <button
-                type="button"
-                className={`scene-interactive-beacon ${isActive ? 'beacon-pulse' : ''}`}
-                style={{
-                  top: `${scene.hotspotPos.y}%`,
-                  left: `${scene.hotspotPos.x}%`,
-                }}
-                onClick={() => handleOpenSpotModal(scene)}
-                aria-label={`${isKorean ? scene.nameKr : scene.name} - ${isKorean ? '상세 스토리 보기' : 'Khám phá câu chuyện'}`}
+              {/* =============================================================
+                  A. PHOTOGRAPHIC STAGE (Separated from Typography Transforms)
+                  ============================================================= */}
+              <div
+                className="chapter-photo-frame"
+                ref={(el) => (photoFrameRefs.current[idx] = el)}
               >
-                <span className="beacon-core">
-                  <Sparkles size={14} className="beacon-icon" />
-                </span>
-                <span className="beacon-wave-1" />
-                <span className="beacon-wave-2" />
-                <span className="beacon-tag">
-                  <span className="beacon-tag-num">0{scene.index}</span>
-                  <span className="beacon-tag-label">{isKorean ? scene.nameKr : scene.name}</span>
-                </span>
-              </button>
+                {chapter.beats.map((beat, bIdx) => {
+                  const scrimGradient =
+                    SCRIM_GRADIENTS[beat.image.scrimDirection] || SCRIM_GRADIENTS['minimal-caption'];
 
-              {/* Subtle Photo Attribution Badge */}
-              <div className="scene-credit-pill">
-                <span>{scene.credits}</span>
+                  return (
+                    <div
+                      key={beat.id}
+                      className={`beat-photo-layer beat-layer-${bIdx}`}
+                      ref={(el) => {
+                        if (!beatPhotoLayerRefs.current[idx]) beatPhotoLayerRefs.current[idx] = [];
+                        beatPhotoLayerRefs.current[idx][bIdx] = el;
+                      }}
+                    >
+                      <div
+                        className="beat-photo-inner"
+                        ref={(el) => {
+                          if (!beatPhotoInnerRefs.current[idx]) beatPhotoInnerRefs.current[idx] = [];
+                          beatPhotoInnerRefs.current[idx][bIdx] = el;
+                        }}
+                      >
+                        <img
+                          src={beat.image.src}
+                          alt={isKorean ? `${chapter.title.ko} — ${beat.title.ko}` : `${chapter.title.vi} — ${beat.title.vi}`}
+                          className="beat-photo-img"
+                          loading={idx === 0 && bIdx === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
+                          style={{
+                            '--focal-desktop': beat.image.focalPointDesktop || '50% 45%',
+                            '--focal-mobile': beat.image.focalPointMobile || '50% 45%'
+                          }}
+                          onError={(e) => {
+                            if (beat.image.fallback && e.currentTarget.src !== beat.image.fallback) {
+                              e.currentTarget.src = beat.image.fallback;
+                            }
+                          }}
+                        />
+                      </div>
+
+                      {/* Localized Directional Gradient Scrim (Per-Beat Configured) */}
+                      <div
+                        className={`beat-localized-scrim scrim-${beat.image.scrimDirection || 'minimal-caption'}`}
+                        style={{ background: scrimGradient }}
+                        ref={(el) => {
+                          if (!beatScrimRefs.current[idx]) beatScrimRefs.current[idx] = [];
+                          beatScrimRefs.current[idx][bIdx] = el;
+                        }}
+                        aria-hidden="true"
+                      />
+
+                      {/* Minimal Discreet Credit Line */}
+                      <span className="photo-credit-line">{beat.image.credits}</span>
+                    </div>
+                  );
+                })}
+
+                {/* Localized Center-Bottom Scrim strictly for State A Opening Title */}
+                <div
+                  className="chapter-establishing-scrim"
+                  ref={(el) => (establishingScrimRefs.current[idx] = el)}
+                  aria-hidden="true"
+                />
+
+                {/* Museum Caption Plate (Visible in Framed & Detail Layouts) */}
+                {chapter.beats.map((beat, bIdx) => (
+                  <p
+                    key={`cap-${beat.id}`}
+                    className="framed-photo-caption"
+                    ref={(el) => {
+                      if (!beatCaptionRefs.current[idx]) beatCaptionRefs.current[idx] = [];
+                      beatCaptionRefs.current[idx][bIdx] = el;
+                    }}
+                  >
+                    {isKorean ? beat.image.caption.ko : beat.image.caption.vi}
+                  </p>
+                ))}
+
+                {/* STATE A: Clean Opening Establishing Title */}
+                <div
+                  className="chapter-immersive-title"
+                  ref={(el) => (immersiveTitleRefs.current[idx] = el)}
+                >
+                  <span className="immersive-index">
+                    {chapter.chapterNumber} / 0{TOTAL_CHAPTERS} — HANOI OLD QUARTER
+                  </span>
+                  <h2 className="immersive-heading">
+                    {isKorean ? chapter.title.ko : chapter.title.vi}
+                  </h2>
+                  <p className="immersive-lead">
+                    {isKorean ? chapter.lead.ko : chapter.lead.vi}
+                  </p>
+                </div>
               </div>
-            </div>
+
+              {/* =============================================================
+                  B. EDITORIAL STORY SURFACE (Crisp Subpixel Typography Layer)
+                  ============================================================= */}
+              <div
+                className="chapter-editorial-surface"
+                ref={(el) => (editorialSurfaceRefs.current[idx] = el)}
+              >
+                <div className="editorial-column-inner">
+                  {/* Minimal Chapter Identifier */}
+                  <p className="editorial-chapter-index">
+                    {chapter.chapterNumber} / 0{TOTAL_CHAPTERS} — HANOI OLD QUARTER
+                  </p>
+
+                  {/* Level 1: Location Title */}
+                  <h3 className="editorial-place-title">
+                    {isKorean ? chapter.title.ko : chapter.title.vi}
+                  </h3>
+
+                  {/* Minimal Editorial Beat Index Rail */}
+                  <div className="editorial-beat-rail" role="navigation" aria-label="Story beats">
+                    {chapter.beats.map((b, bIdx) => (
+                      <button
+                        key={b.id}
+                        type="button"
+                        className="beat-rail-item"
+                        onClick={() => handleJumpToBeat(idx, bIdx)}
+                        ref={(el) => {
+                          if (!beatRailItemRefs.current[idx]) beatRailItemRefs.current[idx] = [];
+                          beatRailItemRefs.current[idx][bIdx] = el;
+                        }}
+                      >
+                        <span className="beat-rail-label">
+                          0{bIdx + 1} — {isKorean ? b.beatLabel.ko : b.beatLabel.vi}
+                        </span>
+                        <span className="beat-rail-track" aria-hidden="true">
+                          <span
+                            className="beat-rail-fill"
+                            ref={(el) => {
+                              if (!beatRailFillRefs.current[idx]) beatRailFillRefs.current[idx] = [];
+                              beatRailFillRefs.current[idx][bIdx] = el;
+                            }}
+                          />
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Three-Beat Overlapping Editorial Stage */}
+                  <div className="editorial-beat-stage">
+                    {chapter.beats.map((beat, bIdx) => (
+                      <div
+                        key={beat.id}
+                        className={`editorial-beat beat-layout-${beat.layout}`}
+                        ref={(el) => {
+                          if (!beatRefs.current[idx]) beatRefs.current[idx] = [];
+                          beatRefs.current[idx][bIdx] = el;
+                        }}
+                      >
+                        {/* Level 2: Story Headline */}
+                        <h4 className="beat-story-title">
+                          {isKorean ? beat.title.ko : beat.title.vi}
+                        </h4>
+
+                        {/* Level 3: Grounded Editorial Body */}
+                        <p className="beat-story-body">
+                          {isKorean ? beat.body.ko : beat.body.vi}
+                        </p>
+
+                        {/* Optional Factual Detail Note */}
+                        {beat.detail && (
+                          <p className="beat-story-detail">
+                            {isKorean ? beat.detail.ko : beat.detail.vi}
+                          </p>
+                        )}
+
+                        {/* Selective Editorial Note */}
+                        {beat.editorialNote && (
+                          <blockquote className="beat-editorial-note">
+                            <p>{isKorean ? beat.editorialNote.text.ko : beat.editorialNote.text.vi}</p>
+                            <cite>{isKorean ? beat.editorialNote.label.ko : beat.editorialNote.label.vi}</cite>
+                          </blockquote>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Contextual CTAs — Revealed in Beat 03 Reading Hold */}
+                  <div
+                    className="editorial-cta-bar"
+                    ref={(el) => (ctaBarRefs.current[idx] = el)}
+                  >
+                    <button
+                      type="button"
+                      className="cta-editorial-link"
+                      onClick={() => setActiveModalChapter(chapter)}
+                    >
+                      {isKorean ? '상세 보기' : 'Khám phá chi tiết'}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`cta-editorial-trip ${isItemSaved ? 'is-saved' : ''}`}
+                      onClick={() => toggleAttraction(chapter.id)}
+                    >
+                      {isItemSaved ? (
+                        <>
+                          <Check size={13} aria-hidden="true" />
+                          <span>{isKorean ? '일정에 추가됨' : 'Đã trong lịch trình'}</span>
+                        </>
+                      ) : (
+                        <span>{isKorean ? '일정에 추가' : 'Thêm vào lịch trình'}</span>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
           );
         })}
       </div>
 
       {/* ===================================================================
-          2. INCOMING MORNING MIST TRANSITION (Bridge from Screen 1)
+          3. ULTRA-DISCREET EDITORIAL NAVIGATION
           =================================================================== */}
-      <div ref={transitionFogRef} className="old-quarter-transition-fog" aria-hidden="true" />
-
-      {/* ===================================================================
-          3. MINIMAL EDITORIAL HUD (Top Floating)
-          =================================================================== */}
-      <div className="old-quarter-hud-header">
-        <div className="hud-meta-row">
-          <div className="hud-scene-badge">
-            <Compass size={13} className="hud-badge-icon" />
-            <span>SCENE 02 · PHOTOGRAPHIC 2.5D JOURNEY</span>
-          </div>
-          <span className="hud-divider">/</span>
-          <span className="hud-dest-tag">
-            {isKorean ? '하노이 36 구시가지' : '36 Phố Phường Thăng Long'}
-          </span>
+      <nav className="old-quarter-minimal-nav" aria-label="Chapter navigation">
+        <div className="min-nav-counter" aria-live="polite">
+          <span className="counter-current">{activeChapter.chapterNumber}</span>
+          <span className="counter-sep">/</span>
+          <span className="counter-total">0{TOTAL_CHAPTERS}</span>
         </div>
 
-        {/* Dynamic Scene Title with Smooth Typography */}
-        <div className="hud-content-block">
-          <div className="hud-indicator-strip">
-            <span className="hud-counter-num">0{activeIndex + 1}</span>
-            <div className="hud-progress-track">
-              {OLD_QUARTER_SCENES.map((_, i) => (
-                <span
-                  key={i}
-                  className={`hud-progress-seg ${i === activeIndex ? 'seg-active' : i < activeIndex ? 'seg-passed' : ''}`}
-                />
-              ))}
-            </div>
-            <span className="hud-counter-total">0{TOTAL_SCENES}</span>
-          </div>
-
-          <h2 className="hud-scene-title">
-            {isKorean ? currentScene.nameKr : currentScene.name}
-          </h2>
-
-          <p className="hud-scene-subtitle">
-            <span className="hud-era-tag">
-              <Clock size={12} />
-              {isKorean ? currentScene.eraKr : currentScene.era}
-            </span>
-            <span className="hud-sub-text">
-              {isKorean ? currentScene.subtitleKr : currentScene.subtitle}
-            </span>
-          </p>
+        <div className="min-nav-pips">
+          {OLD_QUARTER_CHAPTERS.map((ch, idx) => (
+            <button
+              key={ch.id}
+              type="button"
+              className={`min-nav-pip ${idx === activeChapterIndex ? 'pip-active' : idx < activeChapterIndex ? 'pip-passed' : ''}`}
+              onClick={() => handleJumpToChapter(idx)}
+              aria-label={`Chapter ${ch.chapterNumber}`}
+              aria-current={idx === activeChapterIndex ? 'step' : undefined}
+            />
+          ))}
         </div>
 
-        {/* Quick Trigger to Read Story */}
-        <button
-          type="button"
-          className="hud-explore-btn"
-          onClick={() => handleOpenSpotModal(currentScene)}
-        >
-          <Info size={14} />
-          <span>{isKorean ? '스토리 & 프라이빗 하이라이트' : 'Khám phá Điểm Nhấn Di Sản'}</span>
-          <ChevronRight size={14} />
-        </button>
-      </div>
-
-      {/* ===================================================================
-          4. BOTTOM LANDMARKS DOCK (Milestone Navigation)
-          =================================================================== */}
-      <nav className="old-quarter-milestones-dock" aria-label="Landmark milestones">
-        <span className="dock-guide-hint">
-          {isKorean ? '하노이 4대 문화 랜드마크' : '4 Tọa độ Di sản Phố Cổ'}
-        </span>
-        <div className="dock-buttons-group">
-          {OLD_QUARTER_SCENES.map((scene, idx) => {
-            const Icon = scene.icon;
-            const isActive = idx === activeIndex;
-            return (
-              <button
-                key={scene.id}
-                type="button"
-                className={`dock-milestone-item ${isActive ? 'milestone-active' : ''}`}
-                onClick={() => handleScrollToMilestone(idx)}
-                aria-current={isActive ? 'step' : undefined}
-                title={isKorean ? scene.nameKr : scene.name}
-              >
-                <span className="milestone-num">0{scene.index}</span>
-                <span className="milestone-icon-wrap">
-                  <Icon size={14} />
-                </span>
-                <span className="milestone-name">
-                  {isKorean ? scene.nameKr : scene.name}
-                </span>
-                {isActive && <span className="milestone-glow-dot" aria-hidden="true" />}
-              </button>
-            );
-          })}
+        <div className="min-nav-arrows">
+          <button
+            type="button"
+            className="min-nav-arrow-btn"
+            onClick={handlePrevChapter}
+            disabled={activeChapterIndex === 0}
+            aria-label={isKorean ? '이전 챕터' : 'Chương trước'}
+          >
+            <ChevronLeft size={13} />
+          </button>
+          <button
+            type="button"
+            className="min-nav-arrow-btn"
+            onClick={handleNextChapter}
+            disabled={activeChapterIndex === TOTAL_CHAPTERS - 1}
+            aria-label={isKorean ? '다음 챕터' : 'Chương tiếp theo'}
+          >
+            <ChevronRight size={13} />
+          </button>
         </div>
       </nav>
 
       {/* ===================================================================
-          5. CULTURAL DETAIL MODAL (Accessible, Bilingual, TripBuilder Sync)
+          4. CULTURAL DETAIL MODAL
           =================================================================== */}
-      {activeModalSpot && (
-        <div
-          className="old-quarter-modal-overlay"
-          onClick={handleCloseSpotModal}
-          role="presentation"
-        >
-          <div
-            className="old-quarter-modal-card"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="old-quarter-modal-title"
-            aria-describedby="old-quarter-modal-summary"
-          >
-            {/* Modal Close Button */}
-            <button
-              type="button"
-              className="modal-close-btn"
-              onClick={handleCloseSpotModal}
-              aria-label={isKorean ? '닫기' : 'Đóng'}
-            >
-              <X size={18} />
-            </button>
-
-            {/* Modal Hero Visual */}
-            <div className="modal-hero-visual">
-              <img
-                src={activeModalSpot.image}
-                alt={activeModalSpot.name}
-                className="modal-hero-img"
-              />
-              <div className="modal-visual-gradient" />
-              <div className="modal-visual-badges">
-                <span className="modal-category-badge">
-                  <Layers size={12} />
-                  <span>{isKorean ? activeModalSpot.categoryKr : activeModalSpot.category}</span>
-                </span>
-                <span className="modal-era-badge">
-                  <Clock size={12} />
-                  <span>{isKorean ? activeModalSpot.eraKr : activeModalSpot.era}</span>
-                </span>
-              </div>
-            </div>
-
-            {/* Modal Body */}
-            <div className="modal-body-wrapper">
-              <div className="modal-header-meta">
-                <span className="modal-index-label">
-                  MILESTONE 0{activeModalSpot.index} / 0{TOTAL_SCENES}
-                </span>
-                <h3 id="old-quarter-modal-title" className="modal-spot-title">
-                  {isKorean ? activeModalSpot.nameKr : activeModalSpot.name}
-                </h3>
-                <span className="modal-spot-english">
-                  {activeModalSpot.nameEn}
-                </span>
-              </div>
-
-              <p id="old-quarter-modal-summary" className="modal-spot-summary">
-                {isKorean ? activeModalSpot.summaryKr : activeModalSpot.summary}
-              </p>
-
-              {/* Private Tour Highlights */}
-              <div className="modal-highlights-box">
-                <span className="highlights-box-title">
-                  <Sparkles size={13} />
-                  <span>
-                    {isKorean ? 'Super EZ Tour 프라이빗 독점 하이라이트' : 'Điểm nhấn Trải nghiệm Độc quyền trong Tour'}
-                  </span>
-                </span>
-                <ul className="highlights-list">
-                  {(isKorean ? activeModalSpot.detailsKr : activeModalSpot.details).map((item, i) => (
-                    <li key={i} className="highlight-item">
-                      <span className="highlight-bullet">✓</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Action Buttons with TripBuilder Sync */}
-              <div className="modal-actions-container">
-                <button
-                  type="button"
-                  className={`modal-trip-action-btn ${isAttractionSaved ? 'btn-saved' : 'btn-add'}`}
-                  onClick={() => handleToggleTripAttraction(activeModalSpot.id)}
-                >
-                  {isAttractionSaved ? (
-                    <>
-                      <Check size={16} />
-                      <span>
-                        {isKorean ? '맞춤 일정에 추가됨 (삭제하려면 클릭)' : 'Đã có trong Lịch Trình (Nhấp để xóa)'}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles size={16} />
-                      <span>
-                        {isKorean ? '내 맞춤 일정에 추가하기' : 'Thêm vào Lịch Trình Riêng'}
-                      </span>
-                    </>
-                  )}
-                </button>
-
-                <button
-                  type="button"
-                  className="modal-continue-walk-btn"
-                  onClick={handleCloseSpotModal}
-                >
-                  <span>{isKorean ? '계속 산책하기' : 'Tiếp tục dạo bước'}</span>
-                  <ArrowRight size={15} />
-                </button>
-              </div>
-
-              {/* Modal Photo Attribution */}
-              <div className="modal-footer-attribution">
-                <small>{activeModalSpot.credits}</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <OldQuarterDetailModal
+        chapter={activeModalChapter}
+        isKorean={isKorean}
+        isSaved={activeModalChapter ? isSaved(activeModalChapter.id) : false}
+        onClose={() => setActiveModalChapter(null)}
+        onToggleTrip={toggleAttraction}
+      />
     </section>
   );
 };

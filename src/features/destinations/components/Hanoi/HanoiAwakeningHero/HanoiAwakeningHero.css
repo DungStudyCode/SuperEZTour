@@ -1,674 +1,541 @@
 /* ==========================================================================
-   SUPER EZ TOUR — HANOI HERO 3.0
-   Photorealistic Hybrid 3D · Cinematic Camera Flight · Hoan Kiem Lake
-   Color Palette: Deep Navy (#121920), Warm Champagne (#F7F4ED),
-   Muted Gold (#E2B880, #B48B56), Terracotta (#B66A4B), Emerald Jade (#183A35)
+   SUPER EZ TOUR — HANOI SCREEN 1 V4.1
+   GRAND CINEMATIC OPENING — "HANOI — THE CITY AWAKENS"
+   Four-Act Narrative Architecture · Six Signature Cinematic Effects
+   Harmonized with Screen 2 V3.4.1 Editorial System:
+     Headline: #F8F5EF
+     Body:     #F1F0EC
+     Metadata: #D9D3C8
+     Bronze:   #C8A27A
+     Charcoal: #0D1013
+   Zero WebGL Canvas · Zero Debug HUD · Zero Permanent will-change on Text
    ========================================================================== */
 
 .hanoi-awakening-hero {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 700px;
+  min-height: 640px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  background-color: #121920;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #0d1013;
+  color: #F1F0EC;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', 'Pretendard', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   user-select: none;
 }
 
 /* ==========================================================================
-   LAYER 1: REAL-TIME THREE.JS WEBGL CANVAS (Photorealistic Turtle Tower & Lake)
+   1. SIGNATURE EFFECT 1: CINEMATIC OPENING APERTURE & PHOTOGRAPHIC STAGE
    ========================================================================== */
-
-.hanoi-hero-canvas {
+.hanoi-hero-aperture-frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
-  display: block;
-  outline: none;
-  pointer-events: none;
+  overflow: hidden;
+  background-color: #0d1013;
+  will-change: clip-path;
 }
 
-/* ==========================================================================
-   LAYER 2: HIGH-FIDELITY LOADING OVERLAY & HUD (Graceful PBR Preload)
-   ========================================================================== */
-
-.hanoi-hero-loading-overlay {
+.hanoi-hero-photo-stage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #121920;
-  pointer-events: none;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  background-color: #0d1013;
 }
 
-.hanoi-hero-static-fallback {
+.hero-photo-layer {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  will-change: opacity, clip-path;
+  pointer-events: none;
+}
+
+.hero-photo-layer-0 {
+  opacity: 1;
+}
+
+.hero-photo-inner {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.hero-photo-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 46%;
-  filter: brightness(0.72) blur(1px);
-  transform: scale(1.02);
+  object-position: var(--hero-focal-desktop, 54% 44%);
+  display: block;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-.hanoi-hero-loader-hud {
-  position: relative;
-  z-index: 6;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 24px;
-  background: rgba(18, 26, 33, 0.88);
-  border: 1px solid rgba(226, 184, 128, 0.5);
-  border-radius: 9999px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.65);
-}
-
-.loader-hud-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(226, 184, 128, 0.25);
-  border-top-color: #E2B880;
-  border-radius: 50%;
-  animation: hanoiSpinner 0.8s linear infinite;
-}
-
-@keyframes hanoiSpinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.loader-hud-text {
-  font-size: 0.84rem;
-  letter-spacing: 0.05em;
-  color: #F7F4ED;
-  font-weight: 500;
-}
-
-.loader-hud-pct {
-  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #E2B880;
-  min-width: 32px;
-  text-align: right;
-}
-
-/* ==========================================================================
-   EDITORIAL VIGNETTE & CONTRAST BACKDROPS
-   ========================================================================== */
-
-.hanoi-hero-vignette {
+/* Localized Directional Scrim — Shades lower-left text zone while keeping Tháp Rùa bright */
+.hero-localized-scrim {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(18, 25, 32, 0) 0%,
-    rgba(14, 20, 26, 0.20) 65%,
-    rgba(8, 12, 16, 0.42) 100%
-  );
-  pointer-events: none;
   z-index: 2;
-}
-
-.hanoi-hero-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(14, 20, 26, 0.25) 0%,
-    rgba(14, 20, 26, 0.02) 38%,
-    rgba(14, 20, 26, 0.15) 65%,
-    rgba(10, 15, 20, 0.45) 100%
-  );
   pointer-events: none;
-  z-index: 2;
 }
 
-/* ==========================================================================
-   ATMOSPHERIC TRANSITION OVERLAY (Seamless Bridge to Old Quarter)
-   ========================================================================== */
-
-.hanoi-hero-transition-fog {
+/* SIGNATURE EFFECT 2: REAL MULTI-PLANE DEPTH PARALLAX LAYERS */
+.hero-parallax-mist {
   position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 245, 230, 0.04) 0%,
-    rgba(240, 220, 190, 0.12) 60%,
-    rgba(255, 240, 215, 0.18) 100%
-  );
-  opacity: 0;
-  will-change: opacity;
-}
-
-/* ==========================================================================
-   360° ORBIT TELEMETRY & FLIGHT INSPECTOR HUD
-   ========================================================================== */
-
-.hanoi-orbit-telemetry-hud {
-  position: absolute;
-  top: 96px;
-  right: 28px;
-  z-index: 25;
-  background: rgba(14, 20, 26, 0.82);
-  border: 1px solid rgba(226, 184, 128, 0.4);
-  border-radius: 12px;
-  padding: 10px 16px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  min-width: 260px;
-  pointer-events: none;
-  opacity: 0.92;
-  transition: opacity 0.3s ease;
-}
-
-.hud-orbit-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #e2b880;
-  font-weight: 700;
-}
-
-.hud-orbit-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 4px;
-}
-
-.hud-stage-name {
-  font-size: 0.78rem;
-  color: #fff;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.hud-angle-val {
-  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #e2b880;
-}
-
-.hud-coords-row {
-  font-size: 0.68rem;
-  font-family: 'Consolas', 'Courier New', monospace;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-@media (max-width: 768px) {
-  .hanoi-orbit-telemetry-hud {
-    top: 76px;
-    right: 16px;
-    padding: 8px 12px;
-    min-width: 210px;
-    transform: scale(0.9);
-    transform-origin: top right;
-  }
-}
-
-/* ==========================================================================
-   EDITORIAL CONTENT & NAVIGATION UI (Layer 3)
-   ========================================================================== */
-
-.hanoi-hero-content-wrapper {
-  position: relative;
+  left: -6%;
+  bottom: 0;
+  width: 112%;
+  height: 44%;
+  object-fit: cover;
   z-index: 3;
-  width: min(92%, 1240px);
-  margin: 0 auto;
-  padding: 0 clamp(1rem, 3vw, 2.5rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #F7F4ED;
-  will-change: transform, opacity;
-}
-
-.hanoi-hero-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 960px;
-}
-
-/* Kicker Badge */
-.hanoi-hero-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #EEE6D9;
-  will-change: transform, opacity;
-}
-
-.hanoi-kicker-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  background: rgba(180, 139, 86, 0.22);
-  border: 1px solid rgba(226, 184, 128, 0.5);
-  border-radius: 9999px;
-  color: #E2B880;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-}
-
-.kicker-sparkle-icon {
-  color: #E2B880;
-}
-
-.hanoi-kicker-dot {
-  color: rgba(238, 230, 217, 0.55);
-}
-
-.hanoi-kicker-sub {
-  color: rgba(238, 230, 217, 0.9);
-  font-size: 0.82rem;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-}
-
-/* Main Title with Mask Reveal Structure */
-.hanoi-hero-title {
-  position: relative;
-  font-family: var(--font-serif, 'Playfair Display', 'Noto Serif KR', Georgia, serif);
-  font-size: clamp(2.8rem, 6.5vw, 5.6rem);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  margin: 0 0 22px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  text-shadow: 0 4px 32px rgba(0, 0, 0, 0.75), 0 2px 10px rgba(0, 0, 0, 0.85);
-  overflow: hidden;
-}
-
-.hanoi-title-mask {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-  line-height: 1.15;
-}
-
-.hanoi-title-en {
-  display: inline-block;
-  color: #F7F4ED;
-  will-change: transform, opacity;
-}
-
-.hanoi-title-divider {
-  display: inline-block;
-  color: #E2B880;
-  font-weight: 300;
-  will-change: transform, opacity;
-}
-
-.hanoi-title-sub {
-  display: inline-block;
-  color: #E2B880;
-  font-style: italic;
-  font-weight: 400;
-  will-change: transform, opacity;
-}
-
-/* Title Light Sheen */
-.hanoi-title-sheen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  opacity: 0.42;
+  mix-blend-mode: screen;
   pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255, 235, 180, 0.45) 50%,
-    transparent 80%
-  );
-  transform: translateX(-100%);
-  mix-blend-mode: overlay;
+  will-change: transform, opacity;
 }
 
-/* Editorial Tagline */
-.hanoi-hero-tagline {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+.hero-parallax-willow {
+  position: absolute;
+  top: -2%;
+  left: -3%;
+  width: 106%;
+  height: 38%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 4;
+  opacity: 0.78;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Minimal Attribution Line */
+.hero-photo-credit {
+  position: absolute;
+  bottom: 18px;
+  right: 24px;
+  z-index: 5;
+  font-size: 0.66rem;
   font-weight: 400;
-  font-style: italic;
-  color: rgba(247, 244, 237, 0.94);
-  margin: 0 0 36px 0;
-  max-width: 800px;
-  line-height: 1.6;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.75), 0 1px 6px rgba(0, 0, 0, 0.9);
-  will-change: transform, opacity;
+  color: #D9D3C8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
 }
 
-/* CTA Row */
-.hanoi-hero-cta-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 48px;
-  will-change: transform, opacity;
-}
-
-.hanoi-hero-primary-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 15px 34px;
-  background: #B66A4B;
-  color: #FFFFFF;
-  border: 1px solid #D18365;
-  border-radius: 9999px;
-  font-size: 0.98rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 12px 36px -8px rgba(182, 106, 75, 0.65), 0 4px 12px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-}
-
-.hanoi-hero-primary-btn:hover {
-  background: #A0593D;
-  transform: translateY(-2px);
-  box-shadow: 0 18px 44px -6px rgba(182, 106, 75, 0.8), 0 6px 16px rgba(0, 0, 0, 0.5);
-}
-
-.btn-compass-icon {
-  transition: transform 0.4s ease;
-}
-
-.hanoi-hero-primary-btn:hover .btn-compass-icon {
-  transform: rotate(45deg);
-}
-
-.btn-glow-pulse {
+/* ==========================================================================
+   2. SIGNATURE EFFECT 4: KINETIC EDITORIAL TYPOGRAPHY STAGE
+   Separated from image transform layers for subpixel clarity
+   ========================================================================== */
+.hanoi-hero-editorial-stage {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
+  z-index: 6;
+  width: min(92%, 1320px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 96px clamp(20px, 3vw, 40px) clamp(58px, 8vh, 86px);
+  pointer-events: none;
 }
 
-.hanoi-hero-primary-btn:hover .btn-glow-pulse {
-  transform: translateX(100%);
+.hero-acts-container {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  min-height: 270px;
+  margin-bottom: 24px;
 }
 
-.hanoi-hero-ghost-btn {
+.hero-act-block {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-act-block-0 {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-eyebrow {
+  margin: 0 0 12px 0;
+  font-size: 0.73rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #c8a27a;
+  text-shadow: 0 1px 6px rgba(8, 10, 12, 0.7);
+}
+
+.hero-headline {
+  font-family: var(--font-serif, 'Playfair Display', 'Noto Serif KR', 'Nanum Myeongjo', Georgia, serif);
+  font-size: clamp(2.15rem, 4.1vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px 0;
+  color: #F8F5EF;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  word-break: keep-all;
+}
+
+.hero-headline-act {
+  font-size: clamp(1.75rem, 3.1vw, 2.75rem);
+  line-height: 1.18;
+}
+
+.hero-kinetic-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 4px;
+  margin-bottom: -4px;
+}
+
+.hero-kinetic-line {
+  display: block;
+  text-shadow: 0 2px 14px rgba(8, 10, 12, 0.65), 0 1px 3px rgba(8, 10, 12, 0.55);
+}
+
+.hero-act-body-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-lead {
+  margin: 0 0 22px 0;
+  font-size: clamp(0.94rem, 1.08vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.72;
+  max-width: 48ch;
+  color: #F1F0EC;
+  text-shadow: 0 1px 10px rgba(8, 10, 12, 0.65), 0 1px 3px rgba(8, 10, 12, 0.55);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.hero-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 14px 28px;
-  background: rgba(255, 255, 255, 0.09);
-  color: #F7F4ED;
-  border: 1px solid rgba(247, 244, 237, 0.35);
-  border-radius: 9999px;
-  font-size: 0.92rem;
+  padding: 11px 22px;
+  background: #c8a27a;
+  color: #0d1013;
+  border: none;
+  border-radius: 2px;
+  font-size: 0.85rem;
   font-weight: 600;
-  text-decoration: none;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.hanoi-hero-ghost-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(247, 244, 237, 0.7);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+.hero-btn-primary:hover {
+  background: #d8b48e;
+  transform: translateY(-1px);
 }
 
-/* Cultural Stats Bar */
-.hanoi-hero-stats-bar {
+.hero-btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: clamp(14px, 3vw, 32px);
-  padding: 14px clamp(18px, 4vw, 36px);
-  background: rgba(18, 26, 33, 0.76);
-  border: 1px solid rgba(180, 139, 86, 0.4);
-  border-radius: 9999px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
-  will-change: transform, opacity;
+  padding: 6px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #c8a27a;
+  color: #F8F5EF;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 6px rgba(8, 10, 12, 0.6);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.hanoi-stat-item {
+.hero-btn-secondary:hover {
+  color: #c8a27a;
+}
+
+/* ==========================================================================
+   3. FOUR-ACT EDITORIAL PROGRESS RAIL
+   ========================================================================== */
+.hero-act-rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 480px);
+  pointer-events: auto;
+}
+
+.hero-rail-item {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
+  gap: 6px;
+  color: #F8F5EF;
+  opacity: 0.52;
+  transition: color 0.2s ease;
 }
 
-.stat-num {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #E2B880;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+.hero-rail-item:hover .hero-rail-label {
+  color: #c8a27a;
 }
 
-.stat-label {
-  font-size: 0.72rem;
-  color: rgba(238, 230, 217, 0.85);
+.hero-rail-label {
+  font-size: 0.68rem;
+  font-weight: 500;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: #D9D3C8;
+  text-shadow: 0 1px 4px rgba(8, 10, 12, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hanoi-stat-sep {
-  width: 1px;
-  height: 24px;
-  background: rgba(180, 139, 86, 0.35);
+.hero-rail-track {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: rgba(248, 245, 239, 0.22);
+  overflow: hidden;
 }
 
-/* Bottom Scroll Cue */
+.hero-rail-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #c8a27a;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ==========================================================================
+   4. MINIMAL SCROLL INDICATOR
+   ========================================================================== */
 .hanoi-hero-scroll-cue {
   position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 7;
-  display: flex;
-  flex-direction: column;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: clamp(20px, 4vw, 64px);
+  z-index: 8;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  color: rgba(247, 244, 237, 0.8);
-  transition: color 0.25s ease;
-  user-select: none;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-  will-change: opacity;
-}
-
-.hanoi-hero-scroll-cue:hover,
-.hanoi-hero-scroll-cue:focus-visible {
-  color: #E2B880;
-  outline: none;
-}
-
-.scroll-cue-text {
-  font-size: 0.75rem;
+  gap: 8px;
+  padding: 4px 0;
+  background: transparent;
+  border: none;
+  color: #D9D3C8;
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-.scroll-cue-icon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hanoi-hero-scroll-cue:hover {
+  color: #c8a27a;
 }
 
-.scroll-arrow-anim {
-  animation: hanoiBob 1.8s ease-in-out infinite;
+.hero-btn-primary:focus-visible,
+.hero-btn-secondary:focus-visible,
+.hero-rail-item:focus-visible,
+.hanoi-hero-scroll-cue:focus-visible {
+  outline: 2px solid #c8a27a;
+  outline-offset: 3px;
 }
 
-@keyframes hanoiBob {
-  0%, 100% {
-    transform: translateY(0);
+/* ==========================================================================
+   5. MORNING MIST HANDOFF BRIDGE INTO SCREEN 2
+   ========================================================================== */
+.hanoi-hero-transition-fog {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 245, 239, 0.02) 0%,
+    rgba(248, 245, 239, 0.08) 55%,
+    rgba(248, 245, 239, 0.16) 100%
+  );
+  opacity: 0;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE ART DIRECTION (Laptop 1366x768 · Tablet · Mobile 390/360)
+   ========================================================================== */
+@media (max-height: 800px) and (min-width: 769px) {
+  .hanoi-hero-editorial-stage {
+    padding-bottom: 48px;
+  }
+
+  .hero-acts-container {
+    min-height: 235px;
+    margin-bottom: 16px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.9rem, 3.3vw, 2.8rem);
+    margin-bottom: 10px;
+  }
+
+  .hero-headline-act {
+    font-size: clamp(1.6rem, 2.7vw, 2.3rem);
+  }
+
+  .hero-lead {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hanoi-awakening-hero {
+    aspect-ratio: auto;
+    min-height: 600px;
+  }
+
+  .hero-photo-img {
+    object-position: var(--hero-focal-mobile, 50% 42%);
+  }
+
+  .hero-parallax-willow {
+    height: 26%;
     opacity: 0.6;
   }
-  50% {
-    transform: translateY(6px);
-    opacity: 1;
+
+  .hanoi-hero-editorial-stage {
+    width: 100%;
+    padding: 80px 20px calc(52px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-acts-container {
+    max-width: 100%;
+    min-height: 230px;
+    margin-bottom: 16px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.66rem;
+    margin-bottom: 8px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.7rem, 6.2vw, 2.3rem);
+    margin-bottom: 10px;
+  }
+
+  .hero-headline-act {
+    font-size: clamp(1.45rem, 5.4vw, 1.95rem);
+  }
+
+  .hero-lead {
+    font-size: 0.87rem;
+    line-height: 1.64;
+    margin-bottom: 16px;
+  }
+
+  .hero-actions-row {
+    gap: 14px;
+  }
+
+  .hero-btn-primary {
+    padding: 9px 16px;
+    font-size: 0.8rem;
+  }
+
+  .hero-btn-secondary {
+    font-size: 0.78rem;
+  }
+
+  .hero-act-rail {
+    gap: 10px;
+    width: 100%;
+  }
+
+  .hero-rail-label {
+    font-size: 0.62rem;
+  }
+
+  .hanoi-hero-scroll-cue {
+    left: 20px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    font-size: 0.64rem;
+  }
+
+  .hero-photo-credit {
+    bottom: 14px;
+    right: 14px;
+    font-size: 0.56rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-headline {
+    font-size: 1.58rem;
+  }
+
+  .hero-headline-act {
+    font-size: 1.38rem;
+  }
+
+  .hero-lead {
+    font-size: 0.82rem;
+  }
+
+  .scroll-cue-label {
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN & BREAKPOINTS
+   7. REDUCED MOTION SUPPORT
    ========================================================================== */
-
-/* Tablet & Small Desktop (1024px and below) */
-@media (max-width: 1024px) {
-  .hanoi-hero-title {
-    font-size: clamp(2.6rem, 5.8vw, 4.2rem);
-  }
-}
-
-/* Mobile & Small Tablets (768px and below) */
-@media (max-width: 768px) {
-  .hanoi-awakening-hero {
-    min-height: 640px;
-    padding-top: 60px;
-    padding-bottom: 50px;
-  }
-
-  .hanoi-hero-loader-hud {
-    padding: 10px 18px;
-    gap: 10px;
-  }
-
-  .loader-hud-text {
-    font-size: 0.78rem;
-  }
-
-  .hanoi-hero-title {
-    font-size: clamp(2.2rem, 7vw, 3.2rem);
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-
-  .hanoi-hero-tagline {
-    font-size: 1.05rem;
-    margin-bottom: 26px;
-    line-height: 1.5;
-  }
-
-  .hanoi-hero-cta-row {
-    margin-bottom: 30px;
-    gap: 12px;
-  }
-
-  .hanoi-hero-primary-btn {
-    padding: 13px 28px;
-    font-size: 0.92rem;
-  }
-
-  .hanoi-hero-ghost-btn {
-    padding: 12px 22px;
-    font-size: 0.88rem;
-  }
-
-  .hanoi-hero-stats-bar {
-    border-radius: 18px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px 20px;
-    padding: 14px 22px;
-    background: rgba(18, 26, 33, 0.84);
-  }
-
-  .hanoi-stat-sep {
-    display: none;
-  }
-
-  .hanoi-hero-scroll-cue {
-    bottom: 14px;
-  }
-
-  .scroll-cue-text {
-    font-size: 0.7rem;
-  }
-}
-
-/* Small Mobile (390px and below) */
-@media (max-width: 390px) {
-  .hanoi-hero-title {
-    font-size: 1.95rem;
-  }
-
-  .hanoi-hero-kicker {
-    font-size: 0.75rem;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .hanoi-kicker-dot {
-    display: none;
-  }
-
-  .hanoi-hero-tagline {
-    font-size: 0.95rem;
-  }
-
-  .hanoi-hero-primary-btn,
-  .hanoi-hero-ghost-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .hanoi-hero-stats-bar {
-    width: 100%;
-    padding: 12px 16px;
-  }
-}
-
-/* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .loader-hud-spinner,
-  .scroll-arrow-anim {
-    animation: none;
+  .hanoi-hero-aperture-frame {
+    clip-path: none !important;
+  }
+
+  .hero-photo-inner,
+  .hero-parallax-willow,
+  .hero-parallax-mist {
+    transform: none !important;
   }
 }

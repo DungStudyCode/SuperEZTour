@@ -1,0 +1,71 @@
+[
+  {
+    "id": "hero-a",
+    "role": "HERO A — Establishing Shot (Morning Mist over Hoàn Kiếm & Tháp Rùa)",
+    "wikiTitle": "File:Hanoi brume.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanoi_brume.jpg",
+    "author": "Velvet",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalDimensions": "3740x2493",
+    "exifOrientation": 1,
+    "desktopPath": "/assets/destinations/hanoi/hero/hoan-kiem-hero-a.webp",
+    "desktopDimensions": "2560x1706",
+    "desktopSizeKb": 398.1,
+    "mobilePath": "/assets/destinations/hanoi/hero/hoan-kiem-hero-a-mobile.webp",
+    "mobileDimensions": "1280x853",
+    "mobileSizeKb": 114.6,
+    "meanRgb": [
+      135,
+      143,
+      135
+    ],
+    "status": "VERIFIED"
+  },
+  {
+    "id": "hero-b",
+    "role": "HERO B — Cinematic Detail (Tháp Rùa & Emerald Lake Waters)",
+    "wikiTitle": "File:Hanoi - Turtle Tower (Tháp Rùa), Hoàn Kiếm Lake.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanoi_-_Turtle_Tower_(Th%C3%A1p_R%C3%B9a),_Ho%C3%A0n_Ki%E1%BA%BFm_Lake.jpg",
+    "author": "P. Hughes",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "originalDimensions": "3974x2672",
+    "exifOrientation": 1,
+    "desktopPath": "/assets/destinations/hanoi/hero/hoan-kiem-hero-b.webp",
+    "desktopDimensions": "2560x1721",
+    "desktopSizeKb": 708.3,
+    "mobilePath": "/assets/destinations/hanoi/hero/hoan-kiem-hero-b-mobile.webp",
+    "mobileDimensions": "1280x860",
+    "mobileSizeKb": 175.0,
+    "meanRgb": [
+      118,
+      123,
+      123
+    ],
+    "status": "VERIFIED"
+  },
+  {
+    "id": "hero-c",
+    "role": "HERO C — Lakeside Transition Shot (Shoreline Canopy toward Old Quarter)",
+    "wikiTitle": "File:Hanoi, Vietnam, Tree branches at Hoan Kiem Lake.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanoi,_Vietnam,_Tree_branches_at_Hoan_Kiem_Lake.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "originalDimensions": "3984x2656",
+    "exifOrientation": 1,
+    "desktopPath": "/assets/destinations/hanoi/hero/hoan-kiem-hero-c.webp",
+    "desktopDimensions": "2560x1706",
+    "desktopSizeKb": 501.3,
+    "mobilePath": "/assets/destinations/hanoi/hero/hoan-kiem-hero-c-mobile.webp",
+    "mobileDimensions": "1280x853",
+    "mobileSizeKb": 165.1,
+    "meanRgb": [
+      135,
+      136,
+      134
+    ],
+    "status": "VERIFIED"
+  }
+]

@@ -1,297 +1,865 @@
 /* ==========================================================================
-   SCENE 03: THE HERITAGE CHAMBER (Interactive Architectural 3D)
+   SUPER EZ TOUR — HANOI SCREEN 3 V4.1
+   GRAND HERITAGE DOCUMENTARY (VĂN MIẾU – QUỐC TỬ GIÁM)
+   CINEMATIC REFINEMENT & VISUAL QUALITY UPGRADE
    ========================================================================== */
 
-.hanoi-heritage-chamber {
+.hanoi-heritage-documentary {
+  --heritage-bg-deep: #11191b;
+  --heritage-charcoal: #24201d;
+  --heritage-crimson: #793e32;
+  --heritage-crimson-hover: #8f493b;
+  --heritage-gold: #c6a477;
+  --heritage-gold-soft: rgba(198, 164, 119, 0.32);
+  --heritage-ivory: #f4efe6;
+  --heritage-muted: #d4c9b8;
+  --heritage-emerald: #2f5c4a;
+
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 720px;
+  min-height: 640px;
+  background-color: var(--heritage-bg-deep);
+  color: var(--heritage-ivory);
   overflow: hidden;
-  background-color: #1a2128;
+  user-select: none;
 }
 
-.heritage-3d-canvas {
+.heritage-documentary-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--heritage-bg-deep);
+}
+
+/* Transition Bridges (Screen 2 -> Screen 3 -> Screen 4) */
+.heritage-entry-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  background: linear-gradient(
+    180deg,
+    rgba(24, 19, 16, 0.78) 0%,
+    rgba(17, 25, 27, 0.20) 40%,
+    rgba(17, 25, 27, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.heritage-exit-bridge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20%;
+  z-index: 12;
+  background: linear-gradient(
+    180deg,
+    rgba(26, 34, 40, 0) 0%,
+    rgba(26, 34, 40, 0.72) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ==========================================================================
+   1. SHARED PHOTOGRAPHIC STAGE & NATURAL HERITAGE COLOR GRADING
+   ========================================================================== */
+
+.heritage-opening-stage,
+.heritage-chapter-stage,
+.heritage-ending-stage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
-  z-index: 1;
-  cursor: grab;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.heritage-3d-canvas:active {
-  cursor: grabbing;
+.heritage-opening-stage.is-active,
+.heritage-chapter-stage.is-active,
+.heritage-ending-stage.is-active {
+  pointer-events: auto;
 }
 
-.heritage-chamber-vignette {
+.heritage-photo-canvas,
+.heritage-act-photo-deck,
+.heritage-beat-photo-layer {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(18, 24, 30, 0.75) 100%);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heritage-photo-inner {
+  position: absolute;
+  inset: -2.5%;
+  width: 105%;
+  height: 105%;
+  will-change: transform;
+}
+
+.heritage-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Preserves natural terracotta red, stone, dark wood, and green foliage */
+  filter: contrast(1.02) saturate(1.02);
+}
+
+/* Subtle top sky exposure balancer so overcast skies never look washed out */
+.heritage-sky-balancer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 22%;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 20, 22, 0.24) 0%,
+    rgba(14, 20, 22, 0.0) 100%
+  );
   pointer-events: none;
-  z-index: 2;
 }
 
-/* Header Floating Narrative */
-.heritage-chamber-header {
+.heritage-scrim-layer {
   position: absolute;
-  top: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  width: min(92%, 760px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2. DOCUMENTARY OPENING — THE GATEWAY OF KNOWLEDGE
+   ========================================================================== */
+
+.heritage-opening-editorial {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   text-align: center;
-  color: #F7F4ED;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 80px 6vw 72px;
+  max-width: 920px;
+  margin: 0 auto;
 }
 
-.heritage-pill-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: rgba(180, 139, 86, 0.2);
-  border: 1px solid rgba(180, 139, 86, 0.45);
-  border-radius: 9999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #E2B880;
-  backdrop-filter: blur(8px);
-  margin-bottom: 12px;
-}
-
-.heritage-chamber-title {
-  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-  font-size: clamp(2.0rem, 4.2vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.15;
-  margin: 0 0 10px 0;
-  color: #F7F4ED;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
-}
-
-.heritage-chamber-subtitle {
-  font-size: 0.95rem;
-  color: rgba(247, 244, 237, 0.85);
-  line-height: 1.55;
-  margin: 0 0 16px 0;
-  max-width: 620px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-}
-
-/* Mode Switcher */
-.heritage-mode-switcher {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px;
-  background: rgba(24, 32, 38, 0.85);
-  border: 1px solid rgba(180, 139, 86, 0.35);
-  border-radius: 9999px;
-  backdrop-filter: blur(10px);
-}
-
-.mode-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
-  border-radius: 9999px;
-  border: none;
-  background: transparent;
-  color: rgba(247, 244, 237, 0.75);
-  font-size: 0.82rem;
+.heritage-location-tag {
+  display: inline-block;
+  color: var(--heritage-gold);
+  font-size: 0.74rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.mode-btn:hover {
-  color: #FFFFFF;
-}
-
-.mode-btn-active {
-  background: #B66A4B;
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(182, 106, 75, 0.45);
-}
-
-/* Bottom Card Row */
-.heritage-bottom-card-row {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-  width: min(94%, 1180px);
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 20px;
-  align-items: end;
-}
-
-/* Preset Angles Stack */
-.heritage-presets-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.presets-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #E2B880;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-.presets-button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.heritage-opening-headline {
+  margin-bottom: 14px;
 }
 
-.preset-angle-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  background: rgba(24, 32, 38, 0.85);
-  border: 1px solid rgba(180, 139, 86, 0.3);
-  border-radius: 12px;
-  color: #F7F4ED;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
+.heritage-opening-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.35rem, 4.5vw, 4.0rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--heritage-ivory);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.82);
+}
+
+.heritage-opening-subtitle {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1.08rem, 1.7vw, 1.42rem);
+  color: var(--heritage-gold);
+  margin: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+}
+
+.heritage-opening-intro {
+  font-size: clamp(0.95rem, 1.1vw, 1.06rem);
+  line-height: 1.7;
+  color: var(--heritage-ivory);
+  max-width: 680px;
+  margin: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================================================
+   3. CHAPTERS 01, 02, 03 — STAGED DOCUMENTARY TYPOGRAPHY
+   ========================================================================== */
+
+.heritage-act-editorial-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.heritage-chapter-editorial {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(88vw, 470px);
+  pointer-events: none;
+}
+
+.heritage-chapter-editorial.is-interactive {
+  pointer-events: auto;
+}
+
+.heritage-chapter-editorial.placement-right {
+  right: 6vw;
   text-align: left;
 }
 
-.preset-angle-btn:hover {
-  background: rgba(182, 106, 75, 0.35);
-  border-color: #B66A4B;
-  transform: translateX(4px);
+.heritage-chapter-editorial.placement-left {
+  left: 6vw;
+  text-align: left;
 }
 
-.preset-btn-active {
-  background: rgba(182, 106, 75, 0.6);
-  border-color: #C47A5C;
-  box-shadow: 0 6px 18px rgba(182, 106, 75, 0.35);
-}
-
-.angle-btn-num {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #E2B880;
-}
-
-.angle-btn-title {
-  font-size: 0.85rem;
+.heritage-chapter-marker {
+  display: inline-block;
+  font-size: 0.73rem;
   font-weight: 600;
-}
-
-/* Info Narrative Card */
-.heritage-info-card {
-  background: rgba(26, 36, 44, 0.88);
-  border: 1px solid rgba(180, 139, 86, 0.4);
-  border-radius: 18px;
-  padding: 20px 26px;
-  backdrop-filter: blur(14px);
-  color: #F7F4ED;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-}
-
-.info-card-kicker {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #E2B880;
+  letter-spacing: 0.14em;
+  color: var(--heritage-gold);
   text-transform: uppercase;
-  display: block;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
 }
 
-.info-card-heading {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: 1.35rem;
+.heritage-chapter-header {
+  margin-bottom: 16px;
+}
+
+.heritage-chapter-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.0rem, 3.3vw, 2.95rem);
   font-weight: 700;
+  line-height: 1.14;
+  color: var(--heritage-ivory);
   margin: 0 0 8px 0;
-  color: #F7F4ED;
+  text-shadow: 0 4px 22px rgba(0, 0, 0, 0.85);
 }
 
-.info-card-desc {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: rgba(247, 244, 237, 0.85);
-  margin: 0 0 16px 0;
+.heritage-chapter-subtitle {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1.02rem, 1.35vw, 1.22rem);
+  line-height: 1.4;
+  color: var(--heritage-gold);
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
 }
 
-.info-card-actions {
+/* Single-Slot Story Stage: Paragraph 1 & Paragraph 2 overlap in space but never in time */
+.heritage-story-stage {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'story-slot';
+  margin-bottom: 20px;
+}
+
+.heritage-story-paragraph {
+  grid-area: story-slot;
+  font-size: clamp(0.95rem, 1.06vw, 1.05rem);
+  line-height: 1.72;
+  color: var(--heritage-ivory);
+  margin: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.92);
+}
+
+.heritage-chapter-cta-wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
 }
 
-.heritage-add-cart-btn {
+.heritage-discovery-link-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 22px;
-  background: #B66A4B;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 9999px;
-  font-size: 0.88rem;
-  font-weight: 700;
+  padding: 8px 16px;
+  background: rgba(17, 25, 27, 0.72);
+  border: 1px solid var(--heritage-gold-soft);
+  border-radius: 3px;
+  color: var(--heritage-ivory);
+  font-size: 0.81rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 6px 18px rgba(182, 106, 75, 0.4);
+  transition: background-color 0.22s ease, border-color 0.22s ease,
+    transform 0.22s ease;
 }
 
-.heritage-add-cart-btn:hover {
-  background: #A0593D;
-  transform: translateY(-2px);
+.heritage-discovery-link-btn:hover {
+  background: var(--heritage-crimson);
+  border-color: var(--heritage-gold);
+  transform: translateY(-1px);
 }
 
-.btn-already-added {
-  background: #3B6B58;
+.heritage-discovery-link-btn:focus-visible {
+  outline: 2px solid var(--heritage-gold);
+  outline-offset: 2px;
 }
 
-.btn-already-added:hover {
-  background: #325B4B;
+/* ==========================================================================
+   4. DOCUMENTARY ENDING — THE LEGACY OF KNOWLEDGE
+   ========================================================================== */
+
+.heritage-ending-editorial {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding: 80px 6vw 76px;
+  max-width: 820px;
+  margin: 0 auto;
+  pointer-events: none;
 }
 
-.heritage-drag-cue {
+.heritage-ending-editorial.is-interactive {
+  pointer-events: auto;
+}
+
+.heritage-ending-quote-wrap {
+  margin-bottom: 22px;
+}
+
+.heritage-ending-quote {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1.65rem, 2.8vw, 2.55rem);
+  font-weight: 600;
+  line-height: 1.28;
+  color: var(--heritage-ivory);
+  margin: 8px 0 0 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.88);
+}
+
+.heritage-trip-cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.78rem;
-  color: rgba(238, 230, 217, 0.7);
+  gap: 8px;
+  padding: 11px 24px;
+  background: var(--heritage-crimson);
+  border: 1px solid rgba(198, 164, 119, 0.5);
+  border-radius: 3px;
+  color: var(--heritage-ivory);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.22s ease, transform 0.22s ease;
 }
 
-.drag-spin-icon {
-  animation: spinSlow 6s linear infinite;
-  color: #E2B880;
+.heritage-trip-cta-btn:hover {
+  background: var(--heritage-crimson-hover);
+  transform: translateY(-1px);
 }
 
-@keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.heritage-trip-cta-btn:focus-visible {
+  outline: 2px solid var(--heritage-gold);
+  outline-offset: 2px;
 }
 
-@media (max-width: 900px) {
-  .heritage-bottom-card-row {
+.heritage-trip-cta-btn.is-added {
+  background: var(--heritage-emerald);
+  border-color: rgba(198, 164, 119, 0.45);
+}
+
+/* ==========================================================================
+   5. COMPACT PROGRESS INDICATOR (01 ━━━ 02 ━━━ 03)
+   ========================================================================== */
+
+.heritage-compact-progress {
+  position: absolute;
+  right: 6vw;
+  bottom: 24px;
+  z-index: 14;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(14, 20, 22, 0.66);
+  border: 1px solid rgba(198, 164, 119, 0.22);
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.heritage-compact-progress.is-visible {
+  pointer-events: auto;
+}
+
+.compact-progress-node {
+  background: transparent;
+  border: none;
+  padding: 2px 4px;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--heritage-muted);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.compact-progress-node:hover,
+.compact-progress-node.is-active {
+  opacity: 1;
+  color: var(--heritage-gold);
+}
+
+.compact-progress-node.is-passed {
+  opacity: 0.85;
+  color: var(--heritage-ivory);
+}
+
+.compact-progress-node:focus-visible {
+  outline: 2px solid var(--heritage-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.compact-progress-bar {
+  width: 28px;
+  height: 1.5px;
+  background: rgba(244, 239, 230, 0.22);
+  overflow: hidden;
+}
+
+.compact-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--heritage-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ==========================================================================
+   6. HERITAGE MONOGRAPH DETAIL MODAL
+   ========================================================================== */
+
+.heritage-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(11, 16, 18, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.heritage-modal-dialog {
+  position: relative;
+  width: min(94vw, 900px);
+  max-height: 88vh;
+  background: #171d1f;
+  border: 1px solid var(--heritage-gold-soft);
+  border-radius: 4px;
+  color: var(--heritage-ivory);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.72);
+}
+
+.heritage-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--heritage-gold-soft);
+  background: rgba(17, 25, 27, 0.85);
+  color: var(--heritage-ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.heritage-modal-close:hover {
+  background: var(--heritage-crimson);
+}
+
+.heritage-modal-hero {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.heritage-modal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heritage-modal-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(23, 29, 31, 0.15) 0%,
+    rgba(23, 29, 31, 0.92) 100%
+  );
+}
+
+.heritage-modal-hero-badge {
+  position: absolute;
+  left: 28px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--heritage-gold);
+  text-transform: uppercase;
+}
+
+.heritage-modal-body {
+  padding: 20px 28px 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.heritage-modal-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.45rem, 2.2vw, 1.95rem);
+  font-weight: 700;
+  color: var(--heritage-ivory);
+  margin: 0 0 8px 0;
+}
+
+.heritage-modal-lead {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--heritage-muted);
+  margin: 0 0 20px 0;
+}
+
+.heritage-modal-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(36, 32, 29, 0.72);
+  border: 1px solid rgba(198, 164, 119, 0.22);
+  margin-bottom: 22px;
+}
+
+.heritage-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.heritage-spec-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--heritage-gold);
+}
+
+.heritage-spec-value {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--heritage-ivory);
+}
+
+.heritage-modal-plates {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.heritage-modal-plate {
+  margin: 0;
+  background: rgba(17, 25, 27, 0.65);
+  border: 1px solid rgba(198, 164, 119, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+
+.heritage-plate-img-wrap {
+  width: 100%;
+  height: 132px;
+  overflow: hidden;
+}
+
+.heritage-plate-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heritage-plate-caption {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.heritage-plate-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--heritage-gold);
+}
+
+.heritage-plate-heading {
+  font-size: 0.84rem;
+  line-height: 1.35;
+  color: var(--heritage-ivory);
+}
+
+.heritage-plate-note {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--heritage-muted);
+  margin: 2px 0;
+}
+
+.heritage-plate-credit {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 0.68rem;
+  color: rgba(212, 201, 184, 0.75);
+}
+
+.heritage-plate-credit a {
+  color: var(--heritage-gold);
+  text-decoration: none;
+}
+
+.heritage-plate-credit a:hover {
+  text-decoration: underline;
+}
+
+.heritage-modal-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.heritage-section-heading {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--heritage-gold);
+  margin: 0 0 6px 0;
+}
+
+.heritage-section-body {
+  font-size: 0.9rem;
+  line-height: 1.68;
+  color: var(--heritage-ivory);
+  margin: 0;
+}
+
+.heritage-modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(198, 164, 119, 0.22);
+}
+
+.heritage-modal-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: transparent;
+  border: 1px solid var(--heritage-gold-soft);
+  border-radius: 3px;
+  color: var(--heritage-ivory);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.heritage-modal-resume-btn:hover {
+  border-color: var(--heritage-gold);
+  background: rgba(198, 164, 119, 0.12);
+}
+
+/* ==========================================================================
+   7. LAPTOP 1366x768 & COMPACT HEIGHT CALIBRATION
+   ========================================================================== */
+
+@media (max-height: 800px) and (min-width: 769px) {
+  .heritage-opening-editorial {
+    padding: 64px 5vw 56px;
+  }
+
+  .heritage-opening-title {
+    font-size: clamp(2.0rem, 3.5vw, 3.0rem);
+  }
+
+  .heritage-chapter-title {
+    font-size: clamp(1.8rem, 2.7vw, 2.4rem);
+  }
+
+  .heritage-story-paragraph {
+    font-size: 0.93rem;
+    line-height: 1.62;
+  }
+
+  .heritage-ending-editorial {
+    padding: 64px 5vw 60px;
+  }
+}
+
+/* ==========================================================================
+   8. TABLET & MOBILE RESPONSIVE ARCHITECTURE (<= 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .heritage-opening-editorial {
+    padding: 68px 20px 64px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .heritage-chapter-editorial.placement-left,
+  .heritage-chapter-editorial.placement-right {
+    left: 20px;
+    right: 20px;
+    top: auto;
+    bottom: 68px;
+    transform: none;
+    width: auto;
+  }
+
+  .heritage-scrim-layer.scrim-left-editorial,
+  .heritage-scrim-layer.scrim-right-editorial {
+    background: linear-gradient(
+      180deg,
+      rgba(14, 20, 22, 0.12) 0%,
+      rgba(14, 20, 22, 0.14) 38%,
+      rgba(14, 20, 22, 0.78) 68%,
+      rgba(14, 20, 22, 0.92) 100%
+    ) !important;
+  }
+
+  .heritage-chapter-title {
+    font-size: clamp(1.65rem, 6.2vw, 2.1rem);
+  }
+
+  .heritage-chapter-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .heritage-story-paragraph {
+    font-size: 0.9rem;
+    line-height: 1.58;
+  }
+
+  .heritage-compact-progress {
+    right: 20px;
+    bottom: 16px;
+    padding: 5px 12px;
+  }
+
+  .heritage-ending-editorial {
+    padding: 68px 20px 64px;
+  }
+
+  .heritage-modal-backdrop {
+    padding: 12px;
+  }
+
+  .heritage-modal-specs-grid,
+  .heritage-modal-plates {
     grid-template-columns: 1fr;
-    bottom: 20px;
   }
-  .heritage-presets-stack {
-    display: none;
+
+  .heritage-modal-body {
+    padding: 16px 18px 22px;
   }
+}
+
+/* ==========================================================================
+   9. ACCESSIBLE REDUCED-MOTION DOCUMENTARY FLOW
+   ========================================================================== */
+
+.hanoi-heritage-documentary.is-reduced-motion {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+.hanoi-heritage-documentary.is-reduced-motion .heritage-documentary-viewport {
+  height: auto;
+  overflow: visible;
+}
+
+.hanoi-heritage-documentary.is-reduced-motion .heritage-opening-stage,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-chapter-stage,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-ending-stage {
+  position: relative;
+  min-height: 82vh;
+  opacity: 1 !important;
+  clip-path: none !important;
+  pointer-events: auto !important;
+  border-bottom: 1px solid var(--heritage-gold-soft);
+}
+
+.hanoi-heritage-documentary.is-reduced-motion .heritage-beat-photo-layer.layer-detail {
+  opacity: 0 !important;
+}
+
+.hanoi-heritage-documentary.is-reduced-motion .heritage-opening-headline,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-opening-intro,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-chapter-marker,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-chapter-header,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-story-paragraph,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-chapter-cta-wrap,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-ending-quote-wrap,
+.hanoi-heritage-documentary.is-reduced-motion .heritage-ending-cta-wrap {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.hanoi-heritage-documentary.is-reduced-motion .heritage-story-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hanoi-heritage-documentary.is-reduced-motion .heritage-compact-progress {
+  display: none;
 }
