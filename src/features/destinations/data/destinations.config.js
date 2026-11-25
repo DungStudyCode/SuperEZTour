@@ -4,7 +4,7 @@
  */
 
 import { DA_NANG_CONFIG, getLocalizedDaNangConfig } from './da-nang.config.js';
-import { HA_NOI_CONFIG } from './ha-noi.config.js';
+import { HA_NOI_CONFIG, getLocalizedHaNoiConfig } from './ha-noi.config.js';
 
 export const DESTINATION_REGISTRY = {
   'da-nang': DA_NANG_CONFIG,
@@ -26,6 +26,10 @@ export function getDestinationConfig(slug, language = 'ko') {
 
   if (normalized === 'da-nang' || normalized === 'vietnam-danang' || normalized === 'danang') {
     return getLocalizedDaNangConfig(language);
+  }
+
+  if (normalized === 'ha-noi' || normalized === 'hanoi' || normalized === 'vietnam-hanoi') {
+    return getLocalizedHaNoiConfig(language);
   }
 
   if (DESTINATION_REGISTRY[normalized]) {

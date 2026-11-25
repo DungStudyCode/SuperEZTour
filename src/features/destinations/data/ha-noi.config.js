@@ -4,6 +4,8 @@
  * Korean / Vietnamese Bilingual Localization Edition
  */
 
+import { HANOI_ATTRACTION_ASSETS } from './hanoiAttractionAssets.js';
+
 export const HA_NOI_CONFIG = {
   id: 'ha-noi',
   slug: 'ha-noi',
@@ -430,162 +432,364 @@ export const HA_NOI_CONFIG = {
   },
 
   // =========================================================================
-  // SCENE 07: INTERACTIVE HANOI MAP ("The Hanoi Discovery Atlas")
+  // SCENE 06: INTERACTIVE TRAVEL ATLAS ("Khám phá Hà Nội" / "하노이를 발견하다")
   // =========================================================================
   attractions: {
     kicker: 'THE HANOI DISCOVERY ATLAS',
-    title: '하노이의 정수를 담은 핵심 랜드마크',
-    titleVi: 'Bản Đồ Khám Phá Hà Nội 3D Độc Bản',
-    subtitle: '호안끼엠 호수 중심에서부터 천년 문묘, 유네스코 탕롱 황성, 서호와 도예 마을까지.',
-    mapCenter: [105.8525, 21.0285],
-    defaultZoom: 12.8,
+    title: '나만의 방식으로 만나는 하노이',
+    titleVi: 'Hà Nội, theo cách của bạn.',
+    subtitle: '하노이의 특별한 매력을 담은 명소를 발견해 보세요.',
+    subtitleVi: 'Khám phá những tọa độ mang dấu ấn thủ đô.',
+    mapCenter: [105.870, 21.015],
+    defaultZoom: 11.8,
     overviewCamera: {
-      center: [105.8525, 21.0285],
-      zoom: 12.6,
-      pitch: 52,
-      bearing: -18
+      center: [105.870, 21.015],
+      zoom: 11.8,
+      pitch: 28,
+      bearing: 0,
+      fitBounds: true,
+      fitBoundsPadding: { top: 40, bottom: 40, left: 40, right: 40 },
+      maxFitZoom: 12.6
     },
-    resetViewText: '하노이 전경 복원',
+    terrain: {
+      enabled: false,
+      exaggeration: 0
+    },
+    presentation: {
+      layoutVariant: 'travel-atlas',
+      density: 'compact',
+      motionPreset: 'cinematic',
+      scrollExperience: {
+        enabled: true,
+        mode: 'landmark-discovery',
+        desktopOnly: true,
+        adaptivePin: true,
+        allowManualOverride: true,
+        reducedMotionFallback: 'natural-scroll',
+        entryHoldVh: 60,
+        discoveryVh: 120,
+        exitHoldVh: 20
+      }
+    },
+    features: {
+      pinSection: false,
+      showElevation: false,
+      showLiveBadge: false,
+      showAmbientGrid: false,
+      showFilters: true,
+      showPreviousNext: true,
+      showSelectionSummary: true,
+      showDuration: true,
+      showPhotoAttribution: true,
+      enableStyleSwitching: false,
+      markerVariant: 'numbered',
+      cooperativeGestures: true,
+      lazyInit: true
+    },
+    defaultSelectedAttractions: [],
+    resetViewText: '전체 지도 보기',
+    resetViewTextVi: 'Toàn cảnh Hà Nội',
     atlasName: 'THE HANOI ATLAS',
-    cartPrefix: '일정 담기',
-    cartSuffix: '곳 선택됨',
-    categories: ['전체', '역사유산', '건축명소', '호수·자연', '문화예술'],
+    cartPrefix: '선택한 명소',
+    cartPrefixVi: 'Đã chọn',
+    cartSuffix: '곳',
+    cartSuffixVi: 'địa điểm',
+    btnAdd: '여행에 추가하기',
+    btnAddVi: 'Thêm vào chuyến đi',
+    btnInCart: '여행에 추가됨',
+    btnInCartVi: 'Đã thêm vào chuyến đi',
+    btnRemove: '여행에서 제거하기',
+    btnRemoveVi: 'Bỏ khỏi chuyến đi',
+    disclaimer: '지도 상의 위치는 이해를 돕기 위한 안내이며, 실제 일정과 이동 동선은 여행 스타일에 맞춰 유연하게 조율됩니다.',
+    disclaimerVi: 'Vị trí trên bản đồ mang tính tham khảo trực quan; lộ trình tham quan thực tế được điều chỉnh linh hoạt theo nhịp độ chuyến đi của bạn.',
+    categories: [
+      { id: 'all', labelKo: '전체', labelVi: 'Tất cả' },
+      { id: 'heritage', labelKo: '유산', labelVi: 'Di sản' },
+      { id: 'culture', labelKo: '문화', labelVi: 'Văn hóa' },
+      { id: 'nature', labelKo: '자연', labelVi: 'Thiên nhiên' },
+      { id: 'architecture', labelKo: '건축', labelVi: 'Kiến trúc' },
+      { id: 'experience', labelKo: '체험', labelVi: 'Trải nghiệm' }
+    ],
     items: [
       {
         id: 'hoan-kiem-lake',
         name: '호안끼엠 호수 & 응옥선 사당',
+        nameKr: '호안끼엠 호수 & 응옥선 사당',
         nameVi: 'Hồ Hoàn Kiếm & Đền Ngọc Sơn',
-        category: '호수·자연',
-        elevation: '해발 15m · 도심 중심',
+        categoryId: 'heritage',
+        categoryIds: ['heritage', 'culture', 'nature'],
+        category: '유산 · 자연',
+        categoryVi: 'Di sản · Thiên nhiên',
         lng: 105.8525,
         lat: 21.0285,
         zoom: 15.2,
-        pitch: 45,
+        pitch: 32,
         bearing: 0,
         routeIndex: '01',
-        slogan: '하노이의 푸른 심장이자 천년의 영혼',
-        description: '붉은 테훅 다리를 건너 응옥선 사당으로 이어지는 평온한 산책길. 아침에는 현지인들의 태극권 수련, 저녁에는 낭만적인 조명이 호수를 비춥니다.',
-        tags: ['거북탑', '테훅 다리', '호수 산책로', '야경 명소'],
-        image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 45–90분 (참고)',
+        durationVi: 'Thời gian gợi ý: 45–90 phút',
+        description: '붉은 테훅 다리를 건너 응옥선 사당으로 이어지는 하노이의 중심 호수. 호숫가 산책로를 따라 수도의 평온한 일상을 마주할 수 있습니다.',
+        descriptionVi: 'Không gian hồ nước trung tâm gắn với cầu Thê Húc đỏ thắm và đền Ngọc Sơn cổ kính, nơi du khách cảm nhận nhịp sống thư thái giữa lòng thủ đô.',
+        experiencesKo: [
+          '호안끼엠 호수 둘레길 산책',
+          '응옥선 사당 및 테훅 다리 탐방',
+          '하노이 도심 고유의 문화 공간 감상'
+        ],
+        experiencesVi: [
+          'Dạo bộ quanh Hồ Gươm',
+          'Tham quan đền Ngọc Sơn',
+          'Khám phá không gian văn hóa trung tâm Hà Nội'
+        ],
+        tags: ['호수 산책', '응옥선 사당', '도심 문화'],
+        tagsVi: ['Dạo bộ Hồ Gươm', 'Đền Ngọc Sơn', 'Không gian văn hóa'],
+        image: HANOI_ATTRACTION_ASSETS['hoan-kiem-lake'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['hoan-kiem-lake'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['hoan-kiem-lake']
       },
       {
         id: 'old-quarter',
-        name: '하노이 36 구시가지',
-        nameVi: 'Phố Cổ Hà Nội 36 Phố Phường',
-        category: '역사유산',
-        elevation: '해발 14m · 보행 중심',
+        name: '하노이 구시가지',
+        nameKr: '하노이 구시가지',
+        nameVi: 'Phố cổ Hà Nội',
+        categoryId: 'culture',
+        categoryIds: ['culture', 'architecture', 'experience'],
+        category: '문화 · 체험',
+        categoryVi: 'Văn hóa · Trải nghiệm',
         lng: 105.8510,
         lat: 21.0345,
-        zoom: 15.5,
-        pitch: 40,
-        bearing: -15,
+        zoom: 15.4,
+        pitch: 30,
+        bearing: -8,
         routeIndex: '02',
-        slogan: '백 년의 가업과 삶의 온기가 흐르는 미로',
-        description: '은세공의 항박, 전통 실크의 항가이 등 골목마다 특화된 장인 거리. 골목길 깊숙한 곳에서 발견하는 숨겨진 카페와 현지인들의 일상.',
-        tags: ['항박 거리', '동쑤언 시장', '에그커피', '골목 산책'],
-        image: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 90–150분 (참고)',
+        durationVi: 'Thời gian gợi ý: 90–150 phút',
+        description: '오랜 상업 역사를 간직한 옛 장인 거리와 좁고 깊은 전통 튜브 하우스 건축, 골목마다 숨은 카페와 현지 미식이 살아 숨 쉬는 공간입니다.',
+        descriptionVi: 'Khu phố nghề lâu đời với những dãy nhà ống đặc trưng, góc phố giao thương nhộn nhịp cùng nét văn hóa cà phê và ẩm thực đường phố Hà Nội.',
+        experiencesKo: [
+          '전통 직업 골목(36거리) 탐방',
+          '고유의 튜브 하우스 건축 관찰',
+          '현지 커피와 로컬 미식 체험'
+        ],
+        experiencesVi: [
+          'Khám phá các phố nghề',
+          'Quan sát kiến trúc nhà ống',
+          'Thưởng thức cà phê và ẩm thực địa phương'
+        ],
+        tags: ['전통 거리', '튜브 하우스', '로컬 카페'],
+        tagsVi: ['Phố nghề', 'Nhà ống cổ', 'Cà phê & Ẩm thực'],
+        image: HANOI_ATTRACTION_ASSETS['old-quarter'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['old-quarter'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['old-quarter']
       },
       {
         id: 'van-mieu',
-        name: '문묘 국자감',
+        name: '문묘 – 국자감',
+        nameKr: '문묘 – 국자감',
         nameVi: 'Văn Miếu – Quốc Tử Giám',
-        category: '역사유산',
-        elevation: '해발 16m · 유교 정원',
-        lng: 105.8360,
-        lat: 21.0293,
-        zoom: 15.8,
-        pitch: 50,
-        bearing: 25,
+        categoryId: 'heritage',
+        categoryIds: ['heritage', 'culture', 'architecture'],
+        category: '유산 · 건축',
+        categoryVi: 'Di sản · Kiến trúc',
+        lng: 105.8355,
+        lat: 21.0278,
+        zoom: 15.5,
+        pitch: 32,
+        bearing: 10,
         routeIndex: '03',
-        slogan: '1070년 베트남 학문의 전당이자 최초의 대학',
-        description: '규문각을 지나 마주하는 82개 거북이 비석. 과거에 급제한 진사들의 이름이 새겨진 석비가 고요한 정원과 완벽한 조화를 이룹니다.',
-        tags: ['규문각', '진사제명비', '유교 건축', '정원 산책'],
-        image: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 45–90분 (참고)',
+        durationVi: 'Thời gian gợi ý: 45–90 phút',
+        description: '고목이 우거진 고요한 정원 안에 규문각과 진사제명비원이 자리한 유서 깊은 학문의 전당으로, 베트남의 학구열과 전통 건축미를 전합니다.',
+        descriptionVi: 'Quần thể di tích nho học tiêu biểu với Khuê Văn Các, giếng Thiên Quang và vườn bia Tiến sĩ trầm mặc dưới tán cây cổ thụ.',
+        experiencesKo: [
+          '규문각(Khuê Văn Các) 건축 감상',
+          '베트남 전통 학문·교육 역사 이해',
+          '진사제명비원(Bia Tiến sĩ) 관람'
+        ],
+        experiencesVi: [
+          'Khám phá Khuê Văn Các',
+          'Tìm hiểu truyền thống hiếu học',
+          'Tham quan khu bia Tiến sĩ'
+        ],
+        tags: ['규문각', '유교 유산', '진사제명비'],
+        tagsVi: ['Khuê Văn Các', 'Truyền thống hiếu học', 'Bia Tiến sĩ'],
+        image: HANOI_ATTRACTION_ASSETS['van-mieu'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['van-mieu'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['van-mieu']
       },
       {
         id: 'thang-long-citadel',
         name: '탕롱 황성',
-        nameVi: 'Hoàng Thành Thăng Long',
-        category: '역사유산',
-        elevation: '해발 18m · UNESCO 세계유산',
+        nameKr: '탕롱 황성',
+        nameVi: 'Hoàng thành Thăng Long',
+        categoryId: 'heritage',
+        categoryIds: ['heritage', 'culture'],
+        category: '유산 · 역사',
+        categoryVi: 'Di sản · Văn hóa',
         lng: 105.8406,
         lat: 21.0342,
-        zoom: 15.4,
-        pitch: 48,
-        bearing: -10,
+        zoom: 15.3,
+        pitch: 32,
+        bearing: -6,
         routeIndex: '04',
-        slogan: '13세기부터 이어진 천년 베트남 왕권의 중심',
-        description: '유네스코 세계문화유산으로 지정된 웅장한 황성. 킨티엔 궁전의 용 계단과 도안몬 정문, 현대 역사 유적인 D67 지하 벙커까지 포괄하는 탐방.',
-        tags: ['유네스코 유산', '도안몬', '용 계단', '역사 박물관'],
-        image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 90–120분 (참고)',
+        durationVi: 'Thời gian gợi ý: 90–120 phút',
+        description: '여러 왕조에 걸친 수도의 역사가 겹겹이 보존된 유적지. 웅장한 도안몬 정문과 고고학 유적을 통해 천년 왕도의 위상을 살펴볼 수 있습니다.',
+        descriptionVi: 'Quần thể di tích lưu giữ dấu ấn nhiều triều đại kinh thành Thăng Long xưa, nổi bật với cổng Đoan Môn cổ kính và các lớp tích lịch sử.',
+        experiencesKo: [
+          '도안몬(Đoan Môn) 성문 관람',
+          '황성 내 역사·고고학 유적 탐방',
+          '탕롱 왕조 문화유산 이해'
+        ],
+        experiencesVi: [
+          'Tham quan Đoan Môn',
+          'Khám phá dấu tích lịch sử',
+          'Tìm hiểu di sản kinh thành Thăng Long'
+        ],
+        tags: ['도안몬', '역사 유적', '왕실 유산'],
+        tagsVi: ['Đoan Môn', 'Dấu tích lịch sử', 'Di sản Thăng Long'],
+        image: HANOI_ATTRACTION_ASSETS['thang-long-citadel'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['thang-long-citadel'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['thang-long-citadel']
       },
       {
         id: 'st-joseph-cathedral',
-        name: '성 요셉 대성당',
-        nameVi: 'Nhà Thờ Lớn Hà Nội',
-        category: '건축명소',
-        elevation: '해발 15m · 광장 중심',
+        name: '하노이 성 요셉 대성당',
+        nameKr: '하노이 성 요셉 대성당',
+        nameVi: 'Nhà thờ Lớn Hà Nội',
+        categoryId: 'architecture',
+        categoryIds: ['architecture', 'culture'],
+        category: '건축 · 문화',
+        categoryVi: 'Kiến trúc · Văn hóa',
         lng: 105.8494,
         lat: 21.0288,
-        zoom: 16.0,
-        pitch: 42,
-        bearing: 15,
+        zoom: 15.6,
+        pitch: 32,
+        bearing: 8,
         routeIndex: '05',
-        slogan: '1886년 파리 노트르담을 오마주한 네오고딕 성당',
-        description: '세월의 흔적이 깃든 고딕 스테인드글라스와 쌍둥이 종탑. 성당 앞 카페 거리에서 노천 좌석에 앉아 즐기는 하노이 특유의 레몬티(짜짠) 문화.',
-        tags: ['네오고딕', '스테인드글라스', '성당 광장', '카페 거리'],
-        image: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 30–45분 (참고)',
+        durationVi: 'Thời gian gợi ý: 30–45 phút',
+        description: '세월의 흔적이 깃든 네오고딕 양식의 쌍둥이 종탑이 인상적인 성당. 주변 냐쭝(Nhà Chung) 거리의 아늑한 카페 문화가 어우러진 명소입니다.',
+        descriptionVi: 'Công trình kiến trúc Gothic cổ kính với hai tháp chuông đặc trưng, nằm giữa khu phố Nhà Chung rợp bóng cây và nhịp sống cà phê thư thái.',
+        experiencesKo: [
+          '네오고딕 성당 외관 건축 감상',
+          '냐쭝(Nhà Chung) 골목 산책',
+          '성당 주변 노천 카페에서 휴식'
+        ],
+        experiencesVi: [
+          'Chiêm ngưỡng kiến trúc Gothic',
+          'Khám phá khu phố Nhà Chung',
+          'Thưởng thức cà phê quanh khu vực'
+        ],
+        tags: ['고딕 건축', '냐쭝 거리', '카페 문화'],
+        tagsVi: ['Kiến trúc Gothic', 'Phố Nhà Chung', 'Cà phê phố cổ'],
+        image: HANOI_ATTRACTION_ASSETS['st-joseph-cathedral'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['st-joseph-cathedral'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['st-joseph-cathedral']
       },
       {
         id: 'opera-house',
         name: '하노이 오페라 하우스',
-        nameVi: 'Nhà Hát Lớn Hà Nội',
-        category: '건축명소',
-        elevation: '해발 14m · 프랑스 구역',
+        nameKr: '하노이 오페라 하우스',
+        nameVi: 'Nhà hát Lớn Hà Nội',
+        categoryId: 'architecture',
+        categoryIds: ['architecture', 'culture'],
+        category: '건축 · 문화',
+        categoryVi: 'Kiến trúc · Văn hóa',
         lng: 105.8576,
         lat: 21.0245,
-        zoom: 15.6,
-        pitch: 46,
-        bearing: -30,
+        zoom: 15.5,
+        pitch: 32,
+        bearing: -12,
         routeIndex: '06',
-        slogan: '1911년 파리 가르니에 극장의 낭만을 재현한 건축',
-        description: '노란 파사드와 웅장한 코린트식 기둥이 아름다운 랜드마크. 프랑스 대사관과 명품 부티크, 클래식 카페가 밀집한 하노이에서 가장 세련된 거리.',
-        tags: ['프렌치 건축', '야경 조명', '광장 산책', '클래식 포토존'],
-        image: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람(외관 중심): 20–45분 (참고)',
+        durationVi: 'Thời gian gợi ý: 20–45 phút (tham quan bên ngoài)',
+        description: '우아한 프랑스식 네오클래식 외관과 넓은 광장이 돋보이는 랜드마크. 짱띠엔(Tràng Tiền) 일대의 세련된 문화와 건축 풍경을 만날 수 있습니다.',
+        descriptionVi: 'Công trình mang dấu ấn kiến trúc Pháp cổ điển nổi bật bên quảng trường rộng mở, kết nối hài hòa với không gian văn hóa khu Tràng Tiền.',
+        experiencesKo: [
+          '프렌치 클래식 외관 건축 감상',
+          '오페라 하우스 광장 산책',
+          '짱띠엔 일대 문화 거리 탐방'
+        ],
+        experiencesVi: [
+          'Chiêm ngưỡng kiến trúc Pháp',
+          'Khám phá quảng trường Nhà hát Lớn',
+          'Tìm hiểu không gian văn hóa khu Tràng Tiền'
+        ],
+        tags: ['프렌치 건축', '광장 산책', '짱띠엔 거리'],
+        tagsVi: ['Kiến trúc Pháp', 'Quảng trường', 'Khu Tràng Tiền'],
+        image: HANOI_ATTRACTION_ASSETS['opera-house'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['opera-house'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['opera-house']
       },
       {
         id: 'tran-quoc-pagoda',
         name: '진국사 & 서호',
+        nameKr: '진국사 & 서호',
         nameVi: 'Chùa Trấn Quốc & Hồ Tây',
-        category: '호수·자연',
-        elevation: '해발 16m · 서호 반도',
+        categoryId: 'nature',
+        categoryIds: ['heritage', 'culture', 'nature'],
+        category: '자연 · 유산',
+        categoryVi: 'Thiên nhiên · Di sản',
         lng: 105.8369,
         lat: 21.0478,
-        zoom: 15.2,
-        pitch: 44,
-        bearing: 20,
+        zoom: 15.1,
+        pitch: 30,
+        bearing: 12,
         routeIndex: '07',
-        slogan: '6세기 창건된 하노이에서 가장 오래된 고찰',
-        description: '서호의 작은 섬 위에 우뚝 솟은 붉은 11층 석탑. 인도에서 기증받은 성스러운 보리수나무 아래에서 마주하는 서호의 평화로운 일몰.',
-        tags: ['11층 불탑', '서호 일몰', '보리수', '선셋 명소'],
-        image: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 45–90분 (참고)',
+        durationVi: 'Thời gian gợi ý: 45–90 phút',
+        description: '서호(Hồ Tây) 반도 위에 고즈넉이 자리한 유서 깊은 사찰과 다층 불탑. 잔잔한 호수 바람을 맞으며 평온한 시간을 보내기 좋은 곳입니다.',
+        descriptionVi: 'Ngôi cổ tự thanh tịnh bên bán đảo Hồ Tây với bảo tháp uy nghiêm soi bóng mặt nước, mang lại khoảng lặng bình yên giữa lòng thành phố.',
+        experiencesKo: [
+          '진국사 사찰 및 붉은 불탑 탐방',
+          '서호(Hồ Tây) 호숫가 산책',
+          '고요한 호수 풍경과 여유로운 휴식'
+        ],
+        experiencesVi: [
+          'Tham quan chùa Trấn Quốc',
+          'Dạo bộ ven Hồ Tây',
+          'Ngắm cảnh và tận hưởng không gian yên bình'
+        ],
+        tags: ['진국사', '서호 산책', '고요한 풍경'],
+        tagsVi: ['Chùa Trấn Quốc', 'Ven Hồ Tây', 'Không gian yên bình'],
+        image: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda']
       },
       {
         id: 'bat-trang-village',
-        name: '바트랑 도예 마을',
-        nameVi: 'Làng Gốm Bát Tràng',
-        category: '문화예술',
-        elevation: '해발 12m · 홍강변',
+        name: '바트랑 도자기 마을',
+        nameKr: '바트랑 도자기 마을',
+        nameVi: 'Làng gốm Bát Tràng',
+        categoryId: 'experience',
+        categoryIds: ['culture', 'experience'],
+        category: '문화 · 체험',
+        categoryVi: 'Văn hóa · Trải nghiệm',
         lng: 105.9125,
         lat: 20.9790,
-        zoom: 14.5,
-        pitch: 35,
-        bearing: -10,
+        zoom: 14.8,
+        pitch: 28,
+        bearing: 0,
         routeIndex: '08',
-        slogan: '500년을 이어온 베트남 도자기 장인의 요람',
-        description: '홍강 유역의 붉은 흙과 가마 터를 따라 펼쳐지는 도예 골목. 장인의 가르침 아래 도자기를 직접 빚고 채색하는 프라이빗 아틀리에 체험.',
-        tags: ['도자기 박물관', '물레 체험', '도예 공방', '전통 공예'],
-        image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=80'
+        durationKo: '권장 관람: 120–180분 (참고)',
+        durationVi: 'Thời gian gợi ý: 120–180 phút',
+        description: '홍강 변에서 오랜 세월 도예 전통을 이어온 공예 마을. 전통 가마와 도자기 공방을 둘러보며 베트남 도예 예술의 매력을 직접 느낄 수 있습니다.',
+        descriptionVi: 'Làng nghề gốm truyền thống lâu đời ven sông Hồng, nơi du khách tìm hiểu nghệ thuật chế tác gốm Việt Nam và ghé thăm các xưởng gốm địa phương.',
+        experiencesKo: [
+          '전통 도예 마을 골목과 공방 탐방',
+          '현지 상황에 따른 도자기 빚기 체험',
+          '베트남 전통 도예 예술 이해'
+        ],
+        experiencesVi: [
+          'Khám phá làng nghề truyền thống',
+          'Trải nghiệm làm gốm nếu dịch vụ có sẵn',
+          'Tìm hiểu nghệ thuật gốm Việt Nam'
+        ],
+        tags: ['전통 도예', '공방 탐방', '물레 체험'],
+        tagsVi: ['Làng nghề gốm', 'Trải nghiệm làm gốm', 'Nghệ thuật gốm'],
+        image: HANOI_ATTRACTION_ASSETS['bat-trang-village'].desktopSrc,
+        mobileImage: HANOI_ATTRACTION_ASSETS['bat-trang-village'].mobileSrc,
+        assetMeta: HANOI_ATTRACTION_ASSETS['bat-trang-village']
       }
     ]
   },
@@ -866,5 +1070,45 @@ export const HA_NOI_CONFIG = {
     ctaTextVi: 'Bắt đầu hành trình riêng'
   }
 };
+
+export function getLocalizedHaNoiConfig(language = 'ko') {
+  const isVi = language === 'vi';
+  if (!isVi) {
+    return HA_NOI_CONFIG;
+  }
+
+  const base = HA_NOI_CONFIG;
+  const attr = base.attractions;
+
+  return {
+    ...base,
+    locale: 'vi',
+    attractions: {
+      ...attr,
+      title: attr.titleVi || attr.title,
+      subtitle: attr.subtitleVi || attr.subtitle,
+      resetViewText: attr.resetViewTextVi || attr.resetViewText,
+      cartPrefix: attr.cartPrefixVi || attr.cartPrefix,
+      cartSuffix: attr.cartSuffixVi || attr.cartSuffix,
+      btnAdd: attr.btnAddVi || attr.btnAdd,
+      btnInCart: attr.btnInCartVi || attr.btnInCart,
+      btnRemove: attr.btnRemoveVi || attr.btnRemove,
+      disclaimer: attr.disclaimerVi || attr.disclaimer,
+      categories: (attr.categories || []).map((c) => ({
+        ...c,
+        label: c.labelVi || c.labelKo
+      })),
+      items: (attr.items || []).map((item) => ({
+        ...item,
+        name: item.nameVi || item.name,
+        category: item.categoryVi || item.category,
+        description: item.descriptionVi || item.description,
+        duration: item.durationVi || item.durationKo,
+        experiences: item.experiencesVi || item.experiencesKo,
+        tags: item.tagsVi || item.tags
+      }))
+    }
+  };
+}
 
 export default HA_NOI_CONFIG;

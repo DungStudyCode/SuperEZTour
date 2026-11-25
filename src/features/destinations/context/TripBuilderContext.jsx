@@ -148,34 +148,66 @@ export const DEFAULT_TRIP_STATE = {
 
 export const TripBuilderProvider = ({ children, destinationConfig }) => {
   const isKorean = destinationConfig?.locale ? destinationConfig.locale === 'ko' : true;
+  const isHanoi = destinationConfig?.id === 'ha-noi' || destinationConfig?.slug === 'ha-noi';
+
+  const getInitialSelectionsForDestination = useCallback((config) => {
+    if (Array.isArray(config?.attractions?.defaultSelectedAttractions)) {
+      return config.attractions.defaultSelectedAttractions;
+    }
+    if (config?.id === 'ha-noi' || config?.slug === 'ha-noi') {
+      return [];
+    }
+    return DEFAULT_TRIP_STATE.selectedAttractions;
+  }, []);
 
   const [tripState, setTripState] = useState(() => ({
     ...DEFAULT_TRIP_STATE,
     destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
     destinationSlug: destinationConfig?.slug || 'da-nang',
+    accommodationType: isHanoi ? 'heritage' : DEFAULT_TRIP_STATE.accommodationType,
+    accommodationName: isHanoi ? '' : DEFAULT_TRIP_STATE.accommodationName,
+    selectedAttractions: getInitialSelectionsForDestination(destinationConfig),
+    culinaryPreferences: isHanoi ? [] : DEFAULT_TRIP_STATE.culinaryPreferences,
     guideLanguage: isKorean ? '한국어 (전담)' : 'Tiếng Việt',
     departureCity: isKorean ? '인천 (ICN)' : 'Hà Nội'
   }));
 
   useEffect(() => {
-    setTripState((prev) => ({
-      ...prev,
-      destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
-      destinationSlug: destinationConfig?.slug || prev.destinationSlug || 'da-nang',
-      guideLanguage:
-        prev.guideLanguage === '한국어 (전담)' || prev.guideLanguage === 'Tiếng Việt'
-          ? isKorean
-            ? '한국어 (전담)'
-            : 'Tiếng Việt'
-          : prev.guideLanguage,
-      departureCity:
-        prev.departureCity === '인천 (ICN)' || prev.departureCity === 'Hà Nội'
-          ? isKorean
-            ? '인천 (ICN)'
-            : 'Hà Nội'
-          : prev.departureCity
-    }));
-  }, [isKorean, destinationConfig?.nameKr, destinationConfig?.name, destinationConfig?.slug]);
+    setTripState((prev) => {
+      const nextSlug = destinationConfig?.slug || prev.destinationSlug || 'da-nang';
+      const didSwitchDestination = Boolean(prev.destinationSlug && nextSlug !== prev.destinationSlug);
+
+      return {
+        ...prev,
+        destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
+        destinationSlug: nextSlug,
+        selectedAttractions: didSwitchDestination
+          ? getInitialSelectionsForDestination(destinationConfig)
+          : prev.selectedAttractions,
+        culinaryPreferences: didSwitchDestination
+          ? (nextSlug === 'ha-noi' ? [] : DEFAULT_TRIP_STATE.culinaryPreferences)
+          : prev.culinaryPreferences,
+        accommodationType: didSwitchDestination
+          ? (nextSlug === 'ha-noi' ? 'heritage' : DEFAULT_TRIP_STATE.accommodationType)
+          : prev.accommodationType,
+        accommodationName: didSwitchDestination
+          ? (nextSlug === 'ha-noi' ? '' : DEFAULT_TRIP_STATE.accommodationName)
+          : prev.accommodationName,
+        guideLanguage:
+          prev.guideLanguage === '한국어 (전담)' || prev.guideLanguage === 'Tiếng Việt'
+            ? isKorean
+              ? '한국어 (전담)'
+              : 'Tiếng Việt'
+            : prev.guideLanguage,
+        departureCity:
+          prev.departureCity === '인천 (ICN)' || prev.departureCity === 'Hà Nội'
+            ? isKorean
+              ? '인천 (ICN)'
+              : 'Hà Nội'
+            : prev.departureCity
+      };
+    });
+  }, [isKorean, destinationConfig?.nameKr, destinationConfig?.name, destinationConfig?.slug, destinationConfig, getInitialSelectionsForDestination]);
 
   const setStep = useCallback((step) => {
     setTripState((prev) => ({
@@ -308,10 +340,16 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
   const resetTrip = useCallback(() => {
     setTripState({
       ...DEFAULT_TRIP_STATE,
-      destination: destinationConfig?.name || 'Đà Nẵng',
-      destinationSlug: destinationConfig?.slug || 'da-nang'
+      destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
+      destinationSlug: destinationConfig?.slug || 'da-nang',
+      accommodationType: isHanoi ? 'heritage' : DEFAULT_TRIP_STATE.accommodationType,
+      accommodationName: isHanoi ? '' : DEFAULT_TRIP_STATE.accommodationName,
+      selectedAttractions: getInitialSelectionsForDestination(destinationConfig),
+      culinaryPreferences: isHanoi ? [] : DEFAULT_TRIP_STATE.culinaryPreferences,
+      guideLanguage: isKorean ? '한국어 (전담)' : 'Tiếng Việt',
+      departureCity: isKorean ? '인천 (ICN)' : 'Hà Nội'
     });
-  }, [destinationConfig]);
+  }, [destinationConfig, isKorean, isHanoi, getInitialSelectionsForDestination]);
 
   return (
     <TripBuilderContext.Provider

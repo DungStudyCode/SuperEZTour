@@ -800,12 +800,12 @@
     height: 140px;
   }
 
-  .interactive-3d-map-scene .panel-body-content {
+  .interactive-3d-map-scene .panel-content-body {
     padding: 0.85rem 1rem;
     gap: 0.4rem;
   }
 
-  .interactive-3d-map-scene .panel-destination-title {
+  .interactive-3d-map-scene .panel-title {
     font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   }
 
@@ -844,7 +844,7 @@
     height: 105px;
   }
 
-  .interactive-3d-map-scene .panel-body-content {
+  .interactive-3d-map-scene .panel-content-body {
     padding: 0.5rem 0.75rem;
   }
 
@@ -863,5 +863,1156 @@
   .interactive-3d-map-scene .map-canvas-wrapper,
   .interactive-3d-map-scene .map-editorial-panel {
     height: 320px;
+  }
+}
+
+/* ==========================================================================
+   11. TRAVEL ATLAS VARIANT (.is-travel-atlas — Hanoi Screen 6 V1.1 Compact)
+   Preserves 100% of Da Nang's legacy 3D Satellite styles above.
+   ========================================================================== */
+.interactive-3d-map-scene.is-travel-atlas {
+  min-height: auto;
+  height: auto;
+  background: linear-gradient(180deg, #080F1C 0%, #101A20 12%, #101A20 88%, #172026 100%);
+  color: #F3EEE5;
+  padding: clamp(1.75rem, 3vh, 2.5rem) 0;
+}
+
+.interactive-3d-map-scene.is-travel-atlas::before,
+.interactive-3d-map-scene.is-travel-atlas::after {
+  display: none;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-3d-content {
+  max-width: 1360px;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-3d-header {
+  margin-bottom: 0.65rem;
+  align-items: flex-end;
+  gap: 0.65rem 1.25rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-kicker {
+  color: #C5A675;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.25rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-kicker-icon {
+  color: #D58C48;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-3d-title {
+  color: #F3EEE5;
+  font-size: clamp(1.65rem, 2.7vw, 2.25rem);
+  line-height: 1.15;
+  word-break: keep-all;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-header-subtitle {
+  margin: 0.25rem 0 0;
+  font-family: 'Be Vietnam Pro', var(--font-sans, sans-serif);
+  font-size: clamp(0.86rem, 1vw, 0.94rem);
+  line-height: 1.45;
+  color: #AAB5B8;
+  max-width: 600px;
+  word-break: keep-all;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-cart-badge {
+  background: #17242B;
+  border: 1px solid rgba(197, 166, 117, 0.35);
+  color: #F3EEE5;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.82rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-cart-badge strong {
+  color: #C5A675;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes atlasCountFade {
+  from {
+    opacity: 0.45;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-badge-count-text {
+  display: inline-block;
+  animation: atlasCountFade 0.24s ease-out;
+}
+
+/* Category Filters */
+.interactive-3d-map-scene.is-travel-atlas .atlas-filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill {
+  min-height: 36px;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(23, 36, 43, 0.72);
+  color: #AAB5B8;
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill:hover {
+  border-color: rgba(197, 166, 117, 0.5);
+  color: #F3EEE5;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill.is-active {
+  background: #C5A675;
+  border-color: #C5A675;
+  color: #101A20;
+  font-weight: 700;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-toggle:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .atlas-chips-more-btn:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-focus:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:focus-visible {
+  outline: 2px solid #F3EEE5;
+  outline-offset: 2px;
+}
+
+/* Atlas Grid (Map ~61% | Compact Editorial Panel ~39%, align-items: start prevents map stretch) */
+.interactive-3d-map-scene.is-travel-atlas .map-atlas-stage {
+  grid-template-columns: 1.56fr 1fr;
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+  align-items: start;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-canvas-wrapper {
+  height: clamp(400px, 50vh, 470px);
+  min-height: 400px;
+  border-radius: 16px;
+  background: #0D161B;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-mapbox-container {
+  background: #0D161B;
+}
+
+/* Loading & Error Fallbacks */
+.interactive-3d-map-scene.is-travel-atlas .atlas-map-loading-shell,
+.interactive-3d-map-scene.is-travel-atlas .atlas-map-error-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 1.75rem;
+  text-align: center;
+  background: rgba(16, 26, 32, 0.92);
+  color: #F3EEE5;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-map-loading-shell {
+  z-index: 6;
+  pointer-events: none;
+  color: #AAB5B8;
+  font-size: 0.9rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-error-quick-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  max-width: 520px;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-error-spot-btn,
+.interactive-3d-map-scene.is-travel-atlas .atlas-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #17242B;
+  color: #F3EEE5;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-error-spot-btn.is-active {
+  border-color: #D58C48;
+  background: rgba(213, 140, 72, 0.22);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-retry-btn {
+  border-color: #C5A675;
+  color: #C5A675;
+  font-weight: 600;
+}
+
+/* Map Controls */
+.interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn {
+  background: rgba(16, 26, 32, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #F3EEE5;
+  min-height: 36px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.76rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn:hover,
+.interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn.active {
+  border-color: #C5A675;
+  color: #C5A675;
+  background: #17242B;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .maplibregl-ctrl-group {
+  background: rgba(16, 26, 32, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .maplibregl-ctrl-group button {
+  width: 34px;
+  height: 34px;
+  background-color: transparent;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .maplibregl-ctrl-group button + button {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: invert(0.92);
+}
+
+/* 3-State Accessible Numbered Markers (transform ONLY on inner .atlas-marker-visual) */
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-marker-visual {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-marker-badge {
+  position: relative;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #101A20;
+  border: 2px solid #C5A675;
+  color: #F3EEE5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-marker-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes atlasMarkerArrive {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.92;
+  }
+  100% {
+    transform: scale(1.58);
+    opacity: 0;
+  }
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-arriving .atlas-marker-ring {
+  border-color: rgba(213, 140, 72, 0.85);
+  animation: atlasMarkerArrive 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-marker-check {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  z-index: 4;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #819879;
+  border: 1.5px solid #101A20;
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  font-weight: 900;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-marker-tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: rgba(16, 26, 32, 0.94);
+  border: 1px solid rgba(197, 166, 117, 0.45);
+  color: #F3EEE5;
+  padding: 0.24rem 0.58rem;
+  border-radius: 6px;
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+/* Marker Hover / Focus */
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:hover,
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:focus-visible {
+  z-index: 45;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:hover .atlas-marker-visual,
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:focus-visible .atlas-marker-visual {
+  transform: scale(1.1);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:hover .atlas-marker-tooltip,
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:focus-visible .atlas-marker-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Marker State B: Selected in TripBuilder */
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-in-trip {
+  z-index: 25;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-in-trip .atlas-marker-badge {
+  background: #819879;
+  border-color: #F3EEE5;
+  color: #101A20;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-in-trip .atlas-marker-check {
+  display: inline-flex;
+}
+
+/* Marker State C: Active Exploring */
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active {
+  z-index: 60;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active .atlas-marker-visual {
+  transform: scale(1.14);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active .atlas-marker-badge {
+  background: #D58C48;
+  border-color: #F3EEE5;
+  color: #101A20;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active .atlas-marker-ring {
+  border-color: rgba(213, 140, 72, 0.72);
+  opacity: 1;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active .atlas-marker-tooltip {
+  opacity: 1;
+  visibility: visible;
+  border-color: #D58C48;
+}
+
+/* Combined State B + C: Active AND Selected in Trip */
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active.marker-in-trip .atlas-marker-badge {
+  background: #D58C48;
+  border-color: #F3EEE5;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker.marker-active.marker-in-trip .atlas-marker-check {
+  display: inline-flex;
+  background: #819879;
+}
+
+/* Compact Editorial Detail Panel */
+.interactive-3d-map-scene.is-travel-atlas .map-editorial-panel {
+  height: auto !important;
+  min-height: 0;
+  background: #17242B;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+  overflow: visible;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-frame {
+  position: relative;
+  height: clamp(165px, 21vh, 198px);
+  aspect-ratio: auto;
+  border-radius: 15px 15px 0 0;
+  background: #0D161B;
+  overflow: hidden;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-layer-outgoing {
+  z-index: 1;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-layer-incoming {
+  z-index: 2;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-layer picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--atlas-focal-desktop, 50% 50%);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #AAB5B8;
+  font-size: 0.84rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-img-overlay {
+  z-index: 3;
+  background: linear-gradient(180deg, transparent 58%, rgba(23, 36, 43, 0.85) 100%);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-photo-credit {
+  position: absolute;
+  bottom: 0.45rem;
+  right: 0.65rem;
+  z-index: 4;
+  font-size: 0.64rem;
+  color: rgba(243, 238, 229, 0.72);
+  background: rgba(16, 26, 32, 0.72);
+  padding: 0.16rem 0.45rem;
+  border-radius: 4px;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-photo-credit a {
+  color: #C5A675;
+  text-decoration: none;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-photo-credit a:hover {
+  text-decoration: underline;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-content-body {
+  padding: 0.85rem 1.1rem 0.95rem;
+  gap: 0.6rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-panel-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-panel-category {
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #C5A675;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-title {
+  color: #F3EEE5;
+  font-size: clamp(1.15rem, 1.45vw, 1.32rem);
+  line-height: 1.22;
+  margin-bottom: 0.3rem;
+  word-break: keep-all;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-desc {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  color: rgba(243, 238, 229, 0.88);
+  font-size: 0.83rem;
+  line-height: 1.5;
+  margin-bottom: 0.45rem;
+  word-break: keep-all;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-duration-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #C5A675;
+  margin-bottom: 0.45rem;
+}
+
+/* Expandable Experiences */
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.5rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-toggle {
+  width: 100%;
+  min-height: 34px;
+  padding: 0.2rem 0;
+  border: none;
+  background: transparent;
+  color: #C5A675;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-toggle:hover {
+  color: #F3EEE5;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-heading {
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-toggle.is-open .atlas-experiences-chevron {
+  transform: rotate(180deg);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-collapse.is-open {
+  grid-template-rows: 1fr;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-experiences-inner {
+  overflow: hidden;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-highlights-list {
+  margin: 0;
+  padding: 0.4rem 0 0.15rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.26rem;
+  font-size: 0.8rem;
+  line-height: 1.44;
+  color: #F3EEE5;
+}
+
+/* Primary Solid Gold CTA */
+.interactive-3d-map-scene.is-travel-atlas .panel-actions-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn {
+  min-height: 42px;
+  background: #C5A675;
+  border: 1px solid #C5A675;
+  color: #101A20;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(197, 166, 117, 0.18);
+  transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease, transform 0.14s ease, box-shadow 0.22s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn:hover {
+  background: #D3B688;
+  border-color: #D3B688;
+  color: #101A20;
+  box-shadow: 0 8px 22px rgba(197, 166, 117, 0.28);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn:active {
+  transform: scale(0.98);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn.btn-in-cart {
+  background: #819879;
+  border-color: #819879;
+  color: #101A20;
+  box-shadow: none;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn .btn-label-hover {
+  display: none;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn.btn-in-cart:hover {
+  background: #D58C48;
+  border-color: #D58C48;
+  color: #101A20;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn.btn-in-cart:hover .btn-label-default {
+  display: none;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .panel-add-btn.btn-in-cart:hover .btn-label-hover {
+  display: inline;
+}
+
+/* Unified Compact Atlas Footer (Selection Chips Left + Single Nav Bar Right) */
+.interactive-3d-map-scene.is-travel-atlas .atlas-footer-bar {
+  margin-top: 0.7rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(23, 36, 43, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-selection-summary {
+  flex: 1 1 320px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-summary-empty {
+  color: #AAB5B8;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-summary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-summary-chip {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(129, 152, 121, 0.18);
+  border: 1px solid rgba(129, 152, 121, 0.45);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-focus,
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove {
+  background: transparent;
+  border: none;
+  color: #F3EEE5;
+  cursor: pointer;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-focus {
+  padding: 0.15rem 0.5rem 0.15rem 0.7rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove {
+  padding: 0.15rem 0.5rem 0.15rem 0.2rem;
+  color: #AAB5B8;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove:hover {
+  color: #D58C48;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-chips-more-btn {
+  min-height: 28px;
+  padding: 0.15rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(197, 166, 117, 0.45);
+  background: rgba(197, 166, 117, 0.12);
+  color: #C5A675;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Single Navigation Bar in Footer */
+.interactive-3d-map-scene.is-travel-atlas .atlas-prev-next-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn {
+  min-height: 36px;
+  padding: 0.3rem 0.72rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(16, 26, 32, 0.55);
+  color: #F3EEE5;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn:hover:not(:disabled) {
+  border-color: #C5A675;
+  background: rgba(197, 166, 117, 0.14);
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .atlas-nav-counter {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #C5A675;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+  text-align: center;
+}
+
+.interactive-3d-map-scene.is-travel-atlas .map-disclaimer {
+  color: #AAB5B8;
+  margin-top: 0.65rem;
+  font-size: 0.75rem;
+}
+
+/* Travel Atlas Responsive (Tablet & Mobile) */
+@media (max-width: 992px) {
+  .interactive-3d-map-scene.is-travel-atlas .map-atlas-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .map-canvas-wrapper {
+    min-height: 360px;
+    height: 360px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .atlas-filters-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 768px) {
+  .interactive-3d-map-scene.is-travel-atlas {
+    padding: 2.25rem 0;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .map-cart-badge {
+    margin-left: 0;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .map-canvas-wrapper {
+    min-height: 300px;
+    height: 300px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .panel-img-frame {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .panel-img {
+    object-position: var(--atlas-focal-mobile, var(--atlas-focal-desktop, 50% 50%));
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker {
+    width: 44px;
+    height: 44px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .panel-add-btn,
+  .interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn {
+    min-height: 44px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .atlas-footer-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas .atlas-prev-next-bar {
+    margin-left: 0;
+    justify-content: space-between;
+    padding-top: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-3d-map-scene.is-travel-atlas .atlas-marker-visual,
+  .interactive-3d-map-scene.is-travel-atlas .atlas-marker-ring,
+  .interactive-3d-map-scene.is-travel-atlas .atlas-experiences-collapse,
+  .interactive-3d-map-scene.is-travel-atlas .atlas-experiences-chevron,
+  .interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill,
+  .interactive-3d-map-scene.is-travel-atlas .panel-add-btn,
+  .interactive-3d-map-scene.is-travel-atlas .atlas-badge-count-text,
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step,
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-resume-btn {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   12. SCROLL DISCOVERY BAR & GUIDANCE (.is-travel-atlas.is-scroll-discovery)
+   ========================================================================== */
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-pin-stage,
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-pin-measure {
+  width: 100%;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery.is-atlas-pinned .atlas-experiences-collapse.is-open .atlas-experiences-inner {
+  max-height: 112px;
+  overflow-y: auto;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-discovery-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.7rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(23, 36, 43, 0.72);
+  border: 1px solid rgba(197, 166, 117, 0.22);
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-guidance-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-guidance-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #C5A675;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-guidance-text {
+  font-size: 0.79rem;
+  color: rgba(243, 238, 229, 0.9);
+  font-weight: 500;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 28px;
+  padding: 0.18rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid #C5A675;
+  background: rgba(197, 166, 117, 0.16);
+  color: #C5A675;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-resume-btn:hover {
+  background: #C5A675;
+  color: #101A20;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-steps {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-connector {
+  width: 10px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background-color 0.2s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-connector.is-reached {
+  background: rgba(197, 166, 117, 0.65);
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step {
+  min-width: 26px;
+  height: 22px;
+  padding: 0 0.3rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: #AAB5B8;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step.is-visited {
+  border-color: rgba(197, 166, 117, 0.45);
+  color: #C5A675;
+  background: rgba(197, 166, 117, 0.10);
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step.is-active {
+  border-color: #C5A675;
+  background: #C5A675;
+  color: #101A20;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step:focus-visible,
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-resume-btn:focus-visible {
+  outline: 2px solid #F3EEE5;
+  outline-offset: 2px;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-footer-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-left: auto;
+}
+
+.interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-scroll-continue-hint {
+  font-size: 0.74rem;
+  color: #AAB5B8;
+  white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-scroll-continue-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-discovery-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-footer-right {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Compact Laptop Density Tier (1366x768, 1280x720, and constrained desktop browser windows) */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery {
+    padding: 1.15rem 0;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .map-3d-header {
+    margin-bottom: 0.42rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .map-kicker {
+    margin-bottom: 0.15rem;
+    font-size: 0.68rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .map-3d-title {
+    font-size: clamp(1.35rem, 2.1vw, 1.72rem);
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-header-subtitle {
+    font-size: 0.81rem;
+    margin-top: 0.15rem;
+    line-height: 1.35;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .map-cart-badge {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.78rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-filters-bar {
+    margin-bottom: 0.42rem;
+    gap: 0.35rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-filter-pill {
+    min-height: 30px;
+    padding: 0.22rem 0.72rem;
+    font-size: 0.75rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-discovery-bar {
+    margin-bottom: 0.45rem;
+    padding: 0.3rem 0.75rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .map-canvas-wrapper {
+    height: clamp(335px, 44vh, 395px);
+    min-height: 335px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .panel-img-frame {
+    height: clamp(124px, 16.5vh, 152px);
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .panel-content-body {
+    padding: 0.68rem 0.95rem 0.75rem;
+    gap: 0.45rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .panel-title {
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    margin-bottom: 0.2rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .panel-desc {
+    font-size: 0.79rem;
+    line-height: 1.44;
+    margin-bottom: 0.35rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-duration-row {
+    font-size: 0.74rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-experiences-section {
+    padding-top: 0.35rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-experiences-toggle {
+    min-height: 28px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .panel-add-btn {
+    min-height: 40px;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-footer-bar {
+    margin-top: 0.45rem;
+    padding: 0.42rem 0.85rem;
+  }
+
+  .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-nav-btn {
+    min-height: 32px;
+    padding: 0.22rem 0.62rem;
   }
 }
