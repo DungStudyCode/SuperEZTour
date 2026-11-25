@@ -39,6 +39,90 @@
   color: #F0C28E;
 }
 
+/* Chapter 03: Chả Cá Lã Vọng — Cast-Iron, Turmeric Gold & Dill Green */
+.hanoi-taste-scene.chaca-documentary-scene {
+  background-color: #171B17;
+  color: #F2E8D5;
+}
+
+.chaca-documentary-scene .pho-kicker {
+  background: rgba(23, 27, 23, 0.82);
+  border-color: rgba(213, 163, 64, 0.48);
+  color: #D5A340;
+}
+
+.chaca-documentary-scene .pho-kicker-icon {
+  color: #7FA373;
+}
+
+.chaca-documentary-scene .pho-subtitle {
+  color: #E2BE6F;
+}
+
+.chaca-documentary-scene .pho-trip-cta-btn {
+  background: #B8862B;
+  border-color: #D5A340;
+  box-shadow: 0 6px 20px rgba(213, 163, 64, 0.35);
+}
+
+.chaca-documentary-scene .pho-trip-cta-btn:hover {
+  background: #CA9634;
+  box-shadow: 0 8px 24px rgba(213, 163, 64, 0.5);
+}
+
+.chaca-documentary-scene .pho-trip-cta-btn.is-added {
+  background: #3F5D39;
+  border-color: #53734B;
+  box-shadow: 0 6px 20px rgba(83, 115, 75, 0.42);
+}
+
+.chaca-modal-panel {
+  background: rgba(21, 25, 21, 0.97);
+  border-color: rgba(213, 163, 64, 0.45);
+}
+
+.chaca-modal-panel .pho-modal-kicker {
+  color: #D5A340;
+}
+
+.chaca-modal-panel .pho-modal-section-title {
+  color: #E2BE6F;
+}
+
+.chaca-modal-panel .element-num {
+  color: #7FA373;
+}
+
+.chaca-tasting-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  background: rgba(83, 115, 75, 0.14);
+  border: 1px solid rgba(213, 163, 64, 0.32);
+  border-radius: 12px;
+}
+
+.chaca-note-icon {
+  color: #D5A340;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.chaca-tasting-note strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #F2E8D5;
+  margin-bottom: 6px;
+}
+
+.chaca-tasting-note p {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: rgba(242, 232, 213, 0.85);
+  margin: 0;
+}
+
 /* ==========================================================================
    ACTS STAGE & SLIDES
    ========================================================================== */
@@ -85,7 +169,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: var(--focal-desktop, 50% 50%);
   display: block;
   transform: scale(1.0);
   will-change: transform;
@@ -673,6 +757,10 @@
     min-height: 600px;
   }
 
+  .pho-photo-img {
+    object-position: var(--focal-mobile, var(--focal-desktop, 50% 50%));
+  }
+
   .act-variant-fullscreen-hero .pho-editorial-content,
   .act-variant-left-editorial .pho-editorial-content,
   .act-variant-right-editorial .pho-editorial-content,
@@ -771,6 +859,12 @@
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
+  }
+
+  .chaca-documentary-scene .pho-act-slide {
+    height: auto !important;
+    min-height: 82vh !important;
+    padding: 56px 0;
   }
 
   .pho-photo-img {

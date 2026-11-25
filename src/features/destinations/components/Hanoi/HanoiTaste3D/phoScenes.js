@@ -111,6 +111,7 @@ export const PHO_DOCUMENTARY_ACTS = [
 ];
 
 import { BUN_CHA_DOCUMENTARY_ACTS } from './bunChaScenes';
+import { CHA_CA_DOCUMENTARY_ACTS } from './chaCaScenes';
 
 /**
  * Extensible culinary library for Hanoi dishes
@@ -131,5 +132,13 @@ export const CULINARY_STORIES = {
     nameKo: '하노이 숯불 분짜 (Bún Chả)',
     nameEn: 'Charcoal Grilled Pork Bun Cha',
     acts: BUN_CHA_DOCUMENTARY_ACTS
+  },
+  'cha-ca': {
+    id: 'cha-ca',
+    slug: 'cha-ca-la-vong',
+    nameVi: 'Chả Cá Lã Vọng',
+    nameKo: '짜까 라봉 (Chả Cá Lã Vọng)',
+    nameEn: 'Hanoi Turmeric Fish with Dill',
+    acts: CHA_CA_DOCUMENTARY_ACTS
   }
 };

@@ -636,14 +636,14 @@ export const HA_NOI_CONFIG = {
       },
       {
         id: 'cha-ca-la-vong',
-        name: '짜까 라봉 틸라피아 솥 요리 (Chả Cá)',
+        name: '짜까 라봉 (Chả Cá Lã Vọng)',
         nameVi: 'Chả Cá Lã Vọng',
         nameKr: '짜까 라봉 (Chả Cá Lã Vọng)',
         chapter: '04',
-        slogan: '강황에 재운 생선을 딜과 파와 함께 무쇠 팬에 볶아내는 별미',
-        desc: '1871년부터 전해 내려온 하노이 전통의 무쇠 냄비 요리. 강황과 갈랑갈로 마리네이드한 생선살을 딜(Dill)과 대파와 함께 기름에 지글지글 볶아 맘똠(새우젓)에 곁들여 먹습니다.',
-        highlights: ['강황 마리네이드 생선', '향긋한 딜 허브 풍미', '전통 무쇠 팬 테이블 조리'],
-        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80'
+        slogan: '강황에 재운 생선을 딜과 파와 함께 팬에 볶아내는 하노이 별미',
+        desc: '하노이 짜까 거리의 오랜 전통을 담은 테이블 다이닝 요리. 강황과 갈랑갈로 마리네이드한 생선살을 딜(Dill)과 대파와 함께 식탁 위 팬에서 지글지글 볶아 맘똠(새우젓) 또는 피시소스에 곁들여 먹습니다.',
+        highlights: ['강황 마리네이드 생선', '향긋한 딜 허브 풍미', '전통 식탁 위 테이블 조리'],
+        image: '/assets/destinations/hanoi/cha-ca/chaca-hero-desktop.webp'
       },
       {
         id: 'banh-cuon',

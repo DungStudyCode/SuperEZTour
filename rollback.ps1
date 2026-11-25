@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Script thực hiện Rollback phiên bản frontend Super EZ Tour về release trước đó.
 

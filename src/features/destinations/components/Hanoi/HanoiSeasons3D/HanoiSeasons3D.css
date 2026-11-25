@@ -1,197 +1,460 @@
 /* ==========================================================================
-   SCENE 05: HANOI THROUGH THE SEASONS (Interactive Environmental Transformation)
+   SUPER EZ TOUR — HANOI SCREEN 5 V1
+   HANOI THROUGH THE SEASONS — CINEMATIC PHOTOGRAPHIC DOCUMENTARY
+   Quiet Luxury Editorial Layout · Zero WebGL · Zero Glassmorphism Cards
    ========================================================================== */
 
 .hanoi-seasons-scene {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 720px;
+  min-height: 640px;
   overflow: hidden;
-  background-color: #2c221b;
+  background-color: #151917;
+  color: #F8F3EA;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
-.seasons-3d-canvas {
+.seasons-cinematic-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   SEASONAL SLIDES & PHOTOGRAPHIC LAYER
+   ========================================================================== */
+.season-cinematic-slide {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* First slide (Spring) visible by default for SSR / no-JS / initial frame */
+.season-cinematic-slide:first-child {
+  opacity: 1;
+  visibility: visible;
+}
+
+.season-cinematic-slide.is-season-active {
+  pointer-events: auto;
+}
+
+/* Promote compositor layers only for active & incoming lookahead slides */
+.season-cinematic-slide.is-season-active,
+.season-cinematic-slide.is-season-next {
+  will-change: opacity;
+}
+
+.season-cinematic-slide.is-season-active .season-photo-img,
+.season-cinematic-slide.is-season-next .season-photo-img {
+  will-change: transform;
+}
+
+.season-photo-viewport {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   z-index: 1;
 }
 
-.seasons-vignette {
+.season-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focal-desktop, 50% 50%);
+  display: block;
+  transform: scale(1.0);
+}
+
+.season-scrim-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(18, 22, 26, 0.72) 100%);
   pointer-events: none;
   z-index: 2;
 }
 
-/* Header Floating HUD */
-.seasons-header-hud {
-  position: absolute;
-  top: 36px;
-  left: 50%;
-  transform: translateX(-50%);
+/* ==========================================================================
+   EDITORIAL CONTENT CONTAINER & LEFT / RIGHT ALIGNMENT
+   ========================================================================== */
+.season-editorial-container {
+  position: relative;
   z-index: 3;
-  width: min(92%, 760px);
-  text-align: center;
-  color: #F7F4ED;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 84px 6vw 64px 6vw;
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.seasons-pill-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: rgba(180, 139, 86, 0.22);
-  border: 1px solid rgba(180, 139, 86, 0.45);
-  border-radius: 9999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #E2B880;
-  backdrop-filter: blur(8px);
-  margin-bottom: 10px;
+.season-layout-left-editorial .season-editorial-container {
+  justify-content: flex-start;
 }
 
-.seasons-title {
-  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-  font-size: clamp(2.0rem, 4.2vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.15;
-  margin: 0 0 8px 0;
-  color: #F7F4ED;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.75);
+.season-layout-right-editorial .season-editorial-container {
+  justify-content: flex-end;
 }
 
-.seasons-subtitle {
-  font-size: 0.95rem;
-  color: rgba(247, 244, 237, 0.85);
-  line-height: 1.55;
-  margin: 0 0 18px 0;
-  max-width: 620px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+.season-editorial-column {
+  width: 100%;
+  max-width: 560px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
 }
 
-/* Seasonal Tabs Dock */
-.seasons-tabs-dock {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px;
-  background: rgba(24, 32, 38, 0.82);
-  border: 1px solid rgba(180, 139, 86, 0.35);
-  border-radius: 9999px;
-  backdrop-filter: blur(12px);
+/* ==========================================================================
+   MASTER SECTION HEADER (INTEGRATED INTO SPRING OPENING)
+   ========================================================================== */
+.seasons-master-header {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(248, 243, 234, 0.22);
 }
 
-.season-tab-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 20px;
-  border-radius: 9999px;
-  border: none;
-  background: transparent;
-  color: rgba(247, 244, 237, 0.75);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.season-tab-btn:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.season-tab-active {
-  background: #B66A4B;
-  color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(182, 106, 75, 0.5);
-}
-
-/* Bottom Spotlight Card */
-.seasons-spotlight-card {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-  width: min(92%, 780px);
-  background: rgba(26, 36, 44, 0.88);
-  border: 1px solid rgba(180, 139, 86, 0.4);
-  border-radius: 18px;
-  padding: 22px 28px;
-  backdrop-filter: blur(14px);
-  color: #F7F4ED;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-  text-align: center;
-}
-
-.spotlight-badge-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.spotlight-kicker {
+.seasons-master-eyebrow {
+  display: block;
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #B66A4B;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #E6B6B8;
+  margin-bottom: 8px;
+}
+
+.seasons-master-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #F8F3EA;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.01em;
+}
+
+.seasons-master-subtitle {
+  font-size: clamp(0.86rem, 1.05vw, 0.96rem);
+  line-height: 1.6;
+  color: rgba(248, 243, 234, 0.82);
+  margin: 0;
+  max-width: 500px;
+}
+
+/* ==========================================================================
+   SEASONAL TYPOGRAPHY & PALETTE ACCENTS
+   ========================================================================== */
+.season-index-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.spotlight-season-name {
-  font-size: 0.82rem;
+.season-kicker-index {
+  color: #F3E1D5;
+}
+
+.season-index-divider {
+  color: rgba(248, 243, 234, 0.45);
+}
+
+.season-month-range {
+  color: rgba(248, 243, 234, 0.82);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  font-weight: 500;
+}
+
+/* Per-season natural palette accents */
+.season-theme-spring .season-kicker-index {
+  color: #E6B6B8;
+}
+
+.season-theme-summer .season-kicker-index {
+  color: #E5C779;
+}
+
+.season-theme-autumn .season-kicker-index {
+  color: #C99A47;
+}
+
+.season-theme-winter .season-kicker-index {
+  color: #D1D6D5;
+}
+
+.season-headline {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.14;
+  color: #F8F3EA;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+}
+
+.is-hero-season .season-headline {
+  font-size: clamp(2.4rem, 4.6vw, 3.9rem);
+  color: #F4E9D6;
+}
+
+.season-description {
+  font-size: clamp(0.96rem, 1.22vw, 1.08rem);
+  line-height: 1.72;
+  color: rgba(248, 243, 234, 0.93);
+  margin: 0 0 24px 0;
+  max-width: 520px;
+}
+
+/* ==========================================================================
+   EXPERIENCES & PRACTICAL TRAVEL TIP (CLEAN EDITORIAL LINES)
+   ========================================================================== */
+.season-guidance-block {
+  margin-bottom: 18px;
+}
+
+.season-guidance-label {
+  display: block;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: #E2B880;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(248, 243, 234, 0.68);
+  margin-bottom: 6px;
 }
 
-.spotlight-quote {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: 1.15rem;
-  font-style: italic;
-  color: #F7F4ED;
-  line-height: 1.6;
-  margin: 0 0 14px 0;
+.season-theme-spring .season-guidance-label {
+  color: #C7D1BC;
 }
 
-.spotlight-highlight-box {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
-  font-size: 0.82rem;
-  background: rgba(24, 32, 38, 0.6);
-  padding: 6px 16px;
-  border-radius: 9999px;
-  border: 1px solid rgba(180, 139, 86, 0.25);
+.season-theme-summer .season-guidance-label {
+  color: #8BAE66;
 }
 
-.highlight-tag {
-  color: rgba(238, 230, 217, 0.65);
+.season-theme-autumn .season-guidance-label {
+  color: #D9C6A3;
 }
 
-.highlight-text {
-  color: #E2B880;
+.season-theme-winter .season-guidance-label {
+  color: #A0ADB1;
 }
 
-@media (max-width: 768px) {
-  .season-tab-btn {
-    padding: 7px 12px;
-    font-size: 0.75rem;
+.season-experiences-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 4px;
+}
+
+.season-experience-item {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(0.95rem, 1.18vw, 1.06rem);
+  font-weight: 500;
+  color: #F8F3EA;
+  line-height: 1.5;
+}
+
+.season-experience-item:not(:last-child)::after {
+  content: "·";
+  margin: 0 10px;
+  color: rgba(248, 243, 234, 0.5);
+}
+
+.season-tip-block {
+  padding-top: 14px;
+  border-top: 1px solid rgba(248, 243, 234, 0.18);
+  max-width: 510px;
+}
+
+.season-tip-text {
+  font-size: clamp(0.84rem, 1.0vw, 0.92rem);
+  line-height: 1.62;
+  color: rgba(248, 243, 234, 0.82);
+  margin: 0;
+}
+
+/* ==========================================================================
+   SUBTLE PHOTOGRAPHIC ATTRIBUTION
+   ========================================================================== */
+.season-photo-credit {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  z-index: 4;
+  font-size: 0.7rem;
+  color: rgba(248, 243, 234, 0.52);
+  letter-spacing: 0.03em;
+}
+
+.season-layout-right-editorial .season-photo-credit {
+  right: auto;
+  left: 28px;
+}
+
+.season-photo-credit a {
+  color: rgba(248, 243, 234, 0.68);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(248, 243, 234, 0.35);
+  transition: color 0.2s ease;
+}
+
+.season-photo-credit a:hover,
+.season-photo-credit a:focus-visible {
+  color: #F8F3EA;
+}
+
+/* ==========================================================================
+   TABLET & SHORT VIEWPORT ADAPTATION
+   ========================================================================== */
+@media (max-width: 992px) {
+  .season-editorial-container {
+    padding: 76px 5vw 52px 5vw;
   }
-  .spotlight-quote {
-    font-size: 0.95rem;
+
+  .season-editorial-column {
+    max-width: 500px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE & CONSTRAINED VIEWPORTS — NATURAL DOCUMENT FLOW (UNPINNED)
+   ========================================================================== */
+@media (max-width: 768px), (max-height: 579px) {
+  .hanoi-seasons-scene {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible;
+  }
+
+  .seasons-cinematic-stage {
+    height: auto !important;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .season-cinematic-slide {
+    position: relative !important;
+    inset: auto !important;
+    width: 100%;
+    height: auto !important;
+    min-height: 84svh;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .season-photo-img {
+    object-position: var(--focal-mobile, var(--focal-desktop, 50% 50%));
+    transform: none !important;
+  }
+
+  .season-scrim-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(16, 20, 22, 0.38) 0%,
+      rgba(16, 20, 22, 0.18) 32%,
+      rgba(16, 20, 22, 0.76) 66%,
+      rgba(14, 18, 22, 0.94) 100%
+    ) !important;
+  }
+
+  .season-theme-winter .season-scrim-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(16, 22, 28, 0.36) 0%,
+      rgba(16, 22, 28, 0.20) 32%,
+      rgba(10, 18, 28, 0.80) 68%,
+      #080F1C 100%
+    ) !important;
+  }
+
+  .season-editorial-container,
+  .season-layout-left-editorial .season-editorial-container,
+  .season-layout-right-editorial .season-editorial-container {
+    justify-content: flex-start;
+    padding: 96px 22px 48px 22px;
+  }
+
+  .season-editorial-column {
+    max-width: 100%;
+  }
+
+  .seasons-master-header {
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+  }
+
+  .season-headline,
+  .is-hero-season .season-headline {
+    font-size: clamp(1.85rem, 7vw, 2.35rem);
+    margin-bottom: 12px;
+  }
+
+  .season-description {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+
+  .season-tip-text {
+    font-size: 0.85rem;
+  }
+
+  .season-photo-credit,
+  .season-layout-right-editorial .season-photo-credit {
+    left: 22px;
+    right: auto;
+    bottom: 14px;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION — ACCESSIBLE DOCUMENT FLOW
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hanoi-seasons-scene {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible;
+  }
+
+  .seasons-cinematic-stage {
+    height: auto !important;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .season-cinematic-slide {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 80vh;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    padding: 40px 0;
+  }
+
+  .season-photo-img {
+    transform: none !important;
   }
 }

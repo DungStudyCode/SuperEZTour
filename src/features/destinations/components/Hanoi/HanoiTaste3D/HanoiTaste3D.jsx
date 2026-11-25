@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Utensils, Flame, BookOpen, Plus, Check, ArrowDown } from 'lucide-react';
+import { Utensils, Flame, Fish, BookOpen, Plus, Check, ArrowDown } from 'lucide-react';
 import { useLanguage } from '../../../../../context/LanguageContext';
 import { useTripBuilder, isCulinarySelected } from '../../../context/TripBuilderContext';
 import { PHO_ASSET_MANIFEST, PHO_SCRIM_GRADIENTS } from './phoAssets';
 import { PHO_DOCUMENTARY_ACTS } from './phoScenes';
 import { BUN_CHA_ASSET_MANIFEST, BUN_CHA_SCRIM_GRADIENTS } from './bunChaAssets';
 import { BUN_CHA_DOCUMENTARY_ACTS } from './bunChaScenes';
+import { CHA_CA_ASSET_MANIFEST, CHA_CA_SCRIM_GRADIENTS } from './chaCaAssets';
+import { CHA_CA_DOCUMENTARY_ACTS } from './chaCaScenes';
 import { buildPhoTimeline, resolvePhoProgressState } from './buildPhoTimeline';
 import PhoDetailModal from './PhoDetailModal';
 import BunChaDetailModal from './BunChaDetailModal';
+import ChaCaDetailModal from './ChaCaDetailModal';
 import './HanoiTaste3D.css';
 
 /**
@@ -37,6 +40,16 @@ export const BUN_CHA_KEYS = [
   'Charcoal Grilled Pork Bun Cha'
 ];
 
+export const CHA_CA_KEYS = [
+  'cha-ca',
+  'cha-ca-la-vong',
+  'Chả Cá Lã Vọng',
+  'Chả Cá Lã Vọng Gia Truyền',
+  '짜까 라봉 (Chả Cá Lã Vọng)',
+  '짜까 라봉 (가물치 딜 볶음)',
+  '짜까 라봉 틸라피아 솥 요리 (Chả Cá)'
+];
+
 /**
  * Independent 5-Act Culinary Documentary Chapter Section
  * Each chapter owns its own DOM refs, ScrollTrigger pin instance, modal state, and cleanup.
@@ -54,7 +67,10 @@ const CulinaryChapterSection = ({
   intermediateMonographLabelKo,
   KickerIcon = Utensils,
   DetailModalComponent,
-  showScrollHint = false
+  showScrollHint = false,
+  pinDistances,
+  chapterPrefix = 'pho',
+  eagerFirstAct = false
 }) => {
   const containerRef = useRef(null);
   const actSlideRefs = useRef([]);
@@ -64,6 +80,7 @@ const CulinaryChapterSection = ({
 
   const [activeActIndex, setActiveActIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNearViewport, setIsNearViewport] = useState(eagerFirstAct);
 
   const { isKorean } = useLanguage();
   const { toggleCulinary, tripState } = useTripBuilder();
@@ -78,6 +95,43 @@ const CulinaryChapterSection = ({
     toggleCulinary(targetPreference);
   }, [toggleCulinary, targetPreference]);
 
+  // Progressive offscreen proximity observer so downstream chapters don't compete with Hero LCP
+  useEffect(() => {
+    if (isNearViewport) return;
+    const container = containerRef.current;
+    if (!container || typeof IntersectionObserver === 'undefined') {
+      setIsNearViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '900px 0px' }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [isNearViewport]);
+
+  // Bounded lookahead decode for current & next act to prevent blank frames on fast scroll
+  useEffect(() => {
+    if (!isNearViewport) return;
+    const indicesToDecode = [activeActIndex, activeActIndex + 1].filter(
+      (i) => i >= 0 && i < acts.length
+    );
+    indicesToDecode.forEach((idx) => {
+      const imgEl = actImageRefs.current[idx];
+      if (imgEl && typeof imgEl.decode === 'function' && imgEl.complete) {
+        imgEl.decode().catch(() => {});
+      }
+    });
+  }, [isNearViewport, activeActIndex, acts.length]);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -88,6 +142,8 @@ const CulinaryChapterSection = ({
       actImageEls: actImageRefs.current,
       actTextEls: actTextRefs.current,
       actsData: acts,
+      pinDistances,
+      chapterPrefix,
       onProgressUpdate: (progress) => {
         const nextIdx = resolvePhoProgressState(progress);
         setActiveActIndex((prev) => (prev !== nextIdx ? nextIdx : prev));
@@ -101,7 +157,7 @@ const CulinaryChapterSection = ({
         timelineCtxRef.current.revert();
       }
     };
-  }, [acts]);
+  }, [acts, pinDistances, chapterPrefix]);
 
   return (
     <section
@@ -143,10 +199,16 @@ const CulinaryChapterSection = ({
                     alt={isKorean ? asset.altKo : asset.altVi}
                     className="pho-photo-img"
                     style={{
-                      objectPosition: asset.focalPointDesktop || '50% 50%'
+                      '--focal-desktop': asset.focalPointDesktop || '50% 50%',
+                      '--focal-mobile': asset.focalPointMobile || asset.focalPointDesktop || '50% 50%'
                     }}
-                    loading={idx === 0 ? 'eager' : 'lazy'}
-                    decoding={idx === 0 ? 'sync' : 'async'}
+                    loading={
+                      (eagerFirstAct && idx === 0) ||
+                      (isNearViewport && idx <= activeActIndex + 1)
+                        ? 'eager'
+                        : 'lazy'
+                    }
+                    decoding={eagerFirstAct && idx === 0 ? 'sync' : 'async'}
                     onError={(e) => {
                       if (asset.fallbackSrc && e.target.src !== asset.fallbackSrc) {
                         e.target.src = asset.fallbackSrc;
@@ -270,11 +332,18 @@ const CulinaryChapterSection = ({
 };
 
 /**
- * SUPER EZ TOUR — HANOI SCREEN 4 V2
+ * SUPER EZ TOUR — HANOI SCREEN 4 V3
  * SEQUENTIAL CULINARY DOCUMENTARY CHAPTERS:
- *  - Chapter I:  PHỞ HÀ NỘI — THE SOUL OF A MORNING (V1 Preserved)
- *  - Chapter II: BÚN CHẢ HÀ NỘI — THE FRAGRANCE OF CHARCOAL AT NOON (V2 Added)
+ *  - Chapter I:   PHỞ HÀ NỘI — THE SOUL OF A MORNING (V1 Preserved)
+ *  - Chapter II:  BÚN CHẢ HÀ NỘI — THE FRAGRANCE OF CHARCOAL AT NOON (V2 Preserved)
+ *  - Chapter III: CHẢ CÁ LÃ VỌNG — THE ART OF TABLESIDE DINING (V3 Added)
  */
+const CHA_CA_PIN_DISTANCES = {
+  desktop: '+=450%',
+  tablet: '+=340%',
+  mobile: '+=260%'
+};
+
 const HanoiTaste3D = () => {
   useEffect(() => {
     const rafId = requestAnimationFrame(() => {
@@ -300,6 +369,8 @@ const HanoiTaste3D = () => {
         KickerIcon={Utensils}
         DetailModalComponent={PhoDetailModal}
         showScrollHint={true}
+        chapterPrefix="pho"
+        eagerFirstAct={true}
       />
 
       {/* CHAPTER 02 — BÚN CHẢ HÀ NỘI (V2 MIDDAY CHARCOAL DOCUMENTARY) */}
@@ -317,6 +388,28 @@ const HanoiTaste3D = () => {
         KickerIcon={Flame}
         DetailModalComponent={BunChaDetailModal}
         showScrollHint={false}
+        chapterPrefix="buncha"
+        eagerFirstAct={false}
+      />
+
+      {/* CHAPTER 03 — CHẢ CÁ LÃ VỌNG (V3 TABLESIDE DINING DOCUMENTARY) */}
+      <CulinaryChapterSection
+        chapterId="hanoi-taste-chaca"
+        sceneClassName="pho-documentary-scene chaca-documentary-scene"
+        ariaLabel="Chả Cá Lã Vọng — The Art of Tableside Dining"
+        acts={CHA_CA_DOCUMENTARY_ACTS}
+        assetManifest={CHA_CA_ASSET_MANIFEST}
+        scrimGradients={CHA_CA_SCRIM_GRADIENTS}
+        targetLabelVi="Chả Cá Lã Vọng"
+        targetLabelKo="짜까 라봉 (Chả Cá Lã Vọng)"
+        intermediateMonographLabelVi="Khám phá câu chuyện Chả cá"
+        intermediateMonographLabelKo="짜까의 이야기 더 알아보기"
+        KickerIcon={Fish}
+        DetailModalComponent={ChaCaDetailModal}
+        showScrollHint={false}
+        pinDistances={CHA_CA_PIN_DISTANCES}
+        chapterPrefix="chaca"
+        eagerFirstAct={false}
       />
     </div>
   );

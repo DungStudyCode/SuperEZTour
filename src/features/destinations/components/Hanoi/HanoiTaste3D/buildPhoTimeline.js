@@ -42,11 +42,19 @@ export const buildPhoTimeline = ({
   actImageEls,
   actTextEls,
   actsData,
+  pinDistances,
+  chapterPrefix = 'pho',
   onProgressUpdate
 }) => {
   if (!containerEl || !actSlideEls || actSlideEls.length === 0) {
     return null;
   }
+
+  const resolvedDistances = {
+    desktop: pinDistances?.desktop || '+=520%',
+    tablet: pinDistances?.tablet || '+=380%',
+    mobile: pinDistances?.mobile || '+=290%'
+  };
 
   const mm = gsap.matchMedia();
 
@@ -69,7 +77,11 @@ export const buildPhoTimeline = ({
         return;
       }
 
-      const pinDistance = isDesktop ? '+=520%' : isTablet ? '+=380%' : '+=290%';
+      const pinDistance = isDesktop
+        ? resolvedDistances.desktop
+        : isTablet
+        ? resolvedDistances.tablet
+        : resolvedDistances.mobile;
       const mobileFactor = isMobile ? 0.5 : 1;
 
       const tl = gsap.timeline({
@@ -154,7 +166,7 @@ export const buildPhoTimeline = ({
         const actStart = i * actDuration;
         const actEnd = (i + 1) * actDuration;
 
-        tl.addLabel(`pho-act-${i + 1}-start`, actStart);
+        tl.addLabel(`${chapterPrefix}-act-${i + 1}-start`, actStart);
 
         // A. Enter current slide & reveal typography (for Acts 2..5)
         if (i > 0 && slide) {
@@ -239,7 +251,7 @@ export const buildPhoTimeline = ({
         }
 
         // C. Reading Dwell Plateau Label
-        tl.addLabel(`pho-act-${i + 1}-hold`, actStart + 8);
+        tl.addLabel(`${chapterPrefix}-act-${i + 1}-hold`, actStart + 8);
 
         // D. Clean exit of current act's text block before next act enters
         if (i < numActs - 1 && textBlock) {
@@ -253,7 +265,7 @@ export const buildPhoTimeline = ({
 
       // Hold final act until timeline end (100 units)
       tl.to({}, { duration: 0.1 }, 100);
-      tl.addLabel('pho-ending', 100);
+      tl.addLabel(`${chapterPrefix}-ending`, 100);
     },
     containerEl
   );

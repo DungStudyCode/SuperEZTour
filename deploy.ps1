@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Hệ thống triển khai tự động (Automated Deployment) cho Super EZ Tour Frontend.
 
