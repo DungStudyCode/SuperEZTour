@@ -466,9 +466,9 @@ export const HA_NOI_CONFIG = {
         adaptivePin: true,
         allowManualOverride: true,
         reducedMotionFallback: 'natural-scroll',
-        entryHoldVh: 60,
-        discoveryVh: 120,
-        exitHoldVh: 20
+        entryHoldVh: 65,
+        discoveryVh: 190,
+        exitHoldVh: 85
       }
     },
     features: {
@@ -951,63 +951,302 @@ export const HA_NOI_CONFIG = {
   },
 
   // =========================================================================
-  // SCENE 10: SIGNATURE HANOI ITINERARY ("A Journey Through Heritage")
+  // SCENE 07: SIGNATURE HANOI ITINERARY ("Cinematic Travel Journal")
   // =========================================================================
   itineraries: [
     {
       id: '3d2n',
-      badge: '시그니처 하노이 헤리티지 3일',
-      badgeVi: 'Hành trình di sản 3 ngày 2 đêm',
+      badge: '시그니처 하노이 2박 3일',
+      badgeVi: 'Hành trình gợi ý 3 ngày 2 đêm',
       daysCount: 3,
       nightsCount: 2,
-      durationLabel: '2박 3일 (3 Ngày 2 Đêm)',
-      title: '하노이 천년의 유산과 감성 미식 여정',
-      titleVi: 'Hà Nội — Ngàn Năm Di Sản & Tinh Hoa Nghệ Thuật',
-      overview: '노이바이 공항 VIP 영접부터 호안끼엠, 메트로폴 헤리티지, 문묘, 탕롱 황성, 서호와 전통 에그커피까지 하노이의 핵심을 가장 품격 있게 완성하는 클래식 일정.',
-      overviewVi: 'Lịch trình được thiết kế tinh tế kết hợp giữa khách sạn di sản 5 sao, các danh thắng văn hóa tiêu biểu và phong vị ẩm thực Tràng An đích thực.',
+      durationLabel: '2박 3일',
+      durationLabelVi: '3 ngày 2 đêm',
+      title: '사흘간의 기록, 오래도록 기억될 하노이.',
+      titleVi: 'Ba ngày, một Hà Nội đáng nhớ.',
+      overview:
+        '천년의 유산과 깊은 미식, 고즈넉한 일상이 어우러진 2박 3일 맞춤 프라이빗 여정을 만나보세요.',
+      overviewVi:
+        'Khám phá di sản, hương vị và nhịp sống thủ đô trong một hành trình 3 ngày 2 đêm được thiết kế theo nhịp điệu của bạn.',
+      presentation: {
+        variant: 'cinematic-journal',
+        scrollMode: 'natural-interactive'
+      },
+      sectionHeader: {
+        eyebrow: 'THE HANOI SIGNATURE JOURNEY',
+        title: '사흘간의 기록, 오래도록 기억될 하노이.',
+        titleVi: 'Ba ngày, một Hà Nội đáng nhớ.',
+        subtitle:
+          '천년의 유산과 깊은 미식, 고즈넉한 일상이 어우러진 2박 3일 맞춤 프라이빗 여정을 만나보세요.',
+        subtitleVi:
+          'Khám phá di sản, hương vị và nhịp sống thủ đô trong một hành trình 3 ngày 2 đêm được thiết kế theo nhịp điệu của bạn.'
+      },
+      journeySummary: [
+        { id: 'duration', label: '2박 3일', labelVi: '3 ngày 2 đêm' },
+        { id: 'private-tour', label: '맞춤 프라이빗 투어', labelVi: 'Tour riêng linh hoạt' },
+        { id: 'airport-transfer', label: '공항 픽업·샌딩', labelVi: 'Đón tiễn sân bay' },
+        { id: 'private-vehicle', label: '전용 차량 선택', labelVi: 'Xe riêng tùy chọn' },
+        { id: 'accommodation', label: '맞춤 숙소 선택', labelVi: 'Lưu trú tùy chọn' }
+      ],
+      cta: {
+        label: '이 여정을 나만의 일정으로 맞춤 설계하기',
+        labelVi: 'Cá nhân hóa hành trình này',
+        selectionBadge: '내 선택에 포함됨',
+        selectionBadgeVi: 'Có trong lựa chọn của bạn',
+        confirmTitle: '이 추천 여정은 2박 3일 일정입니다.',
+        confirmTitleVi: 'Lịch trình gợi ý này kéo dài 3 ngày 2 đêm.',
+        confirmDesc: '3일 일정으로 변경하시겠습니까, 아니면 현재 선택한 기간을 유지하시겠습니까?',
+        confirmDescVi: 'Bạn muốn sử dụng thời lượng 3 ngày hay giữ nguyên thời lượng đã chọn?',
+        confirmApply: '3일 일정 사용',
+        confirmApplyVi: 'Sử dụng 3 ngày',
+        confirmKeep: '기존 기간 유지',
+        confirmKeepVi: 'Giữ nguyên thời lượng'
+      },
       days: [
         {
+          id: 'day-01',
           day: 1,
-          locationTag: '호안끼엠 & 구시가지',
-          title: 'Day 01 · 하노이 도착 & 헤리티지 구시가지 산책',
-          titleVi: 'Ngày 01 · Chào Hà Nội, Khách Sạn Di Sản & Phố Cổ',
-          summary: '노이바이 공항 전용 차량 픽업 후 메트로폴 체크인. 호안끼엠 호수 산책과 정통 하노이 소고기 쌀국수, 원조 에그커피 시음.',
-          image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=80',
+          chapterLabel: 'CHAPTER 01 / 03',
+          chapterLabelVi: 'CHƯƠNG 01 / 03',
+          dayBadge: '01일차',
+          dayBadgeVi: 'NGÀY 01',
+          locationTag: '호안끼엠 · 구시가지',
+          locationTagVi: 'Hồ Hoàn Kiếm · Phố cổ',
+          title: '하노이의 심장에 닿다',
+          titleVi: 'Chạm vào trái tim Hà Nội',
+          timelineLabel: '01 — 하노이의 심장에 닿다',
+          timelineLabelVi: '01 — Chạm vào trái tim Hà Nội',
+          summary:
+            '하노이에 첫발을 딛고 고즈넉한 구시가지 골목과 호안끼엠 호수의 물결, 그리고 수도의 첫 풍미를 여유롭게 마주합니다.',
+          summaryVi:
+            'Đặt chân đến Hà Nội, thong thả khám phá nhịp sống phố cổ, mặt nước Hồ Hoàn Kiếm và những hương vị đầu tiên của thủ đô.',
+          imageAssetId: 'hoan-kiem-lake',
+          assetMeta: HANOI_ATTRACTION_ASSETS['hoan-kiem-lake'],
+          image: HANOI_ATTRACTION_ASSETS['hoan-kiem-lake'].desktopSrc,
+          mobileImage: HANOI_ATTRACTION_ASSETS['hoan-kiem-lake'].mobileSrc,
+          timeBlocks: [
+            {
+              id: 'day-01-arrival',
+              period: '공항 픽업 & 호텔 체크인',
+              periodVi: 'Đón sân bay & Nhận phòng',
+              desc: '노이바이 공항에서 전용 차량 픽업 후 호텔로 이동해 도착 시간과 호텔 정책에 맞춰 체크인 또는 수하물 보관을 진행합니다.',
+              descVi:
+                'Gợi ý xe riêng đón tại sân bay Nội Bài, di chuyển về khách sạn và nhận phòng hoặc gửi hành lý tùy theo giờ đến và chính sách khách sạn.',
+              attractionIds: [],
+              culinaryId: null
+            },
+            {
+              id: 'day-01-afternoon',
+              period: '오후',
+              periodVi: 'Buổi chiều',
+              desc: '호안끼엠 호수와 테훅 다리, 응옥선 사당, 구시가지 골목을 천천히 거닐며 하노이 에그커피를 즐깁니다.',
+              descVi:
+                'Dạo bước quanh Hồ Hoàn Kiếm, cầu Thê Húc, đền Ngọc Sơn và những con phố cổ. Thưởng thức cà phê trứng Hà Nội.',
+              attractionIds: ['hoan-kiem-lake', 'old-quarter'],
+              culinaryId: null
+            },
+            {
+              id: 'day-01-evening',
+              period: '저녁 & 숙소 휴식',
+              periodVi: 'Buổi tối & Nghỉ đêm',
+              desc: '하노이 정통 소고기 쌀국수로 저녁을 즐기고 밤거리를 산책한 뒤 호텔에서 편안하게 휴식합니다.',
+              descVi:
+                'Gợi ý thưởng thức phở bò Hà Nội, khám phá phố đêm và nghỉ ngơi tại khách sạn.',
+              attractionIds: [],
+              culinaryId: 'pho-bo-hanoi'
+            }
+          ],
           activities: [
-            { time: '11:30', title: '노이바이 국제공항(HAN) VIP 전용 차량 영접', desc: '입국장 피켓 미팅 후 시원한 생수가 구비된 전용 차량 탑승' },
-            { time: '13:00', title: '소피텔 메트로폴 하노이 체크인 & 휴식', desc: '100년 역사의 럭셔리 헤리티지 호텔 객실 안내 및 웰컴 드링크' },
-            { time: '15:00', title: '호안끼엠 호수 & 응옥선 사당 도보 산책', desc: '전담 가이드와 함께 테훅 붉은 다리를 건너며 듣는 호수의 설화' },
-            { time: '17:00', title: '원조 3대 카페에서 즐기는 전통 에그커피', desc: '부드러운 달걀 크림이 얹어진 하노이 고유의 커피 문화 체험' },
-            { time: '19:00', title: '백 년 전통 하노이 정통 쌀국수 만찬', desc: '깊고 맑은 양지 육수가 일품인 현지 최고 명가의 프라이빗 디너' }
+            {
+              title: '공항 픽업 & 호텔 체크인',
+              titleVi: 'Đón sân bay & Nhận phòng',
+              desc: '노이바이 공항에서 전용 차량 픽업 후 호텔로 이동해 도착 시간과 호텔 정책에 맞춰 체크인 또는 수하물 보관을 진행합니다.',
+              descVi:
+                'Gợi ý xe riêng đón tại sân bay Nội Bài, di chuyển về khách sạn và nhận phòng hoặc gửi hành lý tùy theo giờ đến và chính sách khách sạn.'
+            },
+            {
+              title: '호안끼엠 호수 & 구시가지 산책',
+              titleVi: 'Hồ Hoàn Kiếm & Phố cổ',
+              desc: '호안끼엠 호수와 테훅 다리, 응옥선 사당, 구시가지 골목을 천천히 거닐며 하노이 에그커피를 즐깁니다.',
+              descVi:
+                'Dạo bước quanh Hồ Hoàn Kiếm, cầu Thê Húc, đền Ngọc Sơn và những con phố cổ. Thưởng thức cà phê trứng Hà Nội.'
+            },
+            {
+              title: '하노이 쌀국수 만찬 & 숙소 휴식',
+              titleVi: 'Phở bò Hà Nội & Nghỉ đêm',
+              desc: '하노이 정통 소고기 쌀국수로 저녁을 즐기고 밤거리를 산책한 뒤 호텔에서 편안하게 휴식합니다.',
+              descVi:
+                'Gợi ý thưởng thức phở bò Hà Nội, khám phá phố đêm và nghỉ ngơi tại khách sạn.'
+            }
           ]
         },
         {
+          id: 'day-02',
           day: 2,
-          locationTag: '문묘 & 탕롱 황성',
-          title: 'Day 02 · 천년 역사 탐방 & 프렌치 쿼터의 낭만',
-          titleVi: 'Ngày 02 · Chiều Sâu Văn Hiến & Dấu Ấn Kiến Trúc Pháp',
-          summary: '베트남 최초의 국립대학 문묘와 유네스코 탕롱 황성 탐방. 성 요셉 성당과 오페라 하우스 앞 프렌치 파인다이닝.',
-          image: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=1200&q=80',
+          chapterLabel: 'CHAPTER 02 / 03',
+          chapterLabelVi: 'CHƯƠNG 02 / 03',
+          dayBadge: '02일차',
+          dayBadgeVi: 'NGÀY 02',
+          locationTag: '문묘 · 탕롱 황성 · 프렌치 쿼터',
+          locationTagVi: 'Văn Miếu · Hoàng thành · Khu phố Pháp',
+          title: '천년의 시간과 마주하다',
+          titleVi: 'Dấu ấn ngàn năm',
+          timelineLabel: '02 — 천년의 시간과 마주하다',
+          timelineLabelVi: '02 — Dấu ấn ngàn năm',
+          summary:
+            '탕롱의 깊은 역사를 따라 천년의 유산을 탐방하고, 하노이의 미식과 프렌치 건축의 우아함을 함께 경험하는 하루입니다.',
+          summaryVi:
+            'Một ngày đi sâu vào chiều dài lịch sử Thăng Long, khám phá di sản ngàn năm, thưởng thức mỹ vị Hà Nội và cảm nhận vẻ đẹp kiến trúc Pháp.',
+          imageAssetId: 'van-mieu',
+          assetMeta: HANOI_ATTRACTION_ASSETS['van-mieu'],
+          image: HANOI_ATTRACTION_ASSETS['van-mieu'].desktopSrc,
+          mobileImage: HANOI_ATTRACTION_ASSETS['van-mieu'].mobileSrc,
+          timeBlocks: [
+            {
+              id: 'day-02-morning',
+              period: '오전',
+              periodVi: 'Buổi sáng',
+              desc: '문묘 국자감과 규문각을 탐방합니다. 호텔에서 전용 차량을 선택해 편안하게 이동할 수 있습니다.',
+              descVi:
+                'Tham quan Văn Miếu – Quốc Tử Giám và Khuê Văn Các. Có thể lựa chọn xe riêng để di chuyển từ khách sạn.',
+              attractionIds: ['van-mieu'],
+              culinaryId: null
+            },
+            {
+              id: 'day-02-lunch',
+              period: '점심',
+              periodVi: 'Buổi trưa',
+              desc: '하노이 숯불 분짜와 현지 별미로 오찬을 즐깁니다.',
+              descVi: 'Gợi ý thưởng thức bún chả than hoa Hà Nội và các món ăn địa phương.',
+              attractionIds: [],
+              culinaryId: 'bun-cha-hanoi'
+            },
+            {
+              id: 'day-02-afternoon',
+              period: '오후',
+              periodVi: 'Buổi chiều',
+              desc: '탕롱 황성과 성 요셉 대성당, 오페라 하우스 일대 프렌치 쿼터를 둘러보며 실제 일정에 맞춰 방문 명소를 유연하게 조절합니다.',
+              descVi:
+                'Khám phá Hoàng thành Thăng Long, Nhà thờ Lớn và khu phố Pháp quanh Nhà hát Lớn, điều chỉnh số điểm tham quan theo thời gian thực tế.',
+              attractionIds: ['thang-long-citadel', 'st-joseph-cathedral', 'opera-house'],
+              culinaryId: null
+            },
+            {
+              id: 'day-02-evening',
+              period: '저녁 & 숙소 휴식',
+              periodVi: 'Buổi tối & Nghỉ đêm',
+              desc: '짜까 라봉 또는 취향에 맞는 저녁 미식을 즐긴 후 호텔로 돌아가 휴식합니다.',
+              descVi:
+                'Gợi ý thưởng thức chả cá Lã Vọng hoặc lựa chọn ẩm thực theo sở thích. Trở về khách sạn nghỉ ngơi.',
+              attractionIds: [],
+              culinaryId: 'cha-ca-la-vong'
+            }
+          ],
           activities: [
-            { time: '09:00', title: '문묘 국자감(Văn Miếu) 프라이빗 역사 해설', desc: '규문각 정원과 82개 진사제명비를 둘러보는 깊이 있는 학문 탐방' },
-            { time: '11:30', title: '점심 만찬: 숯불 향 가득한 정통 분짜', desc: '참숯 직화 돼지고기와 신선한 허브를 곁들인 하노이 소울푸드' },
-            { time: '14:00', title: '유네스코 세계유산 탕롱 황성 단독 순회', desc: '도안몬 정문, 용의 계단, 지하 군사벙커까지 아우르는 왕조의 역사' },
-            { time: '16:30', title: '성 요셉 대성당 & 프랑스 구역 가로수길', desc: '노란 관저 건물들과 고딕 성당 앞 노천카페에서 즐기는 티타임' },
-            { time: '19:00', title: '인도차이나 프렌치 파인다이닝 디너', desc: '프랑스 요리 기법과 베트남 제철 식재료가 만나는 미식의 정점' }
+            {
+              title: '문묘 국자감 & 규문각 탐방',
+              titleVi: 'Văn Miếu – Quốc Tử Giám',
+              desc: '문묘 국자감과 규문각을 탐방합니다. 호텔에서 전용 차량을 선택해 편안하게 이동할 수 있습니다.',
+              descVi:
+                'Tham quan Văn Miếu – Quốc Tử Giám và Khuê Văn Các. Có thể lựa chọn xe riêng để di chuyển từ khách sạn.'
+            },
+            {
+              title: '하노이 숯불 분짜 오찬',
+              titleVi: 'Bún chả than hoa Hà Nội',
+              desc: '하노이 숯불 분짜와 현지 별미로 오찬을 즐깁니다.',
+              descVi: 'Gợi ý thưởng thức bún chả than hoa Hà Nội và các món ăn địa phương.'
+            },
+            {
+              title: '탕롱 황성 & 프렌치 쿼터',
+              titleVi: 'Hoàng thành Thăng Long & Khu phố Pháp',
+              desc: '탕롱 황성과 성 요셉 대성당, 오페라 하우스 일대 프렌치 쿼터를 둘러보며 실제 일정에 맞춰 방문 명소를 유연하게 조절합니다.',
+              descVi:
+                'Khám phá Hoàng thành Thăng Long, Nhà thờ Lớn và khu phố Pháp quanh Nhà hát Lớn, điều chỉnh số điểm tham quan theo thời gian thực tế.'
+            },
+            {
+              title: '짜까 라봉 만찬 & 숙소 휴식',
+              titleVi: 'Chả cá Lã Vọng & Nghỉ đêm',
+              desc: '짜까 라봉 또는 취향에 맞는 저녁 미식을 즐긴 후 호텔로 돌아가 휴식합니다.',
+              descVi:
+                'Gợi ý thưởng thức chả cá Lã Vọng hoặc lựa chọn ẩm thực theo sở thích. Trở về khách sạn nghỉ ngơi.'
+            }
           ]
         },
         {
+          id: 'day-03',
           day: 3,
-          locationTag: '서호 & 바트랑',
-          title: 'Day 03 · 서호의 평화로운 아침 & 장인 마을 배웅',
-          titleVi: 'Ngày 03 · Bình Yên Hồ Tây & Tạm Biệt Hà Nội',
-          summary: '서호 진국사 아침 참배 후 바트랑 도예 공방 체험 또는 구시가지 자유 쇼핑. 전용 차량으로 노이바이 공항 안전 샌딩.',
-          image: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1200&q=80',
+          chapterLabel: 'CHAPTER 03 / 03',
+          chapterLabelVi: 'CHƯƠNG 03 / 03',
+          dayBadge: '03일차',
+          dayBadgeVi: 'NGÀY 03',
+          locationTag: '서호 · 진국사 · 바트랑',
+          locationTagVi: 'Hồ Tây · Chùa Trấn Quốc · Bát Tràng',
+          title: '고요한 호수와 장인의 손길',
+          titleVi: 'Nhịp sống bình yên',
+          timelineLabel: '03 — 고요한 호수와 장인의 손길',
+          timelineLabelVi: '03 — Nhịp sống bình yên',
+          summary:
+            '서호의 평화로운 아침을 만끽하고 전통 도예 마을의 아름다움을 둘러본 뒤 하노이 여정을 마무리합니다.',
+          summaryVi:
+            'Tận hưởng buổi sáng yên bình bên Hồ Tây, khám phá nét đẹp làng nghề truyền thống trước khi khép lại hành trình Hà Nội.',
+          imageAssetId: 'tran-quoc-pagoda',
+          assetMeta: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda'],
+          image: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda'].desktopSrc,
+          mobileImage: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda'].mobileSrc,
+          timeBlocks: [
+            {
+              id: 'day-03-morning',
+              period: '오전 & 체크아웃',
+              periodVi: 'Buổi sáng & Trả phòng',
+              desc: '서호 수변을 산책하고 진국사를 둘러본 뒤 일정에 맞춰 호텔 체크아웃을 진행합니다.',
+              descVi:
+                'Dạo bước bên Hồ Tây, tham quan chùa Trấn Quốc và hoàn tất thủ tục trả phòng khách sạn theo lịch trình phù hợp.',
+              attractionIds: ['tran-quoc-pagoda'],
+              culinaryId: null
+            },
+            {
+              id: 'day-03-craft',
+              period: '장인 마을 체험',
+              periodVi: 'Trải nghiệm làng nghề',
+              desc: '시간이 허락할 경우 바트랑 도자기 마을을 방문해 전통 수공예 도자기 문화를 살펴보고 도예 체험을 즐깁니다.',
+              descVi:
+                'Gợi ý khám phá làng gốm Bát Tràng, tìm hiểu nghề gốm thủ công và trải nghiệm làm gốm nếu thời gian cho phép.',
+              attractionIds: ['bat-trang-village'],
+              culinaryId: null
+            },
+            {
+              id: 'day-03-departure',
+              period: '공항 샌딩',
+              periodVi: 'Tiễn sân bay',
+              desc: '실제 출국 항공편 시간에 맞춰 전용 차량으로 노이바이 공항까지 이동합니다. 이른 항공편의 경우 사전 일정을 단축하거나 생략할 수 있습니다.',
+              descVi:
+                'Gợi ý xe riêng đưa khách đến sân bay Nội Bài theo giờ bay thực tế. Với các chuyến bay sớm, lịch trình tham quan có thể rút gọn hoặc lược bỏ linh hoạt.',
+              attractionIds: [],
+              culinaryId: null
+            }
+          ],
           activities: [
-            { time: '08:30', title: '서호(West Lake) 수변 산책 & 진국사 탐방', desc: '하노이에서 가장 오래된 고찰 진국사의 붉은 불탑과 호수 바람' },
-            { time: '10:30', title: '바트랑 500년 도자기 마을 아틀리에 체험', desc: '도예 장인의 지도로 나만의 찻잔을 빚고 구시가지 실크 쇼핑' },
-            { time: '13:00', title: '작별 오찬: 바삭한 샬롯 얹은 탄찌 반꾸온', desc: '가볍고 담백한 쌀전병과 따뜻한 디핑 소스로 마무리하는 미식' },
-            { time: '15:30', title: '노이바이 국제공항(HAN) 전용 차량 센딩', desc: '항공 스케줄에 맞춘 편안한 이동 및 출국 수속 지원' }
+            {
+              title: '서호 산책 & 진국사 · 체크아웃',
+              titleVi: 'Hồ Tây · Chùa Trấn Quốc & Trả phòng',
+              desc: '서호 수변을 산책하고 진국사를 둘러본 뒤 일정에 맞춰 호텔 체크아웃을 진행합니다.',
+              descVi:
+                'Dạo bước bên Hồ Tây, tham quan chùa Trấn Quốc và hoàn tất thủ tục trả phòng khách sạn theo lịch trình phù hợp.'
+            },
+            {
+              title: '바트랑 도자기 마을 체험',
+              titleVi: 'Làng gốm Bát Tràng',
+              desc: '시간이 허락할 경우 바트랑 도자기 마을을 방문해 전통 수공예 도자기 문화를 살펴보고 도예 체험을 즐깁니다.',
+              descVi:
+                'Gợi ý khám phá làng gốm Bát Tràng, tìm hiểu nghề gốm thủ công và trải nghiệm làm gốm nếu thời gian cho phép.'
+            },
+            {
+              title: '노이바이 공항 샌딩',
+              titleVi: 'Tiễn sân bay Nội Bài',
+              desc: '실제 출국 항공편 시간에 맞춰 전용 차량으로 노이바이 공항까지 이동합니다. 이른 항공편의 경우 사전 일정을 단축하거나 생략할 수 있습니다.',
+              descVi:
+                'Gợi ý xe riêng đưa khách đến sân bay Nội Bài theo giờ bay thực tế. Với các chuyến bay sớm, lịch trình tham quan có thể rút gọn hoặc lược bỏ linh hoạt.'
+            }
           ]
         }
       ]
@@ -1023,34 +1262,58 @@ export const HA_NOI_CONFIG = {
     {
       id: 'hanoi-story-1',
       author: '김현우 & 박지영 부부',
+      authorVi: 'Vợ chồng anh Kim Hyun-woo & chị Park Ji-young',
+      origin: '서울, 대한민국',
+      originVi: 'Seoul, Hàn Quốc',
+      tripDate: '2026년 가을',
+      tripDateVi: 'Mùa thu 2026',
+      groupStyle: '부부 헤리티지 & 도보 해설 투어',
+      groupStyleVi: 'Tour riêng cặp đôi · Di sản & Phố cổ',
       authorType: '30대 부부 헤리티지 여행',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
       destination: 'Hanoi Heritage 3D2N',
       rating: 5,
       date: '2026년 가을',
-      quote: '“메트로폴 호텔에서 머물며 전담 가이드님과 호안끼엠 골목을 천천히 걸었던 시간이 평생 잊지 못할 추억이 되었습니다. 패키지와는 차원이 다른 깊이입니다.”',
+      quote: '“전담 가이드님과 호안끼엠 호수와 36거리 골목을 천천히 걸으며 들었던 이야기들이 오래도록 기억에 남습니다. 패키지 여행과는 차원이 다른 여유와 깊이였습니다.”',
+      quoteVi: '“Khoảng thời gian thong thả dạo bước quanh Hồ Hoàn Kiếm và 36 phố phường cùng hướng dẫn viên riêng thực sự đáng nhớ. Một chiều sâu văn hóa và sự thư thái khác hẳn các tour ghép đoàn.”',
       highlightTag: '100% 프라이빗 도보 해설'
     },
     {
       id: 'hanoi-story-2',
       author: '이성민 가족 (부모님 동반 5인)',
+      authorVi: 'Gia đình anh Lee Sung-min (Đoàn 5 người cùng bố mẹ)',
+      origin: '부산, 대한민국',
+      originVi: 'Busan, Hàn Quốc',
+      tripDate: '2026년 봄',
+      tripDateVi: 'Mùa xuân 2026',
+      groupStyle: '부모님 동반 5인 가족 프라이빗 투어',
+      groupStyleVi: 'Tour riêng gia đình đa thế hệ (5 khách)',
       authorType: '칠순 기념 효도 가족여행',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
       destination: 'Hanoi & West Lake Private',
       rating: 5,
       date: '2026년 봄',
-      quote: '“부모님을 모시고 가는 여행이라 걱정이 많았는데, 쏠라티 전용 차량이 언제나 대기하고 가이드님이 부모님 걸음걸이에 맞춰 배려해주셔서 정말 감동했습니다.”',
+      quote: '“부모님을 모시고 가는 여행이라 걱정이 많았는데, 전용 차량이 언제나 대기하고 부모님 걸음걸이에 맞춰 일정을 여유롭게 조율해 주셔서 온 가족이 편안하게 다녀왔습니다.”',
+      quoteVi: '“Đi cùng bố mẹ lớn tuổi nên gia đình khá lo lắng, nhưng nhờ có xe riêng luôn túc trực và lịch trình điều chỉnh linh hoạt theo nhịp đi của ông bà nên cả nhà đều vô cùng thoải mái.”',
       highlightTag: '전용 차량 & 편안한 동선'
     },
     {
       id: 'hanoi-story-3',
       author: '최유진 & 친구들',
+      authorVi: 'Chị Choi Yu-jin & nhóm bạn',
+      origin: '인천, 대한민국',
+      originVi: 'Incheon, Hàn Quốc',
+      tripDate: '2026년 겨울',
+      tripDateVi: 'Mùa đông 2026',
+      groupStyle: '하노이 미식 & 문화 살롱 투어',
+      groupStyleVi: 'Tour riêng khám phá ẩm thực & văn hóa',
       authorType: '미식 살롱 탐방 여행',
       avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
       destination: 'Hanoi Culinary Tour',
       rating: 5,
       date: '2026년 겨울',
-      quote: '“원조 에그커피 집부터 강황 생선구이 짜까라봉까지, 현지 찐 맛집들만 골라 예약해주셔서 친구들 모두 인생 여행이라고 입을 모았습니다.”',
+      quote: '“구시가지 에그커피부터 숯불 분짜와 짜까라봉까지, 하노이의 진정한 미식과 골목 문화를 우리만의 템포로 깊이 있게 경험할 수 있었던 최고의 여행이었습니다.”',
+      quoteVi: '“Từ tách cà phê trứng phố cổ đến bún chả than hoa và chả cá Lã Vọng, cả nhóm đã được thưởng thức trọn vẹn hương vị và nhịp sống Hà Nội theo đúng nhịp điệu riêng của mình.”',
       highlightTag: '시그니처 미식 큐레이션'
     }
   ],
@@ -1059,13 +1322,15 @@ export const HA_NOI_CONFIG = {
   // SCENE 12: CINEMATIC FINALE ("Hanoi Stays With You")
   // =========================================================================
   finalCta: {
+    destinationId: 'ha-noi',
+    image: HANOI_ATTRACTION_ASSETS['tran-quoc-pagoda'].desktopSrc,
     kicker: 'CINEMATIC FINALE · HANOI STAYS WITH YOU',
     title: 'HANOI STAYS WITH YOU.',
     titleVi: 'HANOI STAYS WITH YOU.',
     subtitle: '여행은 끝나도, 하노이의 기억은 오래 남습니다.',
     subtitleVi: 'Có những hành trình khép lại, nhưng ký ức còn ở lại.',
     description: '100% 프라이빗 맞춤 여행 · 지금 하노이 전담 컨시어지와 나만의 특별한 일정을 상담해 보세요.',
-    descriptionVi: 'Hành trình 100% riêng tư không ghép đoàn · Kết nối ngay cùng chuyên viên Super EZ Tour để thiết kế lịch trình dành riêng cho bạn.',
+    descriptionVi: 'Hành trình 100% riêng tư theo nhịp điệu của bạn · Kết nối cùng chuyên viên Super EZ Tour để thiết kế chuyến đi Hà Nội dành riêng cho bạn.',
     ctaText: '프라이빗 여행 상담하기',
     ctaTextVi: 'Bắt đầu hành trình riêng'
   }
@@ -1107,7 +1372,72 @@ export function getLocalizedHaNoiConfig(language = 'ko') {
         experiences: item.experiencesVi || item.experiencesKo,
         tags: item.tagsVi || item.tags
       }))
-    }
+    },
+    itineraries: (base.itineraries || []).map((it) => ({
+      ...it,
+      badge: it.badgeVi || it.badge,
+      durationLabel: it.durationLabelVi || it.durationLabel,
+      title: it.titleVi || it.title,
+      overview: it.overviewVi || it.overview,
+      sectionHeader: it.sectionHeader
+        ? {
+            ...it.sectionHeader,
+            title: it.sectionHeader.titleVi || it.sectionHeader.title,
+            subtitle: it.sectionHeader.subtitleVi || it.sectionHeader.subtitle
+          }
+        : undefined,
+      journeySummary: (it.journeySummary || []).map((item) => ({
+        ...item,
+        label: item.labelVi || item.label
+      })),
+      cta: it.cta
+        ? {
+            ...it.cta,
+            label: it.cta.labelVi || it.cta.label,
+            selectionBadge: it.cta.selectionBadgeVi || it.cta.selectionBadge,
+            confirmTitle: it.cta.confirmTitleVi || it.cta.confirmTitle,
+            confirmDesc: it.cta.confirmDescVi || it.cta.confirmDesc,
+            confirmApply: it.cta.confirmApplyVi || it.cta.confirmApply,
+            confirmKeep: it.cta.confirmKeepVi || it.cta.confirmKeep
+          }
+        : undefined,
+      days: (it.days || []).map((dayObj) => ({
+        ...dayObj,
+        chapterLabel: dayObj.chapterLabelVi || dayObj.chapterLabel,
+        dayBadge: dayObj.dayBadgeVi || dayObj.dayBadge,
+        locationTag: dayObj.locationTagVi || dayObj.locationTag,
+        title: dayObj.titleVi || dayObj.title,
+        timelineLabel: dayObj.timelineLabelVi || dayObj.timelineLabel,
+        summary: dayObj.summaryVi || dayObj.summary,
+        timeBlocks: (dayObj.timeBlocks || []).map((tb) => ({
+          ...tb,
+          period: tb.periodVi || tb.period,
+          desc: tb.descVi || tb.desc
+        })),
+        activities: (dayObj.activities || []).map((act) => ({
+          ...act,
+          title: act.titleVi || act.title,
+          desc: act.descVi || act.desc
+        }))
+      }))
+    })),
+    customerStories: (base.customerStories || []).map((story) => ({
+      ...story,
+      author: story.authorVi || story.author,
+      origin: story.originVi || story.origin,
+      tripDate: story.tripDateVi || story.tripDate,
+      groupStyle: story.groupStyleVi || story.groupStyle,
+      quote: story.quoteVi || story.quote
+    })),
+    finalCta: base.finalCta
+      ? {
+          ...base.finalCta,
+          title: base.finalCta.titleVi || base.finalCta.title,
+          subtitle: base.finalCta.subtitleVi || base.finalCta.subtitle,
+          description: base.finalCta.descriptionVi || base.finalCta.description,
+          ctaText: base.finalCta.ctaTextVi || base.finalCta.ctaText
+        }
+      : undefined
   };
 }
 

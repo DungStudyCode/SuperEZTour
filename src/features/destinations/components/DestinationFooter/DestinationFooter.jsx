@@ -36,22 +36,24 @@ const DestinationFooter = ({ destination }) => {
             </h4>
             <ul className="dest-footer-links">
               <li>
-                <a href="#accommodation">
+                <a href={destination?.id === 'ha-noi' ? '#trip-builder' : '#accommodation'}>
                   {isKorean ? '01. 4~5성급 특급 호텔 & 럭셔리 리조트' : '01. Lưu trú 4-5 sao & Resort'}
                 </a>
               </li>
               <li>
-                <a href="#guide">
+                <a href={destination?.id === 'ha-noi' ? '#trip-builder' : '#guide'}>
                   {isKorean ? '02. 1:1 전담 현지 한국어 가이드' : '02. Hướng dẫn viên bản địa 1:1'}
                 </a>
               </li>
               <li>
-                <a href="#flights">
-                  {isKorean ? '03. 최적 항공권 & DAD 공항 픽업 연결' : '03. Vé máy bay & Giờ bay đẹp'}
+                <a href={destination?.id === 'ha-noi' ? '#trip-builder' : '#flights'}>
+                  {isKorean
+                    ? `03. 최적 항공권 & ${destination?.airportCode || 'DAD'} 공항 픽업 연결`
+                    : `03. Vé máy bay & Đón tiễn sân bay ${destination?.airportCode || 'DAD'}`}
                 </a>
               </li>
               <li>
-                <a href="#transportation">
+                <a href={destination?.id === 'ha-noi' ? '#trip-builder' : '#transportation'}>
                   {isKorean ? '04. 전용 단독 차량 & VIP 리무진' : '04. Xe riêng & Limousine VIP'}
                 </a>
               </li>
@@ -61,7 +63,7 @@ const DestinationFooter = ({ destination }) => {
                 </a>
               </li>
               <li>
-                <a href="#culinary">
+                <a href={destination?.id === 'ha-noi' ? '#hanoi-taste' : '#culinary'}>
                   {isKorean ? `06. ${destName} 미식 큐레이션 & 파인다이닝` : `06. Ẩm thực đặc sản ${destName}`}
                 </a>
               </li>

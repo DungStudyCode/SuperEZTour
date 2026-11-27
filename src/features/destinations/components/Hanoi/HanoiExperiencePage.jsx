@@ -7,7 +7,6 @@ import HanoiHeritageChamber from './HanoiHeritageChamber/HanoiHeritageChamber';
 import HanoiTaste3D from './HanoiTaste3D/HanoiTaste3D';
 import HanoiSeasons3D from './HanoiSeasons3D/HanoiSeasons3D';
 import Interactive3DMap from '../Interactive3DMap/Interactive3DMap';
-import HanoiYourStory from './HanoiYourStory/HanoiYourStory';
 import ItineraryStickyTimeline from '../ItinerarySticky/ItineraryStickyTimeline';
 import TripBuilderMorph from '../TripBuilderMorph/TripBuilderMorph';
 import CustomerStories from '../CustomerStories/CustomerStories';
@@ -54,27 +53,25 @@ const HanoiExperiencePage = ({ destination, onAddQuote, onOpenConsultModal }) =>
         <Interactive3DMap attractionsData={destination.attractions} />
       </ErrorBoundary>
 
-      {/* SCENE 07 — YOUR HANOI, YOUR STORY (Personalized Private Travel Pillars) */}
-      <ErrorBoundary isolated>
-        <HanoiYourStory />
-      </ErrorBoundary>
-
-      {/* SCENE 08 — SIGNATURE HANOI ITINERARY (3D2N / 2박 3일 Synchronized Timeline) */}
+      {/* SCENE 07 — CINEMATIC TRAVEL JOURNAL (Suggested 3D2N / 2박 3일 Hanoi Journey) */}
       <ErrorBoundary isolated>
         <ItineraryStickyTimeline itinerariesData={destination.itineraries} />
       </ErrorBoundary>
 
-      {/* SCENE 09 — TRIP BUILDER MORPHING ENGINE (7-Step Bespoke Customizer) */}
+      {/* [Future Screen 08 — Private Chauffeur Experience (#transportation)] */}
+      {/* [Future Screen 09 — Curated Hotel Collection (#accommodation)] */}
+
+      {/* SCENE 10 — TRIP BUILDER MORPHING ENGINE (7-Step Bespoke Customizer) */}
       <ErrorBoundary isolated>
         <TripBuilderMorph onAddQuote={onAddQuote} destinationConfig={destination} />
       </ErrorBoundary>
 
-      {/* SCENE 10 — CUSTOMER STORIES (Authentic Traveler Journals) */}
+      {/* SCENE 11 — CUSTOMER STORIES (Authentic Traveler Journals) */}
       <ErrorBoundary isolated>
         <CustomerStories storiesData={destination.customerStories} />
       </ErrorBoundary>
 
-      {/* SCENE 11 — CINEMATIC ENDING (Sunset Hoan Kiem Pullback & QuoteModal CTA) */}
+      {/* SCENE 12 — CINEMATIC ENDING (Sunset Hoan Kiem Pullback & QuoteModal CTA) */}
       <ErrorBoundary isolated>
         <CinematicEndingScene ctaData={destination.finalCta} />
       </ErrorBoundary>

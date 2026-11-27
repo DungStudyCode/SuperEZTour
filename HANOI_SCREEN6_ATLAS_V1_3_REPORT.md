@@ -70,12 +70,12 @@
 
 ## 5. Pin Configuration
 
-- **Entry Hold:** `60vh` (`0.00–0.30` progress)
-- **Discovery Distance:** `120vh` for 8 landmarks (`0.30–0.90` progress; scales proportionally if category filter reduces visible count)
-- **Exit Hold:** `20vh` (`0.90–1.00` progress)
-- **Total Pin Distance:** `200vh` (`2.0 * window.innerHeight`)
-- **Pin Start:** `() => top top+=${measureNavbarOverlap() + 8}` (verifies `.dest-header` computed `position` is `fixed` or `sticky` before subtracting height).
-- **Eligibility Conditions:** `enabled && !prefersReducedMotion && vw >= 1024 && usableViewportHeight >= 480 && pinTargetHeight <= usableViewportHeight + (wasEligible ? 18 : 8)`.
+- **Entry Hold:** `65vh` (`0.00–0.191` progress)
+- **Discovery Distance:** `190vh` for 8 landmarks (`0.191–0.75` progress; scales proportionally if category filter reduces visible count)
+- **Exit Hold (Screen 6 → Screen 7 Handoff Pause):** `85vh` (`0.75–1.00` progress — holds Landmark 08 Bát Tràng so the long-distance `flyTo` across the Red River and Lenis smooth-scroll inertia settle completely inside Screen 6 before releasing into Screen 7)
+- **Total Pin Distance:** `340vh` (`3.4 * window.innerHeight`)
+- **Pin Start:** Dynamically aligns to `top top+=${navbarHeight + 8}` (or shifts upward to `Math.max(8, vh - stageH - 12)` if header + stage exceeds usable height on 125% Windows scaling so Map + Detail Panel + CTA + Footer stay 100% visible inside the viewport).
+- **Eligibility Conditions:** Evaluates `interactiveStageHeight` (`.map-atlas-stage` + `.atlas-footer-bar`) against `usableViewportHeight + (wasEligible ? 24 : 12)` with `vw >= 1024` and `usableViewportHeight >= 480`, plus a `clamp(4.5rem, 9vh, 7.25rem)` bottom section transition buffer before Screen 7.
 
 ---
 

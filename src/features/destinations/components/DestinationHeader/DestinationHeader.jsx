@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Menu, X, Phone, ArrowUpRight, ChevronRight } from 'lucide-react';
 import { BRAND_CONFIG } from '../../../../constants/brand.config';
 import { useLanguage } from '../../../../context/LanguageContext';
@@ -113,15 +114,19 @@ const DestinationHeader = ({ destination, onOpenConsultModal }) => {
     };
   }, [isMobileMenuOpen]);
 
-  // Smooth scroll handler with Lenis support
+  // Smooth scroll handler with Lenis support & ScrollTrigger sort/refresh before target calculation
   const scrollToSection = useCallback((id) => {
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (!element) return;
 
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+
     const headerOffset = 76;
     const lenis = getLenis();
     if (lenis && typeof lenis.scrollTo === 'function') {
+      lenis.resize();
       lenis.scrollTo(element, { offset: -headerOffset, duration: 1.2 });
     } else {
       const elementPosition = element.getBoundingClientRect().top;

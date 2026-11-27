@@ -49,6 +49,7 @@ const DestinationPage = ({ onAddQuote, slugProp }) => {
 
     // Initial layout stabilization after landing
     const timer = setTimeout(() => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
     }, 250);
 

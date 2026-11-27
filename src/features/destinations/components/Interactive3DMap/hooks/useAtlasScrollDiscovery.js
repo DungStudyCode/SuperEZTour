@@ -76,9 +76,9 @@ export function useAtlasScrollDiscovery({
   desktopOnly = true,
   adaptivePin = true,
   allowManualOverride = true,
-  entryHoldVh = 60,
-  discoveryVh = 120,
-  exitHoldVh = 20,
+  entryHoldVh = 65,
+  discoveryVh = 190,
+  exitHoldVh = 85,
   layoutVariant = 'travel-atlas',
   prefersReducedMotion = false,
   mapLoaded = false,
@@ -166,18 +166,27 @@ export function useAtlasScrollDiscovery({
     const sectionEl = containerRef?.current;
     const pinTargetHeight = measureEl ? Math.round(measureEl.offsetHeight) : 0;
     const sectionHeight = sectionEl ? Math.round(sectionEl.offsetHeight) : 0;
+    const interactiveStageHeight = sectionEl
+      ? Math.round(
+          (sectionEl.querySelector('.map-atlas-stage')?.getBoundingClientRect().height || 0) +
+            (sectionEl.querySelector('.atlas-footer-bar')?.getBoundingClientRect().height || 0)
+        )
+      : 0;
 
     let reason = PIN_FALLBACK_REASON.ELIGIBLE;
     let eligible = true;
 
     const desktopEligible = !desktopOnly || vw >= MIN_DESKTOP_WIDTH;
     const heightEligible = usableViewportHeight >= MIN_USABLE_HEIGHT;
-    // Hysteresis buffer (+18px when already eligible, +8px when entering) prevents threshold oscillation
-    const fitTolerance = isPinEligibleRef.current ? 18 : 8;
+    // Hysteresis buffer (+24px when already eligible, +12px when entering) prevents threshold oscillation.
+    // Check interactiveStageHeight so a tall header on 125% Windows scaling never falsely kills the pin.
+    const fitTolerance = isPinEligibleRef.current ? 24 : 12;
+    const effectiveCheckHeight =
+      interactiveStageHeight > 0 ? interactiveStageHeight : pinTargetHeight;
     const contentFits =
       !adaptivePin ||
-      pinTargetHeight === 0 ||
-      pinTargetHeight <= usableViewportHeight + fitTolerance;
+      effectiveCheckHeight === 0 ||
+      effectiveCheckHeight <= usableViewportHeight + fitTolerance;
 
     if (!enabled) {
       eligible = false;
@@ -344,7 +353,20 @@ export function useAtlasScrollDiscovery({
       pinSpacing: true,
       anticipatePin: 1,
       invalidateOnRefresh: true,
-      start: () => `top top+=${measureNavbarOverlap() + 8}`,
+      start: () => {
+        const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
+        const navOverlap = measureNavbarOverlap();
+        const standardTop = navOverlap + 8;
+        const measureEl = measureTargetRef?.current || triggerEl;
+        const stageH = measureEl ? Math.round(measureEl.offsetHeight) : 0;
+        const usableH = vh - standardTop - 10;
+        // If header + stage is slightly taller than usableH on 125% scaling, shift pin top up so Map + CTA + Footer stay 100% inside viewport
+        if (stageH > usableH && stageH > 0) {
+          const adjustedTop = Math.max(8, vh - stageH - 12);
+          return `top top+=${adjustedTop}`;
+        }
+        return `top top+=${standardTop}`;
+      },
       end: () => {
         const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
         const { pinDistancePx } = computeTimelineDimensions(
@@ -391,8 +413,9 @@ export function useAtlasScrollDiscovery({
           return;
         }
 
-        if (nextStep >= 0 && nextStep < list.length) {
-          const targetLandmark = list[nextStep];
+        const clampedIdx = Math.min(nextStep, list.length - 1);
+        if (clampedIdx >= 0 && clampedIdx < list.length) {
+          const targetLandmark = list[clampedIdx];
           if (targetLandmark) {
             onScrollStepRef.current?.(targetLandmark.id);
           }
@@ -406,6 +429,7 @@ export function useAtlasScrollDiscovery({
     const refreshRaf = requestAnimationFrame(() => {
       if (!isUserInteractingRef?.current) {
         incrementAtlasCounter('scrollTriggerRefreshCallCount');
+        ScrollTrigger.sort();
         ScrollTrigger.refresh();
       }
     });

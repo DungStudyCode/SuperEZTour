@@ -164,12 +164,13 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
     ...DEFAULT_TRIP_STATE,
     destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
     destinationSlug: destinationConfig?.slug || 'da-nang',
+    durationDays: isHanoi ? 3 : DEFAULT_TRIP_STATE.durationDays,
     accommodationType: isHanoi ? 'heritage' : DEFAULT_TRIP_STATE.accommodationType,
     accommodationName: isHanoi ? '' : DEFAULT_TRIP_STATE.accommodationName,
     selectedAttractions: getInitialSelectionsForDestination(destinationConfig),
     culinaryPreferences: isHanoi ? [] : DEFAULT_TRIP_STATE.culinaryPreferences,
     guideLanguage: isKorean ? '한국어 (전담)' : 'Tiếng Việt',
-    departureCity: isKorean ? '인천 (ICN)' : 'Hà Nội'
+    departureCity: isKorean ? '인천 (ICN)' : (isHanoi ? 'TP. Hồ Chí Minh (SGN)' : 'Hà Nội')
   }));
 
   useEffect(() => {
@@ -181,6 +182,9 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
         ...prev,
         destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
         destinationSlug: nextSlug,
+        durationDays: didSwitchDestination
+          ? (nextSlug === 'ha-noi' ? 3 : DEFAULT_TRIP_STATE.durationDays)
+          : prev.durationDays,
         selectedAttractions: didSwitchDestination
           ? getInitialSelectionsForDestination(destinationConfig)
           : prev.selectedAttractions,
@@ -200,10 +204,10 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
               : 'Tiếng Việt'
             : prev.guideLanguage,
         departureCity:
-          prev.departureCity === '인천 (ICN)' || prev.departureCity === 'Hà Nội'
+          prev.departureCity === '인천 (ICN)' || prev.departureCity === 'Hà Nội' || prev.departureCity === 'TP. Hồ Chí Minh (SGN)'
             ? isKorean
               ? '인천 (ICN)'
-              : 'Hà Nội'
+              : (nextSlug === 'ha-noi' ? 'TP. Hồ Chí Minh (SGN)' : 'Hà Nội')
             : prev.departureCity
       };
     });
@@ -342,12 +346,13 @@ export const TripBuilderProvider = ({ children, destinationConfig }) => {
       ...DEFAULT_TRIP_STATE,
       destination: isKorean ? (destinationConfig?.nameKr || '다낭') : (destinationConfig?.name || 'Đà Nẵng'),
       destinationSlug: destinationConfig?.slug || 'da-nang',
+      durationDays: isHanoi ? 3 : DEFAULT_TRIP_STATE.durationDays,
       accommodationType: isHanoi ? 'heritage' : DEFAULT_TRIP_STATE.accommodationType,
       accommodationName: isHanoi ? '' : DEFAULT_TRIP_STATE.accommodationName,
       selectedAttractions: getInitialSelectionsForDestination(destinationConfig),
       culinaryPreferences: isHanoi ? [] : DEFAULT_TRIP_STATE.culinaryPreferences,
       guideLanguage: isKorean ? '한국어 (전담)' : 'Tiếng Việt',
-      departureCity: isKorean ? '인천 (ICN)' : 'Hà Nội'
+      departureCity: isKorean ? '인천 (ICN)' : (isHanoi ? 'TP. Hồ Chí Minh (SGN)' : 'Hà Nội')
     });
   }, [destinationConfig, isKorean, isHanoi, getInitialSelectionsForDestination]);
 

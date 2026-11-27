@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useTripBuilder } from '../../context/TripBuilderContext';
 import { getLenis } from '../../motion/LenisManager';
+import CinematicJournalStage from './components/CinematicJournalStage';
 import './ItineraryStickyTimeline.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -167,7 +168,7 @@ const extractLocationTag = (dayObj) => {
   return parts[0] || 'Đà Nẵng';
 };
 
-const ItineraryStickyTimeline = ({ itinerariesData }) => {
+const LegacyItineraryStickyTimeline = ({ itinerariesData }) => {
   const itineraries = useMemo(() => itinerariesData || [], [itinerariesData]);
   const [activeItineraryId, setActiveItineraryId] = useState(itineraries[0]?.id || '4d3n');
   const [activeDayIndex, setActiveDayIndex] = useState(0);
@@ -625,6 +626,14 @@ const ItineraryStickyTimeline = ({ itinerariesData }) => {
       </div>
     </section>
   );
+};
+
+const ItineraryStickyTimeline = ({ itinerariesData }) => {
+  const primaryVariant = itinerariesData?.[0]?.presentation?.variant || 'legacy-sticky';
+  if (primaryVariant === 'cinematic-journal') {
+    return <CinematicJournalStage itinerariesData={itinerariesData} />;
+  }
+  return <LegacyItineraryStickyTimeline itinerariesData={itinerariesData} />;
 };
 
 export default ItineraryStickyTimeline;

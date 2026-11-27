@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   Calendar,
   Users,
@@ -64,8 +65,140 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
     ? (destinationConfig?.nameKr || '다낭')
     : (destinationConfig?.name || 'Đà Nẵng');
 
+  const isHanoiDestination = destinationConfig?.id === 'ha-noi' || destinationConfig?.slug === 'ha-noi';
+
+  const accommodationOptions = isHanoiDestination
+    ? (isKorean
+        ? [
+            { id: 'heritage', title: '5성급 프렌치 헤리티지 럭셔리 호텔', desc: '소피텔 레전드 메트로폴, 카펠라 하노이 등 역사와 예술의 공간' },
+            { id: 'westlake', title: '서호 레이크뷰 5성급 럭셔리 호텔', desc: '인터컨티넨탈 하노이 웨스트레이크, 롯데호텔 등 탁 트인 호수 전망' },
+            { id: 'boutique', title: '구시가지 최고급 부티크 호텔', desc: '디 오리엔탈 제이드, 라 시에스타 등 올드쿼터 중심의 감성 숙소' },
+            { id: 'city5star', title: '시내 중심가 5성급 비즈니스 호텔', desc: '쇼핑몰 및 주요 명소 인접, 최적의 동선과 가성비' },
+            { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
+          ]
+        : [
+            { id: 'heritage', title: 'Khách Sạn Di Sản 5 Sao Phong Cách Pháp', desc: 'Sofitel Legend Metropole, Capella Hanoi — Đỉnh cao kiến trúc và nghệ thuật' },
+            { id: 'westlake', title: 'Khách Sạn 5 Sao Ven Hồ Tây', desc: 'InterContinental Hanoi Westlake, Lotte Hotel — Không gian khoáng đạt ngắm trọn hồ Tây' },
+            { id: 'boutique', title: 'Khách Sạn Boutique Cao Cấp Phố Cổ', desc: 'The Oriental Jade, La Siesta — Trải nghiệm lưu trú ấm cúng ngay lòng 36 phố phường' },
+            { id: 'city5star', title: 'Khách Sạn 5 Sao Trung Tâm Hiện Đại', desc: 'Tiện nghi quốc tế, tối ưu thời gian di chuyển giữa các điểm đến' },
+            { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
+          ]
+      )
+    : (isKorean
+        ? [
+            { id: 'resort', title: '5성급 럭셔리 비치 리조트', desc: '프라이빗 비치 & 인피니티 풀 보유 (하얏트, 인터컨티넨탈, 풀만)' },
+            { id: 'villa', title: '프라이빗 풀빌라 (개별 수영장)', desc: '2~4베드룸 독채 빌라, 주방 & 프라이빗 바비큐 (프리미어 빌리지, 나만)' },
+            { id: '5star', title: '5성급 시내 / 한강 뷰 호텔', desc: '한강 야경 및 시내 중심가 인접 특급 호텔 (노보텔, 힐튼)' },
+            { id: '4star', title: '미케비치 인근 4성급 호텔', desc: '해변 접근성 우수, 오션뷰 가성비 호텔 (TMS, 살라)' },
+            { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
+          ]
+        : [
+            { id: 'resort', title: 'Luxury Resort 5 Sao Ven Biển', desc: 'Resort có bãi biển riêng, hồ bơi vô cực ngắm vịnh (Hyatt, InterCon, Pullman)' },
+            { id: 'villa', title: 'Private Villa Có Hồ Bơi Riêng', desc: 'Biệt thự riêng tư 2-4 phòng ngủ, có bếp và BBQ cho gia đình (Premier Village, Naman)' },
+            { id: '5star', title: 'Khách Sạn 5 Sao Trung Tâm / Ven Sông', desc: 'Tiện nghi quốc tế, ngắm toàn cảnh sông Hàn và các cây cầu (Novotel, Hilton)' },
+            { id: '4star', title: 'Khách Sạn 4 Sao Sát Biển Mỹ Khê', desc: 'Vị trí đắc địa, chi phí tối ưu, phòng hướng biển (TMS, Sala, Belle Maison)' },
+            { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
+          ]
+      );
+
+  const transportOptions = isKorean
+    ? [
+        { id: 'suv-7', title: '7인승 최고급 SUV / MPV', desc: '포튜너, 카니발 최신형. 성인 3~5명 + 수하물 최적' },
+        { id: 'van-16', title: '16인승 최신형 투어 밴', desc: '포드 트랜짓 / 쏠라티. 가족 단체 6~12명 최적' },
+        { id: 'limousine-vip', title: 'VIP 비즈니스 리무진 (Dcar VIP)', desc: '최고급 마사지 캡틴 시트, 스타라이트 천장, 냉장고. VIP 7~9명' },
+        { id: 'coach-35', title: '35인승 유니버스 대형 버스', desc: '에어서스펜션 장착. 단체/기업 워크숍 15~28명' },
+        { id: 'coach-45', title: '45인승 하이클래스 대형 버스', desc: '초대형 수하물함 보유. 기업 대규모 단체 30~42명' },
+        { id: 'consultant', title: 'Super EZ Tour 전문 상담원 추천', desc: '실제 인원 및 수하물 수량에 따라 최적 차량 배정' }
+      ]
+    : [
+        { id: 'suv-7', title: 'Xe 7 Chỗ SUV / MPV Cao Cấp', desc: 'Fortuner, Kia Carnival đời mới. Phù hợp 3 - 5 người lớn + hành lý' },
+        { id: 'van-16', title: 'Xe 16 Chỗ Du Lịch Hiện Đại', desc: 'Ford Transit Premium / Solati. Phù hợp đoàn gia đình 6 - 12 người' },
+        { id: 'limousine-vip', title: 'Limousine VIP Hạng Thương Gia', desc: 'Ghế massage cơ trưởng, trần sao, tủ lạnh mini. Phù hợp 7 - 9 khách VIP' },
+        { id: 'coach-35', title: 'Xe Du Lịch Universe 35 Chỗ', desc: 'Giảm xóc bầu hơi êm ái. Phù hợp đoàn công ty 15 - 28 người' },
+        { id: 'coach-45', title: 'Xe Du Lịch Universe 45 Chỗ', desc: 'Khoang siêu rộng. Phù hợp đoàn doanh nghiệp lớn 30 - 42 người' },
+        { id: 'consultant', title: 'Để chuyên viên Super EZ Tour đề xuất loại xe phù hợp nhất', desc: 'Chúng tôi sẽ căn cứ vào số lượng người và hành lý thực tế' }
+      ];
+
+  const attractionOptions = destinationConfig?.attractions?.items
+    ? destinationConfig.attractions.items.map((spot) => ({
+        id: spot.id,
+        name: isKorean ? (spot.nameKr || spot.name) : (spot.nameVi || spot.name),
+      }))
+    : (isKorean
+        ? [
+            { id: 'ba-na-hills', name: '바나힐 & 골든 브릿지' },
+            { id: 'my-khe-beach', name: '미케 비치 해변' },
+            { id: 'son-tra-peninsula', name: '손짜 반도 & 린응사' },
+            { id: 'marble-mountains', name: '오행산 & 후옌콩 동굴' },
+            { id: 'dragon-bridge', name: '용다리 야경 & 한강 유람선' },
+            { id: 'hai-van-pass', name: '하이반 고개 & 랑코만' },
+            { id: 'hoi-an-ancient-town', name: '호이안 올드타운 (투본강 소원배)' }
+          ]
+        : [
+            { id: 'ba-na-hills', name: 'Bà Nà Hills & Cầu Vàng' },
+            { id: 'my-khe-beach', name: 'Bãi biển Mỹ Khê' },
+            { id: 'son-tra-peninsula', name: 'Bán đảo Sơn Trà & Chùa Linh Ứng' },
+            { id: 'marble-mountains', name: 'Ngũ Hành Sơn & Động Huyền Không' },
+            { id: 'dragon-bridge', name: 'Cầu Rồng & Du thuyền sông Hàn' },
+            { id: 'hai-van-pass', name: 'Đèo Hải Vân & Vịnh Lăng Cô' },
+            { id: 'hoi-an-ancient-town', name: 'Phố cổ Hội An (Thả hoa đăng sông Hoài)' }
+          ]
+      );
+
+  const selectedAccommodationLabel =
+    accommodationOptions.find((opt) => opt.id === tripState.accommodationType)?.title ||
+    tripState.accommodationName ||
+    tripState.accommodationType;
+
+  const selectedTransportLabel =
+    transportOptions.find((v) => v.id === tripState.transportType)?.title ||
+    tripState.transportType;
+
+  const selectedAttractionNames = tripState.selectedAttractions.map((spotId) => {
+    const matched = attractionOptions.find((spot) => spot.id === spotId);
+    return matched ? matched.name : spotId;
+  });
+
   const steps = isKorean ? STEPS_KO : STEPS_VI;
   const [formErrors, setFormErrors] = useState({});
+  const sectionRef = useRef(null);
+
+  // Refresh downstream ScrollTrigger pin offsets (e.g. CinematicEndingScene) when wizard step or height changes
+  useEffect(() => {
+    const rafId = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+    return () => cancelAnimationFrame(rafId);
+  }, [
+    tripState.currentStep,
+    tripState.isSubmitted,
+    tripState.guideOption,
+    tripState.flightOption,
+    isKorean
+  ]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    let lastHeight = Math.round(el.offsetHeight || 0);
+    let rafId = null;
+
+    const ro = new ResizeObserver(() => {
+      const nextHeight = Math.round(el.offsetHeight || 0);
+      if (Math.abs(nextHeight - lastHeight) < 4) return;
+      lastHeight = nextHeight;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+      });
+    });
+
+    ro.observe(el);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      ro.disconnect();
+    };
+  }, []);
 
   const validateCurrentStep = () => {
     const errors = {};
@@ -100,7 +233,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
 
   if (tripState.isSubmitted) {
     return (
-      <section className="dest-section trip-morph-section" id="trip-builder">
+      <section className="dest-section trip-morph-section" id="trip-builder" ref={sectionRef}>
         <div className="trip-morph-bg-decor" aria-hidden="true">
           <div className="morph-bg-glow-1" />
           <div className="morph-bg-glow-2" />
@@ -146,11 +279,11 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                 </li>
                 <li>
                   <strong>{isKorean ? '선택 숙소:' : 'Lưu trú:'}</strong>{' '}
-                  {tripState.accommodationName || tripState.accommodationType}
+                  {selectedAccommodationLabel}
                 </li>
                 <li>
                   <strong>{isKorean ? '전용 차량:' : 'Phương tiện:'}</strong>{' '}
-                  {tripState.transportType}
+                  {selectedTransportLabel}
                 </li>
                 <li>
                   <strong>{isKorean ? '선택 명소:' : 'Tọa độ tham quan:'}</strong>{' '}
@@ -197,7 +330,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
   }
 
   return (
-    <section className="dest-section trip-morph-section" id="trip-builder">
+    <section className="dest-section trip-morph-section" id="trip-builder" ref={sectionRef}>
       <div className="trip-morph-bg-decor" aria-hidden="true">
         <div className="morph-bg-glow-1" />
         <div className="morph-bg-glow-2" />
@@ -340,40 +473,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                 </div>
 
                 <div className="morph-options-stack">
-                  {(destinationConfig?.id === 'ha-noi'
-                    ? (isKorean
-                        ? [
-                            { id: 'heritage', title: '5성급 프렌치 헤리티지 럭셔리 호텔', desc: '소피텔 레전드 메트로폴, 카펠라 하노이 등 역사와 예술의 공간' },
-                            { id: 'westlake', title: '서호 레이크뷰 5성급 럭셔리 호텔', desc: '인터컨티넨탈 하노이 웨스트레이크, 롯데호텔 등 탁 트인 호수 전망' },
-                            { id: 'boutique', title: '구시가지 최고급 부티크 호텔', desc: '디 오리엔탈 제이드, 라 시에스타 등 올드쿼터 중심의 감성 숙소' },
-                            { id: 'city5star', title: '시내 중심가 5성급 비즈니스 호텔', desc: '쇼핑몰 및 주요 명소 인접, 최적의 동선과 가성비' },
-                            { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
-                          ]
-                        : [
-                            { id: 'heritage', title: 'Khách Sạn Di Sản 5 Sao Phong Cách Pháp', desc: 'Sofitel Legend Metropole, Capella Hanoi — Đỉnh cao kiến trúc và nghệ thuật' },
-                            { id: 'westlake', title: 'Khách Sạn 5 Sao Ven Hồ Tây', desc: 'InterContinental Hanoi Westlake, Lotte Hotel — Không gian khoáng đạt ngắm trọn hồ Tây' },
-                            { id: 'boutique', title: 'Khách Sạn Boutique Cao Cấp Phố Cổ', desc: 'The Oriental Jade, La Siesta — Trải nghiệm lưu trú ấm cúng ngay lòng 36 phố phường' },
-                            { id: 'city5star', title: 'Khách Sạn 5 Sao Trung Tâm Hiện Đại', desc: 'Tiện nghi quốc tế, tối ưu thời gian di chuyển giữa các điểm đến' },
-                            { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
-                          ]
-                      )
-                    : (isKorean
-                        ? [
-                            { id: 'resort', title: '5성급 럭셔리 비치 리조트', desc: '프라이빗 비치 & 인피니티 풀 보유 (하얏트, 인터컨티넨탈, 풀만)' },
-                            { id: 'villa', title: '프라이빗 풀빌라 (개별 수영장)', desc: '2~4베드룸 독채 빌라, 주방 & 프라이빗 바비큐 (프리미어 빌리지, 나만)' },
-                            { id: '5star', title: '5성급 시내 / 한강 뷰 호텔', desc: '한강 야경 및 시내 중심가 인접 특급 호텔 (노보텔, 힐튼)' },
-                            { id: '4star', title: '미케비치 인근 4성급 호텔', desc: '해변 접근성 우수, 오션뷰 가성비 호텔 (TMS, 살라)' },
-                            { id: 'self', title: '숙소 직접 예약 (기타 서비스만 이용)', desc: '이미 호텔을 예약하셨거나 개별 예약 예정이신 경우' }
-                          ]
-                        : [
-                            { id: 'resort', title: 'Luxury Resort 5 Sao Ven Biển', desc: 'Resort có bãi biển riêng, hồ bơi vô cực ngắm vịnh (Hyatt, InterCon, Pullman)' },
-                            { id: 'villa', title: 'Private Villa Có Hồ Bơi Riêng', desc: 'Biệt thự riêng tư 2-4 phòng ngủ, có bếp và BBQ cho gia đình (Premier Village, Naman)' },
-                            { id: '5star', title: 'Khách Sạn 5 Sao Trung Tâm / Ven Sông', desc: 'Tiện nghi quốc tế, ngắm toàn cảnh sông Hàn và các cây cầu (Novotel, Hilton)' },
-                            { id: '4star', title: 'Khách Sạn 4 Sao Sát Biển Mỹ Khê', desc: 'Vị trí đắc địa, chi phí tối ưu, phòng hướng biển (TMS, Sala, Belle Maison)' },
-                            { id: 'self', title: 'Khách Tự Đặt Phòng', desc: 'Bạn đã có phòng hoặc muốn tự book khách sạn, Super EZ Tour lo các dịch vụ còn lại' }
-                          ]
-                      )
-                  ).map((opt) => (
+                  {accommodationOptions.map((opt) => (
                     <div
                       key={opt.id}
                       className={`morph-option-box ${tripState.accommodationType === opt.id ? 'morph-option-active' : ''}`}
@@ -411,24 +511,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                 </div>
 
                 <div className="morph-options-stack">
-                  {(isKorean
-                    ? [
-                        { id: 'suv-7', title: '7인승 최고급 SUV / MPV', desc: '포튜너, 카니발 최신형. 성인 3~5명 + 수하물 최적' },
-                        { id: 'van-16', title: '16인승 최신형 투어 밴', desc: '포드 트랜짓 / 쏠라티. 가족 단체 6~12명 최적' },
-                        { id: 'limousine-vip', title: 'VIP 비즈니스 리무진 (Dcar VIP)', desc: '최고급 마사지 캡틴 시트, 스타라이트 천장, 냉장고. VIP 7~9명' },
-                        { id: 'coach-35', title: '35인승 유니버스 대형 버스', desc: '에어서스펜션 장착. 단체/기업 워크숍 15~28명' },
-                        { id: 'coach-45', title: '45인승 하이클래스 대형 버스', desc: '초대형 수하물함 보유. 기업 대규모 단체 30~42명' },
-                        { id: 'consultant', title: 'Super EZ Tour 전문 상담원 추천', desc: '실제 인원 및 수하물 수량에 따라 최적 차량 배정' }
-                      ]
-                    : [
-                        { id: 'suv-7', title: 'Xe 7 Chỗ SUV / MPV Cao Cấp', desc: 'Fortuner, Kia Carnival đời mới. Phù hợp 3 - 5 người lớn + hành lý' },
-                        { id: 'van-16', title: 'Xe 16 Chỗ Du Lịch Hiện Đại', desc: 'Ford Transit Premium / Solati. Phù hợp đoàn gia đình 6 - 12 người' },
-                        { id: 'limousine-vip', title: 'Limousine VIP Hạng Thương Gia', desc: 'Ghế massage cơ trưởng, trần sao, tủ lạnh mini. Phù hợp 7 - 9 khách VIP' },
-                        { id: 'coach-35', title: 'Xe Du Lịch Universe 35 Chỗ', desc: 'Giảm xóc bầu hơi êm ái. Phù hợp đoàn công ty 15 - 28 người' },
-                        { id: 'coach-45', title: 'Xe Du Lịch Universe 45 Chỗ', desc: 'Khoang siêu rộng. Phù hợp đoàn doanh nghiệp lớn 30 - 42 người' },
-                        { id: 'consultant', title: 'Để chuyên viên Super EZ Tour đề xuất loại xe phù hợp nhất', desc: 'Chúng tôi sẽ căn cứ vào số lượng người và hành lý thực tế' }
-                      ]
-                  ).map((v) => (
+                  {transportOptions.map((v) => (
                     <div
                       key={v.id}
                       className={`morph-option-box ${tripState.transportType === v.id ? 'morph-option-active' : ''}`}
@@ -607,32 +690,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                       : `Tọa độ muốn ghé thăm (${tripState.selectedAttractions.length} đã chọn):`}
                   </label>
                   <div className="morph-check-grid">
-                    {(destinationConfig?.attractions?.items
-                      ? destinationConfig.attractions.items.map((spot) => ({
-                          id: spot.id,
-                          name: isKorean ? (spot.nameKr || spot.name) : (spot.nameVi || spot.name),
-                        }))
-                      : (isKorean
-                          ? [
-                              { id: 'ba-na-hills', name: '바나힐 & 골든 브릿지' },
-                              { id: 'my-khe-beach', name: '미케 비치 해변' },
-                              { id: 'son-tra-peninsula', name: '손짜 반도 & 린응사' },
-                              { id: 'marble-mountains', name: '오행산 & 후옌콩 동굴' },
-                              { id: 'dragon-bridge', name: '용다리 야경 & 한강 유람선' },
-                              { id: 'hai-van-pass', name: '하이반 고개 & 랑코만' },
-                              { id: 'hoi-an-ancient-town', name: '호이안 올드타운 (투본강 소원배)' }
-                            ]
-                          : [
-                              { id: 'ba-na-hills', name: 'Bà Nà Hills & Cầu Vàng' },
-                              { id: 'my-khe-beach', name: 'Bãi biển Mỹ Khê' },
-                              { id: 'son-tra-peninsula', name: 'Bán đảo Sơn Trà & Chùa Linh Ứng' },
-                              { id: 'marble-mountains', name: 'Ngũ Hành Sơn & Động Huyền Không' },
-                              { id: 'dragon-bridge', name: 'Cầu Rồng & Du thuyền sông Hàn' },
-                              { id: 'hai-van-pass', name: 'Đèo Hải Vân & Vịnh Lăng Cô' },
-                              { id: 'hoi-an-ancient-town', name: 'Phố cổ Hội An (Thả hoa đăng sông Hoài)' }
-                            ]
-                        )
-                    ).map((spot) => {
+                    {attractionOptions.map((spot) => {
                       const isChecked = tripState.selectedAttractions.includes(spot.id);
                       return (
                         <div
@@ -867,7 +925,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                   <Bed size={15} className="morph-sum-icon" />
                   <div>
                     <span className="morph-sum-lbl">{isKorean ? '숙소' : 'Lưu trú'}</span>
-                    <strong>{tripState.accommodationName || tripState.accommodationType}</strong>
+                    <strong>{selectedAccommodationLabel}</strong>
                   </div>
                 </div>
 
@@ -875,7 +933,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                   <Car size={15} className="morph-sum-icon" />
                   <div>
                     <span className="morph-sum-lbl">{isKorean ? '전용 차량' : 'Xe phục vụ'}</span>
-                    <strong>{tripState.transportType}</strong>
+                    <strong>{selectedTransportLabel}</strong>
                   </div>
                 </div>
 
@@ -898,7 +956,7 @@ const TripBuilderMorph = ({ onAddQuote, destinationConfig }) => {
                       {isKorean ? `선택 명소 (${tripState.selectedAttractions.length})` : `Tọa độ đã chọn (${tripState.selectedAttractions.length})`}
                     </span>
                     <span className="morph-sum-spots-text">
-                      {tripState.selectedAttractions.join(', ') || (isKorean ? '선택 없음' : 'Chưa chọn')}
+                      {selectedAttractionNames.join(', ') || (isKorean ? '선택 없음' : 'Chưa chọn')}
                     </span>
                   </div>
                 </div>

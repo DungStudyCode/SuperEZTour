@@ -26,6 +26,8 @@ const CinematicEndingScene = ({ ctaData }) => {
           pin: true,
           scrub: 1,
           anticipatePin: 1,
+          refreshPriority: -20,
+          invalidateOnRefresh: true,
         },
       });
 

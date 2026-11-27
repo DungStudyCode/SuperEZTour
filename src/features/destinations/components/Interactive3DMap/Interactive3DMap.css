@@ -873,9 +873,9 @@
 .interactive-3d-map-scene.is-travel-atlas {
   min-height: auto;
   height: auto;
-  background: linear-gradient(180deg, #080F1C 0%, #101A20 12%, #101A20 88%, #172026 100%);
-  color: #F3EEE5;
-  padding: clamp(1.75rem, 3vh, 2.5rem) 0;
+  background: linear-gradient(180deg, #0D1013 0%, #141210 14%, #141210 86%, #13110F 100%);
+  color: #F4EFE6;
+  padding: clamp(1.75rem, 3vh, 2.5rem) 0 clamp(4.5rem, 9vh, 7.25rem);
 }
 
 .interactive-3d-map-scene.is-travel-atlas::before,
@@ -921,9 +921,9 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas .map-cart-badge {
-  background: #17242B;
-  border: 1px solid rgba(197, 166, 117, 0.35);
-  color: #F3EEE5;
+  background: #1C1916;
+  border: 1px solid rgba(196, 164, 116, 0.35);
+  color: #F4EFE6;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   padding: 0.45rem 0.95rem;
@@ -933,7 +933,7 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas .map-cart-badge strong {
-  color: #C5A675;
+  color: #C4A474;
   font-variant-numeric: tabular-nums;
 }
 
@@ -965,9 +965,9 @@
   min-height: 36px;
   padding: 0.35rem 0.9rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(23, 36, 43, 0.72);
-  color: #AAB5B8;
+  border: 1px solid rgba(244, 239, 230, 0.12);
+  background: rgba(28, 25, 22, 0.78);
+  color: #A39B8E;
   font-family: 'Manrope', var(--font-sans, sans-serif);
   font-size: 0.8rem;
   font-weight: 600;
@@ -977,14 +977,14 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill:hover {
-  border-color: rgba(197, 166, 117, 0.5);
-  color: #F3EEE5;
+  border-color: rgba(196, 164, 116, 0.5);
+  color: #F4EFE6;
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-filter-pill.is-active {
-  background: #C5A675;
-  border-color: #C5A675;
-  color: #101A20;
+  background: #C4A474;
+  border-color: #C4A474;
+  color: #141210;
   font-weight: 700;
 }
 
@@ -997,7 +997,7 @@
 .interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove:focus-visible,
 .interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn:focus-visible,
 .interactive-3d-map-scene.is-travel-atlas .atlas-numbered-marker:focus-visible {
-  outline: 2px solid #F3EEE5;
+  outline: 2px solid #F4EFE6;
   outline-offset: 2px;
 }
 
@@ -1011,14 +1011,14 @@
 .interactive-3d-map-scene.is-travel-atlas .map-canvas-wrapper {
   height: clamp(400px, 50vh, 470px);
   min-height: 400px;
-  border-radius: 16px;
-  background: #0D161B;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+  border-radius: 8px;
+  background: #100E0C;
+  border: 1px solid rgba(244, 239, 230, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.36);
 }
 
 .interactive-3d-map-scene.is-travel-atlas .map-mapbox-container {
-  background: #0D161B;
+  background: #100E0C;
 }
 
 /* Loading & Error Fallbacks */
@@ -1034,14 +1034,14 @@
   gap: 0.85rem;
   padding: 1.75rem;
   text-align: center;
-  background: rgba(16, 26, 32, 0.92);
-  color: #F3EEE5;
+  background: rgba(20, 18, 16, 0.92);
+  color: #F4EFE6;
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-map-loading-shell {
   z-index: 6;
   pointer-events: none;
-  color: #AAB5B8;
+  color: #A39B8E;
   font-size: 0.9rem;
 }
 
@@ -1060,9 +1060,9 @@
   gap: 0.4rem;
   padding: 0.45rem 0.85rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: #17242B;
-  color: #F3EEE5;
+  border: 1px solid rgba(244, 239, 230, 0.16);
+  background: #1C1916;
+  color: #F4EFE6;
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -1073,16 +1073,16 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-retry-btn {
-  border-color: #C5A675;
-  color: #C5A675;
+  border-color: #C4A474;
+  color: #C4A474;
   font-weight: 600;
 }
 
 /* Map Controls */
 .interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn {
-  background: rgba(16, 26, 32, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: #F3EEE5;
+  background: rgba(20, 18, 16, 0.9);
+  border: 1px solid rgba(244, 239, 230, 0.16);
+  color: #F4EFE6;
   min-height: 36px;
   padding: 0.4rem 0.9rem;
   font-size: 0.76rem;
@@ -1090,14 +1090,14 @@
 
 .interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn:hover,
 .interactive-3d-map-scene.is-travel-atlas .map-reset-view-btn.active {
-  border-color: #C5A675;
-  color: #C5A675;
-  background: #17242B;
+  border-color: #C4A474;
+  color: #C4A474;
+  background: #1C1916;
 }
 
 .interactive-3d-map-scene.is-travel-atlas .maplibregl-ctrl-group {
-  background: rgba(16, 26, 32, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(20, 18, 16, 0.9);
+  border: 1px solid rgba(244, 239, 230, 0.16);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
@@ -1148,9 +1148,9 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #101A20;
-  border: 2px solid #C5A675;
-  color: #F3EEE5;
+  background: #141210;
+  border: 2px solid #C4A474;
+  color: #F4EFE6;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1211,9 +1211,9 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
-  background: rgba(16, 26, 32, 0.94);
-  border: 1px solid rgba(197, 166, 117, 0.45);
-  color: #F3EEE5;
+  background: rgba(20, 18, 16, 0.94);
+  border: 1px solid rgba(196, 164, 116, 0.45);
+  color: #F4EFE6;
   padding: 0.24rem 0.58rem;
   border-radius: 6px;
   font-family: 'Manrope', var(--font-sans, sans-serif);
@@ -1300,12 +1300,12 @@
 .interactive-3d-map-scene.is-travel-atlas .map-editorial-panel {
   height: auto !important;
   min-height: 0;
-  background: #17242B;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 16px;
+  background: #1C1916;
+  border: 1px solid rgba(244, 239, 230, 0.12);
+  border-radius: 8px;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.38);
   overflow: visible;
 }
 
@@ -1313,8 +1313,8 @@
   position: relative;
   height: clamp(165px, 21vh, 198px);
   aspect-ratio: auto;
-  border-radius: 15px 15px 0 0;
-  background: #0D161B;
+  border-radius: 7px 7px 0 0;
+  background: #0D0C0A;
   overflow: hidden;
 }
 
@@ -1354,7 +1354,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: #AAB5B8;
+  color: #A39B8E;
   font-size: 0.84rem;
   padding: 1rem;
   text-align: center;
@@ -1362,7 +1362,7 @@
 
 .interactive-3d-map-scene.is-travel-atlas .panel-img-overlay {
   z-index: 3;
-  background: linear-gradient(180deg, transparent 58%, rgba(23, 36, 43, 0.85) 100%);
+  background: linear-gradient(180deg, transparent 58%, rgba(28, 25, 22, 0.86) 100%);
 }
 
 .interactive-3d-map-scene.is-travel-atlas .panel-photo-credit {
@@ -1371,8 +1371,8 @@
   right: 0.65rem;
   z-index: 4;
   font-size: 0.64rem;
-  color: rgba(243, 238, 229, 0.72);
-  background: rgba(16, 26, 32, 0.72);
+  color: rgba(244, 239, 230, 0.75);
+  background: rgba(20, 18, 16, 0.76);
   padding: 0.16rem 0.45rem;
   border-radius: 4px;
 }
@@ -1561,9 +1561,9 @@
 .interactive-3d-map-scene.is-travel-atlas .atlas-footer-bar {
   margin-top: 0.7rem;
   padding: 0.55rem 0.95rem;
-  border-radius: 12px;
-  background: rgba(23, 36, 43, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 8px;
+  background: rgba(28, 25, 22, 0.88);
+  border: 1px solid rgba(244, 239, 230, 0.10);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1581,7 +1581,7 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-summary-empty {
-  color: #AAB5B8;
+  color: #A39B8E;
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-summary-chips {
@@ -1604,7 +1604,7 @@
 .interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove {
   background: transparent;
   border: none;
-  color: #F3EEE5;
+  color: #F4EFE6;
   cursor: pointer;
   min-height: 28px;
   display: inline-flex;
@@ -1619,7 +1619,7 @@
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove {
   padding: 0.15rem 0.5rem 0.15rem 0.2rem;
-  color: #AAB5B8;
+  color: #A39B8E;
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-chip-remove:hover {
@@ -1630,9 +1630,9 @@
   min-height: 28px;
   padding: 0.15rem 0.65rem;
   border-radius: 9999px;
-  border: 1px solid rgba(197, 166, 117, 0.45);
-  background: rgba(197, 166, 117, 0.12);
-  color: #C5A675;
+  border: 1px solid rgba(196, 164, 116, 0.45);
+  background: rgba(196, 164, 116, 0.12);
+  color: #C4A474;
   font-size: 0.74rem;
   font-weight: 700;
   cursor: pointer;
@@ -1650,10 +1650,10 @@
 .interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn {
   min-height: 36px;
   padding: 0.3rem 0.72rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(16, 26, 32, 0.55);
-  color: #F3EEE5;
+  border-radius: 6px;
+  border: 1px solid rgba(244, 239, 230, 0.14);
+  background: rgba(20, 18, 16, 0.58);
+  color: #F4EFE6;
   font-size: 0.78rem;
   font-weight: 600;
   display: inline-flex;
@@ -1664,8 +1664,8 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn:hover:not(:disabled) {
-  border-color: #C5A675;
-  background: rgba(197, 166, 117, 0.14);
+  border-color: #C4A474;
+  background: rgba(196, 164, 116, 0.14);
 }
 
 .interactive-3d-map-scene.is-travel-atlas .atlas-nav-btn:disabled {
@@ -1677,14 +1677,14 @@
   font-family: 'Manrope', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
-  color: #C5A675;
+  color: #C4A474;
   font-variant-numeric: tabular-nums;
   min-width: 48px;
   text-align: center;
 }
 
 .interactive-3d-map-scene.is-travel-atlas .map-disclaimer {
-  color: #AAB5B8;
+  color: #A39B8E;
   margin-top: 0.65rem;
   font-size: 0.75rem;
 }
@@ -1790,9 +1790,9 @@
   gap: 0.5rem 1rem;
   margin-bottom: 0.7rem;
   padding: 0.42rem 0.85rem;
-  border-radius: 10px;
-  background: rgba(23, 36, 43, 0.72);
-  border: 1px solid rgba(197, 166, 117, 0.22);
+  border-radius: 8px;
+  background: rgba(28, 25, 22, 0.78);
+  border: 1px solid rgba(196, 164, 116, 0.22);
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-guidance-group {
@@ -1805,12 +1805,12 @@
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-guidance-icon {
   display: inline-flex;
   align-items: center;
-  color: #C5A675;
+  color: #C4A474;
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-guidance-text {
   font-size: 0.79rem;
-  color: rgba(243, 238, 229, 0.9);
+  color: rgba(244, 239, 230, 0.9);
   font-weight: 500;
 }
 
@@ -1821,9 +1821,9 @@
   min-height: 28px;
   padding: 0.18rem 0.65rem;
   border-radius: 9999px;
-  border: 1px solid #C5A675;
-  background: rgba(197, 166, 117, 0.16);
-  color: #C5A675;
+  border: 1px solid #C4A474;
+  background: rgba(196, 164, 116, 0.16);
+  color: #C4A474;
   font-size: 0.74rem;
   font-weight: 700;
   cursor: pointer;
@@ -1831,8 +1831,8 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-resume-btn:hover {
-  background: #C5A675;
-  color: #101A20;
+  background: #C4A474;
+  color: #141210;
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-steps {
@@ -1845,12 +1845,12 @@
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-connector {
   width: 10px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(244, 239, 230, 0.16);
   transition: background-color 0.2s ease;
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-connector.is-reached {
-  background: rgba(197, 166, 117, 0.65);
+  background: rgba(196, 164, 116, 0.65);
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step {
@@ -1858,9 +1858,9 @@
   height: 22px;
   padding: 0 0.3rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(244, 239, 230, 0.14);
   background: transparent;
-  color: #AAB5B8;
+  color: #A39B8E;
   font-family: 'Manrope', sans-serif;
   font-size: 0.68rem;
   font-weight: 700;
@@ -1870,20 +1870,20 @@
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step.is-visited {
-  border-color: rgba(197, 166, 117, 0.45);
-  color: #C5A675;
-  background: rgba(197, 166, 117, 0.10);
+  border-color: rgba(196, 164, 116, 0.45);
+  color: #C4A474;
+  background: rgba(196, 164, 116, 0.10);
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step.is-active {
-  border-color: #C5A675;
-  background: #C5A675;
-  color: #101A20;
+  border-color: #C4A474;
+  background: #C4A474;
+  color: #141210;
 }
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-progress-step:focus-visible,
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-resume-btn:focus-visible {
-  outline: 2px solid #F3EEE5;
+  outline: 2px solid #F4EFE6;
   outline-offset: 2px;
 }
 
@@ -1896,7 +1896,7 @@
 
 .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .atlas-scroll-continue-hint {
   font-size: 0.74rem;
-  color: #AAB5B8;
+  color: #A39B8E;
   white-space: nowrap;
 }
 
@@ -1918,10 +1918,10 @@
   }
 }
 
-/* Compact Laptop Density Tier (1366x768, 1280x720, and constrained desktop browser windows) */
-@media (min-width: 1024px) and (max-height: 820px) {
+/* Compact Laptop & Standard Desktop Window Density Tier (1366x768, 1280x720, and 1080p windows with browser chrome <= 920px height) */
+@media (min-width: 1024px) and (max-height: 920px) {
   .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery {
-    padding: 1.15rem 0;
+    padding: 1.15rem 0 clamp(4.25rem, 8.5vh, 6.5rem);
   }
 
   .interactive-3d-map-scene.is-travel-atlas.is-scroll-discovery .map-3d-header {

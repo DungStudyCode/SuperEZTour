@@ -401,9 +401,15 @@
 }
 
 .dest-theme-ha-noi .dest-badge-gold {
-  background: rgba(180, 139, 86, 0.12);
-  color: #B48B56;
-  border-color: rgba(180, 139, 86, 0.28);
+  background: rgba(196, 164, 116, 0.16);
+  color: #C4A474;
+  border-color: rgba(196, 164, 116, 0.35);
+}
+
+.dest-theme-ha-noi .morph-summary-card .dest-badge-gold {
+  background: rgba(217, 187, 138, 0.16);
+  color: #E6C896;
+  border-color: rgba(217, 187, 138, 0.38);
 }
 
 .dest-theme-ha-noi .dest-btn-primary {
