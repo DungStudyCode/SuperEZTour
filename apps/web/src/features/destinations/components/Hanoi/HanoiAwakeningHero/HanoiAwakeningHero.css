@@ -1,0 +1,709 @@
+/* ==========================================================================
+   SUPER EZ TOUR — HANOI SCREEN 1 V4.1
+   GRAND CINEMATIC OPENING — "HANOI — THE CITY AWAKENS"
+   Four-Act Narrative Architecture · Six Signature Cinematic Effects
+   Harmonized with Screen 2 V3.4.1 Editorial System:
+     Headline: #F8F5EF
+     Body:     #F1F0EC
+     Metadata: #D9D3C8
+     Bronze:   #C8A27A
+     Charcoal: #0D1013
+   Zero WebGL Canvas · Zero Debug HUD · Zero Permanent will-change on Text
+   ========================================================================== */
+
+.hanoi-awakening-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: #0d1013;
+  color: #F1F0EC;
+  font-family: 'Be Vietnam Pro', 'Plus Jakarta Sans', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+}
+
+html[lang="ko"] .hanoi-awakening-hero {
+  font-family: 'Noto Sans KR', 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Subtle top header contrast protection over foreground willow leaves */
+.hanoi-awakening-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 108px;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 16, 14, 0.54) 0%,
+    rgba(13, 16, 14, 0.2) 55%,
+    transparent 100%
+  );
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   1. SIGNATURE EFFECT 1: CINEMATIC OPENING APERTURE & PHOTOGRAPHIC STAGE
+   ========================================================================== */
+.hanoi-hero-aperture-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  background-color: #0d1013;
+  will-change: clip-path;
+}
+
+.hanoi-hero-photo-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #0d1013;
+}
+
+.hero-photo-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  will-change: opacity, clip-path;
+  pointer-events: none;
+}
+
+.hero-photo-layer-0 {
+  opacity: 1;
+}
+
+.hero-photo-inner {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.hanoi-awakening-hero .hero-photo-inner picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hanoi-awakening-hero .hero-photo-img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: var(--hero-focal-desktop, 54% 44%);
+  display: block;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.hanoi-awakening-hero .hero-photo-layer-0 .hero-photo-img {
+  filter: contrast(1.06) saturate(1.05);
+}
+
+/* Localized Directional Scrim — Shades lower-left text zone while keeping Tháp Rùa bright & deep */
+.hero-localized-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hanoi-awakening-hero .hero-photo-layer-0 .hero-localized-scrim {
+  background:
+    radial-gradient(
+      ellipse 78% 66% at 14% 86%,
+      rgba(13, 16, 14, 0.72) 0%,
+      rgba(13, 16, 14, 0.44) 46%,
+      transparent 84%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(13, 16, 14, 0.2) 0%,
+      transparent 24%,
+      transparent 66%,
+      rgba(13, 16, 14, 0.68) 100%
+    ) !important;
+}
+
+/* SIGNATURE EFFECT 2: REAL MULTI-PLANE DEPTH PARALLAX LAYERS */
+.hero-parallax-mist {
+  position: absolute;
+  left: -6%;
+  bottom: 0;
+  width: 112%;
+  max-width: none;
+  height: 36%;
+  object-fit: cover;
+  z-index: 3;
+  opacity: 0.26;
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero-parallax-willow {
+  position: absolute;
+  top: -2%;
+  left: -3%;
+  width: 106%;
+  max-width: none;
+  height: 38%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 4;
+  opacity: 0.78;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Minimal Attribution Line */
+.hero-photo-credit {
+  position: absolute;
+  bottom: 24px;
+  right: clamp(28px, 3.2vw, 48px);
+  z-index: 5;
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: #D9D3C8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2. SIGNATURE EFFECT 4: KINETIC EDITORIAL TYPOGRAPHY STAGE
+   Separated from image transform layers for subpixel clarity
+   ========================================================================== */
+.hanoi-hero-editorial-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: min(92%, 1320px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 96px clamp(20px, 3vw, 40px) clamp(58px, 8vh, 86px);
+  pointer-events: none;
+}
+
+.hero-acts-container {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  min-height: 280px;
+  margin-bottom: 26px;
+}
+
+.hero-act-block {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hero-act-block-0 {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hero-eyebrow {
+  margin: 0 0 12px 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #CBA680;
+  text-shadow: 0 1px 6px rgba(13, 16, 14, 0.75);
+}
+
+.hero-headline {
+  font-family: 'Playfair Display', 'Noto Serif KR', Georgia, serif;
+  font-size: clamp(2.2rem, 3.85vw, 3.45rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px 0;
+  color: #F8F5EF;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  word-break: keep-all;
+}
+
+html[lang="ko"] .hanoi-awakening-hero .hero-headline {
+  font-family: 'Noto Serif KR', 'Playfair Display', Georgia, serif;
+  line-height: 1.24;
+  letter-spacing: -0.015em;
+}
+
+.hero-headline-act {
+  font-size: clamp(1.75rem, 3.1vw, 2.75rem);
+  line-height: 1.2;
+}
+
+.hero-kinetic-mask {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.08em;
+  padding-bottom: 0.14em;
+  margin-top: -0.08em;
+  margin-bottom: -0.1em;
+}
+
+.hero-kinetic-line {
+  display: block;
+  text-shadow: 0 2px 14px rgba(8, 10, 12, 0.68), 0 1px 3px rgba(8, 10, 12, 0.58);
+}
+
+.hero-act-body-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.hero-lead {
+  margin: 0 0 24px 0;
+  font-size: clamp(0.95rem, 1.08vw, 1.06rem);
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 50ch;
+  color: #F1F0EC;
+  text-shadow: 0 1px 10px rgba(8, 10, 12, 0.72), 0 1px 3px rgba(8, 10, 12, 0.6);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.hero-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  background: #CBA680;
+  color: #131714;
+  border: 1px solid #D9B794;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(13, 16, 14, 0.3);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-btn-primary:hover {
+  background: #D8B48E;
+  border-color: #E5C6A4;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(13, 16, 14, 0.42);
+}
+
+.hero-btn-primary:active {
+  background: #B89168;
+  transform: translateY(0);
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 22px;
+  background: rgba(13, 16, 14, 0.44);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(203, 166, 128, 0.62);
+  border-radius: 4px;
+  color: #F4EFE6;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-shadow: 0 1px 6px rgba(13, 16, 14, 0.65);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(203, 166, 128, 0.18);
+  border-color: #CBA680;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.hero-btn-secondary:active {
+  background: rgba(200, 162, 122, 0.26);
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   3. FOUR-ACT EDITORIAL PROGRESS RAIL
+   ========================================================================== */
+.hero-act-rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 480px);
+  pointer-events: auto;
+}
+
+.hero-rail-item {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #F8F5EF;
+  opacity: 0.52;
+  transition: color 0.2s ease;
+}
+
+.hero-rail-item:hover .hero-rail-label {
+  color: #c8a27a;
+}
+
+.hero-rail-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #D9D3C8;
+  text-shadow: 0 1px 4px rgba(8, 10, 12, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-rail-track {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: rgba(248, 245, 239, 0.22);
+  overflow: hidden;
+}
+
+.hero-rail-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #c8a27a;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ==========================================================================
+   4. MINIMAL SCROLL INDICATOR
+   ========================================================================== */
+.hanoi-hero-scroll-cue {
+  position: absolute;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: clamp(20px, 4vw, 64px);
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  background: transparent;
+  border: none;
+  color: #D9D3C8;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.hanoi-hero-scroll-cue:hover {
+  color: #c8a27a;
+}
+
+.hero-btn-primary:focus-visible,
+.hero-btn-secondary:focus-visible,
+.hero-rail-item:focus-visible,
+.hanoi-hero-scroll-cue:focus-visible {
+  outline: 2px solid #c8a27a;
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   5. MORNING MIST HANDOFF BRIDGE INTO SCREEN 2
+   ========================================================================== */
+.hanoi-hero-transition-fog {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 245, 239, 0.02) 0%,
+    rgba(248, 245, 239, 0.08) 55%,
+    rgba(248, 245, 239, 0.16) 100%
+  );
+  opacity: 0;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE ART DIRECTION (Laptop 1366x768 · Tablet · Mobile 390/360)
+   ========================================================================== */
+@media (max-height: 800px) and (min-width: 769px) {
+  .hanoi-hero-editorial-stage {
+    padding-bottom: 48px;
+  }
+
+  .hero-acts-container {
+    min-height: 235px;
+    margin-bottom: 16px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.9rem, 3.3vw, 2.8rem);
+    margin-bottom: 10px;
+  }
+
+  .hero-headline-act {
+    font-size: clamp(1.6rem, 2.7vw, 2.3rem);
+  }
+
+  .hero-lead {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hanoi-awakening-hero {
+    aspect-ratio: auto;
+    height: 100vh;
+    height: 100svh;
+    min-height: 640px;
+  }
+
+  .hanoi-awakening-hero .hero-photo-img {
+    object-position: var(--hero-focal-mobile, 50% 42%);
+  }
+
+  .hero-parallax-willow {
+    height: 24%;
+    opacity: 0.52;
+  }
+
+  .hanoi-hero-editorial-stage {
+    width: 100%;
+    padding: 82px 20px calc(44px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-acts-container {
+    max-width: 100%;
+    min-height: 318px;
+    margin-bottom: 20px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 8px;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.85rem, 7.2vw, 2.25rem);
+    line-height: 1.18;
+    margin-bottom: 10px;
+  }
+
+  html[lang="ko"] .hanoi-awakening-hero .hero-headline {
+    font-size: clamp(1.78rem, 6.8vw, 2.18rem);
+    line-height: 1.24;
+  }
+
+  .hero-headline-act {
+    font-size: clamp(1.5rem, 5.6vw, 2rem);
+  }
+
+  .hero-lead {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    max-width: 100%;
+  }
+
+  .hero-actions-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 18px;
+    font-size: 0.88rem;
+    justify-content: center;
+  }
+
+  .hero-act-rail {
+    gap: 8px;
+    width: 100%;
+  }
+
+  .hero-rail-item {
+    padding: 6px 0;
+    min-height: 36px;
+    justify-content: flex-end;
+    opacity: 0.72;
+  }
+
+  .hero-rail-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #F4EFE6;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hero-rail-num {
+    font-weight: 700;
+    color: #CBA680;
+  }
+
+  .hero-rail-track {
+    height: 2px;
+    background: rgba(244, 239, 230, 0.28);
+  }
+
+  .hero-rail-fill {
+    background: #CBA680;
+  }
+
+  .hero-rail-sep {
+    display: none;
+  }
+
+  /* Hide redundant text scroll cue on mobile where compact Act Rail is present */
+  .hanoi-hero-scroll-cue {
+    display: none;
+  }
+
+  .hero-photo-credit {
+    bottom: 12px;
+    right: 20px;
+    font-size: 0.6rem;
+    opacity: 0.88;
+  }
+}
+
+@media (max-width: 390px) {
+  .hanoi-hero-editorial-stage {
+    padding: 78px 18px calc(40px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-headline {
+    font-size: 1.88rem;
+  }
+
+  html[lang="ko"] .hanoi-awakening-hero .hero-headline {
+    font-size: 1.82rem;
+  }
+
+  .hero-headline-act {
+    font-size: 1.44rem;
+  }
+
+  .hero-lead {
+    font-size: 0.87rem;
+    line-height: 1.56;
+    margin-bottom: 16px;
+  }
+
+  .hero-rail-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-headline {
+    font-size: 1.78rem;
+  }
+
+  html[lang="ko"] .hanoi-awakening-hero .hero-headline {
+    font-size: 1.72rem;
+  }
+
+  .hero-act-rail {
+    gap: 4px;
+  }
+
+  .hero-rail-item {
+    flex: 0 1 auto;
+  }
+
+  .hero-rail-label {
+    font-size: 0.64rem;
+  }
+}
+
+/* ==========================================================================
+   7. REDUCED MOTION SUPPORT
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hanoi-hero-aperture-frame {
+    clip-path: none !important;
+  }
+
+  .hero-photo-inner,
+  .hero-parallax-willow,
+  .hero-parallax-mist {
+    transform: none !important;
+  }
+}

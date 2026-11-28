@@ -1,0 +1,10 @@
+﻿Provider: EDB | PostgreSQL 17.12-2 | Windows x64
+Artifact: postgresql-17.12-2-windows-x64-binaries.zip
+Bytes: 386262342
+Download mtime UTC: 2026-11-28T13:22:51.3559314Z
+SHA-256: 520c8c6f19abb3b31fa83ec5e486e2f769eedd7593d94e60a7cda8a5bfb4df91
+Vendor checksum match: PASS
+ZIP entry scope and required binaries: PASS
+Entries: 22221
+HTTPS source: https://get.enterprisedb.com/postgresql/postgresql-17.12-2-windows-x64-binaries.zip
+Vendor published metadata: https://get.enterprisedb.com/postgresql/postgresql-17.12-2-windows-x64-binaries.zip.sha256

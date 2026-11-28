@@ -1,0 +1,10 @@
+﻿Node: v24.11.0
+Docker on PATH: False
+psql on PATH: False
+pg_ctl on PATH: False
+PostgreSQL service discovered: False
+Docker service discovered: False
+Prior backend/.local-postgres exists: False
+apps/api/.local-postgres exists: False
+No matching portable binaries in workspace or scanned temp locations. One WinGet temp directory denied read access.
+No database connection attempt.

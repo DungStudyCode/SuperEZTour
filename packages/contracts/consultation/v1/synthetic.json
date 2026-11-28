@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "requestId": "synthetic-draft",
+  "destinationId": "ha-noi",
+  "entry": {
+    "source": "hero",
+    "route": "/destinations/ha-noi",
+    "locale": "ko"
+  },
+  "traveler": {
+    "name": "합성 테스트",
+    "contact": {
+      "method": "phone",
+      "value": "010-0000-0000"
+    }
+  },
+  "trip": {
+    "departure": {
+      "status": "undecided",
+      "date": null
+    },
+    "duration": {
+      "status": "undecided",
+      "days": null
+    },
+    "guests": {
+      "adults": 2,
+      "children": 0
+    },
+    "itineraryId": null,
+    "preferences": {
+      "attractionIds": [
+        "hoan-kiem-lake"
+      ],
+      "culinaryIds": []
+    },
+    "specialRequests": null
+  },
+  "privacy": {
+    "policyVersion": "synthetic-v1",
+    "accepted": true
+  }
+}

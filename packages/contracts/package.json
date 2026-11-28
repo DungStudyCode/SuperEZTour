@@ -1,0 +1,13 @@
+{
+  "name": "@superez/contracts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./consultation/v1/*": "./consultation/v1/*"
+  }
+}

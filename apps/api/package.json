@@ -1,0 +1,32 @@
+{
+  "name": "@superez/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
+    "start": "node --env-file-if-exists=.env dist/server.js",
+    "dev": "node --watch --env-file-if-exists=.env src/server.ts",
+    "migrate": "node --env-file-if-exists=.env src/database/migrate.ts",
+    "migrate:prod": "node --env-file-if-exists=.env dist/database/migrate.js",
+    "test": "node --test tests/unit/*.test.ts",
+    "test:integration": "node --test tests/integration/*.test.ts"
+  },
+  "dependencies": {
+    "@fastify/rate-limit": "^10",
+    "@fastify/swagger": "^9",
+    "@fastify/swagger-ui": "^5",
+    "@superez/contracts": "*",
+    "fastify": "^5",
+    "pg": "^8"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/pg": "^8",
+    "typescript": "~5.9"
+  }
+}

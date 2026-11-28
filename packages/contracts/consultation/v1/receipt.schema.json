@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "reference",
+    "receivedAt",
+    "status"
+  ],
+  "properties": {
+    "reference": {
+      "type": "string",
+      "pattern": "^SEZ-[A-F0-9]{32}$"
+    },
+    "receivedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "received"
+      ]
+    }
+  }
+}

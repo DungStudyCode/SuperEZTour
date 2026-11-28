@@ -1,0 +1,8 @@
+﻿Baseline paths: 322
+Final paths: 322
+Hash/path differences: 2
+Classification against fresh baseline: 321 PROTECTED_UNCHANGED, 1 UNEXPECTED_MODIFICATION, 0 UNEXPECTED_REMOVAL.
+Authorized additions: the preflight report and its evidence folder.
+=> 8f5fe1f29b19f0eb9fde952eb141b979db4b66fcd9be0520874d32907f8e7da8  apps/web/src/features/destinations/components/Interactive3DMap/Interactive3DMap.jsx
+<= 01d4aee9cdc3c7e22b7be853fc058d209e7654cff7cc1e4f07138ede543d3444  apps/web/src/features/destinations/components/Interactive3DMap/Interactive3DMap.jsx
+HEAD: 96e4788f7d1e951eba40a35a519f315d2c3e2dd3

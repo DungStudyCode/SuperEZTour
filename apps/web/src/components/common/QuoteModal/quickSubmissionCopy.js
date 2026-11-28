@@ -1,0 +1,55 @@
+export const submissionCopy = {
+  ko: {
+    testing: '로컬 테스트 전용입니다. 실제 고객 정보는 입력하지 마세요.',
+    consent: '이 테스트 정보를 로컬 테스트 데이터베이스에 저장하는 데 동의합니다.',
+    consentError: '테스트 저장에 동의해 주세요.',
+    submitting: '테스트 요청을 접수 중입니다…',
+    unknown: '접수 여부를 확인할 수 없습니다. 기존 요청을 그대로 다시 확인할 수 있습니다.',
+    unavailable: '현재 접수 서비스에 연결할 수 없습니다. 이전 요청을 그대로 다시 시도할 수 있습니다.',
+    limited: '요청이 너무 많습니다. 잠시 후 같은 요청을 다시 시도해 주세요.',
+    conflict: '이 요청을 안전하게 다시 보낼 수 없습니다. 새 요청을 시작하면 중복으로 접수될 수 있습니다.',
+    rejected: '요청 형식을 확인할 수 없습니다. 내용을 확인해 주세요.',
+    validation: '입력한 정보를 확인해 주세요.',
+    retry: '같은 요청 다시 시도',
+    wait: '다시 시도할 때까지 남은 시간',
+    newInquiry: '새 요청 선택',
+    duplicate: '기존 요청이 이미 저장되었을 수 있습니다. 새 요청을 보내면 중복이 생길 수 있으며, 기존 접수는 취소되지 않습니다.',
+    fresh: '기존 확인을 포기하고 새로 시작',
+    contactMethod: '테스트에 허용된 연락 방법을 선택해 주세요.',
+  },
+  vi: {
+    testing: 'Chỉ dùng thử trên máy cục bộ. Vui lòng không nhập dữ liệu khách thật.',
+    consent: 'Tôi đồng ý lưu dữ liệu giả lập này vào cơ sở dữ liệu thử nghiệm cục bộ.',
+    consentError: 'Xác nhận đồng ý lưu dữ liệu thử nghiệm.',
+    submitting: 'Đang tiếp nhận yêu cầu thử nghiệm…',
+    unknown: 'Chưa xác định được yêu cầu đã được lưu hay chưa. Bạn có thể thử lại đúng yêu cầu cũ.',
+    unavailable: 'Dịch vụ đang tạm thời gián đoạn. Bạn có thể thử lại đúng yêu cầu cũ.',
+    limited: 'Có quá nhiều lượt gửi. Hãy đợi rồi thử lại cùng yêu cầu.',
+    conflict: 'Không thể gửi lại yêu cầu này một cách an toàn. Bắt đầu yêu cầu mới có thể tạo bản trùng.',
+    rejected: 'Hệ thống không chấp nhận định dạng yêu cầu. Vui lòng kiểm tra lại.',
+    validation: 'Vui lòng kiểm tra thông tin đã nhập.',
+    retry: 'Thử lại cùng yêu cầu',
+    wait: 'Thời gian còn lại trước khi thử lại',
+    newInquiry: 'Chọn bắt đầu yêu cầu mới',
+    duplicate: 'Yêu cầu cũ có thể đã được lưu. Yêu cầu mới có thể tạo bản trùng và không hủy yêu cầu đã tiếp nhận.',
+    fresh: 'Bỏ xác minh yêu cầu cũ và bắt đầu lại',
+    contactMethod: 'Chọn một cách liên hệ được phép trong thử nghiệm.',
+  },
+};
+
+export function mapSubmissionFields(fields, draft) {
+  const paths = {
+    'traveler.name': ['name', 'name'],
+    'traveler.contact.method': ['contact', 'contactMethod'],
+    'traveler.contact.value': ['contact', draft.method],
+    'trip.departure.date': ['date', 'date'],
+    'trip.duration.days': ['duration', 'duration'],
+    'trip.guests.adults': ['guests', 'guests'],
+    'trip.guests.children': ['guests', 'guests'],
+    'trip.guests': ['guests', 'guests'],
+    'trip.specialRequests': ['notes', 'notes'],
+    'privacy.policyVersion': ['consent', 'consentError'],
+    'privacy.accepted': ['consent', 'consentError'],
+  };
+  return Object.fromEntries(fields.flatMap(({ path }) => Object.hasOwn(paths, path) ? [paths[path]] : []));
+}

@@ -1,0 +1,19 @@
+name: superez-lead-test
+services:
+  postgres-test:
+    image: postgres:17.7
+    environment:
+      POSTGRES_DB: superez_lead_test
+      POSTGRES_USER: superez_test
+      POSTGRES_PASSWORD: ${SUPEREZ_TEST_POSTGRES_PASSWORD:?Set a dedicated test password}
+    ports:
+      - '127.0.0.1:55432:5432'
+    volumes:
+      - integration-leads:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 3s
+      timeout: 3s
+      retries: 10
+volumes:
+  integration-leads:

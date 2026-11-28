@@ -1,0 +1,19 @@
+name: superez-lead-dev
+services:
+  postgres-dev:
+    image: postgres:17.7
+    environment:
+      POSTGRES_DB: superez_lead_dev
+      POSTGRES_USER: superez_dev
+      POSTGRES_PASSWORD: ${SUPEREZ_DEV_POSTGRES_PASSWORD:?Set a dedicated development password}
+    ports:
+      - '127.0.0.1:55431:5432'
+    volumes:
+      - development-leads:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 3s
+      timeout: 3s
+      retries: 10
+volumes:
+  development-leads:

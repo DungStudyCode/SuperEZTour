@@ -1,0 +1,100 @@
+﻿npm.cmd run typecheck
+
+> superez-monorepo@1.0.0 typecheck
+> npm run typecheck --workspace @superez/api
+
+
+> @superez/api@1.0.0 typecheck
+> tsc -p tsconfig.typecheck.json --noEmit
+
+Exit: 0
+
+npm.cmd test
+
+> superez-monorepo@1.0.0 test
+> npm run test --workspace @superez/web && npm run test --workspace @superez/api
+
+
+> @superez/web@1.0.0 test
+> node --test src/components/common/QuoteModal/consultationModel.test.js src/services/consultationIntegration.test.js src/features/destinations/data/destinations.localization.test.js
+
+✔ M01 canonical ID (2.3405ms)
+✔ M02 alias and event guard (0.1911ms)
+✔ M03 empty name (0.3989ms)
+✔ M04 Hangul name (0.7248ms)
+✔ M05 Latin name (0.2164ms)
+✔ M06 NFC and controls (0.3139ms)
+✔ M07 domestic phone (0.2008ms)
+✔ M08 international phone (0.2861ms)
+✔ M09 duplicate/trunk/conflicting prefix (0.2049ms)
+✔ M10 invalid phone characters (0.1873ms)
+✔ M11 invalid phone length (0.2171ms)
+✔ M12 email (0.4452ms)
+✔ M13 selected contact only (0.7808ms)
+✔ M14 no Zalo (0.1683ms)
+✔ M15 Kakao gate and ordering (0.1654ms)
+✔ M16 undecided ignores stale date (0.254ms)
+✔ M17 exact date (0.602ms)
+✔ M18 past and impossible dates (0.3693ms)
+✔ M19 Seoul day rollover (0.4046ms)
+✔ M20 undecided duration (0.1944ms)
+✔ M21 invalid duration (0.1468ms)
+✔ M22 adult minimum (0.1133ms)
+✔ M23 child minimum (0.0959ms)
+✔ M24 invalid counts (0.1418ms)
+✔ M25 edited prefill and conflict (0.3486ms)
+✔ M26 independent seeds / reject foreign snapshot (0.1626ms)
+✔ M27 versioned payload (0.1508ms)
+✔ M28 source stable across resume (0.1829ms)
+✔ M29 policy and verification guards (0.1464ms)
+✔ M30 unavailable boundary (0.2121ms)
+✔ Da Nang KO baseline and VI luxury localization preserve technical IDs and coordinates (1.6406ms)
+✔ Hanoi KO baseline and VI localization preserve attraction and culinary technical IDs (0.5424ms)
+✔ receipt requires the exact v1 shape, reference and calendar timestamp (2.3405ms)
+✔ same-origin POST sends the opaque header and exact bytes, accepts only 201/200 (33.177ms)
+✔ backend error classes require the actual status/code pair and safe JSON (3.095ms)
+✔ network errors and timeout may have committed; no automatic transport retry (5.5692ms)
+✔ synchronous duplicate blocked; retry keeps original bytes; success releases snapshot (0.6593ms)
+✔ definite validation creates a new key while uncertain retry rejection keeps the original (0.3846ms)
+✔ intake is Hanoi-only and fails closed on build, source, and policy (0.2794ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 168.9301
+
+> @superez/api@1.0.0 test
+> node --test tests/unit/*.test.ts
+
+✔ Korean phone normalization and invalid prefixes (1.0253ms)
+✔ name is trimmed and NFC normalized; controls and blank rejected (0.9952ms)
+✔ Seoul midnight, UTC midnight, leap day and impossible dates (0.4609ms)
+✔ departure/duration consistency and guest limits (0.4085ms)
+✔ email, Kakao policy and unknown IDs (0.3707ms)
+✔ digest ignores draft ID, ordering of sets and equivalent formatting (1.103ms)
+✔ opaque reference and isolation guards (1.9891ms)
+✔ injection validates strict schemas, docs, size, type, rate, and safe failures (313.9244ms)
+✔ forwarded addresses cannot bypass the local rate-limit key (36.5399ms)
+✔ disabled intake rejects before JSON parse; production docs stay absent (20.9519ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 688.6422
+Exit: 0
+
+npm.cmd run validate:contracts
+
+> superez-monorepo@1.0.0 validate:contracts
+> node scripts/validation/validate-contracts.mjs
+
+[Contract Validation] Verified 4 v1 contract artifacts in packages\contracts\consultation\v1 -> PASS
+Exit: 0
+
+PostgreSQL integration was not run because no verified disposable target was available.

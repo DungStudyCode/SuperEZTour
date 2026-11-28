@@ -1,0 +1,769 @@
+﻿Root: D:/workplace/SuperEZTour
+Branch: refactor/enterprise-monorepo
+HEAD: 96e4788f7d1e951eba40a35a519f315d2c3e2dd3
+
+Staged, unstaged and untracked paths:
+D  .env
+ D .env.example
+ M .gitignore
+ D DEPLOYMENT.md
+ D HANOI_SCREEN4_CHACA_V3_REPORT.md
+ D HANOI_SCREEN5_SEASONS_V1_1_REPORT.md
+ D HANOI_SCREEN6_ATLAS_V1_3_REPORT.md
+ D HANOI_SCREEN7_JOURNAL_V1_REPORT.md
+ D HANOI_TASK02_KOREAN_FIRST_CONSULTATION_V1_1_UX_POLISH_REPORT.md
+ D LOCALIZATION_GUIDELINES.md
+ M README.md
+ D SUPER_EZ_FULL_ARCHITECTURE_AUDIT.md
+ D TASK03_1_BACKEND_PERSISTENT_LEAD_FOUNDATION_IMPLEMENTATION_REPORT.md
+ D TASK03_2_QUICK_CONSULTATION_API_INTEGRATION_IMPLEMENTATION_REPORT.md
+ D TASK03_REAL_LEAD_RECEPTION_SOURCE_INFRASTRUCTURE_AUDIT.md
+ D audit-evidence/hanoi-task02-consultation-v1.1/accessibility/mobile-touch-scroll.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1-production-0ms-seek.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1-production-100ms-seek.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1-production-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1.1-production-0ms-seek.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1.1-production-100ms-seek.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1.1-production-300ms.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/animation/v1.1-production-600ms.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-1280x720-ko-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-1280x720-vi-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-1440x900-ko-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-1440x900-vi-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-360x800-ko-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-360x800-vi-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-390x844-ko-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/baseline/ha-noi-390x844-vi-initial.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/date-duration/ko-date-undecided.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/date-duration/ko-duration-custom.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/date-duration/ko-duration-preset.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/date-duration/ko-exact-date.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/desktop/ha-noi-1280x720-ko-bottom.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/desktop/ha-noi-1280x720-ko-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/desktop/ha-noi-1280x720-vi-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/desktop/ha-noi-1440x900-ko-bottom.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/desktop/ha-noi-1440x900-ko-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/desktop/ha-noi-1440x900-vi-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/draft-integrity/vi-draft-preserved.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/guest-contact/ko-email-error.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/guest-contact/ko-email.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/guest-contact/ko-guests.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/guest-contact/ko-phone-normalized.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/baseline.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/build.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/functional.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/matrix.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/model-tests.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/opacity-v1.1.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/opacity-v1.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/regression.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/measurements/touch-keyboard.txt
+ D audit-evidence/hanoi-task02-consultation-v1.1/mobile/ha-noi-360x800-ko-bottom.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/mobile/ha-noi-360x800-ko-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/mobile/ha-noi-360x800-vi-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/mobile/ha-noi-390x844-ko-bottom.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/mobile/ha-noi-390x844-ko-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/mobile/ha-noi-390x844-vi-settled.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/regression/danang-legacy.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/regression/hanoi-builder-after-close.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/regression/hanoi-hero-after-close.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/regression/home-legacy.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/submission-integrity/ko-unavailable.png
+ D audit-evidence/hanoi-task02-consultation-v1.1/submission-integrity/production-guard-settled.png
+ D audit-evidence/task03-source-infrastructure/git-baseline/final.txt
+ D audit-evidence/task03-source-infrastructure/git-baseline/status.txt
+ D audit-evidence/task03-source-infrastructure/runtime/da-nang-legacy.png
+ D audit-evidence/task03-source-infrastructure/runtime/hanoi-development-unavailable.png
+ D audit-evidence/task03-source-infrastructure/runtime/hanoi-mobile-drawer-vi.png
+ D audit-evidence/task03-source-infrastructure/runtime/hanoi-production-guard.png
+ D audit-evidence/task03-source-infrastructure/runtime/home-legacy.png
+ D audit-evidence/task03-source-infrastructure/runtime/results.txt
+ D audit-evidence/task03-source-infrastructure/tests/model.txt
+ D audit-evidence/task03.1-backend-foundation/backend-build.txt
+ D audit-evidence/task03.1-backend-foundation/backend-unit-tests.txt
+ D audit-evidence/task03.1-backend-foundation/dependency-versions.txt
+ D audit-evidence/task03.1-backend-foundation/frontend-build.txt
+ D audit-evidence/task03.1-backend-foundation/frontend-danang-production.png
+ D audit-evidence/task03.1-backend-foundation/frontend-hanoi-production.png
+ D audit-evidence/task03.1-backend-foundation/frontend-home-production.png
+ D audit-evidence/task03.1-backend-foundation/frontend-model-tests.txt
+ D audit-evidence/task03.1-backend-foundation/frontend-smoke.txt
+ D audit-evidence/task03.1-backend-foundation/git-baseline.txt
+ D audit-evidence/task03.1-backend-foundation/git-final.txt
+ D audit-evidence/task03.1-backend-foundation/postgres-integration.txt
+ D audit-evidence/task03.1-backend-foundation/typecheck.txt
+ D audit-evidence/task03.2-quick-consultation-integration/backend-build.txt
+ D audit-evidence/task03.2-quick-consultation-integration/backend-postgres.txt
+ D audit-evidence/task03.2-quick-consultation-integration/backend-typecheck.txt
+ D audit-evidence/task03.2-quick-consultation-integration/backend-unit.txt
+ D audit-evidence/task03.2-quick-consultation-integration/browser.txt
+ D audit-evidence/task03.2-quick-consultation-integration/build.txt
+ D audit-evidence/task03.2-quick-consultation-integration/desktop/ha-noi-1280x720-ko-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/desktop/ha-noi-1440x900-ko-form.png
+ D audit-evidence/task03.2-quick-consultation-integration/desktop/ha-noi-1440x900-ko-submitting.png
+ D audit-evidence/task03.2-quick-consultation-integration/desktop/ha-noi-1440x900-ko-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/desktop/ha-noi-1440x900-vi-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/double-click.txt
+ D audit-evidence/task03.2-quick-consultation-integration/final-browser.txt
+ D audit-evidence/task03.2-quick-consultation-integration/git-final.txt
+ D audit-evidence/task03.2-quick-consultation-integration/mobile/ha-noi-360x800-ko-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/mobile/ha-noi-390x844-ko-retry.png
+ D audit-evidence/task03.2-quick-consultation-integration/mobile/ha-noi-390x844-ko-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/mobile/ha-noi-390x844-ko-validation-error.png
+ D audit-evidence/task03.2-quick-consultation-integration/mobile/ha-noi-390x844-vi-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/production-guard/ha-noi-ko-disabled.png
+ D audit-evidence/task03.2-quick-consultation-integration/production-guard/ha-noi-vi-disabled.png
+ D audit-evidence/task03.2-quick-consultation-integration/recovery-and-regression.txt
+ D audit-evidence/task03.2-quick-consultation-integration/submission-integrity/ko-idempotency-conflict.png
+ D audit-evidence/task03.2-quick-consultation-integration/submission-integrity/ko-outcome-unknown.png
+ D audit-evidence/task03.2-quick-consultation-integration/submission-integrity/ko-rate-limited.png
+ D audit-evidence/task03.2-quick-consultation-integration/submission-integrity/ko-replay-success.png
+ D audit-evidence/task03.2-quick-consultation-integration/submission-integrity/ko-service-unavailable.png
+ D audit-evidence/task03.2-quick-consultation-integration/unit.txt
+ D backend/.env.example
+ D backend/.gitignore
+ D backend/Dockerfile
+ D backend/Dockerfile.dockerignore
+ D backend/README.md
+ D backend/compose.dev.yml
+ D backend/compose.test.yml
+ D backend/docs/ADR.md
+ D backend/docs/SUPABASE_PRODUCTION_PREPARATION.md
+ D backend/migrations/001_lead_foundation.sql
+ D backend/package-lock.json
+ D backend/package.json
+ D backend/src/app.ts
+ D backend/src/config/env.ts
+ D backend/src/database/migrate.ts
+ D backend/src/database/pool.ts
+ D backend/src/modules/health/routes.ts
+ D backend/src/modules/leads/repository.ts
+ D backend/src/modules/leads/routes.ts
+ D backend/src/modules/leads/service.ts
+ D backend/src/modules/leads/validation.ts
+ D backend/src/server.ts
+ D backend/src/shared/contracts.ts
+ D backend/src/shared/errors.ts
+ D backend/tests/fixtures/setup.ts
+ D backend/tests/integration/postgres.test.ts
+ D backend/tests/unit/validation.test.ts
+ D backend/tsconfig.json
+ D contracts/consultation/v1/README.md
+ D contracts/consultation/v1/error.schema.json
+ D contracts/consultation/v1/receipt.schema.json
+ D contracts/consultation/v1/request.schema.json
+ D contracts/consultation/v1/synthetic.json
+ D deploy.ps1
+ D index.html
+ M package-lock.json
+ M package.json
+ D public/assets/destinations/hanoi/attractions/bat-trang-village-desktop.webp
+ D public/assets/destinations/hanoi/attractions/bat-trang-village-mobile.webp
+ D public/assets/destinations/hanoi/attractions/hoan-kiem-lake-desktop.webp
+ D public/assets/destinations/hanoi/attractions/hoan-kiem-lake-mobile.webp
+ D public/assets/destinations/hanoi/attractions/old-quarter-desktop.webp
+ D public/assets/destinations/hanoi/attractions/old-quarter-mobile.webp
+ D public/assets/destinations/hanoi/attractions/opera-house-desktop.webp
+ D public/assets/destinations/hanoi/attractions/opera-house-mobile.webp
+ D public/assets/destinations/hanoi/attractions/st-joseph-cathedral-desktop.webp
+ D public/assets/destinations/hanoi/attractions/st-joseph-cathedral-mobile.webp
+ D public/assets/destinations/hanoi/attractions/thang-long-citadel-desktop.webp
+ D public/assets/destinations/hanoi/attractions/thang-long-citadel-mobile.webp
+ D public/assets/destinations/hanoi/attractions/tran-quoc-pagoda-desktop.webp
+ D public/assets/destinations/hanoi/attractions/tran-quoc-pagoda-mobile.webp
+ D public/assets/destinations/hanoi/attractions/van-mieu-desktop.webp
+ D public/assets/destinations/hanoi/attractions/van-mieu-mobile.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-charcoal-desktop.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-charcoal-mobile.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-dipping-desktop.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-dipping-mobile.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-hero-desktop.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-hero-mobile.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-pork-desktop.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-pork-mobile.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-table-desktop.webp
+ D public/assets/destinations/hanoi/bun-cha/buncha-table-mobile.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-dining-desktop.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-dining-mobile.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-hero-desktop.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-hero-mobile.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-ingredients-desktop.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-ingredients-mobile.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-table-desktop.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-table-mobile.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-tableside-desktop.webp
+ D public/assets/destinations/hanoi/cha-ca/chaca-tableside-mobile.webp
+ D public/assets/destinations/hanoi/heritage/bia-tien-si-inscription-mobile.webp
+ D public/assets/destinations/hanoi/heritage/bia-tien-si-inscription.webp
+ D public/assets/destinations/hanoi/heritage/bia-tien-si-rows-mobile.webp
+ D public/assets/destinations/hanoi/heritage/bia-tien-si-rows.webp
+ D public/assets/destinations/hanoi/heritage/bia-tien-si-turtles-mobile.webp
+ D public/assets/destinations/hanoi/heritage/bia-tien-si-turtles.webp
+ D public/assets/destinations/hanoi/heritage/khue-van-cac-cultural-mobile.webp
+ D public/assets/destinations/hanoi/heritage/khue-van-cac-cultural.webp
+ D public/assets/destinations/hanoi/heritage/khue-van-cac-detail-mobile.webp
+ D public/assets/destinations/hanoi/heritage/khue-van-cac-detail.webp
+ D public/assets/destinations/hanoi/heritage/khue-van-cac-establish-mobile.webp
+ D public/assets/destinations/hanoi/heritage/khue-van-cac-establish.webp
+ D public/assets/destinations/hanoi/heritage/manifest.json
+ D public/assets/destinations/hanoi/heritage/thien-quang-tinh-reflection-mobile.webp
+ D public/assets/destinations/hanoi/heritage/thien-quang-tinh-reflection.webp
+ D public/assets/destinations/hanoi/heritage/thien-quang-tinh-spatial-mobile.webp
+ D public/assets/destinations/hanoi/heritage/thien-quang-tinh-spatial.webp
+ D public/assets/destinations/hanoi/heritage/thien-quang-tinh-stillness-mobile.webp
+ D public/assets/destinations/hanoi/heritage/thien-quang-tinh-stillness.webp
+ D public/assets/destinations/hanoi/heritage/van-mieu-courtyard-legacy-mobile.webp
+ D public/assets/destinations/hanoi/heritage/van-mieu-courtyard-legacy.webp
+ D public/assets/destinations/hanoi/heritage/van-mieu-legacy-sanctuary-mobile.webp
+ D public/assets/destinations/hanoi/heritage/van-mieu-legacy-sanctuary.webp
+ D public/assets/destinations/hanoi/heritage/van-mieu-opening-gateway-mobile.webp
+ D public/assets/destinations/hanoi/heritage/van-mieu-opening-gateway.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-a-mobile.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-a.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-b-mobile.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-b.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-c-mobile.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-c.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-d-mobile.webp
+ D public/assets/destinations/hanoi/hero/hoan-kiem-hero-d.webp
+ D public/assets/destinations/hanoi/hero/manifest.json
+ D public/assets/destinations/hanoi/hoan_kiem_dawn_desktop.webp
+ D public/assets/destinations/hanoi/hoan_kiem_dawn_mobile.webp
+ D public/assets/destinations/hanoi/hoan_kiem_mist.webp
+ D public/assets/destinations/hanoi/hoan_kiem_willow_fg.webp
+ D public/assets/destinations/hanoi/old-quarter/cafe_giang.webp
+ D public/assets/destinations/hanoi/old-quarter/hang_bac.webp
+ D public/assets/destinations/hanoi/old-quarter/ma_may_87.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/cafe-giang-experience.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/cafe-giang-origin.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/cafe-giang-signature.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/flower-vendors-experience.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/flower-vendors-origin.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/flower-vendors-signature.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/hang-bac-craft.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/hang-bac-experience.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/hang-bac-origin.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/ma-may-architecture.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/ma-may-experience.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/ma-may-origin.webp
+ D public/assets/destinations/hanoi/old-quarter/story-beats/manifest.json
+ D public/assets/destinations/hanoi/old-quarter/xe_hoa.webp
+ D public/assets/destinations/hanoi/pho/pho-assembly-desktop.webp
+ D public/assets/destinations/hanoi/pho/pho-assembly-mobile.webp
+ D public/assets/destinations/hanoi/pho/pho-breakfast-desktop.webp
+ D public/assets/destinations/hanoi/pho/pho-breakfast-mobile.webp
+ D public/assets/destinations/hanoi/pho/pho-broth-desktop.webp
+ D public/assets/destinations/hanoi/pho/pho-broth-mobile.webp
+ D public/assets/destinations/hanoi/pho/pho-hero-desktop.webp
+ D public/assets/destinations/hanoi/pho/pho-hero-mobile.webp
+ D public/assets/destinations/hanoi/pho/pho-noodles-desktop.webp
+ D public/assets/destinations/hanoi/pho/pho-noodles-mobile.webp
+ D public/assets/destinations/hanoi/seasons/autumn-desktop.webp
+ D public/assets/destinations/hanoi/seasons/autumn-mobile.webp
+ D public/assets/destinations/hanoi/seasons/spring-desktop.webp
+ D public/assets/destinations/hanoi/seasons/spring-mobile.webp
+ D public/assets/destinations/hanoi/seasons/summer-desktop.webp
+ D public/assets/destinations/hanoi/seasons/summer-mobile.webp
+ D public/assets/destinations/hanoi/seasons/winter-desktop.webp
+ D public/assets/destinations/hanoi/seasons/winter-mobile.webp
+ D public/assets/destinations/hanoi/thap_rua_pbr.glb
+ D public/logo.png
+ D rollback.ps1
+ D scratch/audit_danang_scenes.cjs
+ D scratch/audit_extract.mjs
+ D scratch/audit_extracted_strings.json
+ D scratch/audit_resize_cleanup.mjs
+ D scratch/build_complete_vi.mjs
+ D scratch/build_danang_ko.mjs
+ D scratch/build_danang_vi.mjs
+ D scratch/build_perfect_vi.mjs
+ D scratch/check_danang_on_hanoi.cjs
+ D scratch/check_scene_lang.mjs
+ D scratch/inspect_scene_props.cjs
+ D scratch/scan_urls.mjs
+ D scratch/sync_dictionaries.mjs
+ D scratch/test_3d_lifecycle.cjs
+ D scratch/test_extractor.mjs
+ D scratch/validate_dictionaries.mjs
+ D scratch/verify_danang_bilingual.mjs
+ D scratch/verify_destination_header.cjs
+ D src/App.jsx
+ D src/assets/logo.png
+ D src/components/common/Button/Button.css
+ D src/components/common/Button/Button.jsx
+ D src/components/common/Container/Container.css
+ D src/components/common/Container/Container.jsx
+ D src/components/common/DestinationSearch/DestinationSearchModal.css
+ D src/components/common/DestinationSearch/DestinationSearchModal.jsx
+ D src/components/common/ErrorBoundary/ErrorBoundary.css
+ D src/components/common/ErrorBoundary/ErrorBoundary.jsx
+ D src/components/common/ExperienceDrawer/ExperienceDrawer.css
+ D src/components/common/ExperienceDrawer/ExperienceDrawer.jsx
+ D src/components/common/QuoteModal/QuickConsultationForm.css
+ D src/components/common/QuoteModal/QuickConsultationForm.jsx
+ D src/components/common/QuoteModal/QuickConsultationReceipt.jsx
+ D src/components/common/QuoteModal/QuoteModal.css
+ D src/components/common/QuoteModal/QuoteModal.jsx
+ D src/components/common/QuoteModal/consultationModel.js
+ D src/components/common/QuoteModal/consultationModel.test.js
+ D src/components/common/QuoteModal/quickSubmissionCopy.js
+ D src/components/common/SectionHeading/SectionHeading.css
+ D src/components/common/SectionHeading/SectionHeading.jsx
+ D src/components/common/TourQuickPreview/TourQuickPreview.css
+ D src/components/common/TourQuickPreview/TourQuickPreview.jsx
+ D src/components/layout/FloatingActions/FloatingActions.css
+ D src/components/layout/FloatingActions/FloatingActions.jsx
+ D src/components/layout/Footer/Footer.css
+ D src/components/layout/Footer/Footer.jsx
+ D src/components/layout/Header/Header.css
+ D src/components/layout/Header/Header.jsx
+ D src/components/layout/MegaMenu/MegaMenu.css
+ D src/components/layout/MegaMenu/MegaMenu.jsx
+ D src/components/layout/MobileMenu/MobileMenu.css
+ D src/components/layout/MobileMenu/MobileMenu.jsx
+ D src/constants/brand.config.js
+ D src/context/ConsultationContext.jsx
+ D src/context/LanguageContext.jsx
+ D src/data/quotes.js
+ D src/data/reviews.js
+ D src/data/travelerStoriesData.js
+ D src/data/vietnamDestinations.js
+ D src/features/destinations/DestinationPage.jsx
+ D src/features/destinations/components/Accommodation3D/Accommodation3DScene.css
+ D src/features/destinations/components/Accommodation3D/Accommodation3DScene.jsx
+ D src/features/destinations/components/AirplanePortal/AirplanePortalScene.css
+ D src/features/destinations/components/AirplanePortal/AirplanePortalScene.jsx
+ D src/features/destinations/components/CinematicEnding/CinematicEndingScene.css
+ D src/features/destinations/components/CinematicEnding/CinematicEndingScene.jsx
+ D src/features/destinations/components/CulinaryFilm/CulinaryFilmScene.css
+ D src/features/destinations/components/CulinaryFilm/CulinaryFilmScene.jsx
+ D src/features/destinations/components/CustomerStories/CustomerStories.css
+ D src/features/destinations/components/CustomerStories/CustomerStories.jsx
+ D src/features/destinations/components/DestinationFooter/DestinationFooter.css
+ D src/features/destinations/components/DestinationFooter/DestinationFooter.jsx
+ D src/features/destinations/components/DestinationHeader/DestinationHeader.css
+ D src/features/destinations/components/DestinationHeader/DestinationHeader.jsx
+ D src/features/destinations/components/ExperiencesSequence/ExperiencesCinematicSequence.css
+ D src/features/destinations/components/ExperiencesSequence/ExperiencesCinematicSequence.jsx
+ D src/features/destinations/components/Flight3D/Flight3DScene.css
+ D src/features/destinations/components/Flight3D/Flight3DScene.jsx
+ D src/features/destinations/components/FlyThrough/FlyThroughScene.css
+ D src/features/destinations/components/FlyThrough/FlyThroughScene.jsx
+ D src/features/destinations/components/Hanoi/HanoiAwakeningHero/HanoiAwakeningHero.css
+ D src/features/destinations/components/Hanoi/HanoiAwakeningHero/HanoiAwakeningHero.jsx
+ D src/features/destinations/components/Hanoi/HanoiAwakeningHero/buildHanoiHeroTimeline.js
+ D src/features/destinations/components/Hanoi/HanoiAwakeningHero/hanoiHeroManifest.js
+ D src/features/destinations/components/Hanoi/HanoiExperiencePage.jsx
+ D src/features/destinations/components/Hanoi/HanoiHeritageChamber/HanoiHeritageChamber.css
+ D src/features/destinations/components/Hanoi/HanoiHeritageChamber/HanoiHeritageChamber.jsx
+ D src/features/destinations/components/Hanoi/HanoiHeritageChamber/HeritageDetailModal.jsx
+ D src/features/destinations/components/Hanoi/HanoiHeritageChamber/buildHeritageDocumentaryTimeline.js
+ D src/features/destinations/components/Hanoi/HanoiHeritageChamber/heritageAssets.js
+ D src/features/destinations/components/Hanoi/HanoiHeritageChamber/heritageScenes.js
+ D src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/HanoiOldQuarterWalk.css
+ D src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/HanoiOldQuarterWalk.jsx
+ D src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/OldQuarterDetailModal.jsx
+ D src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/buildOldQuarterTimeline.js
+ D src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/editorialLayouts.js
+ D src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/oldQuarterScenes.js
+ D src/features/destinations/components/Hanoi/HanoiSeasons3D/HanoiSeasons3D.css
+ D src/features/destinations/components/Hanoi/HanoiSeasons3D/HanoiSeasons3D.jsx
+ D src/features/destinations/components/Hanoi/HanoiSeasons3D/buildSeasonsTimeline.js
+ D src/features/destinations/components/Hanoi/HanoiSeasons3D/seasonAssets.js
+ D src/features/destinations/components/Hanoi/HanoiSeasons3D/seasonScenes.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/BunChaDetailModal.jsx
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/ChaCaDetailModal.jsx
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/HanoiTaste3D.css
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/HanoiTaste3D.jsx
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/PhoDetailModal.jsx
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/buildPhoTimeline.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/bunChaAssets.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/bunChaScenes.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/chaCaAssets.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/chaCaScenes.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/phoAssets.js
+ D src/features/destinations/components/Hanoi/HanoiTaste3D/phoScenes.js
+ D src/features/destinations/components/Hanoi/HanoiYourStory/HanoiYourStory.css
+ D src/features/destinations/components/Hanoi/HanoiYourStory/HanoiYourStory.jsx
+ D src/features/destinations/components/Interactive3DMap/Interactive3DMap.css
+ D src/features/destinations/components/Interactive3DMap/Interactive3DMap.jsx
+ D src/features/destinations/components/Interactive3DMap/components/AttractionDetailPanel.jsx
+ D src/features/destinations/components/Interactive3DMap/components/AttractionFilters.jsx
+ D src/features/destinations/components/Interactive3DMap/components/DiscoveryProgress.jsx
+ D src/features/destinations/components/Interactive3DMap/hooks/useAtlasScrollDiscovery.js
+ D src/features/destinations/components/Interactive3DMap/utils/atlasRuntimeDiagnostics.js
+ D src/features/destinations/components/ItinerarySticky/ItineraryStickyTimeline.css
+ D src/features/destinations/components/ItinerarySticky/ItineraryStickyTimeline.jsx
+ D src/features/destinations/components/ItinerarySticky/components/CinematicJournalStage.jsx
+ D src/features/destinations/components/LocalGuideDocu/LocalGuideDocuScene.css
+ D src/features/destinations/components/LocalGuideDocu/LocalGuideDocuScene.jsx
+ D src/features/destinations/components/TimeTransformation/TimeTransformationScene.css
+ D src/features/destinations/components/TimeTransformation/TimeTransformationScene.jsx
+ D src/features/destinations/components/TripBuilderMorph/TripBuilderMorph.css
+ D src/features/destinations/components/TripBuilderMorph/TripBuilderMorph.jsx
+ D src/features/destinations/components/VehicleShowcase3D/VehicleShowcase3D.css
+ D src/features/destinations/components/VehicleShowcase3D/VehicleShowcase3D.jsx
+ D src/features/destinations/context/TripBuilderContext.jsx
+ D src/features/destinations/data/da-nang.config.js
+ D src/features/destinations/data/destinationNav.config.js
+ D src/features/destinations/data/destinations.config.js
+ D src/features/destinations/data/ha-noi.config.js
+ D src/features/destinations/data/hanoiAttractionAssets.js
+ D src/features/destinations/motion/LenisManager.js
+ D src/features/destinations/styles/destination-theme.css
+ D src/locales/destinations/da-nang/ko.json
+ D src/locales/destinations/da-nang/vi.json
+ D src/locales/ko.json
+ D src/locales/vi.json
+ D src/main.jsx
+ D src/pages/Home/Home.css
+ D src/pages/Home/Home.jsx
+ D src/pages/Home/sections/DestinationNavigation/DestinationNavigation.css
+ D src/pages/Home/sections/DestinationNavigation/DestinationNavigation.jsx
+ D src/pages/Home/sections/HeroBanner/HeroBanner.css
+ D src/pages/Home/sections/HeroBanner/HeroBanner.jsx
+ D src/pages/Home/sections/PremiumServices/PremiumServices.css
+ D src/pages/Home/sections/PremiumServices/PremiumServices.jsx
+ D src/pages/Home/sections/SignatureJourneys/SignatureJourneys.css
+ D src/pages/Home/sections/SignatureJourneys/SignatureJourneys.jsx
+ D src/pages/Home/sections/TravelReviews/ReviewDetailModal.css
+ D src/pages/Home/sections/TravelReviews/ReviewDetailModal.jsx
+ D src/pages/Home/sections/TravelReviews/StorySubmissionModal.css
+ D src/pages/Home/sections/TravelReviews/StorySubmissionModal.jsx
+ D src/pages/Home/sections/TravelReviews/TravelReviews.css
+ D src/pages/Home/sections/TravelReviews/TravelReviews.jsx
+ D src/pages/Home/sections/TravelReviews/VideoViewerModal.css
+ D src/pages/Home/sections/TravelReviews/VideoViewerModal.jsx
+ D src/pages/Home/sections/TravelThemes/TravelThemes.css
+ D src/pages/Home/sections/TravelThemes/TravelThemes.jsx
+ D src/pages/Home/sections/WhyChooseUs/WhyChooseUs.css
+ D src/pages/Home/sections/WhyChooseUs/WhyChooseUs.jsx
+ D src/services/consultationApiService.js
+ D src/services/consultationAttempts.js
+ D src/services/consultationIntake.js
+ D src/services/consultationIntegration.test.js
+ D src/services/travelerStoriesService.js
+ D src/styles/animations.css
+ D src/styles/global.css
+ D src/styles/reset.css
+ D src/styles/typography.css
+ D src/styles/variables.css
+ D vite.config.js
+?? apps/api/.env.example
+?? apps/api/.gitignore
+?? apps/api/Dockerfile
+?? apps/api/Dockerfile.dockerignore
+?? apps/api/migrations/001_lead_foundation.sql
+?? apps/api/package.json
+?? apps/api/src/app.ts
+?? apps/api/src/config/env.ts
+?? apps/api/src/database/migrate.ts
+?? apps/api/src/database/pool.ts
+?? apps/api/src/modules/health/routes.ts
+?? apps/api/src/modules/leads/repository.ts
+?? apps/api/src/modules/leads/routes.ts
+?? apps/api/src/modules/leads/service.ts
+?? apps/api/src/modules/leads/validation.ts
+?? apps/api/src/server.ts
+?? apps/api/src/shared/contracts.ts
+?? apps/api/src/shared/errors.ts
+?? apps/api/tests/fixtures/setup.ts
+?? apps/api/tests/integration/postgres.test.ts
+?? apps/api/tests/unit/validation.test.ts
+?? apps/api/tsconfig.json
+?? apps/api/tsconfig.typecheck.json
+?? apps/web/.env.example
+?? apps/web/index.html
+?? apps/web/package.json
+?? apps/web/public/assets/destinations/hanoi/attractions/bat-trang-village-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/bat-trang-village-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/hoan-kiem-lake-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/hoan-kiem-lake-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/old-quarter-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/old-quarter-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/opera-house-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/opera-house-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/st-joseph-cathedral-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/st-joseph-cathedral-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/thang-long-citadel-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/thang-long-citadel-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/tran-quoc-pagoda-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/tran-quoc-pagoda-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/van-mieu-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/attractions/van-mieu-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-charcoal-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-charcoal-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-dipping-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-dipping-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-hero-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-hero-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-pork-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-pork-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-table-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/bun-cha/buncha-table-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-dining-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-dining-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-hero-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-hero-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-ingredients-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-ingredients-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-table-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-table-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-tableside-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/cha-ca/chaca-tableside-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/bia-tien-si-inscription-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/bia-tien-si-inscription.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/bia-tien-si-rows-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/bia-tien-si-rows.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/bia-tien-si-turtles-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/bia-tien-si-turtles.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/khue-van-cac-cultural-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/khue-van-cac-cultural.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/khue-van-cac-detail-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/khue-van-cac-detail.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/khue-van-cac-establish-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/khue-van-cac-establish.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/manifest.json
+?? apps/web/public/assets/destinations/hanoi/heritage/thien-quang-tinh-reflection-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/thien-quang-tinh-reflection.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/thien-quang-tinh-spatial-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/thien-quang-tinh-spatial.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/thien-quang-tinh-stillness-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/thien-quang-tinh-stillness.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/van-mieu-courtyard-legacy-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/van-mieu-courtyard-legacy.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/van-mieu-legacy-sanctuary-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/van-mieu-legacy-sanctuary.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/van-mieu-opening-gateway-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/heritage/van-mieu-opening-gateway.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-a-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-a.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-b-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-b.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-c-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-c.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-d-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/hero/hoan-kiem-hero-d.webp
+?? apps/web/public/assets/destinations/hanoi/hero/manifest.json
+?? apps/web/public/assets/destinations/hanoi/hoan_kiem_dawn_desktop.webp
+?? apps/web/public/assets/destinations/hanoi/hoan_kiem_dawn_mobile.webp
+?? apps/web/public/assets/destinations/hanoi/hoan_kiem_mist.webp
+?? apps/web/public/assets/destinations/hanoi/hoan_kiem_willow_fg.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/hang_bac.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/ma_may_87.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/cafe-giang-experience.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/cafe-giang-origin.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/cafe-giang-signature.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/flower-vendors-experience.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/flower-vendors-origin.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/flower-vendors-signature.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/hang-bac-craft.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/hang-bac-experience.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/hang-bac-origin.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/ma-may-architecture.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/ma-may-experience.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/ma-may-origin.webp
+?? apps/web/public/assets/destinations/hanoi/old-quarter/story-beats/manifest.json
+?? apps/web/public/assets/destinations/hanoi/pho/pho-assembly-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-assembly-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-breakfast-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-breakfast-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-broth-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-broth-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-hero-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-hero-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-noodles-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/pho/pho-noodles-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/autumn-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/autumn-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/spring-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/spring-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/summer-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/summer-mobile.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/winter-desktop.webp
+?? apps/web/public/assets/destinations/hanoi/seasons/winter-mobile.webp
+?? apps/web/public/logo.png
+?? apps/web/src/App.jsx
+?? apps/web/src/components/common/Container/Container.css
+?? apps/web/src/components/common/Container/Container.jsx
+?? apps/web/src/components/common/DestinationSearch/DestinationSearchModal.css
+?? apps/web/src/components/common/DestinationSearch/DestinationSearchModal.jsx
+?? apps/web/src/components/common/ErrorBoundary/ErrorBoundary.css
+?? apps/web/src/components/common/ErrorBoundary/ErrorBoundary.jsx
+?? apps/web/src/components/common/ExperienceDrawer/ExperienceDrawer.css
+?? apps/web/src/components/common/ExperienceDrawer/ExperienceDrawer.jsx
+?? apps/web/src/components/common/QuoteModal/QuickConsultationForm.css
+?? apps/web/src/components/common/QuoteModal/QuickConsultationForm.jsx
+?? apps/web/src/components/common/QuoteModal/QuickConsultationReceipt.jsx
+?? apps/web/src/components/common/QuoteModal/QuoteModal.css
+?? apps/web/src/components/common/QuoteModal/QuoteModal.jsx
+?? apps/web/src/components/common/QuoteModal/consultationModel.js
+?? apps/web/src/components/common/QuoteModal/consultationModel.test.js
+?? apps/web/src/components/common/QuoteModal/quickSubmissionCopy.js
+?? apps/web/src/components/common/TourQuickPreview/TourQuickPreview.css
+?? apps/web/src/components/common/TourQuickPreview/TourQuickPreview.jsx
+?? apps/web/src/components/layout/FloatingActions/FloatingActions.css
+?? apps/web/src/components/layout/FloatingActions/FloatingActions.jsx
+?? apps/web/src/components/layout/Footer/Footer.css
+?? apps/web/src/components/layout/Footer/Footer.jsx
+?? apps/web/src/components/layout/Header/Header.css
+?? apps/web/src/components/layout/Header/Header.jsx
+?? apps/web/src/components/layout/MegaMenu/MegaMenu.css
+?? apps/web/src/components/layout/MegaMenu/MegaMenu.jsx
+?? apps/web/src/components/layout/MobileMenu/MobileMenu.css
+?? apps/web/src/components/layout/MobileMenu/MobileMenu.jsx
+?? apps/web/src/constants/brand.config.js
+?? apps/web/src/context/ConsultationContext.jsx
+?? apps/web/src/context/LanguageContext.jsx
+?? apps/web/src/data/travelerStoriesData.js
+?? apps/web/src/data/vietnamDestinations.js
+?? apps/web/src/features/destinations/DestinationPage.jsx
+?? apps/web/src/features/destinations/components/Accommodation3D/Accommodation3DScene.css
+?? apps/web/src/features/destinations/components/Accommodation3D/Accommodation3DScene.jsx
+?? apps/web/src/features/destinations/components/AirplanePortal/AirplanePortalScene.css
+?? apps/web/src/features/destinations/components/AirplanePortal/AirplanePortalScene.jsx
+?? apps/web/src/features/destinations/components/CinematicEnding/CinematicEndingScene.css
+?? apps/web/src/features/destinations/components/CinematicEnding/CinematicEndingScene.jsx
+?? apps/web/src/features/destinations/components/CulinaryFilm/CulinaryFilmScene.css
+?? apps/web/src/features/destinations/components/CulinaryFilm/CulinaryFilmScene.jsx
+?? apps/web/src/features/destinations/components/CustomerStories/CustomerStories.css
+?? apps/web/src/features/destinations/components/CustomerStories/CustomerStories.jsx
+?? apps/web/src/features/destinations/components/DaNang/DaNangExperiencePage.jsx
+?? apps/web/src/features/destinations/components/DestinationFooter/DestinationFooter.css
+?? apps/web/src/features/destinations/components/DestinationFooter/DestinationFooter.jsx
+?? apps/web/src/features/destinations/components/DestinationHeader/DestinationHeader.css
+?? apps/web/src/features/destinations/components/DestinationHeader/DestinationHeader.jsx
+?? apps/web/src/features/destinations/components/ExperiencesSequence/ExperiencesCinematicSequence.css
+?? apps/web/src/features/destinations/components/ExperiencesSequence/ExperiencesCinematicSequence.jsx
+?? apps/web/src/features/destinations/components/Flight3D/Flight3DScene.css
+?? apps/web/src/features/destinations/components/Flight3D/Flight3DScene.jsx
+?? apps/web/src/features/destinations/components/FlyThrough/FlyThroughScene.css
+?? apps/web/src/features/destinations/components/FlyThrough/FlyThroughScene.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiAwakeningHero/HanoiAwakeningHero.css
+?? apps/web/src/features/destinations/components/Hanoi/HanoiAwakeningHero/HanoiAwakeningHero.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiAwakeningHero/buildHanoiHeroTimeline.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiAwakeningHero/hanoiHeroManifest.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiExperiencePage.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiHeritageChamber/HanoiHeritageChamber.css
+?? apps/web/src/features/destinations/components/Hanoi/HanoiHeritageChamber/HanoiHeritageChamber.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiHeritageChamber/HeritageDetailModal.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiHeritageChamber/buildHeritageDocumentaryTimeline.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiHeritageChamber/heritageAssets.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiHeritageChamber/heritageScenes.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/HanoiOldQuarterWalk.css
+?? apps/web/src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/HanoiOldQuarterWalk.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/OldQuarterDetailModal.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/buildOldQuarterTimeline.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/editorialLayouts.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiOldQuarterWalk/oldQuarterScenes.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiSeasons3D/HanoiSeasons3D.css
+?? apps/web/src/features/destinations/components/Hanoi/HanoiSeasons3D/HanoiSeasons3D.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiSeasons3D/buildSeasonsTimeline.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiSeasons3D/seasonAssets.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiSeasons3D/seasonScenes.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/BunChaDetailModal.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/ChaCaDetailModal.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/HanoiTaste3D.css
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/HanoiTaste3D.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/PhoDetailModal.jsx
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/buildPhoTimeline.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/bunChaAssets.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/bunChaScenes.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/chaCaAssets.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/chaCaScenes.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/phoAssets.js
+?? apps/web/src/features/destinations/components/Hanoi/HanoiTaste3D/phoScenes.js
+?? apps/web/src/features/destinations/components/Interactive3DMap/Interactive3DMap.css
+?? apps/web/src/features/destinations/components/Interactive3DMap/Interactive3DMap.jsx
+?? apps/web/src/features/destinations/components/Interactive3DMap/components/AttractionDetailPanel.jsx
+?? apps/web/src/features/destinations/components/Interactive3DMap/components/AttractionFilters.jsx
+?? apps/web/src/features/destinations/components/Interactive3DMap/components/DiscoveryProgress.jsx
+?? apps/web/src/features/destinations/components/Interactive3DMap/hooks/useAtlasScrollDiscovery.js
+?? apps/web/src/features/destinations/components/Interactive3DMap/utils/atlasRuntimeDiagnostics.js
+?? apps/web/src/features/destinations/components/ItinerarySticky/ItineraryStickyTimeline.css
+?? apps/web/src/features/destinations/components/ItinerarySticky/ItineraryStickyTimeline.jsx
+?? apps/web/src/features/destinations/components/ItinerarySticky/components/CinematicJournalStage.jsx
+?? apps/web/src/features/destinations/components/LocalGuideDocu/LocalGuideDocuScene.css
+?? apps/web/src/features/destinations/components/LocalGuideDocu/LocalGuideDocuScene.jsx
+?? apps/web/src/features/destinations/components/TimeTransformation/TimeTransformationScene.css
+?? apps/web/src/features/destinations/components/TimeTransformation/TimeTransformationScene.jsx
+?? apps/web/src/features/destinations/components/TripBuilderMorph/TripBuilderMorph.css
+?? apps/web/src/features/destinations/components/TripBuilderMorph/TripBuilderMorph.jsx
+?? apps/web/src/features/destinations/components/VehicleShowcase3D/VehicleShowcase3D.css
+?? apps/web/src/features/destinations/components/VehicleShowcase3D/VehicleShowcase3D.jsx
+?? apps/web/src/features/destinations/context/TripBuilderContext.jsx
+?? apps/web/src/features/destinations/data/da-nang.config.js
+?? apps/web/src/features/destinations/data/destinationNav.config.js
+?? apps/web/src/features/destinations/data/destinations.config.js
+?? apps/web/src/features/destinations/data/destinations.localization.test.js
+?? apps/web/src/features/destinations/data/ha-noi.config.js
+?? apps/web/src/features/destinations/data/hanoiAttractionAssets.js
+?? apps/web/src/features/destinations/styles/destination-theme.css
+?? apps/web/src/locales/destinations/da-nang/ko.json
+?? apps/web/src/locales/destinations/da-nang/vi.json
+?? apps/web/src/locales/ko.json
+?? apps/web/src/locales/vi.json
+?? apps/web/src/main.jsx
+?? apps/web/src/pages/Home/Home.css
+?? apps/web/src/pages/Home/Home.jsx
+?? apps/web/src/pages/Home/HomeRoute.jsx
+?? apps/web/src/pages/Home/sections/DestinationNavigation/DestinationNavigation.css
+?? apps/web/src/pages/Home/sections/DestinationNavigation/DestinationNavigation.jsx
+?? apps/web/src/pages/Home/sections/HeroBanner/HeroBanner.css
+?? apps/web/src/pages/Home/sections/HeroBanner/HeroBanner.jsx
+?? apps/web/src/pages/Home/sections/PremiumServices/PremiumServices.css
+?? apps/web/src/pages/Home/sections/PremiumServices/PremiumServices.jsx
+?? apps/web/src/pages/Home/sections/SignatureJourneys/SignatureJourneys.css
+?? apps/web/src/pages/Home/sections/SignatureJourneys/SignatureJourneys.jsx
+?? apps/web/src/pages/Home/sections/TravelReviews/ReviewDetailModal.css
+?? apps/web/src/pages/Home/sections/TravelReviews/ReviewDetailModal.jsx
+?? apps/web/src/pages/Home/sections/TravelReviews/StorySubmissionModal.css
+?? apps/web/src/pages/Home/sections/TravelReviews/StorySubmissionModal.jsx
+?? apps/web/src/pages/Home/sections/TravelReviews/TravelReviews.css
+?? apps/web/src/pages/Home/sections/TravelReviews/TravelReviews.jsx
+?? apps/web/src/pages/Home/sections/TravelReviews/VideoViewerModal.css
+?? apps/web/src/pages/Home/sections/TravelReviews/VideoViewerModal.jsx
+?? apps/web/src/pages/Home/sections/TravelThemes/TravelThemes.css
+?? apps/web/src/pages/Home/sections/TravelThemes/TravelThemes.jsx
+?? apps/web/src/pages/Home/sections/WhyChooseUs/WhyChooseUs.css
+?? apps/web/src/pages/Home/sections/WhyChooseUs/WhyChooseUs.jsx
+?? apps/web/src/services/consultationApiService.js
+?? apps/web/src/services/consultationAttempts.js
+?? apps/web/src/services/consultationIntake.js
+?? apps/web/src/services/consultationIntegration.test.js
+?? apps/web/src/services/travelerStoriesService.js
+?? apps/web/src/styles/animations.css
+?? apps/web/src/styles/global.css
+?? apps/web/src/styles/reset.css
+?? apps/web/src/styles/typography.css
+?? apps/web/src/styles/variables.css
+?? apps/web/src/utils/lenisManager.js
+?? apps/web/vite.config.js
+?? docs/CHANGELOG.md
+?? docs/architecture/DATABASE_ARCHITECTURE.md
+?? docs/architecture/SYSTEM_ARCHITECTURE.md
+?? docs/audits/SUPER_EZ_FULL_ARCHITECTURE_AUDIT.md
+?? docs/audits/TASK03_3_ADMIN_AUTHENTICATION_LEAD_MANAGEMENT_SOURCE_ARCHITECTURE_AUDIT.md
+?? docs/decisions/ADR.md
+?? docs/features/CONSULTATION.md
+?? docs/features/DA_NANG.md
+?? docs/features/HANOI.md
+?? docs/guidelines/DEVELOPMENT.md
+?? docs/guidelines/LOCALIZATION.md
+?? docs/operations/DEPLOYMENT.md
+?? docs/operations/SUPABASE.md
+?? infrastructure/docker/compose.dev.yml
+?? infrastructure/docker/compose.test.yml
+?? infrastructure/nginx/superez.site.conf.example
+?? packages/contracts/consultation/v1/README.md
+?? packages/contracts/consultation/v1/error.schema.json
+?? packages/contracts/consultation/v1/receipt.schema.json
+?? packages/contracts/consultation/v1/request.schema.json
+?? packages/contracts/consultation/v1/synthetic.json
+?? packages/contracts/index.d.ts
+?? packages/contracts/index.js
+?? packages/contracts/package.json
+?? scripts/deployment/deploy.ps1
+?? scripts/deployment/rollback.ps1
+?? scripts/validation/validate-contracts.mjs
+?? scripts/validation/validate-locales.mjs
